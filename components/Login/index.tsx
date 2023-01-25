@@ -1,13 +1,152 @@
-import { Flex, Text, ButtonProps } from "@chakra-ui/react";
+import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
+import { useRouter } from "next/router";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
-return (
-<Flex alignItems="center" justifyContent="center" bgColor="gray">
-<Flex w="10rem" h="20rem">
-<Text>aaaaaaaaaasss</Text>
-</Flex>
-</Flex>
+  const { push } = useRouter();
 
-)
-}
+  return (
+    <Flex bgColor="#ffffff" width="100vw" height="100vh">
+      <Flex
+        w="40%"
+        h="100vh"
+        justifyContent="center"
+        alignItems="center"
+        fontFamily="Poppins"
+      >
+        <Flex flexDirection="column" w="22rem" justifyContent="center">
+          <Flex flexDirection="column" gap="2">
+            <Img
+              w="max-content"
+              h="max-content"
+              src="images/backgrounds/LivnLogo.png"
+            />
+            <Text
+              color="#1789A3"
+              fontSize="0.875rem"
+              fontWeight="normal"
+              lineHeight="150%"
+              fontStyle="normal"
+            >
+              Viva Investindo
+            </Text>
+          </Flex>
+          <Flex flexDirection="column" mt="1rem" gap="0.75rem">
+            <Text
+              flexDirection="column"
+              fontStyle="normal"
+              fontWeight="500"
+              fontSize="0.875rem"
+              lineHeight="1.25rem"
+              color="#2D3748"
+            >
+              E-mail
+            </Text>
+            <Input
+              placeholder="Hello"
+              _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
+              border="0.0938rem solid #E2E8F0"
+              _hover={{}}
+              fontStyle="normal"
+              fontWeight="400"
+              fontSize="0.875rem"
+              lineHeight="1.25rem"
+              borderRadius="0.375rem"
+              h="2rem"
+              pl="0.7rem"
+              color="#2D3748"
+            />
+          </Flex>
+          <Flex flexDirection="column" mt="1.5rem" gap="0.75rem">
+            <Flex justifyContent="space-between" alignItems="center">
+              <Text
+                flexDirection="column"
+                fontStyle="normal"
+                fontWeight="500"
+                fontSize="0.875rem"
+                lineHeight="1.25rem"
+                color="#2D3748"
+              >
+                Senha
+              </Text>
+              <Text
+                flexDirection="column"
+                fontStyle="normal"
+                fontWeight="500"
+                fontSize="0.75rem"
+                lineHeight="1rem"
+                color="#007D99"
+                _hover={{ cursor: "pointer" }}
+                onClick={() => push("/forgot_password")}
+              >
+                Esqueceu a senha?
+              </Text>
+            </Flex>
+            <Input
+              placeholder="Hello"
+              _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
+              border="0.0938rem solid #E2E8F0"
+              _hover={{}}
+              fontStyle="normal"
+              fontWeight="400"
+              fontSize="0.875rem"
+              lineHeight="1.25rem"
+              borderRadius="0.375rem"
+              h="2rem"
+              pl="0.7rem"
+              color="#2D3748"
+            />
+          </Flex>
+          <Flex mt="2.5rem">
+            <Button
+              fontStyle="normal"
+              fontWeight="500"
+              fontSize="0.875rem"
+              lineHeight="1.25rem"
+              color="#FFFFFF"
+              border="none"
+              borderRadius="0.5rem"
+              w="100%"
+              h="2.2rem"
+              bgColor="#1789A3"
+              _hover={{ cursor: "pointer" }}
+            >
+              Login
+            </Button>
+          </Flex>
+          <Flex bgColor="#E2E8F0" h="0.0625rem" w="100%" mt="2rem" />
+          <Flex
+            justifyContent="center"
+            alignItems="center"
+            mt="1.5rem"
+            gap="1rem"
+          >
+            <Text
+              fontStyle="normal"
+              fontWeight="normal"
+              fontSize="0.75rem"
+              lineHeight="150%"
+              color="#2D3748"
+            >
+              Ainda não possui uma conta?
+            </Text>
+            <Text
+              fontStyle="normal"
+              fontWeight="500"
+              fontSize="0.75rem"
+              lineHeight="1rem"
+              color="#007D99"
+              _hover={{ cursor: "pointer" }}
+              onClick={() => push("/register")}
+            >
+              Cadastrar
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex h="100%" w="60%" justifyContent="flex-end">
+        <Img src="images/backgrounds/LoginBackground.png" h="100%" w="100%" />
+      </Flex>
+    </Flex>
+  );
+};
