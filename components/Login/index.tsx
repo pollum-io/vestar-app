@@ -31,7 +31,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               Viva Investindo
             </Text>
           </Flex>
-          <Flex flexDirection="column" mt="1rem" gap="0.75rem">
+          <Flex flexDirection="column" mt="1rem" gap="12px">
             <Text
               flexDirection="column"
               fontStyle="normal"
@@ -47,6 +47,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
               border="0.0938rem solid #E2E8F0"
               _hover={{}}
+              _focus={{}}
               fontStyle="normal"
               fontWeight="400"
               fontSize="0.875rem"
@@ -87,6 +88,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
               border="0.0938rem solid #E2E8F0"
               _hover={{}}
+              _focus={{}}
               fontStyle="normal"
               fontWeight="400"
               fontSize="0.875rem"
@@ -109,7 +111,12 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               w="100%"
               h="2.2rem"
               bgColor="#1789A3"
-              _hover={{ cursor: "pointer" }}
+              _hover={{
+                cursor: "pointer",
+                bgColor: "#007D99",
+                boxShadow:
+                  "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+              }}
             >
               Login
             </Button>

@@ -37,7 +37,7 @@ export const Forgot_PasswordContainer = () => {
         justifyContent="center"
         fontFamily="Poppins"
       >
-        <Flex flexDirection="column" gap="2">
+        <Flex flexDirection="column" gap="0.625rem">
           <Img
             w="max-content"
             h="max-content"
@@ -66,11 +66,7 @@ export const Forgot_PasswordContainer = () => {
               ? "Digite o código de 4 dígitos que você recebeu em seu e-mail."
               : "Digite seu e-mail para o processo de verificação, enviaremos um código para o endereço informado."}
           </Text>
-          <Flex
-            flexDirection="column"
-            mt={isChange ? "0" : "1.5rem"}
-            gap="0.5rem"
-          >
+          <Flex flexDirection="column" gap="0.5rem">
             <Text
               flexDirection="column"
               fontStyle="normal"
@@ -169,7 +165,6 @@ export const Forgot_PasswordContainer = () => {
           </Flex>
           <Flex
             flexDirection="column"
-            mt={isChange ? "0" : "1.5rem"}
             gap="0.5rem"
             display={isChange ? "flex" : "none"}
           >
@@ -271,7 +266,16 @@ export const Forgot_PasswordContainer = () => {
             w="100%"
             h="2.2rem"
             bgColor="#1789A3"
-            _hover={validCode ? { cursor: "pointer" } : { cursor: "" }}
+            _hover={
+              validCode || !isCode
+                ? {
+                    cursor: "pointer",
+                    bgColor: "#007D99",
+                    boxShadow:
+                      "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+                  }
+                : { opacity: "0.3" }
+            }
             onClick={
               validCode ? () => setIsChange(true) : () => setIsCode(!isCode)
             }

@@ -1,4 +1,5 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { checkboxTheme } from "./roundCheckbox";
 
 const config: ThemeConfig = {
   useSystemColorMode: false,
@@ -37,6 +38,7 @@ export const theme = extendTheme({
         },
       },
     },
+    Checkbox: checkboxTheme,
   },
   zIndices: {
     default: 1,

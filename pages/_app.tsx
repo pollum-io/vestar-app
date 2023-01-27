@@ -2,6 +2,8 @@ import type { AppProps } from "next/app";
 import { AppWrapper } from "../container";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../styles";
+import "../styles/style.css";
+import "../styles/termsScrollbar.css";
 
 const userTheme = {
   ...theme,

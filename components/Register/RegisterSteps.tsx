@@ -30,7 +30,13 @@ const RegisterStep: FunctionComponent<IRegisterSteps> = ({
           {barPercentage === 100 ? <BsCheck size={25} /> : step}
         </Text>
       </Flex>
-      <Flex flexDirection="column" pt="0.1rem" h="100%" gap="0.1913rem">
+      <Flex
+        flexDirection="column"
+        pt="0.1rem"
+        h="100%"
+        gap="0.1913rem"
+        w={step === 1 ? "6rem" : "unset"}
+      >
         <Text
           color={barPercentage !== 0 ? "#007088" : "#A0AEC0"}
           fontFamily="Poppins"
