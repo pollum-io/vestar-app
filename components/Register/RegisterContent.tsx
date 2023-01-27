@@ -238,7 +238,6 @@ export const RegisterContent: FunctionComponent = () => {
                 >
                   Enviar Cadastro
                 </Button>
-                <Button onClick={() => console.log(canSend)}>ass</Button>
               </Flex>
             </Flex>
           </Flex>
