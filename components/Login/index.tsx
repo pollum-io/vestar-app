@@ -111,6 +111,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               w="100%"
               h="2.2rem"
               bgColor="#1789A3"
+              onClick={() => push("/opportunities")}
               _hover={{
                 cursor: "pointer",
                 bgColor: "#007D99",
