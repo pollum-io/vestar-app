@@ -5,7 +5,7 @@ import { HeaderLinks } from "./HeaderLinks";
 export const Header: React.FC = () => {
   return (
     <Flex
-      w="100vw"
+      w="100%"
       h={"4.75rem"}
       flexDir="row"
       alignItems={"center"}
