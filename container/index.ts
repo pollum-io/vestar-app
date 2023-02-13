@@ -1,5 +1,7 @@
-export * from "./Login";
+export * from "./AppWrapper";
+export * from "./DefaultTemplate";
 export * from "./Forgot_Password";
-export * from "./Register";
+export * from "./Imovel";
+export * from "./Login";
 export * from "./Opportunities";
-export { default as AppWrapper } from "./AppWrapper";
+export * from "./Register";
