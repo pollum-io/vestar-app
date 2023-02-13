@@ -1,13 +1,21 @@
 import { Flex, Img, Text, Icon } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import React, { Component, FunctionComponent } from "react";
 import { TbInfoSquare, TbSmartHome } from "react-icons/tb";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "../../components/Imovel/Collections";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { PriceCard } from "../../components/Imovel/PriceCard";
-import { RiHome3Line } from "react-icons/ri";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { Carousel } from "../../components/Imovel/Carousel";
 
+//TODO: Componentizar
 export const ImovelContainer: FunctionComponent = () => {
+  const photos = [
+    { url: "images/icons/image 2.png" },
+    { url: "images/icons/image 2.png" },
+    { url: "images/icons/image 2.png" },
+  ];
+
   return (
     <DefaultTemplate>
       <Flex px="5rem" flexDir={"column"}>
@@ -233,8 +241,8 @@ export const ImovelContainer: FunctionComponent = () => {
               exclusivos e, sobretudo, organização e natureza.
             </Text>
           </Flex>
-          <Flex>
-            <Img src={"images/image 2.png"} />
+          <Flex w="40%">
+            <Carousel />
           </Flex>
         </Flex>
       </Flex>
