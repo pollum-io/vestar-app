@@ -15,22 +15,23 @@ const settings = {
   slidesToScroll: 1,
 };
 
-export const Carousel = () => {
+interface ICarousel {
+  widthValue: string;
+  heightValue: string;
+  images?: any;
+}
+
+export const Carousel: React.FC<ICarousel> = props => {
+  const { widthValue, heightValue, images } = props;
   const [slider, setSlider] = React.useState<Slider | null>(null);
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
-  const cards = [
-    "images/car.png",
-    "images/backgrounds/Image-2.png",
-    "images/backgrounds/Image-3.png",
-  ];
-
   return (
     <Box
       position={"relative"}
-      height={"16rem"}
-      width={"full"}
+      height={heightValue}
+      width={widthValue}
       overflow={"hidden"}
     >
       <link
@@ -69,15 +70,15 @@ export const Carousel = () => {
         <BiRightArrowAlt />
       </IconButton>
       <Slider {...settings} ref={slider => setSlider(slider)}>
-        {cards.map((url, index) => (
+        {images?.map((url, index) => (
           <Box
             key={index}
-            height={"16rem"}
+            height={heightValue}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
-            backgroundImage={`url(${url})`}
+            backgroundImage={`url(${url.image})`}
           />
         ))}
       </Slider>
