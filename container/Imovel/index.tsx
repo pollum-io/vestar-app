@@ -10,10 +10,10 @@ import { Carousel } from "../../components/Imovel/Carousel";
 
 //TODO: Componentizar
 export const ImovelContainer: FunctionComponent = () => {
-  const photos = [
-    { url: "images/icons/image 2.png" },
-    { url: "images/icons/image 2.png" },
-    { url: "images/icons/image 2.png" },
+  const images = [
+    { id: 0, image: "images/car.png" },
+    { id: 1, image: "images/backgrounds/Image-2.png" },
+    { id: 2, image: "images/backgrounds/Image-3.png" },
   ];
 
   return (
@@ -242,7 +242,7 @@ export const ImovelContainer: FunctionComponent = () => {
             </Text>
           </Flex>
           <Flex w="40%">
-            <Carousel />
+            <Carousel images={images} widthValue="full" heightValue="16rem" />
           </Flex>
         </Flex>
       </Flex>
