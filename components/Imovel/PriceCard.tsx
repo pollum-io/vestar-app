@@ -1,17 +1,18 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
+import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
 import { FiCopy } from "react-icons/fi";
-
+import { useState } from "react";
 interface IPriceCard {
   axisY: string;
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
   const { axisY } = props;
+  const [isInvestidor, setIsInvestidor] = useState(false);
 
   return (
     <Flex
       w="23.125rem"
-      h="21.5rem"
+      h={"max"}
       bgColor={"#007D99"}
       p="1.5rem"
       flexDir={"column"}
@@ -25,28 +26,58 @@ export const PriceCard: React.FC<IPriceCard> = props => {
         Nome da Cota
       </Text>
       <Flex
-        flexDir={"column"}
         my="1rem"
         bgColor={"#1789A3"}
         py="0.5rem"
         px="1rem"
         borderRadius="0.5rem"
+        justifyContent={"space-between"}
+        alignItems="center"
       >
-        <Text fontSize={"xs"} fontWeight="500">
-          Selecione a Quantidade
-        </Text>
-        <Text fontSize={"sm"} fontWeight="400">
-          1 cota
-        </Text>
+        <Flex flexDir={"column"}>
+          <Text fontSize={"xs"} fontWeight="500">
+            Selecione a Quantidade
+          </Text>
+          <Text fontSize={"sm"} fontWeight="400">
+            1 cota
+          </Text>
+        </Flex>
+        {isInvestidor && (
+          <Flex>
+            <Img _hover={{ cursor: "pointer" }} src={"icons/PlusIcon.png"} />
+            <Img _hover={{ cursor: "pointer" }} src={"icons/MinusIcon.png"} />
+          </Flex>
+        )}
       </Flex>
       <Flex
-        justifyContent={"space-between"}
+        flexDirection={"column"}
         pb="1rem"
         mb="1rem"
         borderBottom="1px solid #4BA3B7"
       >
-        <Text fontWeight={"500"}>Total</Text>
-        <Text fontWeight={"500"}>R$150</Text>
+        <Flex justifyContent={"space-between"} w="100%">
+          <Text fontWeight={"500"}>Total</Text>
+          <Text fontWeight={"500"}>R$150</Text>
+        </Flex>
+        {isInvestidor && (
+          <Flex flexDir={"column"} alignItems="center" mt="1rem">
+            <Button
+              fontWeight={"500"}
+              fontSize={"md"}
+              bgColor="#FFFFFF"
+              color="#007088"
+              w="100%"
+              px="10px"
+              py="16px"
+              mb={"1rem"}
+            >
+              Quero investir
+            </Button>
+            <Text fontWeight={"400"} fontSize={"xs"}>
+              Você ainda não será cobrado.
+            </Text>
+          </Flex>
+        )}
       </Flex>
       <Flex flexDir={"column"} gap="0.5rem">
         <Flex justifyContent={"space-between"}>
