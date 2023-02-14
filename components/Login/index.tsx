@@ -6,9 +6,14 @@ export const Login: FunctionComponent<ButtonProps> = () => {
   const { push } = useRouter();
 
   return (
-    <Flex bgColor="#ffffff" width="100vw" height="100vh">
+    <Flex
+      bgColor="#ffffff"
+      width="100vw"
+      height="100vh"
+      justifyContent="space-between"
+    >
       <Flex
-        w="40%"
+        w="50%"
         h="100vh"
         justifyContent="center"
         alignItems="center"
@@ -151,8 +156,12 @@ export const Login: FunctionComponent<ButtonProps> = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex h="100%" w="60%" justifyContent="flex-end">
-        <Img src="images/backgrounds/LoginBackground.png" h="100%" w="100%" />
+      <Flex h="100%" w="max-content">
+        <Img
+          src="images/backgrounds/LoginBackground.png"
+          h="100%"
+          w="max-content"
+        />
       </Flex>
     </Flex>
   );

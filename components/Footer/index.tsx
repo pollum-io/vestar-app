@@ -4,7 +4,7 @@ import { FooterLinks } from "./FooterLinks";
 export const Footer: React.FC = () => {
   return (
     <Flex
-      w="100vw"
+      w="100%"
       h="15.0625rem"
       borderTopRadius="2xl"
       bgColor={"#1789A3"}
