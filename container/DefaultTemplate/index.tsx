@@ -13,7 +13,13 @@ export const DefaultTemplate: FunctionComponent<BaseLayoutProps> = ({
   children,
 }) => {
   return (
-    <Flex flexDir={"column"}>
+    <Flex
+      id="default-template"
+      w="100%"
+      h="100%"
+      flexDir={"column"}
+      bgColor="#FFFFFF"
+    >
       <Header />
       {children}
       <Footer />
