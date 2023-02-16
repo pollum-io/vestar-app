@@ -196,7 +196,13 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 
 export const OpportunitiesCards: FunctionComponent = () => {
   return (
-    <Flex gap="1.5rem" flexWrap="wrap" rowGap="2rem">
+    <Flex
+      gap="1.5rem"
+      flexWrap="wrap"
+      rowGap="2rem"
+      w="100%"
+      justifyContent="center"
+    >
       <OpportunitiesCard
         blocked={false}
         time="Encerrado"
