@@ -45,6 +45,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
           w="100%"
           justifyContent="center"
           mb="11.0625rem"
+          alignItems="center"
         >
           <OpportunitiesCards />
         </Flex>

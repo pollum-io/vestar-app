@@ -5,3 +5,4 @@ export * from "./Imovel";
 export * from "./Login";
 export * from "./Opportunities";
 export * from "./Register";
+export * from "./Companies";
