@@ -44,7 +44,7 @@ const mocked = [
 
 export const FooterLinks: React.FC = () => {
   return (
-    <Flex gap="10.6875rem">
+    <Flex gap="10.6875rem" color="white">
       <Flex flexDir={"column"}>
         <Text fontSize={"sm"} fontWeight="600" pb="0.875rem">
           Titulo
