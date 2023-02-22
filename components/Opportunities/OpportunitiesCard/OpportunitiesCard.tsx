@@ -14,6 +14,7 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
   estimateFinish,
   rentability,
   finished,
+  isPortfolio,
 }) => {
   return (
     <Flex
@@ -66,24 +67,26 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
             alignItems="center"
             filter={blocked ? "blur(0.25rem)" : "none"}
           >
-            <Flex
-              w="1rem"
-              h="1rem"
-              background="#00576B"
-              borderRadius="full"
-              alignItems="center"
-            >
-              <Text
-                fontFamily="Inte"
-                fontWeight="500"
-                fontSize="0.375rem"
-                lineHeight="0.4375rem"
-                color="#FFFFFF"
-                textAlign="center"
+            {!isPortfolio && (
+              <Flex
+                w="1rem"
+                h="1rem"
+                background="#00576B"
+                borderRadius="full"
+                alignItems="center"
               >
-                SA
-              </Text>
-            </Flex>
+                <Text
+                  fontFamily="Inte"
+                  fontWeight="500"
+                  fontSize="0.375rem"
+                  lineHeight="0.4375rem"
+                  color="#FFFFFF"
+                  textAlign="center"
+                >
+                  SA
+                </Text>
+              </Flex>
+            )}
             <Text
               fontFamily="Poppins"
               fontWeight="500"
@@ -117,78 +120,106 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
             </Text>
           </Flex>
         </Flex>
-        <Flex flexDirection="column" gap="1rem" mt="1.5rem">
-          <Flex
+        {isPortfolio ? (
+          <Button
+            justifyContent="center"
+            mt="1rem"
             alignItems="center"
-            justifyContent="space-between"
-            w="100%"
-            filter={blocked ? "blur(0.25rem)" : "none"}
+            w="16.125rem"
+            h="1.5rem"
+            border="0.0625rem solid #007D99"
+            borderRadius="0.375rem"
+            fontFamily="Poppins"
+            fontWeight="500"
+            fontSize="0.75rem"
+            lineHeight="1rem"
+            color="#007D99"
+            _hover={{ bgColor: "#EDF2F7" }}
+            opacity={time === "Encerrado" ? "0.4" : "1"}
+            cursor={time === "Encerrado" ? "default" : "pointer"}
           >
-            <Flex flexDirection="column" alignItems="left">
-              <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-                Investimento Mín.
-              </Text>
-              <Flex gap="0.25rem" fontFamily="Poppins">
+            Atualizar andamento da obra
+          </Button>
+        ) : (
+          <Flex flexDirection="column" gap="1rem" mt="1.5rem">
+            <Flex
+              alignItems="center"
+              justifyContent="space-between"
+              w="100%"
+              filter={blocked ? "blur(0.25rem)" : "none"}
+            >
+              <Flex flexDirection="column" alignItems="left">
                 <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-                  R$
+                  Investimento Mín.
                 </Text>
-                <Text
-                  mt="0.0625rem"
-                  fontSize="1rem"
-                  lineHeight="1.5rem"
-                  color="#171923"
-                >
-                  {minimunInvest}
+                <Flex gap="0.25rem" fontFamily="Poppins">
+                  <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
+                    R$
+                  </Text>
+                  <Text
+                    mt="0.0625rem"
+                    fontSize="1rem"
+                    lineHeight="1.5rem"
+                    color="#171923"
+                  >
+                    {minimunInvest}
+                  </Text>
+                </Flex>
+              </Flex>
+              <Flex
+                flexDirection="column"
+                alignItems="left"
+                fontFamily="Poppins"
+              >
+                <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
+                  Prev. Conclusão
+                </Text>
+                <Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
+                  {estimateFinish}
                 </Text>
               </Flex>
             </Flex>
-            <Flex flexDirection="column" alignItems="left" fontFamily="Poppins">
-              <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-                Prev. Conclusão
-              </Text>
-              <Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-                {estimateFinish}
-              </Text>
-            </Flex>
-          </Flex>
-          {!blocked ? (
-            <Flex
-              justifyContent="center"
-              alignItems="center"
-              w="100%"
-              background="#E4F2F3"
-              borderRadius="2.6875rem"
-              py="0.125rem"
-            >
-              <Text
+            {!blocked ? (
+              <Flex
+                justifyContent="center"
+                alignItems="center"
+                w="100%"
+                background="#E4F2F3"
+                borderRadius="2.6875rem"
+                py="0.125rem"
+              >
+                <Text
+                  fontFamily="Poppins"
+                  fontWeight="500"
+                  fontSize="0.75rem"
+                  lineHeight="1rem"
+                  color="#00576B"
+                >
+                  Rentabilidade Esperada: {rentability}
+                </Text>
+              </Flex>
+            ) : (
+              <Button
+                justifyContent="center"
+                alignItems="center"
+                w="16.125rem"
+                h="1.5rem"
+                border="0.0625rem solid #007D99"
+                borderRadius="0.375rem"
                 fontFamily="Poppins"
                 fontWeight="500"
                 fontSize="0.75rem"
                 lineHeight="1rem"
-                color="#00576B"
+                color="#007D99"
+                _hover={{ bgColor: "#EDF2F7" }}
               >
-                Rentabilidade Esperada: {rentability}
-              </Text>
-            </Flex>
-          ) : (
-            <Button
-              justifyContent="center"
-              alignItems="center"
-              w="16.125rem"
-              h="1.5rem"
-              border="0.0625rem solid #007D99"
-              borderRadius="0.375rem"
-              fontFamily="Poppins"
-              fontWeight="500"
-              fontSize="0.75rem"
-              lineHeight="1rem"
-              color="#007D99"
-              _hover={{ bgColor: "#EDF2F7" }}
-            >
-              {finished ? "Solicitar Acesso" : "Solicitar Acesso a essa Oferta"}
-            </Button>
-          )}
-        </Flex>
+                {finished
+                  ? "Solicitar Acesso"
+                  : "Solicitar Acesso a essa Oferta"}
+              </Button>
+            )}
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );
@@ -207,6 +238,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
         finished={false}
+        isPortfolio={false}
       />
       <OpportunitiesCard
         blocked={true}
@@ -218,6 +250,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
         finished={false}
+        isPortfolio={false}
       />
       <OpportunitiesCard
         blocked={true}
@@ -229,6 +262,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
         finished={true}
+        isPortfolio={false}
       />
       <OpportunitiesCard
         blocked={true}
@@ -240,6 +274,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
         finished={true}
+        isPortfolio={false}
       />
       <OpportunitiesCard
         blocked={true}
@@ -251,6 +286,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
         finished={true}
+        isPortfolio={false}
       />
       <OpportunitiesCard
         blocked={true}
@@ -262,6 +298,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
         finished={true}
+        isPortfolio={false}
       />
     </Flex>
   );
