@@ -1,4 +1,4 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
@@ -19,19 +19,10 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-// OUR TODO SCHEMA
-const TodoSchema = new mongoose.Schema({
-  item: String,
-  completed: Boolean,
-});
-let Todo: Model<typeof TodoSchema>;
-
 async function dbConnect() {
   if (cached.conn) {
     const conn = cached.conn;
-    Todo = mongoose.models.Todo || mongoose.model("Todo", TodoSchema);
-    console.log("from cached", Todo);
-    return { conn, Todo };
+    return { conn };
   }
 
   if (!cached.promise) {
@@ -46,9 +37,6 @@ async function dbConnect() {
 
   try {
     cached.conn = await cached.promise;
-    Todo = mongoose.models.Todo || mongoose.model("Todo", TodoSchema);
-
-    console.log("Todo", Todo);
   } catch (e) {
     cached.promise = null;
     throw e;
@@ -56,7 +44,7 @@ async function dbConnect() {
 
   let conn = cached.conn;
 
-  return { conn, Todo };
+  return { conn };
 }
 
 export default dbConnect;
