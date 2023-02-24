@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Button, Flex, Img, Text } from "@chakra-ui/react";
 import { ICompaniesCard } from "./dto";
+import { useRouter } from "next/router";
 
 const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
   banner,
@@ -9,6 +10,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
   opportunities,
   closed,
 }) => {
+  const { push } = useRouter();
   return (
     <Flex
       w="100%"
@@ -25,7 +27,14 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
       >
         {banner ? <Img src={banner} h="100%" w="100%" /> : <Flex />}
       </Flex>
-      <Flex gap="1.5rem" pr="1rem" pl="0.5rem" py="0.875rem" w="100%">
+      <Flex
+        gap="1.5rem"
+        pr="1rem"
+        pl="0.5rem"
+        py="0.875rem"
+        w="100%"
+        borderBottomRadius="0.75rem"
+      >
         <Flex w="6rem" position="relative">
           <Img
             src={logo}
@@ -47,7 +56,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
           >
             {name}
           </Text>
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex justifyContent="space-between" alignItems="center" gap="4rem">
             <Flex gap="2.8125rem">
               <Flex gap="0.5rem" alignItems="baseline" fontFamily="Poppins">
                 <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
@@ -72,11 +81,14 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
               h="1.5rem"
               border="0.0625rem solid #007D99"
               borderRadius="0.375rem"
+              bgColor="#ffffff"
               fontFamily="Poppins"
               fontWeight="500"
               fontSize="0.75rem"
               lineHeight="1rem"
               color="#007D99"
+              _hover={{ bgColor: "#EDF2F7" }}
+              onClick={() => push("/companie")}
             >
               Saiba mais
             </Button>
