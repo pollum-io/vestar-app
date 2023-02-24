@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button, Flex, Img, Text } from "@chakra-ui/react";
+import { Button, Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { FiMapPin } from "react-icons/fi";
 
@@ -196,12 +196,11 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 
 export const OpportunitiesCards: FunctionComponent = () => {
   return (
-    <Flex
-      gap="1.5rem"
-      flexWrap="wrap"
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+      spacing="1.5rem"
+      w="fit-content"
       rowGap="2rem"
-      w="100%"
-      justifyContent="center"
     >
       <OpportunitiesCard
         blocked={false}
@@ -269,6 +268,6 @@ export const OpportunitiesCards: FunctionComponent = () => {
         rentability="12% a.a (máx)"
         finished={true}
       />
-    </Flex>
+    </SimpleGrid>
   );
 };

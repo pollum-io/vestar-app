@@ -48,7 +48,7 @@ export const CompaniesContainer: FunctionComponent = () => {
                   placeholder="Procurar empresa"
                   color="#171923"
                   _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
-                  font-family="Poppins"
+                  fontFamily="Poppins"
                   fontSize="0.875rem"
                   lineHeight="1.25rem"
                   h="2rem"
