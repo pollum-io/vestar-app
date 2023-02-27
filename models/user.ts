@@ -19,7 +19,6 @@ const UserSchema = new mongoose.Schema(
     },
     investor_id: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
     },
   },
   {

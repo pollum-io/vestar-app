@@ -48,13 +48,13 @@ router.post(async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ susccess: false, error: "incorrect email/password" });
     }
 
-    if (!user?.investor_id) {
-      return res.redirect("/register");
-    }
-
     delete user.password;
 
     const token = authenticateUser(res, user);
+
+    if (!user?.investor_id) {
+      return res.redirect("/register").json({ data: { user, token } });
+    }
 
     res.status(200).json({ data: { user, token } });
   } catch (error: any) {

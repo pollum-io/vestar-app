@@ -45,7 +45,7 @@ router.post(async (req, res) => {
 
     const newUser = await User.create({ email, password: hash });
 
-    delete newUser.password;
+    delete newUser._doc.password;
 
     res.status(201).json({ data: newUser });
   } catch (error: any) {
