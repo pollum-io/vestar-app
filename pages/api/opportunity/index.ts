@@ -21,6 +21,7 @@ const router = nextConnect({
 const InsertSchema = z.object({
   name: z.string().max(60),
   address: z.optional(z.string().max(60)),
+  enterprise_id: z.string(),
   min_investment: z.number(),
   init_date: z.string().datetime({ offset: true }),
   expected_delivery_date: z.string().datetime({ offset: true }),
