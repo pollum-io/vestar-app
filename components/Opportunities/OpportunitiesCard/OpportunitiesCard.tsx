@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button, Flex, Img, Text } from "@chakra-ui/react";
+import { Button, Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { FiMapPin } from "react-icons/fi";
 
@@ -74,7 +74,7 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
               alignItems="center"
             >
               <Text
-                fontFamily="Inte"
+                fontFamily="Inter"
                 fontWeight="500"
                 fontSize="0.375rem"
                 lineHeight="0.4375rem"
@@ -183,6 +183,7 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
               fontSize="0.75rem"
               lineHeight="1rem"
               color="#007D99"
+              bgColor="#ffffff"
               _hover={{ bgColor: "#EDF2F7" }}
             >
               {finished ? "Solicitar Acesso" : "Solicitar Acesso a essa Oferta"}
@@ -196,7 +197,57 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 
 export const OpportunitiesCards: FunctionComponent = () => {
   return (
-    <Flex gap="1.5rem" flexWrap="wrap" rowGap="2rem">
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+      spacing="1.5rem"
+      w="fit-content"
+      rowGap="2rem"
+    >
+      <OpportunitiesCard
+        blocked={false}
+        time="Encerrado"
+        name="Nome do Empreendimento"
+        location="Campeche, Florianópolis"
+        type="Comercial"
+        minimunInvest="150"
+        estimateFinish="Out 2025"
+        rentability="12% a.a (máx)"
+        finished={false}
+      />
+
+      <OpportunitiesCard
+        blocked={false}
+        time="Encerrado"
+        name="Nome do Empreendimento"
+        location="Campeche, Florianópolis"
+        type="Comercial"
+        minimunInvest="150"
+        estimateFinish="Out 2025"
+        rentability="12% a.a (máx)"
+        finished={false}
+      />
+      <OpportunitiesCard
+        blocked={false}
+        time="Encerrado"
+        name="Nome do Empreendimento"
+        location="Campeche, Florianópolis"
+        type="Comercial"
+        minimunInvest="150"
+        estimateFinish="Out 2025"
+        rentability="12% a.a (máx)"
+        finished={false}
+      />
+      <OpportunitiesCard
+        blocked={false}
+        time="Encerrado"
+        name="Nome do Empreendimento"
+        location="Campeche, Florianópolis"
+        type="Comercial"
+        minimunInvest="150"
+        estimateFinish="Out 2025"
+        rentability="12% a.a (máx)"
+        finished={false}
+      />
       <OpportunitiesCard
         blocked={false}
         time="Encerrado"
@@ -210,17 +261,6 @@ export const OpportunitiesCards: FunctionComponent = () => {
       />
       <OpportunitiesCard
         blocked={true}
-        time="19 horas e 43 minutos restantes"
-        name="Nome do Empreendimento"
-        location="Campeche, Florianópolis"
-        type="Comercial"
-        minimunInvest="150"
-        estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
-        finished={false}
-      />
-      <OpportunitiesCard
-        blocked={true}
         time="Encerrado"
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
@@ -230,39 +270,6 @@ export const OpportunitiesCards: FunctionComponent = () => {
         rentability="12% a.a (máx)"
         finished={true}
       />
-      <OpportunitiesCard
-        blocked={true}
-        time="Encerrado"
-        name="Nome do Empreendimento"
-        location="Campeche, Florianópolis"
-        type="Comercial"
-        minimunInvest="150"
-        estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
-        finished={true}
-      />
-      <OpportunitiesCard
-        blocked={true}
-        time="Encerrado"
-        name="Nome do Empreendimento"
-        location="Campeche, Florianópolis"
-        type="Comercial"
-        minimunInvest="150"
-        estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
-        finished={true}
-      />
-      <OpportunitiesCard
-        blocked={true}
-        time="Encerrado"
-        name="Nome do Empreendimento"
-        location="Campeche, Florianópolis"
-        type="Comercial"
-        minimunInvest="150"
-        estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
-        finished={true}
-      />
-    </Flex>
+    </SimpleGrid>
   );
 };
