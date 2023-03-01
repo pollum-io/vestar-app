@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 
 export const YourDetailtCard: FunctionComponent = () => {
   const [isInvestidor, setIsInvestidor] = useState(false);
-  return (
+   return ( 
     <Flex
       w="34.4375rem"
       zIndex="9"
