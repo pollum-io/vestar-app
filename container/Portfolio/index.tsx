@@ -12,15 +12,25 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import { FunctionComponent, useState } from "react";
 import { OpportunitiesCard } from "../../components";
-import BarCharts from "../../components/Portfolio/BarChart";
-import Example from "../../components/Portfolio/Chart";
 import { ImovelList } from "../../components/Portfolio/ImovelList";
 import { MenuChart } from "../../components/Portfolio/MenuChart";
-import PieChartPortfolio from "../../components/Portfolio/PieChart";
 import { YourDetailtCard } from "../../components/Portfolio/YourDetailCard";
 import { DefaultTemplate } from "../DefaultTemplate";
+
+const BarCharts = dynamic(() => import("../../components/Portfolio/BarChart"), {
+	ssr: false,
+});
+
+const Example = dynamic(() => import("../../components/Portfolio/Chart"), {
+	ssr: false,
+});
+
+const PieChartPortfolio = dynamic(() => import("../../components/Portfolio/PieChart"), {
+	ssr: false,
+});
 
 export const PortfolioContainer: FunctionComponent = () => {
   const [value, setValue] = useState("1");
@@ -55,7 +65,7 @@ export const PortfolioContainer: FunctionComponent = () => {
         <Flex
           borderRadius={"0.75rem"}
           bgImage="linear-gradient(135deg, #A593E7 0%, #D7A6F0 100%, #D9A6F1 100%);"
-          w="77rem"
+          w="100%"
           h="25rem"
           pl="2"
           pr="4"
@@ -209,9 +219,9 @@ export const PortfolioContainer: FunctionComponent = () => {
           )}
         </Flex>
         {isInvestor ? (
-          <Flex alignItems={"center"} w="77rem" h="10rem">
+          <Flex alignItems={"center"} w="77rem" h="15rem">
             <PieChartPortfolio />
-            <Flex gap="3.25rem">
+            <Flex pl='5rem' gap="3.25rem">
               <Flex flexDir={"column"}>
                 <Text fontWeight={"500"} fontSize="md" color="#171923">
                   15%
@@ -288,7 +298,7 @@ export const PortfolioContainer: FunctionComponent = () => {
           flexWrap={"wrap"}
         >
           {isInvestor ? (
-            <Img src="images/Map.png" />
+            <Img w='100%' src="images/Map.png" />
           ) : (
             <>
               <OpportunitiesCard

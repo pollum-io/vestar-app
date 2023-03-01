@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
+import { MdExpandMore } from "react-icons/md";
 
 interface IMenuChart {
   title?: string;
@@ -39,7 +40,9 @@ export const MenuChart: FunctionComponent<IMenuChart> = ({
           fontSize="sm"
           bgColor="white"
           as={Button}
-          rightIcon={<ChevronDownIcon style={{ marginLeft: "4rem" }} />}
+          border="1px solid #E2E8F0"
+          borderRadius="0.375rem"
+          rightIcon={<MdExpandMore style={{ marginLeft: "4rem" }}  />}
         >
           {defaultSelection}
         </MenuButton>

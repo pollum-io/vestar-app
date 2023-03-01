@@ -22,15 +22,15 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
       >
         {isInvest ? (
           <>
-            <Text pr="16rem">Imóvel</Text>
-            <Text pr="7rem">Cota</Text>
-            <Text pr="3rem">Total investido</Text>
-            <Text pr="5rem">Vencimento</Text>
-            <Text pr="3.5rem">Investimento</Text>
-            <Text mr="1.5rem" maxW="10%" flexWrap={"wrap"}>
+            <Text pr="24.5rem">Imóvel</Text>
+            <Text pr="11.5rem">Cota</Text>
+            <Text pr="7.5rem">Total investido</Text>
+            <Text pr="8.5rem">Vencimento</Text>
+            <Text pr="8.5rem">Investimento</Text>
+            <Text mr="8rem" maxW="5%" flexWrap={"wrap"}>
               Rentabilidade Esperada
             </Text>
-            <Text maxW="10%" flexWrap={"wrap"}>
+            <Text maxW="5%" flexWrap={"wrap"}>
               Valor Atual de Mercado
             </Text>
           </>
