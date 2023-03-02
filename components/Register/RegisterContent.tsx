@@ -77,6 +77,7 @@ export const RegisterContent: FunctionComponent = () => {
                 fontSize="0.875rem"
                 lineHeight="1.25rem"
                 borderRadius="0.5rem"
+                color="#ffffff"
                 onClick={() => {
                   setSecondStep(true), setFirstStep(false);
                 }}
@@ -220,7 +221,7 @@ export const RegisterContent: FunctionComponent = () => {
                   mt="0.375rem"
                   w="9.25rem"
                   h="2rem"
-                  disabled={!canSend ? true : false}
+                  isDisabled={!canSend ? true : false}
                   justifyContent="center"
                   padding="0.2188rem 1.25rem"
                   alignItems="center"
@@ -235,6 +236,7 @@ export const RegisterContent: FunctionComponent = () => {
                   fontSize="0.875rem"
                   lineHeight="1.25rem"
                   borderRadius="0.5rem"
+                  color="#ffffff"
                 >
                   Enviar Cadastro
                 </Button>

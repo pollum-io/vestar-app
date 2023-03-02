@@ -30,6 +30,7 @@ export const RegisterContainer: FunctionComponent = () => {
               fontSize="1.875rem"
               lineHeight="2.25rem"
               mb="2.6875rem"
+              color="#ffffff"
             >
               Olá! Antes de seguir, precisamos de alguns dados
             </Text>

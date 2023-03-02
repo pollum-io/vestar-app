@@ -35,7 +35,7 @@ const RegisterStep: FunctionComponent<IRegisterSteps> = ({
         pt="0.1rem"
         h="100%"
         gap="0.1913rem"
-        w={step === 1 ? "6rem" : "unset"}
+        w={step === 2 ? "7.9rem" : step === 3 ? "6.2rem" : "unset"}
       >
         <Text
           color={barPercentage !== 0 ? "#007088" : "#A0AEC0"}

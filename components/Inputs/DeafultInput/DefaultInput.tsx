@@ -44,7 +44,10 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
         color={inputColor ? inputColor : "#2D3748"}
         type={type || "text"}
         _hover={{}}
-        _focus={{ boxShadow: "none", border: border }}
+        _focus={{
+          boxShadow: "none",
+          border: border ? border : "0.0938rem solid #E2E8F0",
+        }}
       />
     </Flex>
   );
