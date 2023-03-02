@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 export const Forgot_PasswordContainer = () => {
   const [isCode, setIsCode] = useState<boolean>(false);
@@ -21,6 +22,7 @@ export const Forgot_PasswordContainer = () => {
   const [validCode, setValidCode] = useState<boolean>(false);
   const [showFirst, setShowFirst] = useState<boolean>(false);
   const [showSecond, setShowSecond] = useState<boolean>(false);
+  const { t, i18n } = useTranslation();
   const { push } = useRouter();
 
   return (
@@ -50,7 +52,7 @@ export const Forgot_PasswordContainer = () => {
             lineHeight="150%"
             fontStyle="normal"
           >
-            Redefinir senha
+            {t("forgotPassword.reset")}
           </Text>
         </Flex>
         <Flex flexDirection="column" mt="1rem" gap="1.5rem">
@@ -62,9 +64,7 @@ export const Forgot_PasswordContainer = () => {
             color="#2D3748"
             display={isChange ? "none" : "flex"}
           >
-            {isCode
-              ? "Digite o código de 4 dígitos que você recebeu em seu e-mail."
-              : "Digite seu e-mail para o processo de verificação, enviaremos um código para o endereço informado."}
+            {isCode ? t("forgotPassword.enterCode") : t("forgotPassword.enter")}
           </Text>
           <Flex flexDirection="column" gap="0.5rem">
             <Text
@@ -76,7 +76,7 @@ export const Forgot_PasswordContainer = () => {
               color="#2D3748"
               display={isCode && !isChange ? "none" : "flex"}
             >
-              {isChange ? "Nova senha" : "E-mail"}
+              {isChange ? t("forgotPassword.newPassword") : "E-mail"}
             </Text>
             {isCode && !isChange ? (
               <HStack justifyContent="space-between">
@@ -122,7 +122,11 @@ export const Forgot_PasswordContainer = () => {
             ) : (
               <InputGroup size="md">
                 <Input
-                  placeholder={isChange ? "Senha" : "exemplo@exemplo.com"}
+                  placeholder={
+                    isChange
+                      ? (t("forgotPassword.password") as string)
+                      : (t("inputs.emailExample") as string)
+                  }
                   _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
                   border="0.0938rem solid #E2E8F0"
                   type={isChange ? (showFirst ? "text" : "password") : "text"}
@@ -160,7 +164,7 @@ export const Forgot_PasswordContainer = () => {
               color="rgba(0, 0, 0, 0.36)"
               display={isChange ? "flex" : "none"}
             >
-              Deve conter no mínimo X caracteres incluindo números e letras
+              {t("forgotPassword.mustContain")}
             </Text>
           </Flex>
           <Flex
@@ -176,7 +180,7 @@ export const Forgot_PasswordContainer = () => {
               lineHeight="1.25rem"
               color="#2D3748"
             >
-              Confirmar nova senha
+              {t("forgotPassword.confirmPassword")}
             </Text>
             {isCode && !isChange ? (
               <HStack justifyContent="space-between">
@@ -222,7 +226,11 @@ export const Forgot_PasswordContainer = () => {
             ) : (
               <InputGroup size="md">
                 <Input
-                  placeholder={isChange ? "Senha" : "exemplo@exemplo.com"}
+                  placeholder={
+                    isChange
+                      ? (t("forgotPassword.password") as string)
+                      : (t("inputs.emailExample") as string)
+                  }
                   _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
                   border="0.0938rem solid #E2E8F0"
                   type={isChange ? (showSecond ? "text" : "password") : "text"}
@@ -281,7 +289,11 @@ export const Forgot_PasswordContainer = () => {
             }
             disabled={isCode ? !validCode : false}
           >
-            {isCode ? (!isChange ? "Verificar" : "Confirmar") : "Enviar código"}
+            {isCode
+              ? !isChange
+                ? t("forgotPassword.verify")
+                : t("forgotPassword.confirm")
+              : t("forgotPassword.send")}
           </Button>
         </Flex>
         <Collapse in={!isChange}>
@@ -301,7 +313,7 @@ export const Forgot_PasswordContainer = () => {
                 color="#2D3748"
                 display={!isCode ? "none" : "flex"}
               >
-                Não recebeu o código?
+                {t("forgotPassword.noCode")}
               </Text>
               <Text
                 fontStyle="normal"
@@ -312,7 +324,9 @@ export const Forgot_PasswordContainer = () => {
                 _hover={{ cursor: "pointer" }}
                 onClick={!isCode ? () => push("/") : () => console.log()}
               >
-                {!isCode ? "Voltar ao Login" : "Reenviar Código"}
+                {!isCode
+                  ? t("forgotPassword.backTo")
+                  : t("forgotPassword.resend")}
               </Text>
             </Flex>
           </Flex>

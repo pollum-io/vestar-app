@@ -1,4 +1,6 @@
+import { DefaultTFuncReturn } from "i18next";
+
 export interface IMenuInput {
-  placeholder?: string;
+  placeholder?: string | DefaultTFuncReturn;
   color?: string;
 }

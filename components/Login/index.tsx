@@ -1,9 +1,11 @@
 import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
   const { push } = useRouter();
+  const { t } = useTranslation();
 
   return (
     <Flex
@@ -33,7 +35,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               lineHeight="150%"
               fontStyle="normal"
             >
-              Viva Investindo
+              {t("login.liveInvesting")}
             </Text>
           </Flex>
           <Flex flexDirection="column" mt="1rem" gap="12px">
@@ -73,7 +75,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
                 lineHeight="1.25rem"
                 color="#2D3748"
               >
-                Senha
+                {t("login.password")}
               </Text>
               <Text
                 flexDirection="column"
@@ -85,7 +87,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
                 _hover={{ cursor: "pointer" }}
                 onClick={() => push("/forgot_password")}
               >
-                Esqueceu a senha?
+                {t("login.forgot")}
               </Text>
             </Flex>
             <Input
@@ -140,7 +142,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               lineHeight="150%"
               color="#2D3748"
             >
-              Ainda não possui uma conta?
+              {t("login.noAccount")}
             </Text>
             <Text
               fontStyle="normal"
@@ -151,7 +153,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               _hover={{ cursor: "pointer" }}
               onClick={() => push("/register")}
             >
-              Cadastrar
+              {t("login.register")}
             </Text>
           </Flex>
         </Flex>

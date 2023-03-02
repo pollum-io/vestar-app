@@ -3,6 +3,7 @@ import { Flex, Text, Progress } from "@chakra-ui/react";
 import { IRegisterSteps } from "./dto";
 import { useRegister } from "../../hooks/useRegister";
 import { BsCheck } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 const RegisterStep: FunctionComponent<IRegisterSteps> = ({
   step,
@@ -61,22 +62,25 @@ const RegisterStep: FunctionComponent<IRegisterSteps> = ({
 
 export const RegisterSteps: FunctionComponent = () => {
   const { firstStep, secondStep, isPhysical } = useRegister();
+  const { t } = useTranslation();
 
   return (
     <Flex gap="3.875rem">
       <RegisterStep
         step={1}
-        title={isPhysical ? "Dados Pessoais" : "Dados PJ"}
+        title={
+          isPhysical ? t("register.personalData") : t("register.companyData")
+        }
         barPercentage={firstStep ? 50 : 100}
       />
       <RegisterStep
         step={2}
-        title="Ler e Aceitar Termos"
+        title={t("register.acceptTerms")}
         barPercentage={secondStep ? 50 : firstStep ? 0 : 100}
       />
       <RegisterStep
         step={3}
-        title="Enviar Cadastro"
+        title={t("register.submit")}
         barPercentage={!firstStep && !secondStep ? 50 : 0}
       />
     </Flex>

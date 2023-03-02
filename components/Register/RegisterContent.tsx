@@ -8,6 +8,7 @@ import {
   BsCircleFill,
 } from "react-icons/bs";
 import { RiCheckFill } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 export const RegisterContent: FunctionComponent = () => {
   const {
@@ -20,6 +21,7 @@ export const RegisterContent: FunctionComponent = () => {
   } = useRegister();
 
   const [canSend, setCanSend] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Flex>
@@ -40,7 +42,7 @@ export const RegisterContent: FunctionComponent = () => {
                 borderColor="#E2E8F0"
                 onChange={() => setIsPhysical(true)}
               >
-                Sou Pessoa Física
+                {t("register.naturalPerson")}
               </Checkbox>
               <Checkbox
                 spacing="0.75rem"
@@ -55,7 +57,7 @@ export const RegisterContent: FunctionComponent = () => {
                 borderColor="#E2E8F0"
                 onChange={() => setIsPhysical(false)}
               >
-                Sou Pessoa Jurídica
+                {t("register.legalPerson")}
               </Checkbox>
             </Flex>
             <Flex flexDirection="column" gap="2rem">
@@ -81,7 +83,7 @@ export const RegisterContent: FunctionComponent = () => {
                   setSecondStep(true), setFirstStep(false);
                 }}
               >
-                Prosseguir {<BsArrowRightShort size={22} />}
+                {t("register.nextStep")} {<BsArrowRightShort size={22} />}
               </Button>
             </Flex>
           </Flex>
@@ -99,7 +101,7 @@ export const RegisterContent: FunctionComponent = () => {
                   lineHeight="1.25rem"
                   color="#2D3748"
                 >
-                  Termos e Condições de Uso
+                  {t("register.termsAnd")}
                 </Text>
               </Flex>
               <Flex
@@ -107,7 +109,7 @@ export const RegisterContent: FunctionComponent = () => {
                 border="0.0625rem solid #E2E8F0"
                 w="47.4375rem"
                 h="17.75rem"
-                padding="22px 22px 0 22px"
+                padding="1.375rem 1.375rem 0 1.375rem"
                 mr="1rem"
               >
                 <Flex
@@ -119,8 +121,6 @@ export const RegisterContent: FunctionComponent = () => {
                   <Text
                     color="#171923"
                     fontFamily="Poppins"
-                    fontStyle="normal"
-                    fontWeight="400"
                     fontSize="0.75rem"
                     lineHeight="1rem"
                     textAlign="justify"
@@ -187,7 +187,7 @@ export const RegisterContent: FunctionComponent = () => {
                     setCanSend(!canSend), setSecondStep(!secondStep);
                   }}
                 >
-                  Declaro que li e aceito os termos acima.
+                  {t("register.iAgree")}
                 </Checkbox>
               </Flex>
               <Flex gap="1.5rem">
@@ -214,7 +214,7 @@ export const RegisterContent: FunctionComponent = () => {
                   }}
                 >
                   <BsArrowLeftShort size={22} />
-                  Voltar
+                  {t("register.back")}
                 </Button>
                 <Button
                   mt="0.375rem"
@@ -236,7 +236,7 @@ export const RegisterContent: FunctionComponent = () => {
                   lineHeight="1.25rem"
                   borderRadius="0.5rem"
                 >
-                  Enviar Cadastro
+                  {t("register.send")}
                 </Button>
               </Flex>
             </Flex>

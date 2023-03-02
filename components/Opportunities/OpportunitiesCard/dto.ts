@@ -1,3 +1,5 @@
+import { DefaultTFuncReturn } from "i18next";
+
 export interface IOpportunitiesCard {
   blocked?: boolean;
   time?: string;
@@ -5,8 +7,8 @@ export interface IOpportunitiesCard {
   name?: string;
   location?: string;
   type?: string;
-  minimunInvest?: string;
+  minimumInvest?: string;
   estimateFinish?: string;
-  rentability?: string;
+  rentability?: string | DefaultTFuncReturn;
   finished?: boolean;
 }

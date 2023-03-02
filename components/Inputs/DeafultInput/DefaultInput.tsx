@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Flex, Text, Input } from "@chakra-ui/react";
 import { useRegister } from "../../../hooks/useRegister";
 import { IDefaultInput } from "./dto";
+import { useTranslation } from "react-i18next";
 
 const DefaultInput: FunctionComponent<IDefaultInput> = ({
   title,
@@ -21,7 +22,7 @@ const DefaultInput: FunctionComponent<IDefaultInput> = ({
         {title}
       </Text>
       <Input
-        placeholder={placeholder}
+        placeholder={placeholder as string}
         _placeholder={{ color: "rgba(0, 0, 0, 0.36)", fontFamily: "Poppins" }}
         border="0.0938rem solid #E2E8F0"
         _hover={{}}
@@ -42,29 +43,34 @@ const DefaultInput: FunctionComponent<IDefaultInput> = ({
 
 export const DefaultInputs: FunctionComponent = () => {
   const { isPhysical } = useRegister();
+  const { t } = useTranslation();
 
   return (
     <Flex flexDirection="column" gap="1.5rem">
       <DefaultInput
-        title={isPhysical ? "Nome Completo" : "Razão Social"}
+        title={
+          isPhysical ? t("register.fullName") : t("register.corporateName")
+        }
         inputSize="20rem"
-        placeholder={isPhysical ? "Sem abreviações" : "Insira aqui"}
+        placeholder={isPhysical ? t("inputs.noAbb") : t("inputs.insertHere")}
       />
       <DefaultInput
-        title={isPhysical ? "Data de Nascimento" : "CNPJ"}
+        title={
+          isPhysical ? t("register.birthDate") : t("register.nationalRegister")
+        }
         inputSize={isPhysical ? "9.875rem" : "11rem"}
-        placeholder={isPhysical ? "dd/mm/aaaa" : "00.000.000/0000-00"}
+        placeholder={isPhysical ? t("inputs.date") : "00.000.000/0000-00"}
         type="date"
       />
       <DefaultInput
-        title={isPhysical ? "CPF" : "UF"}
+        title={isPhysical ? t("register.socialNumber") : t("register.federal")}
         inputSize={isPhysical ? "9.875rem" : "20rem"}
-        placeholder={isPhysical ? "000.000.000-00" : "Insira aqui"}
+        placeholder={isPhysical ? "000.000.000-00" : t("inputs.insertHere")}
       />
       <DefaultInput
-        title="Quem convidou você para a LIVN?"
+        title={t("register.whoInvited")}
         inputSize="20rem"
-        placeholder="Insira aqui"
+        placeholder={t("inputs.insertHere")}
       />
     </Flex>
   );
