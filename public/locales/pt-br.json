@@ -1,0 +1,170 @@
+{
+    "login": {
+        "liveInvesting": "Viva Investindo",
+        "password": "Senha",
+        "forgot": "Esqueceu a senha?",
+        "noAccount": "Ainda não possui uma conta?",
+        "register": "Cadastrar"
+    },
+    "forgotPassword": {
+        "reset": "Redefinir senha",
+        "enter": "Digite seu e-mail para o processo de verificação, enviaremos um código para o endereço informado.",
+        "send": "Enviar código",
+        "backTo": "Voltar ao Login",
+        "enterCode": "Digite o código de 4 dígitos que você recebeu em seu e-mail.",
+        "verify": "Verificar",
+        "noCode": "Não recebeu o código?",
+        "resend": "Reenviar Código",
+        "newPassword": "Nova senha",
+        "mustHave": "Deve conter no mínimo X caracteres incluindo números e letras",
+        "confirmPassword": "Confirmar nova senha",
+        "confirm": "Confirmar",
+        "password": "Senha"
+    },
+    "register": {
+        "hello": "Olá! Antes de seguir, precisamos de alguns dados",
+        "personalData": "Dados Pessoais",
+        "companyData": "Dados PJ",
+        "acceptTerms": "Ler e Aceitar Termos",
+        "submit": "Enviar Cadastro",
+        "naturalPerson": "Sou Pessoa Física",
+        "fullName": "Nome Completo",
+        "birthDate": "Data de Nascimento",
+        "socialNumber": "CPF",
+        "whoInvited": "Quem convidou você para a LIVN?",
+        "legalPerson": "Sou Pessoa Jurídica",
+        "corporateName": "Razão Social",
+        "nationalRegister": "CNPJ",       
+        "federal": "UF",
+        "nextStep": "Prosseguir",
+        "termsAnd": "Termos e Condições de Uso",
+        "iAgree": "Declaro que li e aceito os termos acima.",
+        "send": "Enviar Cadastro",
+        "back": "Voltar"
+        
+    },
+    "opportunities": {
+        "investingIs": "Investir é muito mais fácil com a LIVN",
+        "first": "Abra uma oportunidade disponível para você",
+        "second": "Selecione a quantidade de cotas que você deseja",
+        "third": "Clique em Quero investir e faça o pagamento",
+        "fourth": "Pronto! agora é só acompanhar os rendimentos na aba Portfólio",
+        "orderBy": "Ordenar por",
+        "type": "Tipo de Imóvel",
+        "minimum": "Investimento Mínimo",
+        "completion": "Previsão de Conclusão",
+        "location": "Localização",
+        "result": "resultado",
+        "card": {
+            "commercial": "Comercial",
+            "residential": "Residencial",
+            "office": "Escritórios",
+            "minInvest": "Investimento Mín.",
+            "estConc": "Prev. Conclusão",
+            "expected": "Rentabilidade Esperada",
+            "p/y": "a/a",
+            "max": "(máx)",
+            "accessTo": "Solicitar Acesso a essa Oferta",
+            "access": "Solicitar Acesso",
+            "sign": "R$"
+        }
+
+    },
+    "opportunitieDetails": {
+        "start": "Início da Obra",
+        "initial": "Preço Inicial m²",
+        "final": "Preço Final m²",
+        "select": "Selecione a Quantidade",
+        "quota": "cota",
+        "total": "Total",
+        "wantTo": "Quero Investir",
+        "wontBe": "Você ainda não será cobrado.",
+        "quotaAddress": "Endereço da cota",
+        "unit": "Preço unitário",
+        "shares": "Cotas emitidas",
+        "available": "Cotas disponíveis",
+        "offers": "O que este empreendimento oferece",
+        "seeAll": "Ver {{37}} comodidades",
+        "perYear": "per year",
+        "soon": "Em breve você poderá acompanhar:",
+        "floorPlans": "Todas as plantas da obra",
+        "audits": "Auditorias",
+        "invoices": "Notas Fiscais",
+        "extraDoc": "Documentos Extras",
+        "stage": "Atualmente esta obra está em estágio de {{_____}}",
+        "close": "Fechar"
+
+    },
+    "wantToInvest": {
+        "summary": "Resumo do investimento",
+        "property": "Imóvel",
+        "quota": "Cota",
+        "amount": "Quantidade",
+        "select": "Selecione a forma de pagamento",
+        "confirmData": "Confirmar dados",
+        "digital": "Sua assinatura digital",
+        "confirmInvest": "Confirmar Investimento",
+        "declare": "Declaro que li e aceito os",
+        "termsOf": "Termos de Compra."
+    },
+    "companies": {
+        "partners": "Empresas parceiras LIVN",
+        "companie": "empresa",
+        "previous": "Anterior",
+        "next": "Próxima",
+        "card": {
+            "opportunities": "Oportunidades Disponíveis",
+            "closed": "Encerradas",
+            "learnMore": "Saiba mais"
+        }
+    },
+    "companieDetails": {
+        "livnProp": "Empreendimentos LIVN",
+        "delivered": "Obras entregues",
+        "inProgress": "Em andamento",
+        "vgv": "VGV Total",
+        "whoBuilds": "Quem constrói nossa história",
+        "learnAbout": "Saiba mais sobre a empresa",
+        "opportunities": "Oportunidades"
+    },
+    "portfolio": {
+        "hello": "Olá, {{Name}}!",
+        "thisIs": "Esse é o seu portfólio de {{28/nov/22}}",
+        "currentAssets": "Patrimônio Atual",
+        "result": "Resultado",
+        "prof": "Rentabilidade",
+        "period": "Período",
+        "investments": "Investimentos",
+        "all": "Todos",
+        "max": "Máximo",
+        "total": "Distribuição total de investimentos",
+        "allEnterprises": "Todos os imóveis",
+        "another": "Outro tipo",
+        "yourInvestments": "Seus investimentos",
+        "enterprises": "Empreendimentos",
+        "totalInvested": "Total Investido",
+        "maturity": "Vencimento",
+        "current": "Valor Atual de Mercado",
+        "where": "Onde você tem investido",
+        "ofPortfolio": "do portfólio",
+        "registered": "Empreendimentos Cadastrados",
+        "revenue": "Arrecadação",
+        "sharesTraded": "Cotas Negociadas",
+        "bestSelling": "Cotas Mais Vendidas",
+        "month": "Mês",
+        "year": "Ano",
+        "units": "Unidades",
+        "percentage": "Porcentagem"
+    },
+    "inputs": {
+        "hello": "Olá",
+        "noAbb": "Sem abreviações",
+        "date": "dd/mm/aaaa",
+        "insertHere": "Insira aqui",
+        "findCompanie": "Procurar empresa",
+        "emailExample": "exemplo@exemplo.com"
+        
+    }
+    }
+    
+    

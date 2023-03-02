@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Button, Flex, Img, Text } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { FiMapPin } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
   blocked,
@@ -10,11 +11,12 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
   name,
   location,
   type,
-  minimunInvest,
+  minimumInvest,
   estimateFinish,
   rentability,
   finished,
 }) => {
+  const { t } = useTranslation();
   return (
     <Flex
       w="18.125rem"
@@ -126,11 +128,11 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
           >
             <Flex flexDirection="column" alignItems="left">
               <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-                Investimento Mín.
+                {t("opportunities.card.minInvest")}
               </Text>
               <Flex gap="0.25rem" fontFamily="Poppins">
                 <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-                  R$
+                  {t("opportunities.card.sign")}
                 </Text>
                 <Text
                   mt="0.0625rem"
@@ -138,13 +140,13 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
                   lineHeight="1.5rem"
                   color="#171923"
                 >
-                  {minimunInvest}
+                  {minimumInvest}
                 </Text>
               </Flex>
             </Flex>
             <Flex flexDirection="column" alignItems="left" fontFamily="Poppins">
               <Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-                Prev. Conclusão
+                {t("opportunities.card.estConc")}
               </Text>
               <Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
                 {estimateFinish}
@@ -159,16 +161,17 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
               background="#E4F2F3"
               borderRadius="2.6875rem"
               py="0.125rem"
+              fontSize="0.75rem"
+              lineHeight="1rem"
+              color="#00576B"
+              fontFamily="Poppins"
+              gap="0.2rem"
             >
-              <Text
-                fontFamily="Poppins"
-                fontWeight="500"
-                fontSize="0.75rem"
-                lineHeight="1rem"
-                color="#00576B"
-              >
-                Rentabilidade Esperada: {rentability}
+              <Text fontWeight="500">
+                {t("opportunities.card.expected")}: {rentability}{" "}
+                {t("opportunities.card.p/y")}
               </Text>
+              <Text fontWeight="400">{t("opportunities.card.max")}</Text>
             </Flex>
           ) : (
             <Button
@@ -185,7 +188,9 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
               color="#007D99"
               _hover={{ bgColor: "#EDF2F7" }}
             >
-              {finished ? "Solicitar Acesso" : "Solicitar Acesso a essa Oferta"}
+              {finished
+                ? t("opportunities.card.access")
+                : t("opportunities.card.accessTo")}
             </Button>
           )}
         </Flex>
@@ -195,6 +200,7 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 };
 
 export const OpportunitiesCards: FunctionComponent = () => {
+  const { t } = useTranslation();
   return (
     <Flex gap="1.5rem" flexWrap="wrap" rowGap="2rem">
       <OpportunitiesCard
@@ -203,9 +209,9 @@ export const OpportunitiesCards: FunctionComponent = () => {
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
-        minimunInvest="150"
+        minimumInvest="150"
         estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
+        rentability={"12%"}
         finished={false}
       />
       <OpportunitiesCard
@@ -214,9 +220,9 @@ export const OpportunitiesCards: FunctionComponent = () => {
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
-        minimunInvest="150"
+        minimumInvest="150"
         estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
+        rentability={"12%"}
         finished={false}
       />
       <OpportunitiesCard
@@ -225,9 +231,9 @@ export const OpportunitiesCards: FunctionComponent = () => {
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
-        minimunInvest="150"
+        minimumInvest="150"
         estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
+        rentability={"12%"}
         finished={true}
       />
       <OpportunitiesCard
@@ -236,9 +242,9 @@ export const OpportunitiesCards: FunctionComponent = () => {
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
-        minimunInvest="150"
+        minimumInvest="150"
         estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
+        rentability={"12%"}
         finished={true}
       />
       <OpportunitiesCard
@@ -247,9 +253,9 @@ export const OpportunitiesCards: FunctionComponent = () => {
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
-        minimunInvest="150"
+        minimumInvest="150"
         estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
+        rentability={"12%"}
         finished={true}
       />
       <OpportunitiesCard
@@ -258,9 +264,9 @@ export const OpportunitiesCards: FunctionComponent = () => {
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
-        minimunInvest="150"
+        minimumInvest="150"
         estimateFinish="Out 2025"
-        rentability="12% a.a (máx)"
+        rentability={"12%"}
         finished={true}
       />
     </Flex>

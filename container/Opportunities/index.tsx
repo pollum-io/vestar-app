@@ -3,8 +3,10 @@ import { FunctionComponent } from "react";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
+import { useTranslation } from "react-i18next";
 
 export const OpportunitiesContainer: FunctionComponent = () => {
+  const { t } = useTranslation();
   return (
     <DefaultTemplate>
       <Flex flexDirection="column" bgColor="#ffffff">
@@ -25,7 +27,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
             lineHeight="1.25rem"
             color="#2D3748"
           >
-            Ordenar por
+            {t("opportunities.orderBy")}
           </Text>
           <MenuInputs />
           <Text
@@ -36,7 +38,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
             lineHeight="1.25rem"
             color="#2D3748"
           >
-            147 resultados
+            147 {t("opportunities.result")}
           </Text>
         </Flex>
         <Flex

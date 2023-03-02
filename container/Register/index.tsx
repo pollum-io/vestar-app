@@ -3,9 +3,11 @@ import { RegisterSteps } from "../../components/Register/RegisterSteps";
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
 import { RegisterContent } from "../../components/Register/RegisterContent";
+import { useTranslation } from "react-i18next";
 
 export const RegisterContainer: FunctionComponent = () => {
   const { isPhysical } = useRegister();
+  const { t } = useTranslation();
   useEffect(() => {
     console.log(isPhysical);
   }, [isPhysical]);
@@ -31,7 +33,7 @@ export const RegisterContainer: FunctionComponent = () => {
               lineHeight="2.25rem"
               mb="2.6875rem"
             >
-              Olá! Antes de seguir, precisamos de alguns dados
+              {t("register.hello")}
             </Text>
             <Img
               w="max-content"

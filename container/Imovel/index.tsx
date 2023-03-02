@@ -1,12 +1,12 @@
 import { Flex, Img, Text, Icon } from "@chakra-ui/react";
-import React, { Component, FunctionComponent } from "react";
-import { TbInfoSquare, TbSmartHome } from "react-icons/tb";
+import React, { FunctionComponent } from "react";
+import { TbInfoSquare } from "react-icons/tb";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "../../components/Imovel/Collections";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { PriceCard } from "../../components/Imovel/PriceCard";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import { Carousel } from "../../components/Imovel/Carousel";
+import { useTranslation } from "react-i18next";
 
 //TODO: Componentizar
 export const ImovelContainer: FunctionComponent = () => {
@@ -15,6 +15,8 @@ export const ImovelContainer: FunctionComponent = () => {
     { id: 1, image: "images/backgrounds/Image-2.png" },
     { id: 2, image: "images/backgrounds/Image-3.png" },
   ];
+
+  const { t } = useTranslation();
 
   return (
     <DefaultTemplate>
@@ -51,18 +53,18 @@ export const ImovelContainer: FunctionComponent = () => {
             <Flex gap="4.25rem" pb="2rem">
               <Flex flexDir={"column"} gap="0.25rem">
                 <Text fontSize={"sm"} fontWeight="400" color="#718096">
-                  Investimento Mín.
+                  {t("opportunities.card.minInvest")}
                 </Text>
                 <Flex gap="0.25rem">
                   <Text fontSize={"xs"} color="#718096">
-                    R$
+                    {t("opportunities.card.sign")}
                   </Text>
-                  <Text color="#000000">150$</Text>
+                  <Text color="#000000">150</Text>
                 </Flex>
               </Flex>
               <Flex flexDir={"column"} gap="0.25rem">
                 <Text fontSize={"sm"} fontWeight="400" color="#718096">
-                  Início da Obra
+                  {t("opportunitieDetails.start")}
                 </Text>
                 <Flex gap="0.25rem">
                   <Text color="#000000">Jan 2022</Text>
@@ -70,7 +72,7 @@ export const ImovelContainer: FunctionComponent = () => {
               </Flex>
               <Flex flexDir={"column"} gap="0.25rem">
                 <Text fontSize={"sm"} fontWeight="400" color="#718096">
-                  Prev. Conclusão
+                  {t("opportunities.card.estConc")}
                 </Text>
                 <Flex gap="0.25rem">
                   <Text color="#000000">Out 2025</Text>
@@ -78,7 +80,7 @@ export const ImovelContainer: FunctionComponent = () => {
               </Flex>
               <Flex flexDir={"column"} gap="0.25rem">
                 <Text fontSize={"sm"} fontWeight="400" color="#718096">
-                  Rentabilidade Esperada
+                  {t("opportunities.card.expected")}
                 </Text>
                 <Flex gap="0.25rem">
                   <Text color="#000000">12% ao ano</Text>
@@ -89,24 +91,24 @@ export const ImovelContainer: FunctionComponent = () => {
             <Flex gap="5.25rem">
               <Flex flexDir={"column"} gap="0.25rem">
                 <Text fontSize={"sm"} fontWeight="400" color="#718096">
-                  Preço Inicial m²
+                  {t("opportunitieDetails.initial")}
                 </Text>
                 <Flex gap="0.25rem">
                   <Text fontSize={"xs"} color="#718096">
-                    R$
+                    {t("opportunities.card.sign")}
                   </Text>
-                  <Text color="#000000">12.800,00$</Text>
+                  <Text color="#000000">12.800,00</Text>
                 </Flex>
               </Flex>
               <Flex flexDir={"column"} gap="0.25rem">
                 <Text fontSize={"sm"} fontWeight="400" color="#718096">
-                  Preço Final m²
+                  {t("opportunitieDetails.final")}
                 </Text>
                 <Flex gap="0.25rem">
                   <Text fontSize={"xs"} color="#718096">
-                    R$
+                    {t("opportunities.card.sign")}
                   </Text>
-                  <Text color="#000000">16.800,00$</Text>
+                  <Text color="#000000">16.800,00</Text>
                 </Flex>
               </Flex>
             </Flex>
@@ -140,7 +142,7 @@ export const ImovelContainer: FunctionComponent = () => {
           <PriceCard axisY="34rem" />
           <Flex mt="4rem" flexDir={"column"}>
             <Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#171923"}>
-              O que este empreendimento oferece
+              {t("opportunitieDetails.offers")}
             </Text>
             <Flex gap="8rem">
               <Flex flexDir={"column"} color={"#171923"}>
@@ -166,7 +168,7 @@ export const ImovelContainer: FunctionComponent = () => {
               fontWeight={"500"}
               color={"#007D99"}
             >
-              Ver 37 comodidades
+              {t("opportunitieDetails.seeAll")}
             </Text>
           </Flex>
           <PriceCard axisY="90rem" />
@@ -180,42 +182,42 @@ export const ImovelContainer: FunctionComponent = () => {
         flexDir={"column"}
       >
         <Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#171923"}>
-          Em breve você poderá acompanhar:
+          {t("opportunitieDetails.soon")}
         </Text>
         <Flex gap="2.1875rem">
           <Flex alignItems={"center"} gap="0.9rem">
             <Img src={"images/icons/Home.png"} />
             <Text fontWeight={"400"} color={"#171923"} w="8.5rem">
-              Todas as plantas da obra
+              {t("opportunitieDetails.floorPlans")}
             </Text>
           </Flex>
           <Flex alignItems={"center"} gap="0.9rem">
             <Img src={"images/icons/Edit Square.png"} />
             <Text fontWeight={"400"} color={"#171923"} w="100%">
-              Auditorias
+              {t("opportunitieDetails.audits")}
             </Text>
           </Flex>
           <Flex alignItems={"center"} gap="0.9rem">
             <Img src={"images/icons/Document.png"} />
             <Text fontWeight={"400"} color={"#171923"} w="100%">
-              Notas Fiscais
+              {t("opportunitieDetails.invoices")}
             </Text>
           </Flex>
           <Flex alignItems={"center"} gap="0.9rem">
             <Img src={"images/icons/Folder.png"} />
             <Text fontWeight={"400"} color={"#171923"} w="75%">
-              Documentos Extras
+              {t("opportunitieDetails.extraDoc")}
             </Text>
           </Flex>
         </Flex>
         <Flex mt="2rem">
-          <Text color={"#171923"}>Atualmente esta obra está em estágio de</Text>
+          <Text color={"#171923"}>{t("opportunitieDetails.stage")}</Text>
         </Flex>
       </Flex>
       <Flex py="4rem" px="5rem" flexDir={"column"}>
         <Flex mb={"2rem"}>
           <Text fontSize={"1.5rem"} fontWeight={"600"} color={"#171923"}>
-            Localização
+            {t("opportunities.location")}
           </Text>
         </Flex>
         <Flex>

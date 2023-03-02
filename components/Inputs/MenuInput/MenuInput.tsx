@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { IMenuInput } from "./dto";
 import { IoIosArrowDown } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 
 export const MenuInput: FunctionComponent<IMenuInput> = ({
   placeholder,
@@ -51,12 +52,13 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 };
 
 export const MenuInputs: FunctionComponent = () => {
+  const { t } = useTranslation();
   return (
     <Flex gap="1.5rem">
-      <MenuInput placeholder="Tipo de Imóvel" color="#2D3748" />
-      <MenuInput placeholder="Previsão de Conclusão" color="#2D3748" />
-      <MenuInput placeholder="Investimento Mínimo" color="#2D3748" />
-      <MenuInput placeholder="Localização" color="#A0AEC0" />
+      <MenuInput placeholder={t("opportunities.type")} color="#2D3748" />
+      <MenuInput placeholder={t("opportunities.completion")} color="#2D3748" />
+      <MenuInput placeholder={t("opportunities.minimum")} color="#2D3748" />
+      <MenuInput placeholder={t("opportunities.location")} color="#A0AEC0" />
     </Flex>
   );
 };
