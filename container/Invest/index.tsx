@@ -137,7 +137,7 @@ export const InvestContainer: FunctionComponent = () => {
                         as={Button}
                         justifyContent="center"
                         alignItems="center"
-                        disabled={counter === 1}
+                        isDisabled={counter === 1}
                         w="2.5rem"
                         color="#171923"
                         _disabled={{
@@ -153,6 +153,7 @@ export const InvestContainer: FunctionComponent = () => {
                         onClick={() => setCounter(counter - 1)}
                         h="2rem"
                         fontSize="0.875rem"
+                        bgColor="#ffffff"
                       >
                         -
                       </InputLeftAddon>
@@ -176,7 +177,7 @@ export const InvestContainer: FunctionComponent = () => {
                         justifyContent="center"
                         alignItems="center"
                         w="2.5rem"
-                        disabled={counter === 5}
+                        isDisabled={counter === 5}
                         border="0.0625rem solid #E2E8F0"
                         borderLeft="0.0625rem solid #E2E8F0"
                         color="#171923"
@@ -192,6 +193,7 @@ export const InvestContainer: FunctionComponent = () => {
                         onClick={() => setCounter(counter + 1)}
                         h="2rem"
                         fontSize="0.875rem"
+                        bgColor="#ffffff"
                       >
                         +
                       </InputRightAddon>
@@ -267,15 +269,12 @@ export const InvestContainer: FunctionComponent = () => {
                   icon={
                     <RiCheckFill
                       size={18}
-                      color={isTerms ? "#007D99" : "#ffffff"}
+                      color={isTerms ? "#007D99" : "#1789A3"}
                     />
                   }
                   fontSize="0.875rem"
                   lineHeight="1.25rem"
                   onChange={() => setIsTerms(!isTerms)}
-                  css={{
-                    borderColor: "#E2E8F0",
-                  }}
                   w="max-content"
                 />
                 <Text>
@@ -294,7 +293,7 @@ export const InvestContainer: FunctionComponent = () => {
                   justifyContent="center"
                   alignItems="center"
                   w="100%"
-                  disabled={!isTerms}
+                  isDisabled={!isTerms}
                   h="2.5rem"
                   bgColor="#FFFFFF"
                   borderRadius="0.5rem"
