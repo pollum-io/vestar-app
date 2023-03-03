@@ -19,7 +19,7 @@ export const ImovelContainer: FunctionComponent = () => {
   return (
     <DefaultTemplate>
       <Flex px="5rem" flexDir={"column"}>
-        <Collections />
+          <Collections />
         <Flex flexDir={"column"}>
           <Flex gap="1" pb="0.75rem">
             <Img src="images/backgrounds/avatar.png" />
