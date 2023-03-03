@@ -74,7 +74,7 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
               alignItems="center"
             >
               <Text
-                fontFamily="Inte"
+                fontFamily="Inter"
                 fontWeight="500"
                 fontSize="0.375rem"
                 lineHeight="0.4375rem"
@@ -183,6 +183,7 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
               fontSize="0.75rem"
               lineHeight="1rem"
               color="#007D99"
+              bgColor="#ffffff"
               _hover={{ bgColor: "#EDF2F7" }}
             >
               {finished ? "Solicitar Acesso" : "Solicitar Acesso a essa Oferta"}
@@ -213,9 +214,10 @@ export const OpportunitiesCards: FunctionComponent = () => {
         rentability="12% a.a (máx)"
         finished={false}
       />
+
       <OpportunitiesCard
-        blocked={true}
-        time="19 horas e 43 minutos restantes"
+        blocked={false}
+        time="Encerrado"
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
         type="Comercial"
@@ -225,7 +227,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         finished={false}
       />
       <OpportunitiesCard
-        blocked={true}
+        blocked={false}
         time="Encerrado"
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
@@ -233,10 +235,10 @@ export const OpportunitiesCards: FunctionComponent = () => {
         minimunInvest="150"
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
-        finished={true}
+        finished={false}
       />
       <OpportunitiesCard
-        blocked={true}
+        blocked={false}
         time="Encerrado"
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
@@ -244,10 +246,10 @@ export const OpportunitiesCards: FunctionComponent = () => {
         minimunInvest="150"
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
-        finished={true}
+        finished={false}
       />
       <OpportunitiesCard
-        blocked={true}
+        blocked={false}
         time="Encerrado"
         name="Nome do Empreendimento"
         location="Campeche, Florianópolis"
@@ -255,7 +257,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
         minimunInvest="150"
         estimateFinish="Out 2025"
         rentability="12% a.a (máx)"
-        finished={true}
+        finished={false}
       />
       <OpportunitiesCard
         blocked={true}
