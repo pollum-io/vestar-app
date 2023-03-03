@@ -3,22 +3,29 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../styles";
 import "../styles/termsScrollbar.css";
 import AppWrapper from "../container/AppWrapper";
+import "../styles/maps.css"
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const userTheme = {
-  ...theme,
-  config: {
-    ...theme.config,
-    initialColorMode: "light",
-  },
+	...theme,
+	config: {
+		...theme.config,
+		initialColorMode: "light",
+	},
 };
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  return (
-    <ChakraProvider resetCSS theme={userTheme}>
-      <AppWrapper>
-        <Component {...pageProps} />
-      </AppWrapper>
-    </ChakraProvider>
-  );
+
+	const queryClient = new QueryClient({});
+
+	return (
+		<QueryClientProvider client={queryClient}>
+			<ChakraProvider resetCSS theme={userTheme}>
+				<AppWrapper>
+					<Component {...pageProps} />
+				</AppWrapper>
+			</ChakraProvider>
+		</QueryClientProvider>
+	);
 };
 export default MyApp;
