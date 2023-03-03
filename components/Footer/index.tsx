@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
     >
       <Flex flexDir={"column"}>
         <Img src={"images/livnlogotext.png"} />
-        <Text fontSize={"sm"} fontWeight="400">
+        <Text fontSize={"sm"} fontWeight="400" color="white">
           Viva investindo
         </Text>
       </Flex>
