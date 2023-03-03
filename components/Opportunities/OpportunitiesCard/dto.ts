@@ -9,4 +9,5 @@ export interface IOpportunitiesCard {
   estimateFinish?: string;
   rentability?: string;
   finished?: boolean;
+  isPortfolio?: boolean;
 }
