@@ -31,31 +31,33 @@ export const InvestContainer: FunctionComponent = () => {
           mb="9.9375rem"
         >
           <Flex flexDirection="column" gap="4.25rem" w="70%">
-            <Flex flexDirection="column" gap="1.5rem">
-              <Text
-                fontFamily="Poppins"
-                fontStyle="normal"
-                fontWeight="600"
-                fontSize="1.5rem"
-                lineHeight="2rem"
-                color="#171923"
-              >
-                Resumo do investimento
-              </Text>
-              <Flex
-                fontFamily="Poppins"
-                fontSize="0.875rem"
-                lineHeight="1.25rem"
-                alignItems="center"
-                color="#171923"
-                justifyContent="space-between"
-                maxWidth="41.875rem"
-                pr="1rem"
-              >
-                <Text>Imóvel</Text>
-                <Flex justifyContent="space-between" w="49%" pr="3.1rem">
-                  <Text>Cota</Text>
-                  <Text>Quantidade</Text>
+            <Flex flexDirection="column" gap="1rem">
+              <Flex flexDirection="column" gap="1.5rem">
+                <Text
+                  fontFamily="Poppins"
+                  fontStyle="normal"
+                  fontWeight="600"
+                  fontSize="1.5rem"
+                  lineHeight="2rem"
+                  color="#171923"
+                >
+                  Resumo do investimento
+                </Text>
+                <Flex
+                  fontFamily="Poppins"
+                  fontSize="0.875rem"
+                  lineHeight="1.25rem"
+                  alignItems="center"
+                  color="#171923"
+                  justifyContent="space-between"
+                  maxWidth="41.875rem"
+                  pr="1rem"
+                >
+                  <Text>Imóvel</Text>
+                  <Flex justifyContent="space-between" w="49%" pr="3.1rem">
+                    <Text>Cota</Text>
+                    <Text>Quantidade</Text>
+                  </Flex>
                 </Flex>
               </Flex>
               <Flex
@@ -147,7 +149,7 @@ export const InvestContainer: FunctionComponent = () => {
                         _hover={
                           counter === 1
                             ? { opacity: "0.3" }
-                            : { bgColor: "#EDF2F7" }
+                            : { bgColor: "#f4f7fa" }
                         }
                         border="0.0625rem solid #E2E8F0"
                         onClick={() => setCounter(counter - 1)}
@@ -188,7 +190,7 @@ export const InvestContainer: FunctionComponent = () => {
                         _hover={
                           counter === 5
                             ? { opacity: "0.3" }
-                            : { bgColor: "#EDF2F7" }
+                            : { bgColor: "#f4f7fa" }
                         }
                         onClick={() => setCounter(counter + 1)}
                         h="2rem"
@@ -264,7 +266,7 @@ export const InvestContainer: FunctionComponent = () => {
               <Flex gap="0.5rem" alignItems="center">
                 <Checkbox
                   defaultChecked={false}
-                  className="whiteCheckbox"
+                  variant="white"
                   spacing="0.75rem"
                   icon={
                     <RiCheckFill

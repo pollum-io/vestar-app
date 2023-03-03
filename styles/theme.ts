@@ -1,5 +1,5 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
-import { checkboxTheme } from "./roundCheckbox";
+import { checkboxTheme } from "./checkboxes";
 
 const config: ThemeConfig = {
   useSystemColorMode: false,
@@ -39,19 +39,20 @@ export const theme = extendTheme({
       },
     },
     Checkbox: checkboxTheme,
+    Progress: {
+      baseStyle: {
+        filledTrack: {
+          bg: "#007088",
+        },
+      },
+    },
   },
+
   zIndices: {
     default: 1,
     behind: "-1000",
   },
-  colors: {
-    gray: {
-      700: "#2c2f36",
-    },
-    neutralGreen: {
-      100: "#007088",
-    },
-  },
+
   fonts: {
     heading: "Inter",
     body: "Poppins",
