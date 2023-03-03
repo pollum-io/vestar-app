@@ -70,7 +70,7 @@ export const Carousel: React.FC<ICarousel> = props => {
         <BiRightArrowAlt />
       </IconButton>
       <Slider {...settings} ref={slider => setSlider(slider)}>
-        {images?.map((url, index) => (
+        {images?.map((url: any, index: any) => (
           <Box
             key={index}
             height={heightValue}
