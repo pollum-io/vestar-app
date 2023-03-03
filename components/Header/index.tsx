@@ -11,6 +11,7 @@ export const Header: React.FC = () => {
       alignItems={"center"}
       justifyContent="space-around"
       bgColor={"#FFFFFF"}
+      gap="24rem"
     >
       <Flex>
         <Img src={"images/livnlogo.png"} w="5" h="7" />
