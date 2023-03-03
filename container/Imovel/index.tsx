@@ -1,20 +1,22 @@
 import { Flex, Img, Text, Icon } from "@chakra-ui/react";
-import React, { Component, FunctionComponent } from "react";
-import { TbInfoSquare, TbSmartHome } from "react-icons/tb";
+import React, { FunctionComponent } from "react";
+import { TbInfoSquare } from "react-icons/tb";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "../../components/Imovel/Collections";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { PriceCard } from "../../components/Imovel/PriceCard";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import { Carousel } from "../../components/Imovel/Carousel";
+
+import { Maps } from "../../components/Map/Maps";
+
+const images = [
+  { id: 0, image: "images/car.png" },
+  { id: 1, image: "images/backgrounds/Image-2.png" },
+  { id: 2, image: "images/backgrounds/Image-3.png" },
+];
 
 //TODO: Componentizar
 export const ImovelContainer: FunctionComponent = () => {
-  const images = [
-    { id: 0, image: "images/car.png" },
-    { id: 1, image: "images/backgrounds/Image-2.png" },
-    { id: 2, image: "images/backgrounds/Image-3.png" },
-  ];
 
   return (
     <DefaultTemplate>
@@ -219,7 +221,7 @@ export const ImovelContainer: FunctionComponent = () => {
           </Text>
         </Flex>
         <Flex>
-          <Img w="100%" src={"images/Map.png"} />
+          <Maps />
         </Flex>
         <Flex mt="2rem" justifyContent={"space-between"}>
           <Flex w="50%" flexDir={"column"} gap="1rem">
