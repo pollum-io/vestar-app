@@ -7,3 +7,5 @@ export * from "./Portfolio";
 export * from "./Register";
 export * from "./Companies";
 export * from "./Companie";
+export * from "./Invest";
+export { default as AppWrapper } from "./AppWrapper";
