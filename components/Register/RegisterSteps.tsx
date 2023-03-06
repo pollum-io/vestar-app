@@ -60,6 +60,7 @@ const RegisterStep: FunctionComponent<IRegisterSteps> = ({
           w="5.695rem"
           h="0.3481rem"
           bgColor="#EDF2F7"
+          className="percentage"
         />
       </Flex>
     </Flex>
