@@ -1,6 +1,6 @@
-import { HomeContainer } from "../container";
+import { LoginContainer } from "../container";
 import type { NextPage } from "next";
 
-const Home: NextPage = () => <HomeContainer />;
+const Login: NextPage = () => <LoginContainer />;
 
-export default Home;
+export default Login;
