@@ -47,7 +47,7 @@ export const theme = extendTheme({
   colors: {},
   fonts: {
     heading: "Inter",
-    body: "Inter",
+    body: "Poppins",
     mono: "Roboto Mono",
   },
 });
