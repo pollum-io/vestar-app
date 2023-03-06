@@ -5,3 +5,5 @@ export * from "./Login";
 export * from "./Opportunities";
 export * from "./Portfolio";
 export * from "./Register";
+export * from "./Invest";
+export { default as AppWrapper } from "./AppWrapper";
