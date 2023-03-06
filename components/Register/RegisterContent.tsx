@@ -39,6 +39,7 @@ export const RegisterContent: FunctionComponent = () => {
                 lineHeight="1.25rem"
                 borderColor="#E2E8F0"
                 onChange={() => setIsPhysical(true)}
+                className="personType"
               >
                 Sou Pessoa Física
               </Checkbox>
@@ -54,6 +55,7 @@ export const RegisterContent: FunctionComponent = () => {
                 lineHeight="1.25rem"
                 borderColor="#E2E8F0"
                 onChange={() => setIsPhysical(false)}
+                className="personType"
               >
                 Sou Pessoa Jurídica
               </Checkbox>
@@ -77,6 +79,7 @@ export const RegisterContent: FunctionComponent = () => {
                 fontSize="0.875rem"
                 lineHeight="1.25rem"
                 borderRadius="0.5rem"
+                color="#FFF !important"
                 onClick={() => {
                   setSecondStep(true), setFirstStep(false);
                 }}
@@ -186,6 +189,7 @@ export const RegisterContent: FunctionComponent = () => {
                   onChange={() => {
                     setCanSend(!canSend), setSecondStep(!secondStep);
                   }}
+                  className="acceptTerms"
                 >
                   Declaro que li e aceito os termos acima.
                 </Checkbox>
@@ -235,6 +239,7 @@ export const RegisterContent: FunctionComponent = () => {
                   fontSize="0.875rem"
                   lineHeight="1.25rem"
                   borderRadius="0.5rem"
+                  color="#FFF !important"
                 >
                   Enviar Cadastro
                 </Button>

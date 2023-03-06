@@ -1,6 +1,23 @@
 .css-16syyon {
   background: #007088 !important;
 }
+
+.percentage > div {
+  background: #007088 !important;
+}
+
+.personType > span[data-checked]:first-of-type {
+  background: #1789a3 !important;
+  border-color: #1789a3 !important;
+  color: #ffffff !important;
+}
+
+.acceptTerms > span[data-checked]:first-of-type {
+  background: #1789a3 !important;
+  border-color: #1789a3 !important;
+  color: #ffffff !important;
+}
+
 .css-e9m96y[data-checked] {
   background: #1789a3 !important;
   border-color: #1789a3 !important;
