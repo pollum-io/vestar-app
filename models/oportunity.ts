@@ -9,7 +9,7 @@ const OpportunitySchema = new mongoose.Schema(
       maxlength: 60,
     },
     address: {
-      type: String,
+      type: Object,
     },
     address_url_map: {
       type: String,
@@ -66,7 +66,7 @@ const OpportunitySchema = new mongoose.Schema(
       type: String,
     },
     enterprise_type: {
-      type: Array,
+      type: String,
     },
     description_extra: {
       type: String,
