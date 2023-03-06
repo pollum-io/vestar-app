@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from "react";
-import { Flex, Text, Progress } from "@chakra-ui/react";
+import { Flex, Text, Progress, Button } from "@chakra-ui/react";
 import { IRegisterSteps } from "./dto";
 import { useRegister } from "../../hooks/useRegister";
 import { BsCheck } from "react-icons/bs";
+import { extendTheme } from "@chakra-ui/react";
 
 const RegisterStep: FunctionComponent<IRegisterSteps> = ({
   step,
@@ -35,10 +36,16 @@ const RegisterStep: FunctionComponent<IRegisterSteps> = ({
         pt="0.1rem"
         h="100%"
         gap="0.1913rem"
-        w={step === 1 ? "6rem" : "unset"}
+        w={step === 2 ? "7.9rem" : step === 3 ? "6.2rem" : "6rem"}
       >
         <Text
-          color={barPercentage !== 0 ? "#007088" : "#A0AEC0"}
+          color={
+            barPercentage !== 0
+              ? barPercentage === 50
+                ? "#007088"
+                : "#000000"
+              : "#A0AEC0"
+          }
           fontFamily="Poppins"
           fontStyle="normal"
           fontWeight={barPercentage !== 0 ? "500" : "400"}
