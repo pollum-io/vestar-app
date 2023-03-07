@@ -157,7 +157,7 @@
         "percentage": "Porcentagem"
     },
     "inputs": {
-        "hello": "Olá",
+        
         "noAbb": "Sem abreviações",
         "date": "dd/mm/aaaa",
         "insertHere": "Insira aqui",
