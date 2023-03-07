@@ -11,7 +11,6 @@ export const Collections: React.FC = () => {
 			gap="0.5rem"
 			pb="1.5rem"
 			pt="2rem"
-			bgColor="green"
 			justifyContent="center"
 		>
 			<CollectionsModal isOpen={isOpen} onClose={onClose} />
@@ -27,7 +26,6 @@ export const Collections: React.FC = () => {
 				onClick={onOpen}
 				columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
 				gap="0.5rem"
-				bgColor="blue"
 			>
 				<Img
 					w="17.125rem"

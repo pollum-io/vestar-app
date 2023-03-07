@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
-import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
+import { ICollectionsModal } from "./CollectionsModal";
 
 const settings = {
 	dots: true,
@@ -33,6 +34,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 			height={heightValue}
 			width={widthValue}
 			overflow={"hidden"}
+			borderRadius="0.25rem"
 		>
 			<link
 				rel="stylesheet"
@@ -54,8 +56,11 @@ export const Carousel: React.FC<ICarousel> = props => {
 				transform={"translate(0%, -50%)"}
 				zIndex={2}
 				onClick={() => slider?.slickPrev()}
+				bgColor="transparent"
+				_hover={{}}
+				_focus={{ bgColor: "transparent" }}
 			>
-				<BiLeftArrowAlt />
+				<MdArrowBackIosNew color="#ffffff" size={50} />
 			</IconButton>
 			<IconButton
 				aria-label="right-arrow"
@@ -66,8 +71,11 @@ export const Carousel: React.FC<ICarousel> = props => {
 				transform={"translate(0%, -50%)"}
 				zIndex={2}
 				onClick={() => slider?.slickNext()}
+				bgColor="transparent"
+				_hover={{}}
+				_focus={{ bgColor: "transparent" }}
 			>
-				<BiRightArrowAlt />
+				<MdArrowForwardIos color="#ffffff" size={50} />
 			</IconButton>
 			<Slider {...settings} ref={slider => setSlider(slider)}>
 				{images?.map((url: any, index: any) => (
