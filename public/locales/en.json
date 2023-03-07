@@ -156,7 +156,7 @@
         "percentage": "Percentage"
     },
     "inputs": {
-        "hello": "Hello",
+        
         "noAbb": "No abbreviations",
         "date": "dd/mm/aaaa",
         "socialNumber": "AAA-GG-SSSS",

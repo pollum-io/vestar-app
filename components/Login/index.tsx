@@ -50,7 +50,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               E-mail
             </Text>
             <Input
-              placeholder="Hello"
               _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
               border="0.0938rem solid #E2E8F0"
               _hover={{}}
@@ -91,7 +90,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
               </Text>
             </Flex>
             <Input
-              placeholder="Hello"
               _placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
               border="0.0938rem solid #E2E8F0"
               _hover={{}}
