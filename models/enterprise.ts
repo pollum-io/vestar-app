@@ -31,7 +31,7 @@ const EnterpriseSchema = new mongoose.Schema(
 		},
 		description: {
 			required: true,
-			type: Object,
+			type: String,
 		},
 		address: {
 			type: Object,
@@ -40,7 +40,7 @@ const EnterpriseSchema = new mongoose.Schema(
 			type: Array,
 		},
 		enterprise_info: {
-			type: Array,
+			type: Object,
 		},
 		kyc_approved: {
 			type: Boolean,
