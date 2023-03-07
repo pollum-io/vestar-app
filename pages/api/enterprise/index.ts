@@ -7,7 +7,7 @@ import Enterprise from "../../../models/enterprise";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
-type ResponseData = ApiResponse<string[], string>;
+type ResponseData = ApiResponse<string>;
 
 const router = nextConnect({
 	onError(error, req: NextApiRequest, res: NextApiResponse<ResponseData>) {
@@ -40,7 +40,7 @@ const fetchSchema = z.object({
 	limit: z.optional(z.preprocess(Number, z.number())),
 });
 
-router.post(verifyUser, async (req: NextApiRequest, res: NextApiResponse) => {
+router.post(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
@@ -60,7 +60,7 @@ router.post(verifyUser, async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 });
 
-router.get(async (req: NextApiRequest, res: NextApiResponse) => {
+router.get(async (req, res) => {
 	try {
 		await dbConnect();
 
