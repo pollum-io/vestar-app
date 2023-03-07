@@ -1,6 +1,5 @@
 import { Flex, Img, Text, Icon } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
-import { TbInfoSquare } from "react-icons/tb";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "../../components/Imovel/Collections";
 import { DefaultTemplate } from "../DefaultTemplate";
@@ -19,9 +18,9 @@ const images = [
 export const ImovelContainer: FunctionComponent = () => {
 	return (
 		<DefaultTemplate>
-			<Flex px="5rem" flexDir={"column"} bgColor="red">
+			<Flex px="5rem" flexDir={"column"}>
 				<Collections />
-				<Flex flexDir={"column"} bgColor="blue">
+				<Flex flexDir={"column"}>
 					<Flex gap="1" pb="0.75rem">
 						<Img src="images/backgrounds/avatar.png" />
 						<Text fontWeight={"400"} color="#171923">
@@ -81,9 +80,16 @@ export const ImovelContainer: FunctionComponent = () => {
 								<Text fontSize={"sm"} fontWeight="400" color="#718096">
 									Rentabilidade Esperada
 								</Text>
-								<Flex gap="0.25rem">
+								<Flex gap="0.25rem" alignItems="center">
 									<Text color="#000000">12% ao ano</Text>
-									<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
+									<Img
+										src={"icons/InfoSquare.png"}
+										color={"red"}
+										w="1rem"
+										h="1rem"
+										mb="0.15rem"
+										_hover={{ cursor: "pointer" }}
+									/>
 								</Flex>
 							</Flex>
 						</Flex>
@@ -213,17 +219,23 @@ export const ImovelContainer: FunctionComponent = () => {
 					<Text color={"#171923"}>Atualmente esta obra está em estágio de</Text>
 				</Flex>
 			</Flex>
-			<Flex py="4rem" px="5rem" flexDir={"column"}>
-				<Flex mb={"2rem"}>
+			<Flex
+				py="4rem"
+				px="5rem"
+				flexDir={"column"}
+				justifyContent="center"
+				alignItems="center"
+			>
+				<Flex mb={"2rem"} w="100%" maxWidth="70rem">
 					<Text fontSize={"1.5rem"} fontWeight={"600"} color={"#171923"}>
 						Localização
 					</Text>
 				</Flex>
-				<Flex>
+				<Flex maxWidth="70rem">
 					<Maps />
 				</Flex>
-				<Flex mt="2rem" justifyContent={"space-between"}>
-					<Flex w="50%" flexDir={"column"} gap="1rem">
+				<Flex mt="2rem" gap="7.75rem" justifyContent="center">
+					<Flex flexDir={"column"} gap="1rem" w="34.875rem">
 						<Text fontWeight={"600"} color={"#171923"}>
 							Jurerê, Florianópolis, Santa Catarina
 						</Text>
@@ -242,8 +254,12 @@ export const ImovelContainer: FunctionComponent = () => {
 							exclusivos e, sobretudo, organização e natureza.
 						</Text>
 					</Flex>
-					<Flex w="40%">
-						<Carousel images={images} widthValue="full" heightValue="16rem" />
+					<Flex>
+						<Carousel
+							images={images}
+							widthValue="27.3144rem"
+							heightValue="15.5rem"
+						/>
 					</Flex>
 				</Flex>
 			</Flex>
