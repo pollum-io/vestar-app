@@ -1,10 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next/types";
+import { NextApiRequest, NextApiResponse } from "next";
+import { isValidObjectId } from "mongoose";
+import nextConnect from "next-connect";
 
 import dbConnect from "../../../lib/dbConnect";
-import InvestorSchema from "../../../models/investor";
+import Enterprise from "../../../models/enterprise";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
-import nextConnect from "next-connect";
 
 type ResponseData = ApiResponse<string>;
 
@@ -21,15 +22,19 @@ router.get(async (req, res) => {
 	try {
 		await dbConnect();
 
-		const { cpf } = req.query;
+		const { id } = req.query;
 
-		const investor = await InvestorSchema.findOne({ cpf });
-
-		if (!investor) {
-			return res.status(204).end(`There is no match for ${cpf}`);
+		if (!isValidObjectId(id)) {
+			return res.status(400).json({ error: "invalid id" });
 		}
 
-		res.status(200).json({ data: investor });
+		const enterprise = await Enterprise.findById(id);
+
+		if (!enterprise) {
+			return res.status(404).json({ error: "enterprise not found" });
+		}
+
+		res.status(200).json({ data: enterprise });
 	} catch (error: any) {
 		res.status(400).json({ error: error.message });
 	}
@@ -39,18 +44,22 @@ router.put(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const { cpf } = req.query;
+		const { id } = req.query;
 
-		const investor = await InvestorSchema.findOneAndUpdate({ cpf }, req.body, {
-			new: true,
-			runValidators: true,
-		});
+		const enterprise = await Enterprise.findOneAndUpdate(
+			{ _id: id },
+			req.body,
+			{
+				new: true,
+				runValidators: true,
+			}
+		);
 
-		if (!investor) {
-			return res.status(204).end("no investor data to udpate");
+		if (!enterprise) {
+			return res.status(204).end("no enterprise data to update");
 		}
 
-		res.status(201).json({ data: investor });
+		res.status(200).json({ data: enterprise });
 	} catch (error: any) {
 		res.status(400).json({ error: error.message });
 	}
@@ -60,17 +69,13 @@ router.delete(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const { cpf } = req.query;
+		const { id } = req.query;
 
-		const deletedInvestor = await InvestorSchema.deleteOne({ cpf });
-
-		if (!deletedInvestor) {
-			return res.status(202).end("no investor data to delete");
-		}
+		await Enterprise.findByIdAndDelete(id);
 
 		res.status(204).end();
 	} catch (error: any) {
-		res.status(400).json({ error: error?.message });
+		res.status(400).json({ error: error.message });
 	}
 });
 
