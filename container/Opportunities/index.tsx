@@ -16,35 +16,98 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 				<Flex w="100%">
 					<Flex w="100%">
 						<Img w="100%" h="21.3125rem" src="images/backgrounds/marble.png" />
-						<Img
+						<Flex
 							w="100%"
 							h="21.3125rem"
-							src="images/backgrounds/purpleGradient.png"
+							background="linear-gradient(91.4deg, #BBA1FF 80.04%, #E3FCFC 99.32%)"
+							mixBlendMode="multiply"
+							transform="matrix(-1, 0, 0, 1, 0, 0)"
 							position="absolute"
-							opacity="0.7"
 						/>
 					</Flex>
-					<Flex w="100%" h="21.3125rem" position="absolute" pl="12.6875rem">
-						<Img w="max-content" h="100%" src="images/backgrounds/woman.png" />
-					</Flex>
 					<Flex
-						position="absolute"
 						w="100%"
 						h="21.3125rem"
-						alignItems="center"
-						pl="6.875rem"
+						position="absolute"
+						gap="5%"
+						justifyContent="center"
 					>
-						<Text
-							w="18rem"
-							fontFamily="Poppins"
-							fontWeight="600"
-							fontSize="2.25rem"
-							lineHeight="2.5rem"
-							color="#FFFFFF"
-						>
-							Investir é muito mais fácil com a LIVN
-						</Text>
-						<Flex></Flex>
+						<Flex position="relative" alignItems="center">
+							<Img
+								w="max-content"
+								h="100%"
+								src="images/backgrounds/woman.png"
+								position="absolute"
+								zIndex="base"
+								left="6rem"
+							/>
+							<Text
+								w="18rem"
+								fontFamily="Poppins"
+								fontWeight="600"
+								fontSize="2.25rem"
+								lineHeight="2.5rem"
+								mr="5rem"
+								color="#FFFFFF"
+								zIndex="docked"
+								mt="2.5rem"
+							>
+								Investir é muito mais fácil com a LIVN
+							</Text>
+						</Flex>
+						<Flex h="21.3125rem" alignItems="center" w="50%" maxWidth="47rem">
+							<Flex justifyContent="space-between" w="100%" gap="1.5rem">
+								<Flex flexDirection="column" gap="0.625rem">
+									<Img src="images/firstIcon.png" w="2.1125rem" h="2.8rem" />
+									<Text
+										fontFamily="Poppins"
+										fontSize="1rem"
+										lineHeight="1.5rem"
+										color="#FFFFFF"
+										w="7.5625rem"
+									>
+										Abra uma oportunidade disponível para você
+									</Text>
+								</Flex>
+								<Flex flexDirection="column" gap="0.625rem">
+									<Img src="images/secondIcon.png" w="2.1125rem" h="2.8rem" />
+									<Text
+										fontFamily="Poppins"
+										fontSize="1rem"
+										lineHeight="1.5rem"
+										color="#FFFFFF"
+										w="7.5625rem"
+									>
+										Selecione a quantidade de cotas que você deseja
+									</Text>
+								</Flex>
+								<Flex flexDirection="column" gap="0.625rem">
+									<Img src="images/thirdIcon.png" w="2.1125rem" h="2.8rem" />
+									<Text
+										fontFamily="Poppins"
+										fontSize="1rem"
+										lineHeight="1.5rem"
+										color="#FFFFFF"
+										w="7.5625rem"
+									>
+										Clique em Quero Investir e faça o pagamento
+									</Text>
+								</Flex>
+								<Flex flexDirection="column" gap="0.625rem" pt="0.2rem">
+									<Img src="images/checkIcon.png" w="2.8rem" h="2.6rem" />
+									<Text
+										fontFamily="Poppins"
+										fontSize="1rem"
+										lineHeight="1.5rem"
+										color="#FFFFFF"
+										w="11.125rem"
+									>
+										Pronto! agora é só acompanhar os rendimentos na aba
+										Portfólio
+									</Text>
+								</Flex>
+							</Flex>
+						</Flex>
 					</Flex>
 				</Flex>
 				<Flex

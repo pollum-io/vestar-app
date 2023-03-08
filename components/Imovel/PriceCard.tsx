@@ -26,60 +26,81 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			<Text fontSize={"xl"} fontWeight="500">
 				Nome da Cota
 			</Text>
-			<Flex
-				my="1rem"
-				bgColor={"#1789A3"}
-				py="0.5rem"
-				px="1rem"
-				borderRadius="0.5rem"
-				justifyContent={"space-between"}
-				alignItems="center"
-			>
-				<Flex flexDir={"column"}>
-					<Text fontSize={"xs"} fontWeight="500">
-						Selecione a Quantidade
-					</Text>
-					<Text fontSize={"sm"} fontWeight="400">
-						1 cota
-					</Text>
-				</Flex>
-				{isInvestidor && (
-					<Flex>
-						<Img _hover={{ cursor: "pointer" }} src={"icons/PlusIcon.png"} />
-						<Img _hover={{ cursor: "pointer" }} src={"icons/MinusIcon.png"} />
+			{isInvestidor ? (
+				<Flex flexDirection="column">
+					<Flex
+						my="1rem"
+						bgColor={"#1789A3"}
+						py="0.5rem"
+						px="1rem"
+						borderRadius="0.5rem"
+						justifyContent={"space-between"}
+						alignItems="center"
+					>
+						<Flex flexDir={"column"}>
+							<Text fontSize={"xs"} fontWeight="500">
+								Selecione a Quantidade
+							</Text>
+							<Text fontSize={"sm"} fontWeight="400">
+								1 cota
+							</Text>
+						</Flex>
+
+						<Flex>
+							<Img _hover={{ cursor: "pointer" }} src={"icons/PlusIcon.png"} />
+							<Img _hover={{ cursor: "pointer" }} src={"icons/MinusIcon.png"} />
+						</Flex>
 					</Flex>
-				)}
-			</Flex>
-			<Flex
-				flexDirection={"column"}
-				pb="1rem"
-				mb="1rem"
-				borderBottom="1px solid #4BA3B7"
-			>
-				<Flex justifyContent={"space-between"} w="100%">
-					<Text fontWeight={"500"}>Total</Text>
-					<Text fontWeight={"500"}>R$150</Text>
-				</Flex>
-				{isInvestidor && (
-					<Flex flexDir={"column"} alignItems="center" mt="1rem">
-						<Button
-							fontWeight={"500"}
-							fontSize={"md"}
-							bgColor="#FFFFFF"
-							color="#007088"
-							w="100%"
-							px="10px"
-							py="16px"
-							mb={"1rem"}
-						>
-							Quero investir
-						</Button>
-						<Text fontWeight={"400"} fontSize={"xs"}>
-							Você ainda não será cobrado.
-						</Text>
+					<Flex
+						flexDirection={"column"}
+						pb="1rem"
+						mb="1rem"
+						borderBottom="1px solid #4BA3B7"
+					>
+						<Flex justifyContent={"space-between"} w="100%">
+							<Text fontWeight={"500"}>Total</Text>
+							<Text fontWeight={"500"}>R$150</Text>
+						</Flex>
+
+						<Flex flexDir={"column"} alignItems="center" mt="1rem">
+							<Button
+								fontWeight={"500"}
+								fontSize={"md"}
+								bgColor="#FFFFFF"
+								color="#007088"
+								w="100%"
+								px="10px"
+								py="16px"
+								mb={"1rem"}
+							>
+								Quero investir
+							</Button>
+							<Text fontWeight={"400"} fontSize={"xs"}>
+								Você ainda não será cobrado.
+							</Text>
+						</Flex>
 					</Flex>
-				)}
-			</Flex>
+				</Flex>
+			) : (
+				<Flex
+					fontFamily="Poppins"
+					fontStyle="normal"
+					fontWeight="500"
+					fontSize="1rem"
+					lineHeight="1.5rem"
+					alignItems="center"
+					color="#FFFFFF"
+					w="100%"
+					mt="1rem"
+					flexDirection="column"
+				>
+					<Flex justifyContent="space-between" w="100%">
+						<Text>Preço unitário</Text>
+						<Text>R$150</Text>
+					</Flex>
+					<Flex w="100%" border="1px solid #4BA3B7" my="1rem" />
+				</Flex>
+			)}
 			<Flex flexDir={"column"} gap="0.5rem">
 				<Flex justifyContent={"space-between"}>
 					<Text fontSize={"md"} fontWeight="400">
@@ -98,7 +119,10 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						/>
 					</Flex>
 				</Flex>
-				<Flex justifyContent={"space-between"}>
+				<Flex
+					justifyContent={"space-between"}
+					display={isInvestidor ? "flex" : "none"}
+				>
 					<Text fontSize={"md"} fontWeight="400">
 						Preço unitário
 					</Text>
