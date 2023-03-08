@@ -1,6 +1,5 @@
-import { FunctionComponent, useState, useEffect } from "react";
-import { useRouter } from 'next/router'
-import { Button, Flex, Img, Text, SimpleGrid, Icon } from "@chakra-ui/react";
+import { FunctionComponent } from "react";
+import { Flex, Img, Text, Icon } from "@chakra-ui/react";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "./Collections";
 import { PriceCard } from "./PriceCard";
@@ -8,25 +7,12 @@ import { Carousel } from "./Carousel";
 import { TbInfoSquare } from "react-icons/tb";
 import { Maps } from "../Map/Maps";
 import { IOpportunitiesCard } from "../Opportunities/OpportunitiesCard/dto";
-import { fetchImovelDetail } from "../../services/imovelDetail";
-import { useQuery } from "react-query";
-import home from "./icons/Home.png"
-import square from "./icons/Edit Square.png"
-import document from "./icons/Document.png"
-import folder from "./icons/Folder.png"
 import { formatDate } from "../../utils/formatDate";
+interface IImovelProps {
+	imovelDetails: IOpportunitiesCard;
+}
 
-export const ImovelDetail: FunctionComponent = () => {
-
-	const router = useRouter();
-	const imovelId = router.query.id
-	const [imovelDetails, setImovelDetails] = useState<IOpportunitiesCard>();
-
-	useEffect(() => {
-		if (imovelId) {
-			fetchImovelDetail(imovelId as string).then(res => setImovelDetails(res.data))
-		}
-	}, [imovelId])
+export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails }) => {
 
 	return (
 		<Flex flexDir={"column"}>
@@ -57,7 +43,7 @@ export const ImovelDetail: FunctionComponent = () => {
 					</Flex>
 					<Flex gap="0.625rem" pb="1.5rem">
 						<Icon w={6} h={6} color={"#718096"} as={FiMapPin} />
-						<Text color={"#718096"}>{`${imovelDetails?.address.street}, ${imovelDetails?.address.neighborhood}`}
+						<Text color={"#718096"}>{`${imovelDetails?.address?.street}, ${imovelDetails?.address?.neighborhood}`}
 						</Text>
 					</Flex>
 					<Flex flexDir={"column"} pb="3rem">
@@ -137,7 +123,7 @@ export const ImovelDetail: FunctionComponent = () => {
 						</Text>
 						<Flex gap="8rem">
 							<Flex flexDir={"column"} maxH={"10rem"} flexWrap={"wrap"} color={"#171923"}>
-								{imovelDetails?.general_info.map((infos: string) =>
+								{imovelDetails?.general_info?.map((infos: string) =>
 									// eslint-disable-next-line react/jsx-key
 									<Text pr="3">&bull; {infos}</Text>
 								)}
@@ -168,25 +154,25 @@ export const ImovelDetail: FunctionComponent = () => {
 				</Text>
 				<Flex gap="2.1875rem">
 					<Flex alignItems={"center"} gap="0.9rem">
-						<Img src={home.src} />
+						<Img src={"/images/icons/Home.png"} />
 						<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
 							Todas as plantas da obra
 						</Text>
 					</Flex>
 					<Flex alignItems={"center"} gap="0.9rem">
-						<Img src={square.src} />
+						<Img src={"/images/icons/Edit-Square.png"} />
 						<Text fontWeight={"400"} color={"#171923"} w="100%">
 							Auditorias
 						</Text>
 					</Flex>
 					<Flex alignItems={"center"} gap="0.9rem">
-						<Img src={document.src} />
+						<Img src={"/images/icons/Document.png"} />
 						<Text fontWeight={"400"} color={"#171923"} w="100%">
 							Notas Fiscais
 						</Text>
 					</Flex>
 					<Flex alignItems={"center"} gap="0.9rem">
-						<Img src={folder.src} />
+						<Img src={"/images/icons/Folder.png"} />
 						<Text fontWeight={"400"} color={"#171923"} w="75%">
 							Documentos Extras
 						</Text>
@@ -208,7 +194,7 @@ export const ImovelDetail: FunctionComponent = () => {
 				<Flex w="100%" mt="2rem" justifyContent={"space-between"}>
 					<Flex w="50%" flexDir={"column"} gap="1rem">
 						<Text fontWeight={"600"} color={"#171923"}>
-							{imovelDetails?.address.street}, {imovelDetails?.address.neighborhood}, {imovelDetails?.address.state}
+							{imovelDetails?.address?.street}, {imovelDetails?.address?.neighborhood}, {imovelDetails?.address?.state}
 						</Text>
 						<Text fontSize={"sm"} color={"#171923"}>
 							{imovelDetails?.neighbor_description}

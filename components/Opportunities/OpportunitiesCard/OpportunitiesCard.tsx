@@ -13,7 +13,7 @@ export const OpportunitiesCard: FunctionComponent = () => {
 
 	const { data: cardsInfo } = query("oportunity", fetchOpportunity, {
 		refetchOnWindowFocus: false,
-		refetchInterval: 300000,
+		refetchInterval: false,
 	})
 
 	const [cardImage, setCardImage] = useState<string[]>([])
