@@ -11,4 +11,5 @@ export interface IOpportunitiesCard {
   estimateFinish?: string;
   rentability?: string | DefaultTFuncReturn;
   finished?: boolean;
+  isPortfolio?: boolean;
 }
