@@ -8,20 +8,23 @@ import { PriceCard } from "../../components/Imovel/PriceCard";
 import { Carousel } from "../../components/Imovel/Carousel";
 import { useTranslation } from "react-i18next";
 
+import { Maps } from "../../components/Map/Maps";
+
+const images = [
+  { id: 0, image: "images/car.png" },
+  { id: 1, image: "images/backgrounds/Image-2.png" },
+  { id: 2, image: "images/backgrounds/Image-3.png" },
+];
+
 //TODO: Componentizar
 export const ImovelContainer: FunctionComponent = () => {
-  const images = [
-    { id: 0, image: "images/car.png" },
-    { id: 1, image: "images/backgrounds/Image-2.png" },
-    { id: 2, image: "images/backgrounds/Image-3.png" },
-  ];
 
   const { t } = useTranslation();
 
   return (
     <DefaultTemplate>
       <Flex px="5rem" flexDir={"column"}>
-        <Collections />
+          <Collections />
         <Flex flexDir={"column"}>
           <Flex gap="1" pb="0.75rem">
             <Img src="images/backgrounds/avatar.png" />
@@ -221,7 +224,7 @@ export const ImovelContainer: FunctionComponent = () => {
           </Text>
         </Flex>
         <Flex>
-          <Img w="100%" src={"images/Map.png"} />
+          <Maps />
         </Flex>
         <Flex mt="2rem" justifyContent={"space-between"}>
           <Flex w="50%" flexDir={"column"} gap="1rem">

@@ -1,0 +1,82 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { isValidObjectId } from "mongoose";
+import nextConnect from "next-connect";
+
+import dbConnect from "../../../lib/dbConnect";
+import Enterprise from "../../../models/enterprise";
+import { verifyUser } from "../../../lib/auth";
+import { ApiResponse } from "../../../models/ApiResponse";
+
+type ResponseData = ApiResponse<string>;
+
+const router = nextConnect({
+	onError(error, req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+		res.status(501).json({ error: `something went wrong! ${error.message}` });
+	},
+	onNoMatch(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+		res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+	},
+});
+
+router.get(async (req, res) => {
+	try {
+		await dbConnect();
+
+		const { id } = req.query;
+
+		if (!isValidObjectId(id)) {
+			return res.status(400).json({ error: "invalid id" });
+		}
+
+		const enterprise = await Enterprise.findById(id);
+
+		if (!enterprise) {
+			return res.status(404).json({ error: "enterprise not found" });
+		}
+
+		res.status(200).json({ data: enterprise });
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
+router.put(verifyUser, async (req, res) => {
+	try {
+		await dbConnect();
+
+		const { id } = req.query;
+
+		const enterprise = await Enterprise.findOneAndUpdate(
+			{ _id: id },
+			req.body,
+			{
+				new: true,
+				runValidators: true,
+			}
+		);
+
+		if (!enterprise) {
+			return res.status(204).end("no enterprise data to update");
+		}
+
+		res.status(200).json({ data: enterprise });
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
+router.delete(verifyUser, async (req, res) => {
+	try {
+		await dbConnect();
+
+		const { id } = req.query;
+
+		await Enterprise.findByIdAndDelete(id);
+
+		res.status(204).end();
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
+export default router;
