@@ -42,6 +42,18 @@ export const ImovelContainer: FunctionComponent = () => {
 						>
 							Residencial
 						</Text>
+						<Flex
+							bgColor="#F0E8FF"
+							py="0.25rem"
+							px="1rem"
+							borderRadius={"4.875rem"}
+							fontSize={"sm"}
+							color="#171923"
+							gap="0.25rem"
+						>
+							<Text fontWeight="400">Você possui</Text>
+							<Text fontWeight="600">12 cotas</Text>
+						</Flex>
 					</Flex>
 					<Flex gap="0.625rem" pb="1.5rem">
 						<Icon w={6} h={6} color={"#718096"} as={FiMapPin} />
@@ -142,6 +154,23 @@ export const ImovelContainer: FunctionComponent = () => {
 							Fringilla in phasellus arcu placerat tristique eget lacinia.
 							Aliquam sed hac platea sit ornare nam pellentesque. Nunc lacus
 							sapien senectus faucibus felis.
+						</Text>
+					</Flex>
+					<Flex
+						flexDirection="column"
+						padding="1.5rem"
+						gap="0.25rem"
+						w="23.125rem"
+						background="#4BA3B7"
+						borderRadius="0.75rem"
+						fontFamily="Poppins"
+						color="#FFFFFF"
+					>
+						<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem">
+							6 dias 17 h e 36min para encerrar as vendas
+						</Text>
+						<Text fontWeight="400" fontSize="0.875rem" lineHeight="1.25rem">
+							Preço unitário no próximo lote: R$ 180
 						</Text>
 					</Flex>
 					<PriceCard axisY="34rem" />
