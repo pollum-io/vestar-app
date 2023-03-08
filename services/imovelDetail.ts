@@ -1,4 +1,4 @@
-export async function fetchImovelDetail(id: string) {
+export async function fetchImovelDetail(id: any) {
 	const request = await fetch(`http://localhost:3000/api/opportunity/${id}`, {
 		method: "GET",
 	});

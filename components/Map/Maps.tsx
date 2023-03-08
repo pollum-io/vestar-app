@@ -1,9 +1,7 @@
 import { Flex } from "@chakra-ui/react"
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api"
 import { FunctionComponent, useEffect, useMemo, useState } from "react"
-import { useQuery } from "react-query"
 import { fetchGeocode } from "../../services"
-import homeIcon from './Home-Maps.svg'
 interface IMaps {
 	localization?: any;
 	localizations?: [];
@@ -38,7 +36,7 @@ export const Maps: FunctionComponent<IMaps> = ({ localization, localizations }) 
 				>
 					<MarkerF
 						icon={{
-							url: homeIcon.src,
+							url: "/images/icons/Home-Maps.svg",
 							scaledSize: new google.maps.Size(57, 57),
 							labelOrigin: new google.maps.Point(30, -32),
 						}}
