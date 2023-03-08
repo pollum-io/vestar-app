@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
+import { fetchOpportunitiesImages } from "../../services/opportunitiesImages";
 
 const settings = {
 	dots: true,
@@ -26,6 +27,18 @@ export const Carousel: React.FC<ICarousel> = props => {
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const top = useBreakpointValue({ base: "90%", md: "50%" });
 	const side = useBreakpointValue({ base: "30%", md: "10px" });
+
+	const [imagesCarousel, setImagesCarousel] = useState<string[]>([])
+
+	useEffect(() => {
+		if (images) {
+			images.map((picture: string) => {
+				fetchOpportunitiesImages(picture).then(res => {
+					setImagesCarousel(prevState => [...prevState, res])
+				})
+			})
+		}
+	}, [images])
 
 	return (
 		<Box
@@ -70,7 +83,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 				<BiRightArrowAlt />
 			</IconButton>
 			<Slider {...settings} ref={slider => setSlider(slider)}>
-				{images?.map((url: any, index: any) => (
+				{imagesCarousel?.map((url: any, index: any) => (
 					<Box
 						key={index}
 						height={heightValue}
@@ -78,7 +91,8 @@ export const Carousel: React.FC<ICarousel> = props => {
 						backgroundPosition="center"
 						backgroundRepeat="no-repeat"
 						backgroundSize="cover"
-						backgroundImage={`url(${url.image})`}
+						backgroundImage={`url(${url})`}
+						objectFit={'cover'}
 					/>
 				))}
 			</Slider>
