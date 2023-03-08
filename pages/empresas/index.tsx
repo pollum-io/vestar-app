@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { CompaniesContainer } from "../container";
+import { CompaniesContainer } from "../../container";
 
 const Companies: NextPage = () => <CompaniesContainer />;
 
