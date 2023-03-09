@@ -8,19 +8,11 @@ import { useRouter } from "next/router";
 import { fetchEnterpriseById } from "../../services/fetchEnterpriseById";
 import { ICompaniesDetails, ICompaniesInfo, ICompaniesTeam } from "../Companies/CompaniesCard/dto";
 
-export const CompaniePage: FunctionComponent = () => {
+interface ICompanie {
+	companieDetail: ICompaniesDetails;
+}
 
-	const router = useRouter();
-	const companieId = router.query.id
-	const [companieDetail, setCompanieDetail] = useState<ICompaniesDetails>();
-
-	useEffect(() => {
-		if (companieId) {
-			fetchEnterpriseById(companieId as string).then(res => setCompanieDetail(res.data))
-		}
-	}, [companieId])
-
-	console.log(companieDetail, 'imovelDetails');
+export const CompaniePage: FunctionComponent<ICompanie> = ({ companieDetail }) => {
 
 	return (
 		<Flex flexDirection="column" mt="6.25rem" mb="4.5rem">
