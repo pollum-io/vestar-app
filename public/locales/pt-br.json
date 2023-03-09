@@ -34,14 +34,14 @@
         "whoInvited": "Quem convidou você para a LIVN?",
         "legalPerson": "Sou Pessoa Jurídica",
         "corporateName": "Razão Social",
-        "nationalRegister": "CNPJ",       
+        "nationalRegister": "CNPJ",
         "federal": "UF",
         "nextStep": "Prosseguir",
         "termsAnd": "Termos e Condições de Uso",
         "iAgree": "Declaro que li e aceito os termos acima.",
         "send": "Enviar Cadastro",
         "back": "Voltar"
-        
+
     },
     "opportunities": {
         "investingIs": "Investir é muito mais fácil com a LIVN",
@@ -130,6 +130,7 @@
     "portfolio": {
         "hello": "Olá, {{Name}}!",
         "thisIs": "Esse é o seu portfólio de {{28/nov/22}}",
+				"summary": "Resumo de Vendas",
         "currentAssets": "Patrimônio Atual",
         "result": "Resultado",
         "prof": "Rentabilidade",
@@ -141,13 +142,14 @@
         "allEnterprises": "Todos os imóveis",
         "another": "Outro tipo",
         "yourInvestments": "Seus investimentos",
+				"investment": "Investimento",
         "enterprises": "Empreendimentos",
         "totalInvested": "Total Investido",
         "maturity": "Vencimento",
         "current": "Valor Atual de Mercado",
         "where": "Onde você tem investido",
         "ofPortfolio": "do portfólio",
-        "registered": "Empreendimentos Cadastrados",
+        "registered": "Empreendimentos cadastrados",
         "revenue": "Arrecadação",
         "sharesTraded": "Cotas Negociadas",
         "bestSelling": "Cotas Mais Vendidas",
@@ -157,14 +159,14 @@
         "percentage": "Porcentagem"
     },
     "inputs": {
-        
+
         "noAbb": "Sem abreviações",
         "date": "dd/mm/aaaa",
         "insertHere": "Insira aqui",
         "findCompanie": "Procurar empresa",
         "emailExample": "exemplo@exemplo.com"
-        
+
     }
     }
-    
-    
+
+

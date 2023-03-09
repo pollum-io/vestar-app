@@ -14,10 +14,12 @@ import {
 import { DefaultTemplate } from "../DefaultTemplate";
 import { PaymentMethods, DefaultInput } from "../../components";
 import { RiCheckFill } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 export const InvestContainer: FunctionComponent = () => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<any>(1);
+	const { t } = useTranslation();
 
 	return (
 		<DefaultTemplate>
@@ -41,7 +43,7 @@ export const InvestContainer: FunctionComponent = () => {
 									lineHeight="2rem"
 									color="#171923"
 								>
-									Resumo do investimento
+									{t("wantToInvest.summary")}
 								</Text>
 								<Flex
 									fontFamily="Poppins"
@@ -53,10 +55,10 @@ export const InvestContainer: FunctionComponent = () => {
 									maxWidth="41.875rem"
 									pr="1rem"
 								>
-									<Text>Imóvel</Text>
+									<Text>{t("wantToInvest.property")}</Text>
 									<Flex justifyContent="space-between" w="49%" pr="3.1rem">
-										<Text>Cota</Text>
-										<Text>Quantidade</Text>
+										<Text>{t("wantToInvest.quota")}</Text>
+										<Text>{t("wantToInvest.amount")}</Text>
 									</Flex>
 								</Flex>
 							</Flex>
@@ -130,7 +132,7 @@ export const InvestContainer: FunctionComponent = () => {
 											lineHeight="1rem"
 											color="#2D3748"
 										>
-											R$ 150
+											{t("opportunities.card.sign")} 150
 										</Text>
 									</Flex>
 									<Flex flexDirection="column" gap="0.1875rem">
@@ -213,7 +215,7 @@ export const InvestContainer: FunctionComponent = () => {
 								lineHeight="2rem"
 								color="#171923"
 							>
-								Selecione a forma de pagamento
+								{t("wantToInvest.select")}
 							</Text>
 							<PaymentMethods />
 						</Flex>
@@ -232,7 +234,7 @@ export const InvestContainer: FunctionComponent = () => {
 							color="#FFFFFF"
 						>
 							<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem">
-								Confirmar dados
+								{t("wantToInvest.confirmData")}
 							</Text>
 							<Flex
 								justifyContent="space-between"
@@ -241,7 +243,7 @@ export const InvestContainer: FunctionComponent = () => {
 								fontWeight="400"
 							>
 								<Text>cota_name</Text>
-								<Text>R$150</Text>
+								<Text>{t("opportunities.card.sign")}150</Text>
 							</Flex>
 							<Flex
 								justifyContent="space-between"
@@ -249,15 +251,15 @@ export const InvestContainer: FunctionComponent = () => {
 								lineHeight="1.5rem"
 								fontWeight="500"
 							>
-								<Text>Total</Text>
-								<Text>R$150</Text>
+								<Text>{t("opportunitieDetails.total")}</Text>
+								<Text>{t("opportunities.card.sign")}150</Text>
 							</Flex>
 							<Flex w="100%" bgColor="#4BA3B7" h="0.0625rem" />
 
 							<DefaultInput
 								color="#FFFFFF"
-								title="Sua assinatura digital"
-								placeholder="Insira aqui"
+								title={t("wantToInvest.digital")}
+								placeholder={t("inputs.insertHere")}
 								bgColor="#1789A3"
 								placeholderColor="rgba(255, 255, 255, 0.48)"
 								border="0.0625rem solid #4BA3B7"
@@ -280,12 +282,12 @@ export const InvestContainer: FunctionComponent = () => {
 									w="max-content"
 								/>
 								<Text>
-									Declaro que li e aceito os{" "}
+									{t("wantToInvest.declare")}{" "}
 									<Link
 										textDecoration="underline"
 										_hover={{ fontWeight: "500" }}
 									>
-										Termos de Compra
+										{t("wantToInvest.termsOf")}
 									</Link>
 									.
 								</Text>
@@ -308,7 +310,7 @@ export const InvestContainer: FunctionComponent = () => {
 										!isTerms ? { opacity: "0.3" } : { bgColor: "#EDF2F7" }
 									}
 								>
-									Confirmar Investimento
+									{t("wantToInvest.confirmInvest")}
 								</Button>
 							</Flex>
 						</Flex>
