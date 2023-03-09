@@ -2,6 +2,27 @@ import React, { useEffect, createContext, useState, useMemo } from "react";
 import { useToast, useMediaQuery } from "@chakra-ui/react";
 
 import { ToastyCard } from "../components";
+import { UseToastOptions } from "@chakra-ui/react";
+
+type setType<T> = React.Dispatch<React.SetStateAction<T>>;
+
+type children = React.ReactNode;
+
+export interface IToastyProviderProps {
+	children: children;
+	bg: string;
+	text: string;
+}
+export interface IToastOptions extends UseToastOptions {
+	txHash?: string;
+}
+
+export type TToastState = IToastOptions;
+
+export interface IToastyProviderValue {
+	toast: setType<TToastState>;
+	state: TToastState;
+}
 
 export const ToastyContext = createContext({} as IToastyProviderValue);
 

@@ -1,6 +1,6 @@
-import { ToastyContext } from "../contexts/toast";
+import { ToastyContext } from "../contexts/toasty";
 import { useContext } from "react";
 
-export function useRegister() {
+export function useToasty() {
 	return useContext(ToastyContext);
 }
