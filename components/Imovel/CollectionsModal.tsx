@@ -21,12 +21,14 @@ export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 	const { isOpen, onClose, images } = props;
 	return (
 		<>
-			<Modal blockScrollOnMount size="full" isOpen={isOpen} onClose={onClose}>
+			<Modal blockScrollOnMount size="4xl" isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent bgColor={"transparent"}>
-					<ModalCloseButton />
+				<ModalContent mt="15rem" mr="10rem" bgColor={"transparent"} boxShadow="none">
+					<ModalCloseButton right={"-3.5rem"} top={"-2rem"} bgColor={"#ffffff1a"} position={"absolute"} />
+
 					<ModalBody>
-						<Carousel images={images} widthValue="98%" heightValue="95vh" />
+
+						<Carousel modal_images={images} widthValue="58rem" heightValue="30rem" />
 					</ModalBody>
 				</ModalContent>
 			</Modal>
