@@ -8,6 +8,7 @@ import { TbInfoSquare } from "react-icons/tb";
 import { Maps } from "../Map/Maps";
 import { IOpportunitiesCard } from "../Opportunities/OpportunitiesCard/dto";
 import { formatDate } from "../../utils/formatDate";
+import { useEffect } from "react";
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
 }
@@ -139,7 +140,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 							Ver 37 comodidades
 						</Text>
 					</Flex>
-					<PriceCard axisY="72rem" />
 				</Flex>
 			</Flex>
 			<Flex
@@ -201,7 +201,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 						</Text>
 					</Flex>
 					<Flex w="40%" justifyContent={"flex-end"}>
-						<Carousel images={imovelDetails?.pictures_neighbor as any[]} widthValue="70%" heightValue="18rem" />
+						<Carousel extra_images={imovelDetails?.pictures_neighbor as any[]} widthValue="70rem" heightValue="18rem" />
 					</Flex>
 				</Flex>
 			</Flex>
