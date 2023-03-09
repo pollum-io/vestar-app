@@ -5,6 +5,7 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import { RiCheckboxCircleFill } from "react-icons/ri";
 import { IconType } from "react-icons";
 import { MdOutlineClose } from "react-icons/md";
+import { IToastyCardProps } from "./dto";
 
 const cards: { [k: string]: [string, IconType, number] } = {
 	success: ["#38A169", RiCheckboxCircleFill, 19],
@@ -13,42 +14,12 @@ const cards: { [k: string]: [string, IconType, number] } = {
 	info: ["#2B6CB0", IoIosInformationCircle, 20],
 };
 
-const ToastyCard: React.FC<IToastyCardProps> = ({
+export const ToastyCard: React.FC<IToastyCardProps> = ({
 	bg,
 	text,
 	state,
 	onClose,
 }) => {
-	const toastData = useMemo(() => {
-		const card = cards[state.status ?? "info"];
-
-		const color = card[0];
-		const Icon = card[1];
-
-		return {
-			color,
-			icon: <Icon color={color} size={card[2]} />,
-		};
-	}, [state.status]);
-
-	let currentExplorerURL: string;
-
-	switch (state.chainId) {
-		case 57:
-			currentExplorerURL = `https://explorer.syscoin.org/tx/${state.txHash}`;
-			break;
-		case 5700:
-			currentExplorerURL = `https://tanenbaum.io/tx/${state.txHash}`;
-			break;
-		case 2814:
-			currentExplorerURL = `https://explorer.testnet.rollux.com/tx/${state.txHash}`;
-			break;
-		default:
-			currentExplorerURL = `https://explorer.syscoin.org/tx/${state.txHash}`;
-	}
-
-	const { colorMode } = useColorMode();
-
 	return (
 		<Flex
 			h="max-content"
@@ -60,13 +31,9 @@ const ToastyCard: React.FC<IToastyCardProps> = ({
 			bg={bg}
 			borderRadius="0.2rem"
 			borderLeftWidth="0.25rem"
-			borderLeftColor={toastData.color}
+			borderLeftColor="green"
 			justifyContent="space-between"
-			boxShadow={
-				colorMode === "light"
-					? "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
-					: "0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)"
-			}
+			boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
 			flexDir="column"
 		>
 			<Flex
@@ -77,7 +44,9 @@ const ToastyCard: React.FC<IToastyCardProps> = ({
 				w="100%"
 				position="relative"
 			>
-				<Flex pt="0.1rem">{toastData.icon}</Flex>
+				<Flex pt="0.1rem">
+					<AiFillExclamationCircle />
+				</Flex>
 
 				<Flex
 					flexDirection="column"
@@ -88,9 +57,9 @@ const ToastyCard: React.FC<IToastyCardProps> = ({
 					w="100%"
 					pr="2"
 				>
-					<Text font-weight="bold"> {`${state?.title}`}</Text>
+					<Text font-weight="bold">lucas</Text>
 					<Text fontSize="1rem" font-weight="normal">
-						{state.description}
+						lucas
 					</Text>
 				</Flex>
 				<Flex
@@ -104,19 +73,6 @@ const ToastyCard: React.FC<IToastyCardProps> = ({
 					<MdOutlineClose size={16} color={text} />
 				</Flex>
 			</Flex>
-			{state.txHash && (
-				<Flex px="9" pt="1">
-					<Link
-						color="RED"
-						href={currentExplorerURL}
-						fontSize="sm"
-						fontWeight={500}
-						isExternal
-					></Link>
-				</Flex>
-			)}
 		</Flex>
 	);
 };
-
-export default ToastyCard;
