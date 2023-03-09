@@ -2,6 +2,7 @@ export interface ICompaniesCard {
 	_id?: string;
 	enterprise_name?: string;
 	enterprise_info?: ICompaniesInfo[];
+	enterprise_logo?: string;
 }
 
 export interface ICompaniesDetails {
