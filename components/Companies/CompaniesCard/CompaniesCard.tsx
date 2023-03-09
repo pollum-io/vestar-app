@@ -1,16 +1,29 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { Button, Flex, Img, Text } from "@chakra-ui/react";
 import { ICompaniesCard } from "./dto";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchEnterprise } from "../../../services/fetchEnterprise";
+import { fetchImages } from "../../../services/fetchImages";
 
 const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	_id,
 	enterprise_name,
 	enterprise_info,
+	enterprise_logo
 }) => {
 	const { push } = useRouter();
+
+	const [images, setImages] = useState<string>()
+
+	useMemo(() => {
+		if (enterprise_logo) {
+			fetchImages(enterprise_logo).then((res: any) => {
+				setImages(res)
+			})
+		}
+	}, [enterprise_logo])
+
 	return (
 		<Flex
 			w="100%"
@@ -36,7 +49,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				borderBottomRadius="0.75rem"
 			>
 				<Flex w="6rem" position="relative">
-
+					<Img src={images} />
 				</Flex>
 				<Flex gap="0.375rem" flexDirection="column">
 					<Text
@@ -102,7 +115,7 @@ export const CompaniesCards: FunctionComponent = () => {
 	return (
 		<Flex flexDirection="column" gap="1.5rem" w="100%">
 			{data?.data?.map((infos: ICompaniesCard) =>
-				<CompaniesCard key={infos._id} _id={infos._id} enterprise_name={infos.enterprise_name} enterprise_info={infos.enterprise_info} />
+				<CompaniesCard key={infos._id} _id={infos._id} enterprise_name={infos.enterprise_name} enterprise_info={infos.enterprise_info} enterprise_logo={infos.enterprise_logo} />
 			)}
 		</Flex>
 	);
