@@ -186,7 +186,6 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 						color="#00576B"
 						fontFamily="Poppins"
 						gap="0.2rem"
-						bgColor="red"
 					>
 						<Text fontWeight="500">
 							{t("opportunities.card.expected")}: {rentability}{" "}
