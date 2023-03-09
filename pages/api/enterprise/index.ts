@@ -20,6 +20,7 @@ const router = nextConnect({
 
 const InsertSchema = z.object({
 	enterprise_name: z.string().max(60),
+	enterprise_logo: z.optional(z.string()),
 	cnpj: z.string().max(14),
 	site_url: z.string().max(40),
 	address: z.object({} as { [key: string]: any }),
