@@ -19,6 +19,34 @@ const router = nextConnect({
 	},
 });
 
+export async function getAvailableAndClosedOpportunities(ids: any) {
+	const dateNow = new Date();
+
+	const is_array = Array.isArray(ids);
+	const oppData = await Opportunity.aggregate([
+		{
+			$match: {
+				enterprise_id: is_array
+					? { $in: ids }
+					: new mongoose.Types.ObjectId(`${ids}`),
+			},
+		},
+		{
+			$group: {
+				_id: "$enterprise_id",
+				opportunities_closed: {
+					$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
+				},
+				opportunities_available: {
+					$sum: { $cond: [{ $gte: ["$end_date", dateNow] }, 1, 0] },
+				},
+			},
+		},
+	]);
+
+	return is_array ? oppData : oppData[0];
+}
+
 router.get(async (req, res) => {
 	try {
 		await dbConnect();
@@ -35,29 +63,13 @@ router.get(async (req, res) => {
 			return res.status(404).json({ error: "enterprise not found" });
 		}
 
-		const dateNow = new Date();
-
-		const [oppData] = await Opportunity.aggregate([
-			{ $match: { enterprise_id: new mongoose.Types.ObjectId(`${id}`) } },
-			{
-				$group: {
-					_id: "$enterprise_id",
-					closed_opportunities: {
-						$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
-					},
-					opportunities_available: {
-						$sum: { $cond: [{ $gte: ["$end_date", dateNow] }, 1, 0] },
-					},
-				},
-			},
-		]);
-
-		const { opportunities_available, closed_opportunities } = oppData;
+		const { opportunities_available, opportunities_closed } =
+			await getAvailableAndClosedOpportunities(id);
 
 		res.status(200).json({
 			data: {
 				...enterprise,
-				closed_opportunities,
+				opportunities_closed,
 				opportunities_available,
 			},
 		});
