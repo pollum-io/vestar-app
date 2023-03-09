@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import nextConnect from "next-connect";
 
 import dbConnect from "../../../lib/dbConnect";
 import Enterprise from "../../../models/enterprise";
+import Opportunity from "../../../models/oportunity";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
@@ -28,13 +29,38 @@ router.get(async (req, res) => {
 			return res.status(400).json({ error: "invalid id" });
 		}
 
-		const enterprise = await Enterprise.findById(id);
+		const enterprise = await Enterprise.findById(id).lean();
 
 		if (!enterprise) {
 			return res.status(404).json({ error: "enterprise not found" });
 		}
 
-		res.status(200).json({ data: enterprise });
+		const dateNow = new Date();
+
+		const [oppData] = await Opportunity.aggregate([
+			{ $match: { enterprise_id: new mongoose.Types.ObjectId(`${id}`) } },
+			{
+				$group: {
+					_id: "$enterprise_id",
+					closed_opportunities: {
+						$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
+					},
+					opportunities_available: {
+						$sum: { $cond: [{ $gte: ["$end_date", dateNow] }, 1, 0] },
+					},
+				},
+			},
+		]);
+
+		const { opportunities_available, closed_opportunities } = oppData;
+
+		res.status(200).json({
+			data: {
+				...enterprise,
+				closed_opportunities,
+				opportunities_available,
+			},
+		});
 	} catch (error: any) {
 		res.status(400).json({ error: error.message });
 	}
