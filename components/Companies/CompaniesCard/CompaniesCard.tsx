@@ -96,7 +96,7 @@ export const CompaniesCards: FunctionComponent = () => {
 
 	const { data } = useQuery("companies", fetchEnterprise, {
 		refetchOnWindowFocus: false,
-		refetchInterval: 300000,
+		refetchInterval: false,
 	})
 
 	return (

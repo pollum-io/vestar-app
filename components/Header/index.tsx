@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
 			gap="24rem"
 		>
 			<Flex>
-				<Img src={"images/livnlogo.png"} w="5" h="7" />
+				<Img src={"/images/livnlogo.png"} w="5" h="7" />
 			</Flex>
 			<Flex>
 				<HeaderLinks />
