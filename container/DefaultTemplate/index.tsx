@@ -6,23 +6,23 @@ import { FunctionComponent, ReactNode } from "react";
 import { Footer } from "../../components/Footer";
 
 interface BaseLayoutProps {
-  children?: ReactNode;
+	children?: ReactNode;
 }
 
 export const DefaultTemplate: FunctionComponent<BaseLayoutProps> = ({
-  children,
+	children,
 }) => {
-  return (
-    <Flex
-      id="default-template"
-      w="100%"
-      h="100%"
-      flexDir={"column"}
-      bgColor="#FFFFFF"
-    >
-      <Header />
-      {children}
-      <Footer />
-    </Flex>
-  );
+	return (
+		<Flex
+			id="default-template"
+			w="100%"
+			h="100%"
+			flexDir={"column"}
+			bgColor="#FFFFFF"
+		>
+			<Header />
+			{children}
+			<Footer />
+		</Flex>
+	);
 };

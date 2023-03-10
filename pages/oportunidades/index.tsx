@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { OpportunitiesContainer } from "../container";
+import { OpportunitiesContainer } from "../../container";
 
 const Opportunities: NextPage = () => <OpportunitiesContainer />;
 
