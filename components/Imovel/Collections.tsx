@@ -1,21 +1,44 @@
-import { Flex, Img, useDisclosure } from "@chakra-ui/react";
+import { Flex, Image, useDisclosure } from "@chakra-ui/react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { fetchOpportunitiesImages } from "../../services/opportunitiesImages";
 import { CollectionsModal } from "./CollectionsModal";
+interface ICollections {
+	images: any[];
+}
 
-export const Collections: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export const Collections: React.FC<ICollections> = props => {
+	const { images } = props;
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [cardImage, setCardImage] = useState<string[]>([])
 
-  return (
-    <Flex w="100%" h="100%" gap="0.5rem" pb="1.5rem" pt="2rem">
-      <CollectionsModal isOpen={isOpen} onClose={onClose} />
-      <Flex onClick={onOpen}>
-        <Img w="70rem" h="25rem" src={"images/backgrounds/Image.png"} />
-      </Flex>
-      <Flex onClick={onOpen} flexWrap={"wrap"} gap="0.5rem">
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-1.png"} />
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-2.png"} />
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-3.png"} />
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-4.png"} />
-      </Flex>
-    </Flex>
-  );
+	useEffect(() => {
+		if (images) {
+			images.map((picture: string) => {
+				fetchOpportunitiesImages(picture).then(res => {
+					setCardImage(prevState => [...prevState, res])
+
+				})
+			})
+		}
+	}, [images])
+
+	return (
+		<Flex w="100%" h="100%" gap="0.5rem" pb="1.5rem" pt="2rem" onClick={onOpen}>
+			<CollectionsModal images={cardImage} isOpen={isOpen} onClose={onClose} />
+			<Flex>
+				<Image w="34.75rem" h="25rem" src={cardImage?.[0]} alt="" />
+			</Flex>
+			<Flex flexDirection={'column'} gap="0.5rem">
+				<Flex w={"100%"} gap="0.5rem">
+					<Image w="19rem" h="12.25rem" src={cardImage?.[1]} alt="" />
+					<Image w="19rem" h="12.25rem" src={cardImage?.[2]} alt="" />
+				</Flex>
+				<Flex w={"100%"} gap="0.5rem">
+					<Image w="19rem" h="12.25rem" src={cardImage?.[3]} alt="" />
+					<Image w="19rem" h="12.25rem" src={cardImage?.[4]} alt="" />
+				</Flex>
+			</Flex>
+		</Flex>
+	);
 };
