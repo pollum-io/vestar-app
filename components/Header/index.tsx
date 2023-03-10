@@ -1,6 +1,7 @@
-import { Flex, Image, Img } from "@chakra-ui/react";
+import { Flex, Image, Icon, Img } from "@chakra-ui/react";
 import { HamburguerMenu } from "./HamburguerMenu";
 import { HeaderLinks } from "./HeaderLinks";
+import livn from "./images/livnlogo.png";
 
 export const Header: React.FC = () => {
 	return (
@@ -14,7 +15,7 @@ export const Header: React.FC = () => {
 			gap="24rem"
 		>
 			<Flex>
-				<Img src={"images/livnlogo.png"} w="5" h="7" />
+				<Img src={"/images/livnlogo.png"} w="5" h="7" alt="Livn logo" />
 			</Flex>
 			<Flex>
 				<HeaderLinks />
