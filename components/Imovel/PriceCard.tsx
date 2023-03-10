@@ -7,7 +7,7 @@ interface IPriceCard {
 
 export const PriceCard: React.FC<IPriceCard> = props => {
 	const { axisY } = props;
-	const [isInvestidor, setIsInvestidor] = useState(false);
+	const [isInvestidor, setIsInvestidor] = useState(true);
 
 	return (
 		<Flex
@@ -17,9 +17,8 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			p="1.5rem"
 			flexDir={"column"}
 			borderRadius="0.75rem"
-			position={"absolute"}
-			right="20"
-			top={axisY}
+			position={"sticky"}
+			top={"50%"}
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1), 0px 10px 10px rgba(31, 41, 55, 0.04);"
 			color="#ffffff"
 		>
