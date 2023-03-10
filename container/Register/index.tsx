@@ -6,9 +6,6 @@ import { RegisterContent } from "../../components/Register/RegisterContent";
 
 export const RegisterContainer: FunctionComponent = () => {
 	const { isPhysical } = useRegister();
-	useEffect(() => {
-		console.log(isPhysical);
-	}, [isPhysical]);
 
 	return (
 		<Flex w="100vw" h="100vh" bgColor="#ffffff" justifyContent="center">
