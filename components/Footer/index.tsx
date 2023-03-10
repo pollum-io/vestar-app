@@ -1,6 +1,6 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { FooterLinks } from "./FooterLinks";
-
+import livnLogoText from "./images/livnlogotext.png"
 export const Footer: React.FC = () => {
 	return (
 		<Flex

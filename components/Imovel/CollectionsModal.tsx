@@ -1,43 +1,37 @@
 import {
-  ModalOverlay,
-  Button,
-  ModalContent,
-  ModalCloseButton,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  Modal,
-  Img,
+	ModalOverlay,
+	Button,
+	ModalContent,
+	ModalCloseButton,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	Modal,
+	Img,
 } from "@chakra-ui/react";
 import { Carousel } from "./Carousel";
 
 interface ICollectionsModal {
-  isOpen: boolean;
-  onClose: () => void;
+	isOpen: boolean;
+	onClose: () => void;
+	images: any;
 }
 
-const images = [
-  { id: 0, image: "images/backgrounds/Image.png" },
-  { id: 1, image: "images/backgrounds/Image-1.png" },
-  { id: 2, image: "images/backgrounds/Image-2.png" },
-  { id: 3, image: "images/backgrounds/Image-3.png" },
-  { id: 4, image: "images/backgrounds/Image-4.png" },
-];
-
 export const CollectionsModal: React.FC<ICollectionsModal> = props => {
-  const { isOpen, onClose } = props;
+	const { isOpen, onClose, images } = props;
+	return (
+		<>
+			<Modal blockScrollOnMount size="4xl" isOpen={isOpen} onClose={onClose}>
+				<ModalOverlay />
+				<ModalContent mt="15rem" mr="10rem" bgColor={"transparent"} boxShadow="none">
+					<ModalCloseButton right={"-3.5rem"} top={"-2rem"} bgColor={"#ffffff1a"} position={"absolute"} />
 
-  return (
-    <>
-      <Modal blockScrollOnMount size="full" isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent bgColor={"transparent"}>
-          <ModalCloseButton />
-          <ModalBody>
-            <Carousel images={images} widthValue="98%" heightValue="95vh" />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
-  );
+					<ModalBody>
+
+						<Carousel modal_images={images} widthValue="58rem" heightValue="30rem" />
+					</ModalBody>
+				</ModalContent>
+			</Modal>
+		</>
+	);
 };
