@@ -21,10 +21,10 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 				mb="1rem"
 			>
 				{isInvest ? (
-					<Flex bgColor="red" alignItems="end">
+					<Flex alignItems="end">
 						<Text pr="24.5rem">Imóvel</Text>
 						<Text pr="11.5rem">Cota</Text>
-						<Text pr="7.5rem" w="20.375rem">
+						<Text pr="7.5rem" w="6.375rem">
 							Total investido
 						</Text>
 						<Text pr="8.5rem">Vencimento</Text>
