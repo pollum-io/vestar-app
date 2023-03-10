@@ -30,8 +30,8 @@ export const Header: React.FC = () => {
 				lineHeight="1.25rem"
 				alignItems="center"
 			>
-				<Text _hover={{ cursor: "pointer" }}>Pt</Text>
-				<Text _hover={{ cursor: "pointer" }}>Eng</Text>
+				<Text cursor="pointer">Pt</Text>
+				<Text cursor="pointer">Eng</Text>
 			</Flex>
 		</Flex>
 	);
