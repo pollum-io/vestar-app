@@ -1,6 +1,8 @@
+import { IToastOptions } from "../../../contexts/toasty";
+
 export interface IToastyCardProps {
 	bg: string;
 	text: string;
-	state: any;
+	state: IToastOptions;
 	onClose: () => void;
 }

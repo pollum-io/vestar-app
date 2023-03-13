@@ -17,8 +17,8 @@ const userTheme = {
 };
 
 const toasty = {
-	bg: "red",
-	text: "red",
+	bg: "#FFFFFF",
+	text: "#2D3748",
 };
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
