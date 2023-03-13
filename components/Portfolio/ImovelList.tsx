@@ -19,6 +19,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 				fontSize={"sm"}
 				fontWeight="400"
 				mb="1rem"
+				display="none"
 			>
 				{isInvest ? (
 					<Flex alignItems="end">
