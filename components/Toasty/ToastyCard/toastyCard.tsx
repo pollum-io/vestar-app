@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect } from "react";
-import { Flex, Text, useColorMode, Link } from "@chakra-ui/react";
+import React, { useMemo } from "react";
+import { Flex, Text } from "@chakra-ui/react";
 import { IoIosInformationCircle } from "react-icons/io";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { RiCheckboxCircleFill } from "react-icons/ri";
@@ -9,7 +9,7 @@ import { IToastyCardProps } from "./dto";
 
 const cards: { [k: string]: [string, IconType, number] } = {
 	success: ["#38A169", RiCheckboxCircleFill, 19],
-	error: ["blue", AiFillExclamationCircle, 18],
+	error: ["#E53E3E", AiFillExclamationCircle, 18],
 	warning: ["yellow", AiFillExclamationCircle, 18],
 	info: ["#2B6CB0", IoIosInformationCircle, 20],
 };
@@ -20,6 +20,17 @@ export const ToastyCard: React.FC<IToastyCardProps> = ({
 	state,
 	onClose,
 }) => {
+	const toastData = useMemo(() => {
+		const card = cards[state.status ?? "info"];
+
+		const color = card[0];
+		const Icon = card[1];
+
+		return {
+			color,
+			icon: <Icon color={color} size={card[2]} />,
+		};
+	}, [state.status]);
 	return (
 		<Flex
 			h="max-content"
@@ -31,7 +42,7 @@ export const ToastyCard: React.FC<IToastyCardProps> = ({
 			bg={bg}
 			borderRadius="0.2rem"
 			borderLeftWidth="0.25rem"
-			borderLeftColor="green"
+			borderLeftColor={toastData.color}
 			justifyContent="space-between"
 			boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
 			flexDir="column"
@@ -44,9 +55,7 @@ export const ToastyCard: React.FC<IToastyCardProps> = ({
 				w="100%"
 				position="relative"
 			>
-				<Flex pt="0.1rem">
-					<AiFillExclamationCircle />
-				</Flex>
+				<Flex pt="0.1rem">{toastData.icon}</Flex>
 
 				<Flex
 					flexDirection="column"
@@ -57,9 +66,14 @@ export const ToastyCard: React.FC<IToastyCardProps> = ({
 					w="100%"
 					pr="2"
 				>
-					<Text font-weight="bold">lucas</Text>
+					<Text
+						font-weight="700"
+						fontWeight="700"
+						fontSize="1rem"
+						lineHeight="1.5rem"
+					>{`${state?.title}`}</Text>
 					<Text fontSize="1rem" font-weight="normal">
-						lucas
+						{state.description}
 					</Text>
 				</Flex>
 				<Flex

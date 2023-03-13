@@ -28,15 +28,15 @@ export const RegisterContent: FunctionComponent = () => {
 			id: "toast1",
 			position: "top-right",
 			status: "success",
-			title: "aa",
-			description: "bb",
+			title: "Cadastro",
+			description: "Cadastro realizado!",
 		});
 	};
 
 	return (
 		<Flex>
 			{firstStep ? (
-				<SlideFade in={firstStep} offsetY="-30px">
+				<SlideFade in={firstStep} offsetY="-1.875rem">
 					<Flex flexDirection="column" gap="1.625rem">
 						<Flex gap="0.9375rem" fontFamily="Poppins">
 							<Checkbox
