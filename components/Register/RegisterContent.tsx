@@ -21,7 +21,6 @@ export const RegisterContent: FunctionComponent = () => {
 	} = useRegister();
 
 	const [canSend, setCanSend] = useState(false);
-
 	const { toast } = useToasty();
 	const toastyfunction = () => {
 		toast({
@@ -32,43 +31,50 @@ export const RegisterContent: FunctionComponent = () => {
 			description: "Cadastro realizado!",
 		});
 	};
-
 	return (
 		<Flex>
 			{firstStep ? (
-				<SlideFade in={firstStep} offsetY="-1.875rem">
+				<SlideFade in={firstStep} offsetY="-30px">
 					<Flex flexDirection="column" gap="1.625rem">
 						<Flex gap="0.9375rem" fontFamily="Poppins">
-							<Checkbox
-								spacing="0.75rem"
-								color={isPhysical ? "#2D3748" : "#718096"}
-								fontStyle="normal"
-								isChecked={isPhysical}
-								fontWeight={isPhysical ? "500" : "400"}
-								variant="circular"
-								icon={<BsCircleFill color="#ffffff" size={7} />}
-								fontSize="0.875rem"
-								lineHeight="1.25rem"
-								borderColor="#E2E8F0"
-								onChange={() => setIsPhysical(true)}
-							>
-								Sou Pessoa Física
-							</Checkbox>
-							<Checkbox
-								spacing="0.75rem"
-								color={!isPhysical ? "#2D3748" : "#718096"}
-								isChecked={!isPhysical ? true : false}
-								fontStyle="normal"
-								fontWeight={!isPhysical ? "500" : "400"}
-								icon={<BsCircleFill color="#ffffff" size={7} />}
-								variant="circular"
-								fontSize="0.875rem"
-								lineHeight="1.25rem"
-								borderColor="#E2E8F0"
-								onChange={() => setIsPhysical(false)}
-							>
-								Sou Pessoa Jurídica
-							</Checkbox>
+							<Flex gap="0.75rem">
+								<Checkbox
+									spacing="0.75rem"
+									isChecked={isPhysical}
+									variant="circular"
+									icon={<BsCircleFill color="#ffffff" size={7} />}
+									borderColor="#E2E8F0"
+									onChange={() => setIsPhysical(true)}
+								/>
+								<Text
+									fontSize="0.875rem"
+									lineHeight="1.25rem"
+									color={isPhysical ? "#2D3748" : "#718096"}
+									fontWeight={isPhysical ? "500" : "400"}
+								>
+									Sou Pessoa Física
+								</Text>
+							</Flex>
+							<Flex gap="0.75rem">
+								<Checkbox
+									spacing="0.75rem"
+									isChecked={!isPhysical ? true : false}
+									fontStyle="normal"
+									icon={<BsCircleFill color="#ffffff" size={7} />}
+									variant="circular"
+									borderColor="#E2E8F0"
+									onChange={() => setIsPhysical(false)}
+								>
+									<Text
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										color={!isPhysical ? "#2D3748" : "#718096"}
+										fontWeight={!isPhysical ? "500" : "400"}
+									>
+										Sou Pessoa Jurídica
+									</Text>
+								</Checkbox>
+							</Flex>
 						</Flex>
 						<Flex flexDirection="column" gap="2rem">
 							<DefaultInputs />
@@ -89,6 +95,7 @@ export const RegisterContent: FunctionComponent = () => {
 								fontSize="0.875rem"
 								lineHeight="1.25rem"
 								borderRadius="0.5rem"
+								color="#ffffff"
 								onClick={() => {
 									setSecondStep(true), setFirstStep(false);
 								}}
@@ -184,23 +191,20 @@ export const RegisterContent: FunctionComponent = () => {
 							</Flex>
 						</Flex>
 						<Flex flexDirection="column" fontFamily="Poppins" gap="2.125rem">
-							<Flex>
+							<Flex gap="0.75rem">
 								<Checkbox
 									defaultChecked={false}
 									spacing="0.75rem"
-									color="#2D3748"
-									fontStyle="normal"
-									fontWeight="400"
+									variant="green"
 									icon={<RiCheckFill size={20} />}
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
 									borderColor="#E2E8F0"
 									onChange={() => {
 										setCanSend(!canSend), setSecondStep(!secondStep);
 									}}
-								>
+								/>
+								<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
 									Declaro que li e aceito os termos acima.
-								</Checkbox>
+								</Text>
 							</Flex>
 							<Flex gap="1.5rem">
 								<Button
@@ -232,7 +236,7 @@ export const RegisterContent: FunctionComponent = () => {
 									mt="0.375rem"
 									w="9.25rem"
 									h="2rem"
-									disabled={!canSend ? true : false}
+									isDisabled={!canSend ? true : false}
 									justifyContent="center"
 									padding="0.2188rem 1.25rem"
 									alignItems="center"
@@ -248,6 +252,7 @@ export const RegisterContent: FunctionComponent = () => {
 									lineHeight="1.25rem"
 									borderRadius="0.5rem"
 									onClick={() => toastyfunction()}
+									color="#ffffff"
 								>
 									Enviar Cadastro
 								</Button>
@@ -259,12 +264,3 @@ export const RegisterContent: FunctionComponent = () => {
 		</Flex>
 	);
 };
-// function toast(arg0: {
-// 	id: string;
-// 	position: string;
-// 	status: string;
-// 	title: any;
-// 	description: any;
-// }) {
-// 	throw new Error("Function not implemented.");
-// }

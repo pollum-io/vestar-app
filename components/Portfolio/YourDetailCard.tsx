@@ -3,11 +3,13 @@ import { FunctionComponent, useState } from "react";
 
 export const YourDetailtCard: FunctionComponent = () => {
 	const [isInvestidor, setIsInvestidor] = useState(false);
+	const [hasInvest, setHasInvest] = useState(false);
+
 	return (
 		<Flex
 			w="34.4375rem"
 			zIndex="9"
-			right="10"
+			right="5rem"
 			top="13rem"
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
@@ -23,6 +25,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 				w={isInvestidor ? "20%" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
+				opacity={hasInvest ? 0.5 : 1}
 			>
 				<Flex alignItems="center" gap="3">
 					<Text fontWeight={"500"} fontSize="sm" color="#007D99">
@@ -39,7 +42,12 @@ export const YourDetailtCard: FunctionComponent = () => {
 					{isInvestidor ? "42" : "R$ 237.097,68"}
 				</Text>
 			</Flex>
-			<Flex w="max" flexDir={"column"} alignItems="flex-start">
+			<Flex
+				w="max"
+				flexDir={"column"}
+				alignItems="flex-start"
+				opacity={hasInvest ? 0.5 : 1}
+			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
 					{isInvestidor ? "Arrecadação" : "Resultado"}
 				</Text>
@@ -52,7 +60,12 @@ export const YourDetailtCard: FunctionComponent = () => {
 					{isInvestidor ? "R$ 2.584.256" : "+ R$ 3.256"}
 				</Text>
 			</Flex>
-			<Flex w="max" flexDir={"column"} alignItems="flex-start">
+			<Flex
+				w="max"
+				flexDir={"column"}
+				alignItems="flex-start"
+				opacity={hasInvest ? 0.5 : 1}
+			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
 					{isInvestidor ? "Contas Negociadas" : "Rentabilidade"}
 				</Text>
