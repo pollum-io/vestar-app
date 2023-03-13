@@ -3,11 +3,16 @@ import { Flex, Text, Input } from "@chakra-ui/react";
 import { useRegister } from "../../../hooks/useRegister";
 import { IDefaultInput } from "./dto";
 
-const DefaultInput: FunctionComponent<IDefaultInput> = ({
+export const DefaultInput: FunctionComponent<IDefaultInput> = ({
   title,
+  color,
+  placeholderColor,
+  bgColor,
   inputSize,
   placeholder,
   type,
+  border,
+  inputColor,
 }) => {
   return (
     <Flex flexDirection="column" fontFamily="Poppins" gap="0.5rem">
@@ -16,15 +21,18 @@ const DefaultInput: FunctionComponent<IDefaultInput> = ({
         fontWeight="500"
         fontSize="0.875rem"
         lineHeight="1.25rem"
-        color="#2D3748"
+        color={color ? color : "#2D3748"}
       >
         {title}
       </Text>
       <Input
         placeholder={placeholder}
-        _placeholder={{ color: "rgba(0, 0, 0, 0.36)", fontFamily: "Poppins" }}
-        border="0.0938rem solid #E2E8F0"
-        _hover={{}}
+        _placeholder={{
+          color: placeholderColor ? placeholderColor : "rgba(0, 0, 0, 0.36)",
+          fontFamily: "Poppins",
+        }}
+        border={border ? border : "0.0938rem solid #E2E8F0"}
+        bgColor={bgColor}
         fontStyle="normal"
         fontWeight="400"
         w={inputSize || ""}
@@ -33,8 +41,13 @@ const DefaultInput: FunctionComponent<IDefaultInput> = ({
         borderRadius="0.375rem"
         h="2rem"
         pl="0.7rem"
-        color="#2D3748"
+        color={inputColor ? inputColor : "#2D3748"}
         type={type || "text"}
+        _hover={{}}
+        _focus={{
+          boxShadow: "none",
+          border: border ? border : "0.0938rem solid #E2E8F0",
+        }}
       />
     </Flex>
   );

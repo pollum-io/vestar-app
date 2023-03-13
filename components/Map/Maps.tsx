@@ -21,15 +21,34 @@ export const Maps: FunctionComponent = () => {
 
 	const localization = useMemo(() => getLocalization?.[0], [getLocalization]);
 
+	const markers = [
+		{ id: 1, lat: -30.056766674179258, lng: -51.16853770737718 },
+		{ id: 2, lat: -30.056432373116305, lng: -51.17922362813253 },
+	];
+
 	return (
 		<>
 			{isLoaded ? (
 				<GoogleMap
 					zoom={16}
-					center={localization}
+					center={{ lat: -30.056766674179258, lng: -51.16853770737718 }}
 					mapContainerClassName="map-container"
 				>
-					<MarkerF position={localization} />
+					{markers.map((data: any) => (
+						<MarkerF
+							key={data.id}
+							icon={{
+								url: "icons/Home-Maps.svg",
+								scaledSize: new google.maps.Size(57, 57),
+								labelOrigin: new google.maps.Point(30, -32),
+							}}
+							label={{
+								text: "Crypto Plaza",
+								className: "map-label",
+							}}
+							position={{ lat: data.lat, lng: data.lng }}
+						/>
+					))}
 				</GoogleMap>
 			) : (
 				<Flex>Oi</Flex>

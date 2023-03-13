@@ -1,4 +1,4 @@
-import { Flex, Image, Img, Text } from "@chakra-ui/react";
+import { Flex, Img, Text } from "@chakra-ui/react";
 import { FooterLinks } from "./FooterLinks";
 
 export const Footer: React.FC = () => {
@@ -11,10 +11,11 @@ export const Footer: React.FC = () => {
 			px="4rem"
 			py="3rem"
 			gap="10rem"
+			color="#ffffff"
 		>
 			<Flex flexDir={"column"} gap="0.4375rem">
 				<Img src={"images/livnlogotext.png"} w="5.2763rem" h="1.5rem" />
-				<Text fontSize={"sm"} fontWeight="400" color="white">
+				<Text fontSize={"sm"} fontWeight="400">
 					Viva investindo
 				</Text>
 			</Flex>
