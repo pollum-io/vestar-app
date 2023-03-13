@@ -36,11 +36,12 @@ const router = nextConnect({
 const insertSchema = z.object({
 	full_name: z.optional(z.string()),
 	cpf: z.optional(z.string().min(11).max(11)),
+	birthday_date: z.optional(z.date()),
 	cnpj: z.optional(z.string().min(14).max(14)),
-	invited_by: z.string(),
 	corporate_name: z.optional(z.string()),
 	uf: z.optional(z.string()),
 	is_legal_entity: z.optional(z.boolean()),
+	invited_by: z.string(),
 });
 
 router.post(verifyUser, async (req, res) => {
