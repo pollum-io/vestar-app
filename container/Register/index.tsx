@@ -4,8 +4,9 @@ import { Flex, Img, Text } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
 import { RegisterContent } from "../../components/Register/RegisterContent";
 
-export const RegisterContainer: FunctionComponent = () => {
+export const RegisterContainer: FunctionComponent = (props: any) => {
 	const { isPhysical } = useRegister();
+	const { token } = props;
 
 	return (
 		<Flex w="100vw" h="100vh" bgColor="#ffffff" justifyContent="center">
@@ -48,7 +49,7 @@ export const RegisterContainer: FunctionComponent = () => {
 					alignItems="flex-start"
 					flexDirection="column"
 				>
-					<RegisterContent />
+					<RegisterContent token={token} />
 				</Flex>
 			</Flex>
 		</Flex>
