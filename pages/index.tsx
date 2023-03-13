@@ -19,6 +19,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
+	if (token) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: "/portfolio",
+			},
+			props: {},
+		};
+	}
+
 	const user: any = jwt_decode(token);
 
 	if (!user?.investor_id) {
