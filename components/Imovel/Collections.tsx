@@ -20,34 +20,44 @@ export const Collections: React.FC = () => {
 					height="25rem"
 					src={"images/backgrounds/Image.png"}
 					borderLeftRadius="0.75rem"
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
 				/>
 			</Flex>
-			<SimpleGrid
-				onClick={onOpen}
-				columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
-				gap="0.5rem"
-			>
+			<SimpleGrid columns={{ sm: 1, md: 2, lg: 2, xl: 2 }} gap="0.5rem">
 				<Img
 					w="17.125rem"
 					h="12.25rem"
 					src={"images/backgrounds/Image-1.png"}
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
 				/>
 				<Img
 					w="17.125rem"
 					h="12.25rem"
 					src={"images/backgrounds/Image-2.png"}
 					borderTopRightRadius="0.75rem"
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
 				/>
 				<Img
 					w="17.125rem"
 					h="12.25rem"
 					src={"images/backgrounds/Image-3.png"}
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
 				/>
 				<Img
 					w="17.125rem"
 					h="12.25rem"
 					src={"images/backgrounds/Image-4.png"}
 					borderBottomRightRadius="0.75rem"
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
 				/>
 			</SimpleGrid>
 		</Flex>

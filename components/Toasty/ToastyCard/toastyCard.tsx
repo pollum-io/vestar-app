@@ -9,7 +9,7 @@ import { IToastyCardProps } from "./dto";
 
 const cards: { [k: string]: [string, IconType, number] } = {
 	success: ["#38A169", RiCheckboxCircleFill, 19],
-	error: ["#E53E3E", AiFillExclamationCircle, 18],
+	error: ["blue", AiFillExclamationCircle, 18],
 	warning: ["yellow", AiFillExclamationCircle, 18],
 	info: ["#2B6CB0", IoIosInformationCircle, 20],
 };

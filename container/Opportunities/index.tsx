@@ -19,7 +19,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 						<Flex
 							w="100%"
 							h="21.3125rem"
-							background="linear-gradient(91.4deg, #BBA1FF 80.04%, #E3FCFC 99.32%)"
+							background="linear-gradient(91.4deg, #BBA1FF 40.04%, #E3FCFC 140.32%)"
 							mixBlendMode="multiply"
 							transform="matrix(-1, 0, 0, 1, 0, 0)"
 							position="absolute"
@@ -58,7 +58,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 						<Flex h="21.3125rem" alignItems="center" w="50%" maxWidth="47rem">
 							<Flex justifyContent="space-between" w="100%" gap="1.5rem">
 								<Flex flexDirection="column" gap="0.625rem">
-									<Img src="images/firstIcon.png" w="2.1125rem" h="2.8rem" />
+									<Img src="images/firstIcon.png" w="2.2rem" h="2.8rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"
@@ -70,7 +70,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
-									<Img src="images/secondIcon.png" w="2.1125rem" h="2.8rem" />
+									<Img src="images/secondIcon.png" w="2.2rem" h="2.8rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"
@@ -82,7 +82,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
-									<Img src="images/thirdIcon.png" w="2.1125rem" h="2.8rem" />
+									<Img src="images/thirdIcon.png" w="2.2rem" h="2.8rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"
