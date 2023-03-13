@@ -21,12 +21,14 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 				mb="1rem"
 			>
 				{isInvest ? (
-					<Flex alignItems="end">
-						<Text>Imóvel</Text>
-						<Text>Cota</Text>
-						<Text w="6.375rem">Total investido</Text>
+					<Flex alignItems="end" justifyContent="space-between" w="100%">
+						<Text w="19.5rem">Imóvel</Text>
+						<Text ml="1.6rem">Cota</Text>
+						<Text w="6.375rem" ml="4.8rem">
+							Total investido
+						</Text>
 						<Flex alignItems="center" gap="0.3125rem">
-							<Text>Vencimento</Text>
+							<Text ml="1rem">Vencimento</Text>
 							<Img
 								src="images/icons/info-square.png"
 								w="0.7706rem"
@@ -41,7 +43,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 								h="0.7706rem"
 							/>
 						</Flex>
-						<Flex alignItems="center" gap="0.3125rem">
+						<Flex alignItems="center" gap="0.3125rem" mr="6.5rem">
 							<Text w="6.375rem">Valor Atual de Mercado</Text>
 							<Img
 								src="images/icons/info-square.png"
@@ -150,7 +152,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 						</Text>
 					)}
 				</Flex>
-				<Flex flex="1">
+				<Flex flex="1" display={isInvest ? "none" : "flex"}>
 					<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
 						150
 					</Text>
