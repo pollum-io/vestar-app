@@ -2,7 +2,6 @@ import React from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
-import { ICollectionsModal } from "./CollectionsModal";
 
 const settings = {
 	dots: true,

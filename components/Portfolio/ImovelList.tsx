@@ -21,19 +21,35 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 				mb="1rem"
 			>
 				{isInvest ? (
-					<>
-						<Text pr="24.5rem">Imóvel</Text>
-						<Text pr="11.5rem">Cota</Text>
-						<Text pr="7.5rem">Total investido</Text>
-						<Text pr="8.5rem">Vencimento</Text>
-						<Text pr="8.5rem">Investimento</Text>
-						<Text mr="8rem" maxW="5%" flexWrap={"wrap"}>
-							Rentabilidade Esperada
-						</Text>
-						<Text maxW="5%" flexWrap={"wrap"}>
-							Valor Atual de Mercado
-						</Text>
-					</>
+					<Flex alignItems="end">
+						<Text>Imóvel</Text>
+						<Text>Cota</Text>
+						<Text w="6.375rem">Total investido</Text>
+						<Flex alignItems="center" gap="0.3125rem">
+							<Text>Vencimento</Text>
+							<Img
+								src="images/icons/info-square.png"
+								w="0.7706rem"
+								h="0.7706rem"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="0.3125rem">
+							<Text w="6.375rem">Rentabilidade Esperada</Text>
+							<Img
+								src="images/icons/info-square.png"
+								w="0.7706rem"
+								h="0.7706rem"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="0.3125rem">
+							<Text w="6.375rem">Valor Atual de Mercado</Text>
+							<Img
+								src="images/icons/info-square.png"
+								w="0.7706rem"
+								h="0.7706rem"
+							/>
+						</Flex>
+					</Flex>
 				) : (
 					<>
 						<Text flex="2">Imóvel</Text>
@@ -56,7 +72,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 						"0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
 					border: "1px solid transparent",
 				}}
-				transition="200ms ease in"
+				transition="150ms"
 			>
 				<Flex alignItems={"center"} gap="4" flex="2">
 					{isFinished ? (

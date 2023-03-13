@@ -12,6 +12,8 @@ export const Header: React.FC = () => {
 			alignItems={"center"}
 			justifyContent="space-around"
 			bgColor={"#FFFFFF"}
+			borderBottom="0.0625rem solid #E2E8F0"
+			boxShadow="0rem 0.0625rem 0.125rem rgba(0, 0, 0, 0.05)"
 		>
 			<Flex
 				onClick={() => push("/oportunidades")}
