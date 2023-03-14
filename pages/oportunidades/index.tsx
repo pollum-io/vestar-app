@@ -27,7 +27,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 				permanent: false,
 				destination: "/register",
 			},
-			props: {},
+			props: {
+				user,
+				token,
+			},
 		};
 	}
 

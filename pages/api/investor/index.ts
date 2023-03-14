@@ -5,7 +5,7 @@ import { z } from "zod";
 import dbConnect from "../../../lib/dbConnect";
 import Investor from "../../../models/investor";
 import User from "../../../models/user";
-import { verifyUser } from "../../../lib/auth";
+import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
 interface NextConnectApiRequest extends NextApiRequest {
@@ -65,7 +65,16 @@ router.post(verifyUser, async (req, res) => {
 		}
 
 		const investor = await Investor.create(req.body);
-		await User.updateOne({ _id: user?.id }, { investor_id: investor._id });
+
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: user?.id },
+			{ investor_id: investor._id },
+			{ new: true }
+		);
+
+		const token = generateToken(updatedUser);
+
+		setCookie(res, "livn_auth", token);
 
 		res.status(201).json({ data: investor });
 	} catch (error: any) {
