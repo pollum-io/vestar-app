@@ -1,11 +1,9 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { RegisterSteps } from "../../components/Register/RegisterSteps";
 import { Flex, Img, Text } from "@chakra-ui/react";
-import { useRegister } from "../../hooks/useRegister";
 import { RegisterContent } from "../../components/Register/RegisterContent";
 
 export const RegisterContainer: FunctionComponent = (props: any) => {
-	const { isPhysical } = useRegister();
 	const { token } = props;
 
 	return (

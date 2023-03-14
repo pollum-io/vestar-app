@@ -5,7 +5,7 @@ import nextConnect from "next-connect";
 
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/user";
-import { authenticateUser, setCookie } from "../../../lib/auth";
+import { generateToken, setCookie } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
 const authSchema = z.object({
@@ -44,7 +44,7 @@ router.post(async (req, res) => {
 
 		delete user.password;
 
-		const token = authenticateUser(res, user);
+		const token = generateToken(user);
 
 		let data = { user, token };
 

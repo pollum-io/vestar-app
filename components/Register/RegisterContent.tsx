@@ -12,7 +12,7 @@ import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
 
-export const RegisterContent: FunctionComponent<any> = (props) => {
+export const RegisterContent: FunctionComponent<any> = props => {
 	const {
 		firstStep,
 		secondStep,
@@ -35,30 +35,33 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 	const { push } = useRouter();
 
 	const onSubmitForm = async (data: any) => {
-		console.log({ data }, 'data')
+		console.log({ data }, "data");
 
-		const request = isPhysical ? {
-			full_name: String(data.full_name),
-			cpf: data.cpf,
-			birthday_date: '1997-10-10T02:00:00.000Z',
-			is_legal_entity: isPhysical,
-			invited_by: String(data.invited_by)
-		} : {
-			corporate_name: data.corporate_name,
-			cnpj: data.cnpj,
-			uf: data.uf,
-			is_legal_entity: isPhysical,
-			invited_by: String(data.invited_by)
-		};
-		console.log({ request }, 'request')
+		const request = isPhysical
+			? {
+					full_name: String(data.full_name),
+					cpf: data.cpf,
+					birthday_date: new Date(data.birthday_date),
+					is_legal_entity: isPhysical,
+					invited_by: String(data.invited_by),
+			  }
+			: {
+					corporate_name: data.corporate_name,
+					cnpj: data.cnpj,
+					uf: data.uf,
+					is_legal_entity: isPhysical,
+					invited_by: String(data.invited_by),
+			  };
 
-		await fetchCreateInvestor(request, token).then(res => {
-			if (res) {
-				push("/oportunidades");
-			}
-		}).catch(err => {
-			console.log({ err })
-		});
+		await fetchCreateInvestor(request, token)
+			.then(res => {
+				if (res) {
+					push("/oportunidades");
+				}
+			})
+			.catch(err => {
+				console.log({ err });
+			});
 	};
 
 	const handleClearInputs = () => {
@@ -119,9 +122,7 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 								</Flex>
 							</Flex>
 							<Flex flexDirection="column" gap="2rem">
-								<DefaultInputs
-									register={register}
-								/>
+								<DefaultInputs register={register} />
 
 								<Button
 									mt="0.375rem"
@@ -191,46 +192,47 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 											mr="1.0625rem"
 										>
 											Lorem ipsum dolor sit amet consectetur. Pellentesque vel
-											malesuada accumsan mattis quis elit lectus vitae. Ut aliquam
-											pellentesque nascetur proin eget bibendum penatibus
-											senectus. Quis turpis arcu maecenas viverra. Posuere semper
-											duis morbi lobortis amet a. Adipiscing cursus in lectus
-											tortor ullamcorper eget. Vitae diam quam et euismod. Eget
-											sed metus est pharetra euismod est faucibus. Pharetra
-											faucibus posuere volutpat cursus velit viverra vitae
-											fringilla. Arcu consectetur viverra non tempus. Consequat
-											faucibus tortor bibendum nisl enim accumsan id nec quis.
-											Malesuada cursus donec nulla vel condimentum ut augue.
-											Auctor venenatis malesuada ultrices diam enim integer vitae
-											tincidunt adipiscing. Sed enim neque pellentesque lacus
-											nunc. Vitae pellentesque eu in scelerisque. Faucibus quam in
-											maecenas phasellus id tempus senectus molestie eros. Dolor
-											nunc vivamus neque convallis vestibulum pellentesque urna.
-											Massa proin amet iaculis elementum quisque enim. Adipiscing
-											molestie imperdiet pellentesque arcu ultrices facilisi dolor
-											phasellus. Velit vulputate lacus mauris senectus porta
-											malesuada nibh sollicitudin sagittis. Adipiscing cursus in
-											lectus tortor ullamcorper eget. Vitae diam quam et euismod.
-											Eget sed metus est pharetra euismod est faucibus. Pharetra
-											faucibus posuere volutpat cursus velit viverra vitae
-											fringilla. Arcu consectetur viverra non tempus. Consequat
-											faucibus tortor bibendum nisl enim accumsan id nec quis.
-											Malesuada cursus donec nulla vel condimentum ut augue.
-											Auctor venenatis malesuada ultrices diam enim integer vitae
+											malesuada accumsan mattis quis elit lectus vitae. Ut
+											aliquam pellentesque nascetur proin eget bibendum
+											penatibus senectus. Quis turpis arcu maecenas viverra.
+											Posuere semper duis morbi lobortis amet a. Adipiscing
+											cursus in lectus tortor ullamcorper eget. Vitae diam quam
+											et euismod. Eget sed metus est pharetra euismod est
+											faucibus. Pharetra faucibus posuere volutpat cursus velit
+											viverra vitae fringilla. Arcu consectetur viverra non
+											tempus. Consequat faucibus tortor bibendum nisl enim
+											accumsan id nec quis. Malesuada cursus donec nulla vel
+											condimentum ut augue. Auctor venenatis malesuada ultrices
+											diam enim integer vitae tincidunt adipiscing. Sed enim
+											neque pellentesque lacus nunc. Vitae pellentesque eu in
+											scelerisque. Faucibus quam in maecenas phasellus id tempus
+											senectus molestie eros. Dolor nunc vivamus neque convallis
+											vestibulum pellentesque urna. Massa proin amet iaculis
+											elementum quisque enim. Adipiscing molestie imperdiet
+											pellentesque arcu ultrices facilisi dolor phasellus. Velit
+											vulputate lacus mauris senectus porta malesuada nibh
+											sollicitudin sagittis. Adipiscing cursus in lectus tortor
+											ullamcorper eget. Vitae diam quam et euismod. Eget sed
+											metus est pharetra euismod est faucibus. Pharetra faucibus
+											posuere volutpat cursus velit viverra vitae fringilla.
+											Arcu consectetur viverra non tempus. Consequat faucibus
+											tortor bibendum nisl enim accumsan id nec quis. Malesuada
+											cursus donec nulla vel condimentum ut augue. Auctor
+											venenatis malesuada ultrices diam enim integer vitae
 											tincidunt adipiscing. eros. Dolor nunc vivamus neque
 											convallis vestibulum pellentesque urna. Massa proin amet
 											iaculis elementum quisque enim. Adipiscing molestie
 											imperdiet pellentesque arcu ultrices facilisi dolor
 											phasellus. Velit vulputate lacus mauris senectus porta
 											malesuada nibh sollicitudin sagittis. Adipiscing cursus in
-											lectus tortor ullamcorper eget. Vitae diam quam et euismod.
-											Eget sed metus est pharetra euismod est faucibus. Pharetra
-											faucibus posuere volutpat cursus velit viverra vitae
-											fringilla. Arcu consectetur viverra non tempus. Consequat
-											faucibus tortor bibendum nisl enim accumsan id nec quis.
-											Malesuada cursus donec nulla vel condimentum ut augue.
-											Auctor venenatis malesuada ultrices diam enim integer vitae
-											tincidunt adipiscing.
+											lectus tortor ullamcorper eget. Vitae diam quam et
+											euismod. Eget sed metus est pharetra euismod est faucibus.
+											Pharetra faucibus posuere volutpat cursus velit viverra
+											vitae fringilla. Arcu consectetur viverra non tempus.
+											Consequat faucibus tortor bibendum nisl enim accumsan id
+											nec quis. Malesuada cursus donec nulla vel condimentum ut
+											augue. Auctor venenatis malesuada ultrices diam enim
+											integer vitae tincidunt adipiscing.
 										</Text>
 									</Flex>
 								</Flex>
@@ -247,7 +249,11 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 											setCanSend(!canSend), setSecondStep(!secondStep);
 										}}
 									/>
-									<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
+									<Text
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										color="#2D3748"
+									>
 										Declaro que li e aceito os termos acima.
 									</Text>
 								</Flex>
@@ -272,7 +278,9 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 										borderRadius="0.5rem"
 										type="button"
 										onClick={() => {
-											setFirstStep(true), setSecondStep(false), setCanSend(false);
+											setFirstStep(true),
+												setSecondStep(false),
+												setCanSend(false);
 										}}
 									>
 										<BsArrowLeftShort size={22} />
@@ -299,7 +307,6 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 										borderRadius="0.5rem"
 										color="#ffffff"
 										type="submit"
-										onClick={onSubmitForm}
 									>
 										Enviar Cadastro
 									</Button>

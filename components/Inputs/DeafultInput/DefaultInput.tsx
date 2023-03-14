@@ -15,7 +15,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	border,
 	inputColor,
 	registerType,
-	register
+	register,
 }) => {
 
 	const validation = useMemo(() => {
@@ -114,7 +114,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	);
 };
 
-export const DefaultInputs: FunctionComponent<any> = (props) => {
+export const DefaultInputs: FunctionComponent<any> = props => {
 	const { register } = props;
 	const { isPhysical } = useRegister();
 
@@ -134,7 +134,6 @@ export const DefaultInputs: FunctionComponent<any> = (props) => {
 				type={isPhysical ? "date" : ""}
 				registerType={isPhysical ? "birthday_date" : "cnpj"}
 				register={register}
-
 			/>
 			<DefaultInput
 				title={isPhysical ? "CPF" : "UF"}

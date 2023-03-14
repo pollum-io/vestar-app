@@ -5,18 +5,18 @@ import { authenticate } from "../../services/login";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
-	const [email, setEmail] = useState<any>()
-	const [password, setPassword] = useState<any>()
+	const [email, setEmail] = useState<any>();
+	const [password, setPassword] = useState<any>();
 
 	const handleLogin = async () => {
-		const data = await authenticate(email, password)
+		const data = await authenticate(email, password);
 
 		if (!data.user?.investor_id) {
-			return push("/register")
+			return push("/register");
 		} else {
-			return push("/oportunidades")
+			return push("/oportunidades");
 		}
-	}
+	};
 
 	return (
 		<Flex
