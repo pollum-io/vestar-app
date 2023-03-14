@@ -5,17 +5,8 @@ import "../styles/termsScrollbar.css";
 import AppWrapper from "../container/AppWrapper";
 import "../styles/maps.css"
 import "../styles/mapsLabel.css"
-import "../styles/select.css"
 
 import { QueryClient, QueryClientProvider } from "react-query";
-
-const userTheme = {
-	...theme,
-	config: {
-		...theme.config,
-		initialColorMode: "light",
-	},
-};
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 
@@ -23,7 +14,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ChakraProvider resetCSS theme={userTheme}>
+			<ChakraProvider resetCSS theme={theme}>
 				<AppWrapper>
 					<Component {...pageProps} />
 				</AppWrapper>

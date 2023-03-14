@@ -33,25 +33,27 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const [canSend, setCanSend] = useState(false);
 
 	const { push } = useRouter();
+	console.log(isPhysical, "isPhysical");
 
 	const onSubmitForm = async (data: any) => {
 		console.log({ data }, "data");
 
-		const request = isPhysical
-			? {
-					full_name: String(data.full_name),
-					cpf: data.cpf,
-					birthday_date: new Date(data.birthday_date),
-					is_legal_entity: isPhysical,
-					invited_by: String(data.invited_by),
-			  }
-			: {
-					corporate_name: data.corporate_name,
-					cnpj: data.cnpj,
-					uf: data.uf,
-					is_legal_entity: isPhysical,
-					invited_by: String(data.invited_by),
-			  };
+		const request = isPhysical ?
+			{
+				corporate_name: data.corporate_name,
+				cnpj: data.cnpj.replace(/[-./]/g, ""),
+				uf: data.uf,
+				is_legal_entity: isPhysical,
+				invited_by: String(data.invited_by),
+			}
+			:
+			{
+				full_name: String(data.full_name),
+				cpf: data.cpf.replace(/[.-]/g, ""),
+				birthday_date: new Date(data.birthday_date),
+				is_legal_entity: isPhysical,
+				invited_by: String(data.invited_by),
+			}
 
 		await fetchCreateInvestor(request, token)
 			.then(res => {
@@ -85,17 +87,17 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								<Flex gap="0.75rem">
 									<Checkbox
 										spacing="0.75rem"
-										isChecked={isPhysical}
+										isChecked={isPhysical === false ? true : false}
 										variant="circular"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										borderColor="#E2E8F0"
-										onChange={() => { setIsPhysical(true); handleClearInputs() }}
+										onChange={() => { setIsPhysical(false); handleClearInputs() }}
 									/>
 									<Text
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
-										color={isPhysical ? "#2D3748" : "#718096"}
-										fontWeight={isPhysical ? "500" : "400"}
+										color={isPhysical ? "#718096" : "#2D3748"}
+										fontWeight={isPhysical ? "400" : "500"}
 									>
 										Sou Pessoa Física
 									</Text>
@@ -103,18 +105,18 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								<Flex gap="0.75rem">
 									<Checkbox
 										spacing="0.75rem"
-										isChecked={!isPhysical ? true : false}
+										isChecked={isPhysical === false ? false : true}
 										fontStyle="normal"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										variant="circular"
 										borderColor="#E2E8F0"
-										onChange={() => { setIsPhysical(false); handleClearInputs() }}
+										onChange={() => { setIsPhysical(true); handleClearInputs() }}
 									>
 										<Text
 											fontSize="0.875rem"
 											lineHeight="1.25rem"
-											color={!isPhysical ? "#2D3748" : "#718096"}
-											fontWeight={!isPhysical ? "500" : "400"}
+											color={isPhysical ? "#2D3748" : "#718096"}
+											fontWeight={isPhysical ? "500" : "400"}
 										>
 											Sou Pessoa Jurídica
 										</Text>

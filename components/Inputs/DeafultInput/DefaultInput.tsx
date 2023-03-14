@@ -3,6 +3,7 @@ import { Flex, Text, Input, FormControl, Select } from "@chakra-ui/react";
 import { useRegister } from "../../../hooks/useRegister";
 import { IDefaultInput } from "./dto";
 import InputMask from "react-input-mask";
+import { states } from "./states";
 
 export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	title,
@@ -39,7 +40,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 			>
 				{title}
 			</Text>
-			{title === "UF" ? (
+			{title === "Uf" ? (
 				<Select
 					_hover={{}}
 					w={inputSize || ""}
@@ -49,33 +50,9 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 					fontSize="0.875rem"
 					{...register(registerType, { required: true })}
 				>
-					<option value="AC">Acre</option>
-					<option value="AL">Alagoas</option>
-					<option value="AP">Amapá</option>
-					<option value="AM">Amazonas</option>
-					<option value="BA">Bahia</option>
-					<option value="CE">Ceará</option>
-					<option value="DF">Distrito Federal</option>
-					<option value="ES">Espírito Santo</option>
-					<option value="GO">Goías</option>
-					<option value="MA">Maranhão</option>
-					<option value="MT">Mato Grosso</option>
-					<option value="MS">Mato Grosso do Sul</option>
-					<option value="MG">Minas Gerais</option>
-					<option value="PA">Pará</option>
-					<option value="PB">Paraíba</option>
-					<option value="PR">Paraná</option>
-					<option value="PE">Pernambuco</option>
-					<option value="PI">Piauí</option>
-					<option value="RJ">Rio de Janeiro</option>
-					<option value="RN">Rio Grande do Norte</option>
-					<option value="RS">Rio Grande do Sul</option>
-					<option value="RO">Rondônia</option>
-					<option value="RR">Roraíma</option>
-					<option value="SC">Santa Catarina</option>
-					<option value="SP">São Paulo</option>
-					<option value="SE">Sergipe</option>
-					<option value="TO">Tocantins</option>
+					{states?.map((value: any) =>
+						<option key={value.id} value={value.Uf}>{value.State}</option>
+					)}
 				</Select>
 			) : (
 				<FormControl>
@@ -103,7 +80,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 							border: border ? border : "0.0938rem solid #E2E8F0",
 						}}
 						{...register(registerType, { required: true })}
-						as={InputMask}
+						as={title === "CPF" || title === "CNPJ" ? InputMask : ''}
 						mask={validation}
 						maskChar={null}
 					/>
@@ -121,25 +98,25 @@ export const DefaultInputs: FunctionComponent<any> = props => {
 	return (
 		<Flex flexDirection="column" gap="1.5rem">
 			<DefaultInput
-				title={isPhysical ? "Nome Completo" : "Razão Social"}
+				title={isPhysical ? "Razão Social" : "Nome Completo"}
 				inputSize="20rem"
-				placeholder={isPhysical ? "Sem abreviações" : "Insira aqui"}
+				placeholder={isPhysical ? "Insira aqui" : "Sem abreviações"}
 				registerType="full_name"
 				register={register}
 			/>
 			<DefaultInput
-				title={isPhysical ? "Data de Nascimento" : "CNPJ"}
-				inputSize={isPhysical ? "9.875rem" : "11rem"}
-				placeholder={isPhysical ? "dd/mm/aaaa" : "00.000.000/0000-00"}
-				type={isPhysical ? "date" : ""}
-				registerType={isPhysical ? "birthday_date" : "cnpj"}
+				title={isPhysical ? "CNPJ" : "Data de Nascimento"}
+				inputSize={isPhysical ? "11rem" : "9.875rem"}
+				placeholder={isPhysical ? "00.000.000/0000-00" : "dd/mm/aaaa"}
+				type={isPhysical ? "" : "date"}
+				registerType={isPhysical ? "cnpj" : "birthday_date"}
 				register={register}
 			/>
 			<DefaultInput
-				title={isPhysical ? "CPF" : "UF"}
-				inputSize={isPhysical ? "9.875rem" : "20rem"}
-				placeholder={isPhysical ? "000.000.000-00" : "Insira aqui"}
-				registerType={isPhysical ? "cpf" : "uf"}
+				title={isPhysical ? "Uf" : "CPF"}
+				inputSize={isPhysical ? "20rem" : "9.875rem"}
+				placeholder={isPhysical ? "Insira aqui" : "000.000.000-00"}
+				registerType={isPhysical ? "uf" : "cpf"}
 				register={register}
 			/>
 			<DefaultInput

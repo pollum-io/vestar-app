@@ -74,7 +74,7 @@ export const RegisterSteps: FunctionComponent = () => {
 		<Flex gap="3.875rem">
 			<RegisterStep
 				step={1}
-				title={isPhysical ? "Dados Pessoais" : "Dados PJ"}
+				title={isPhysical ? "Dados PJ" : "Dados Pessoais"}
 				barPercentage={firstStep ? 50 : 100}
 			/>
 			<RegisterStep
