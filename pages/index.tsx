@@ -10,23 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies["livn_auth"];
 
 	if (!token) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: "/",
-			},
-			props: {},
-		};
-	}
-
-	if (token) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: "/portfolio",
-			},
-			props: {},
-		};
+		return { props: {} };
 	}
 
 	const user: any = jwt_decode(token);
@@ -37,14 +21,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 				permanent: false,
 				destination: "/register",
 			},
-			props: {},
+			props: { user, token },
 		};
 	}
 
 	return {
-		props: {
-			user,
-			token,
+		redirect: {
+			permanent: false,
+			destination: "/portfolio",
 		},
+		props: { user, token },
 	};
 };

@@ -15,9 +15,8 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	border,
 	inputColor,
 	registerType,
-	register
+	register,
 }) => {
-
 	return (
 		<Flex flexDirection="column" fontFamily="Poppins" gap="0.5rem">
 			<Text
@@ -53,16 +52,15 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 					border: border ? border : "0.0938rem solid #E2E8F0",
 				}}
 				{...register(registerType, { required: true })}
-
 			/>
 		</Flex>
 	);
 };
 
-export const DefaultInputs: FunctionComponent<any> = (props) => {
+export const DefaultInputs: FunctionComponent<any> = props => {
 	const { register } = props;
 	const { isPhysical } = useRegister();
-	console.log(isPhysical ? "birthday_date" : "cnpj");
+
 	return (
 		<Flex flexDirection="column" gap="1.5rem">
 			<DefaultInput
@@ -79,7 +77,6 @@ export const DefaultInputs: FunctionComponent<any> = (props) => {
 				type={isPhysical ? "date" : ""}
 				registerType={isPhysical ? "birthday_date" : "cnpj"}
 				register={register}
-
 			/>
 			<DefaultInput
 				title={isPhysical ? "CPF" : "UF"}
