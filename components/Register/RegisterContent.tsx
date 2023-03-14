@@ -65,16 +65,15 @@ export const RegisterContent: FunctionComponent = () => {
 									variant="circular"
 									borderColor="#E2E8F0"
 									onChange={() => setIsPhysical(false)}
+								/>
+								<Text
+									fontSize="0.875rem"
+									lineHeight="1.25rem"
+									color={!isPhysical ? "#2D3748" : "#718096"}
+									fontWeight={!isPhysical ? "500" : "400"}
 								>
-									<Text
-										fontSize="0.875rem"
-										lineHeight="1.25rem"
-										color={!isPhysical ? "#2D3748" : "#718096"}
-										fontWeight={!isPhysical ? "500" : "400"}
-									>
-										Sou Pessoa Jurídica
-									</Text>
-								</Checkbox>
+									Sou Pessoa Jurídica
+								</Text>
 							</Flex>
 						</Flex>
 						<Flex flexDirection="column" gap="2rem">
