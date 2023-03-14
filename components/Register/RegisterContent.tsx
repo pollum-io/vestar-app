@@ -31,6 +31,7 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 	const { token } = props;
 
 	const [canSend, setCanSend] = useState(false);
+
 	const { push } = useRouter();
 
 	const onSubmitForm = async (data: any) => {
@@ -60,6 +61,17 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 		});
 	};
 
+	const handleClearInputs = () => {
+		reset({
+			full_name: "",
+			cpf: "",
+			birthday_date: "",
+			cnpj: "",
+			uf: "",
+			corporate_name: "",
+		});
+	}
+
 	return (
 		<Flex>
 			<form onSubmit={handleSubmit(onSubmitForm)}>
@@ -74,7 +86,7 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 										variant="circular"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										borderColor="#E2E8F0"
-										onChange={() => setIsPhysical(true)}
+										onChange={() => { setIsPhysical(true); handleClearInputs() }}
 									/>
 									<Text
 										fontSize="0.875rem"
@@ -93,7 +105,7 @@ export const RegisterContent: FunctionComponent<any> = (props) => {
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										variant="circular"
 										borderColor="#E2E8F0"
-										onChange={() => setIsPhysical(false)}
+										onChange={() => { setIsPhysical(false); handleClearInputs() }}
 									>
 										<Text
 											fontSize="0.875rem"
