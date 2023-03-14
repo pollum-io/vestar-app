@@ -2,13 +2,12 @@ import { GetServerSideProps, NextPage } from "next";
 import jwt_decode from "jwt-decode";
 import { RegisterContainer } from "../container";
 
-const Register: NextPage = (props) => <RegisterContainer {...props} />;
+const Register: NextPage = props => <RegisterContainer {...props} />;
 
 export default Register;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies["livn_auth"];
-	console.log(token)
 
 	if (!token) {
 		return {
@@ -27,21 +26,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 			props: { user, token },
 		};
 	}
-	if (user?.investor_id) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: "/oportunidades",
-			},
-			props: {},
-		};
-	}
-
 
 	return {
-		props: {
-			user,
-			token,
+		redirect: {
+			permanent: false,
+			destination: "/oportunidades",
 		},
+		props: { user, token },
 	};
 };

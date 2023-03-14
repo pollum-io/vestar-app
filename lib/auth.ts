@@ -39,15 +39,13 @@ export function setCookie(
 	);
 }
 
-export function authenticateUser(res: NextApiResponse, user: any) {
+export function generateToken(user: any) {
 	if (!user) return "";
 
 	const token = jwt.sign(
 		{ id: user._id, email: user.email, investor_id: user?.investor_id || null },
 		JWT_SECRET,
-		{
-			expiresIn: "7d",
-		}
+		{ expiresIn: "7d" }
 	);
 
 	return token;
