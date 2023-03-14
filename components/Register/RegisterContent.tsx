@@ -33,11 +33,8 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const [canSend, setCanSend] = useState(false);
 
 	const { push } = useRouter();
-	console.log(isPhysical, "isPhysical");
 
 	const onSubmitForm = async (data: any) => {
-		console.log({ data }, "data");
-
 		const request = isPhysical ?
 			{
 				corporate_name: data.corporate_name,
