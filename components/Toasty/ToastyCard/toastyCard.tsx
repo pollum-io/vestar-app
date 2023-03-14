@@ -10,8 +10,8 @@ import { IToastyCardProps } from "./dto";
 const cards: { [k: string]: [string, IconType, number] } = {
 	success: ["#38A169", RiCheckboxCircleFill, 19],
 	error: ["#E53E3E", AiFillExclamationCircle, 18],
-	warning: ["yellow", AiFillExclamationCircle, 18],
-	info: ["#2B6CB0", IoIosInformationCircle, 20],
+	warning: ["#DD6B20", AiFillExclamationCircle, 18],
+	info: ["#1789A3", IoIosInformationCircle, 20],
 };
 
 export const ToastyCard: React.FC<IToastyCardProps> = ({
@@ -37,53 +37,51 @@ export const ToastyCard: React.FC<IToastyCardProps> = ({
 			w={["18.75rem", "22.25rem", "22.25rem", "22.25rem", "22.30rem"]}
 			mt="2.125rem"
 			mr={["unset", "1.5rem", "2.5rem", "2.5rem"]}
-			py="0.7rem"
-			px="0.5rem"
+			pr="11px"
 			bg={bg}
-			borderRadius="0.2rem"
-			borderLeftWidth="0.25rem"
-			borderLeftColor={toastData.color}
+			borderRadius="0.375rem"
 			justifyContent="space-between"
-			boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
+			boxShadow="0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
 			flexDir="column"
 		>
 			<Flex
 				color={text}
 				flexDirection="row"
-				zIndex="docked"
-				px="0.3rem"
+				pr="0.3rem"
 				w="100%"
 				position="relative"
+				justifyContent="space-between"
 			>
-				<Flex pt="0.1rem">{toastData.icon}</Flex>
+				<Flex>
+					<Flex
+						borderLeftRadius="0.375rem"
+						bgColor={toastData.color}
+						w="0.35rem"
+						h="100%"
+					/>
 
-				<Flex
-					flexDirection="column"
-					ml="0.8rem"
-					py="0"
-					position="relative"
-					alignItems="flex-top"
-					w="100%"
-					pr="2"
-				>
-					<Text
-						font-weight="700"
-						fontWeight="700"
-						fontSize="1rem"
-						lineHeight="1.5rem"
-					>{`${state?.title}`}</Text>
-					<Text fontSize="1rem" font-weight="normal">
-						{state.description}
-					</Text>
+					<Flex
+						position="relative"
+						alignItems="flex-top"
+						w="100%"
+						gap="0.875rem"
+						ml="0.8rem"
+						py="0.75rem"
+					>
+						<Flex pt="0.1rem">{toastData.icon}</Flex>
+						<Flex flexDirection="column">
+							<Text
+								fontWeight="700"
+								fontSize="0.875rem"
+								lineHeight="1.5rem"
+							>{`${state?.title}`}</Text>
+							<Text fontSize="0.75rem" fontWeight="normal">
+								{state.description}
+							</Text>
+						</Flex>
+					</Flex>
 				</Flex>
-				<Flex
-					_hover={{ cursor: "pointer" }}
-					onClick={onClose}
-					position="absolute"
-					right="0"
-					top="0"
-					pt="0.1rem"
-				>
+				<Flex _hover={{ cursor: "pointer" }} onClick={onClose} py="0.75rem">
 					<MdOutlineClose size={16} color={text} />
 				</Flex>
 			</Flex>

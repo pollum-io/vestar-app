@@ -34,6 +34,8 @@ export const Carousel: React.FC<ICarousel> = props => {
 			width={widthValue}
 			overflow={"hidden"}
 			borderRadius="0.25rem"
+			_active={{ boxShadow: "none" }}
+			boxShadow="none"
 		>
 			<link
 				rel="stylesheet"
@@ -57,7 +59,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 				onClick={() => slider?.slickPrev()}
 				bgColor="transparent"
 				_hover={{}}
-				_focus={{ bgColor: "transparent" }}
+				_focus={{ bgColor: "transparent", boxShadow: "none" }}
 			>
 				<MdArrowBackIosNew color="#ffffff" size={50} />
 			</IconButton>
@@ -72,7 +74,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 				onClick={() => slider?.slickNext()}
 				bgColor="transparent"
 				_hover={{}}
-				_focus={{ bgColor: "transparent" }}
+				_focus={{ bgColor: "transparent", boxShadow: "none" }}
 			>
 				<MdArrowForwardIos color="#ffffff" size={50} />
 			</IconButton>

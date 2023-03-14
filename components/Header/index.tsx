@@ -1,5 +1,6 @@
-import { Flex, Img, Text } from "@chakra-ui/react";
+import { Flex, Img } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { HamburguerMenu } from "./HamburguerMenu";
 import { HeaderLinks } from "./HeaderLinks";
 
 export const Header: React.FC = () => {
@@ -32,8 +33,7 @@ export const Header: React.FC = () => {
 				lineHeight="1.25rem"
 				alignItems="center"
 			>
-				<Text cursor="pointer">Pt</Text>
-				<Text cursor="pointer">Eng</Text>
+				<HamburguerMenu />
 			</Flex>
 		</Flex>
 	);

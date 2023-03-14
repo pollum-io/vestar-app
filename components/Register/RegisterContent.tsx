@@ -27,8 +27,9 @@ export const RegisterContent: FunctionComponent = () => {
 			id: "toast1",
 			position: "top-right",
 			status: "success",
-			title: "Cadastro",
-			description: "Cadastro realizado!",
+			title: "Cadastro enviado com sucesso!",
+			description:
+				"Você receberá no e-mail informado mais informações em breve.",
 		});
 	};
 	return (
