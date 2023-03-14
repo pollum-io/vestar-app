@@ -5,6 +5,7 @@ import "../styles/termsScrollbar.css";
 import AppWrapper from "../container/AppWrapper";
 import "../styles/maps.css"
 import "../styles/mapsLabel.css"
+import "../styles/select.css"
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
