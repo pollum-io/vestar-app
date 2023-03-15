@@ -126,7 +126,7 @@ export const RegisterContent: FunctionComponent = () => {
 								border="0.0625rem solid #E2E8F0"
 								w="47.4375rem"
 								h="17.75rem"
-								padding="22px 22px 0 22px"
+								padding="1.375rem 1.375rem 0 1.375rem"
 								mr="1rem"
 							>
 								<Flex

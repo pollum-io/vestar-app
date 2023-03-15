@@ -80,8 +80,8 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								bgColor="#FFFFFF"
 								color="#007088"
 								w="100%"
-								px="10px"
-								py="16px"
+								px="0.625rem"
+								py="1rem"
 								mb={ended ? "none" : "1rem"}
 								isDisabled={ended && !hasToken}
 								_hover={
