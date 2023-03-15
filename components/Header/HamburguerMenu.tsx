@@ -18,9 +18,11 @@ import {
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import { SlArrowUp } from "react-icons/sl";
+import { useRouter } from "next/router";
+import { logout } from "../../services/logout";
 
 export const HamburguerMenu: React.FC = () => {
+	const { push } = useRouter();
 	return (
 		<Menu>
 			<MenuButton>
@@ -114,15 +116,17 @@ export const HamburguerMenu: React.FC = () => {
 						</AccordionPanel>
 					</AccordionItem>
 				</Accordion>
-				<Flex
-					pr="1.1875rem"
-					pl="1rem"
-					_hover={{ cursor: "pointer" }}
+				<MenuItem
+					fontFamily="Poppins"
+					fontSize="0.875rem"
+					lineHeight="1.25rem"
+					color="#4A5568"
+					bgColor="#FFF"
+					_hover={{ bgColor: "#FFF" }}
+					onClick={() => logout(push)}
 				>
-					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Log out
-					</Text>
-				</Flex>
+					logout
+				</MenuItem>
 			</MenuList>
 		</Menu>
 	);
