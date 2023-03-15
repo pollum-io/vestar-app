@@ -1,21 +1,65 @@
-import { Flex, Img, useDisclosure } from "@chakra-ui/react";
+import { Flex, Img, useDisclosure, SimpleGrid } from "@chakra-ui/react";
 import { CollectionsModal } from "./CollectionsModal";
 
 export const Collections: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
-  return (
-    <Flex w="100%" h="100%" gap="0.5rem" pb="1.5rem" pt="2rem">
-      <CollectionsModal isOpen={isOpen} onClose={onClose} />
-      <Flex onClick={onOpen}>
-        <Img w="70rem" h="25rem" src={"images/backgrounds/Image.png"} />
-      </Flex>
-      <Flex onClick={onOpen} flexWrap={"wrap"} gap="0.5rem">
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-1.png"} />
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-2.png"} />
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-3.png"} />
-        <Img w="19rem" h="12.25rem" src={"images/backgrounds/Image-4.png"} />
-      </Flex>
-    </Flex>
-  );
+	return (
+		<Flex
+			w="100%"
+			h="100%"
+			gap="0.5rem"
+			pb="1.5rem"
+			pt="2rem"
+			justifyContent="center"
+		>
+			<CollectionsModal isOpen={isOpen} onClose={onClose} />
+			<Flex onClick={onOpen}>
+				<Img
+					width="34.75rem"
+					height="25rem"
+					src={"images/backgrounds/Image.png"}
+					borderLeftRadius="0.75rem"
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
+				/>
+			</Flex>
+			<SimpleGrid columns={{ sm: 1, md: 2, lg: 2, xl: 2 }} gap="0.5rem">
+				<Img
+					w="17.125rem"
+					h="12.25rem"
+					src={"images/backgrounds/Image-1.png"}
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
+				/>
+				<Img
+					w="17.125rem"
+					h="12.25rem"
+					src={"images/backgrounds/Image-2.png"}
+					borderTopRightRadius="0.75rem"
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
+				/>
+				<Img
+					w="17.125rem"
+					h="12.25rem"
+					src={"images/backgrounds/Image-3.png"}
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
+				/>
+				<Img
+					w="17.125rem"
+					h="12.25rem"
+					src={"images/backgrounds/Image-4.png"}
+					borderBottomRightRadius="0.75rem"
+					onClick={onOpen}
+					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
+					transition="200ms"
+				/>
+			</SimpleGrid>
+		</Flex>
+	);
 };
