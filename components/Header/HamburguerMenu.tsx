@@ -53,9 +53,7 @@ export const HamburguerMenu: React.FC = () => {
 					<AccordionItem border="none">
 						<AccordionButton
 							background="none"
-							_hover={{
-								background: "none !important",
-							}}
+							_hover={{ bgColor: "#FFF", opacity: 0.8 }}
 							_focus={{
 								background: "none !important",
 							}}
@@ -120,12 +118,14 @@ export const HamburguerMenu: React.FC = () => {
 					fontFamily="Poppins"
 					fontSize="0.875rem"
 					lineHeight="1.25rem"
+					pr="1.1875rem"
+					pl="1rem"
 					color="#4A5568"
 					bgColor="#FFF"
-					_hover={{ bgColor: "#FFF" }}
+					_hover={{ bgColor: "#FFF", opacity: 0.8 }}
 					onClick={() => logout(push)}
 				>
-					logout
+					Logout
 				</MenuItem>
 			</MenuList>
 		</Menu>

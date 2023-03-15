@@ -162,6 +162,8 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							fontSize="0.75rem"
 							lineHeight="1rem"
 							color="#007D99"
+							bg={"transparent"}
+							_hover={{ opacity: 0.8 }}
 						>
 							Cadastrar
 						</Button>
