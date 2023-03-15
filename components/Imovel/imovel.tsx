@@ -13,8 +13,9 @@ interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
 }
 
-export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails }) => {
-
+export const ImovelDetail: FunctionComponent<IImovelProps> = ({
+	imovelDetails,
+}) => {
 	return (
 		<Flex flexDir={"column"}>
 			<Flex px="5rem" flexDir={"column"}>
@@ -44,7 +45,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 					</Flex>
 					<Flex gap="0.625rem" pb="1.5rem">
 						<Icon w={6} h={6} color={"#718096"} as={FiMapPin} />
-						<Text color={"#718096"}>{`${imovelDetails?.address?.street}, ${imovelDetails?.address?.neighborhood}`}
+						<Text color={"#718096"}>
+							{`${imovelDetails?.address?.street}, ${imovelDetails?.address?.neighborhood}`}
 						</Text>
 					</Flex>
 					<Flex flexDir={"column"} pb="3rem">
@@ -65,7 +67,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 									Início da Obra
 								</Text>
 								<Flex gap="0.25rem">
-									<Text color="#000000">{formatDate(imovelDetails?.init_date)}</Text>
+									<Text color="#000000">
+										{formatDate(imovelDetails?.init_date)}
+									</Text>
 								</Flex>
 							</Flex>
 							<Flex flexDir={"column"} gap="0.25rem">
@@ -73,7 +77,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 									Prev. Conclusão
 								</Text>
 								<Flex gap="0.25rem">
-									<Text color="#000000">{formatDate(imovelDetails?.expected_delivery_date)}</Text>
+									<Text color="#000000">
+										{formatDate(imovelDetails?.expected_delivery_date)}
+									</Text>
 								</Flex>
 							</Flex>
 							<Flex flexDir={"column"} gap="0.25rem">
@@ -81,7 +87,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 									Rentabilidade Esperada
 								</Text>
 								<Flex gap="0.25rem">
-									<Text color="#000000">{imovelDetails?.profitability}% ao ano</Text>
+									<Text color="#000000">
+										{imovelDetails?.profitability}% ao ano
+									</Text>
 									<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 								</Flex>
 							</Flex>
@@ -113,9 +121,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 						</Flex>
 					</Flex>
 					<Flex flexDir={"column"} gap="5" w="45%">
-						<Text color={"#171923"}>
-							{imovelDetails?.description}
-						</Text>
+						<Text color={"#171923"}>{imovelDetails?.description}</Text>
 					</Flex>
 					<PriceCard axisY="34rem" />
 					<Flex mt="4rem" flexDir={"column"}>
@@ -123,11 +129,17 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 							O que este empreendimento oferece
 						</Text>
 						<Flex gap="8rem">
-							<Flex flexDir={"column"} maxH={"10rem"} flexWrap={"wrap"} color={"#171923"}>
-								{imovelDetails?.general_info?.map((infos: string) =>
-									// eslint-disable-next-line react/jsx-key
-									<Text pr="3">&bull; {infos}</Text>
-								)}
+							<Flex
+								flexDir={"column"}
+								maxH={"10rem"}
+								flexWrap={"wrap"}
+								color={"#171923"}
+							>
+								{imovelDetails?.general_info?.map((infos: string, idx) => (
+									<Text key={idx} pr="3">
+										&bull; {infos}
+									</Text>
+								))}
 							</Flex>
 						</Flex>
 						<Text
@@ -194,17 +206,23 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({ imovelDetails })
 				<Flex w="100%" mt="2rem" justifyContent={"space-between"}>
 					<Flex w="50%" flexDir={"column"} gap="1rem">
 						<Text fontWeight={"600"} color={"#171923"}>
-							{imovelDetails?.address?.street}, {imovelDetails?.address?.neighborhood}, {imovelDetails?.address?.state}
+							{imovelDetails?.address?.street},{" "}
+							{imovelDetails?.address?.neighborhood},{" "}
+							{imovelDetails?.address?.state}
 						</Text>
 						<Text fontSize={"sm"} color={"#171923"}>
 							{imovelDetails?.neighbor_description}
 						</Text>
 					</Flex>
 					<Flex w="40%" justifyContent={"flex-end"}>
-						<Carousel extra_images={imovelDetails?.pictures_neighbor as any[]} widthValue="70rem" heightValue="18rem" />
+						<Carousel
+							extra_images={imovelDetails?.pictures_neighbor as any[]}
+							widthValue="70rem"
+							heightValue="18rem"
+						/>
 					</Flex>
 				</Flex>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};

@@ -81,7 +81,7 @@ export async function verifyUser(
 }
 
 export function clearUser(res: NextApiResponse): void {
-	setCookie(res, "auth", "0", {
+	setCookie(res, "livn_auth", "0", {
 		...cookieOptions,
 		path: "/",
 		maxAge: 1,
