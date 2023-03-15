@@ -103,14 +103,24 @@ export const CompanieContainer = () => {
 								<Flex
 									boxShadow="0rem 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)"
 									borderRadius="0.75rem"
-									_hover={{ cursor: "pointer" }}
+									_hover={{
+										cursor: "pointer",
+										boxShadow:
+											"0rem 0.345rem 0.675rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)",
+									}}
+									transition="150ms"
 								>
 									<Img src="images/backgrounds/JusBrasil.png" />
 								</Flex>
 								<Flex
 									boxShadow="0rem 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)"
 									borderRadius="0.75rem"
-									_hover={{ cursor: "pointer" }}
+									_hover={{
+										cursor: "pointer",
+										boxShadow:
+											"0rem 0.345rem 0.675rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)",
+									}}
+									transition="150ms"
 								>
 									<Img src="images/backgrounds/ReclameAqui.png" />
 								</Flex>
