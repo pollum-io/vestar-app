@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { CompaniesContainer } from "../container";
 
-const Companies: NextPage = () => <CompaniesContainer />;
+const Empresas: NextPage = () => <CompaniesContainer />;
 
-export default Companies;
+export default Empresas;

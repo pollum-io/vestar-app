@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { InvestContainer } from "../container";
 
-const Invest: NextPage = () => <InvestContainer />;
+const Investir: NextPage = () => <InvestContainer />;
 
-export default Invest;
+export default Investir;
