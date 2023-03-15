@@ -44,7 +44,6 @@ export const HeaderLinks: React.FC = () => {
 					color={pathname === item.url ? "#007D99" : "#4A5568"}
 					_hover={{
 						color: "#007D99",
-						borderBottom: "2px solid #007D99",
 						cursor: "pointer",
 					}}
 					onClick={() => push(item.url)}

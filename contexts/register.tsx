@@ -21,8 +21,8 @@ export const RegisterProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [firstStep, setFirstStep] = useState<boolean>(true);
 	const [secondStep, setSecondStep] = useState<boolean>(false);
 	const [isPhysical, setIsPhysical] = useState<boolean>(true);
-	const [ended, setEnded] = useState(false);
-	const [hasToken, setHasToken] = useState(true);
+	const [ended, setEnded] = useState(true);
+	const [hasToken, setHasToken] = useState(false);
 	const providerValue = useMemo(
 		() => ({
 			firstStep,

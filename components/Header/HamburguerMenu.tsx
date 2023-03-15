@@ -75,7 +75,7 @@ export const HamburguerMenu: React.FC = () => {
 							</Flex>
 						</AccordionButton>
 
-						<AccordionPanel p="0" pb="0.4rem">
+						<AccordionPanel p="0" pb="0.4rem" fontWeight="400">
 							<Flex flexDirection="column" gap="0.25rem">
 								<Flex
 									justifyContent="space-between"
@@ -120,6 +120,8 @@ export const HamburguerMenu: React.FC = () => {
 					lineHeight="1.25rem"
 					color="#4A5568"
 					pl="0.9375rem"
+					_focus={{}}
+					_hover={{ bgColor: "#F7FAFC" }}
 				>
 					Sair
 				</MenuItem>
