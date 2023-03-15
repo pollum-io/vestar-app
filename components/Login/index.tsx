@@ -11,11 +11,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
 
-		if (!data.user?.investor_id) {
-			return push("/register");
-		} else {
-			return push("/oportunidades");
-		}
+		push(!data.user?.investor_id ? "/register" : "/oportunidades");
 	};
 
 	return (
@@ -158,17 +154,16 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 						>
 							Ainda não possui uma conta?
 						</Text>
-						<Text
+						<Button
+							type="submit"
 							fontStyle="normal"
 							fontWeight="500"
 							fontSize="0.75rem"
 							lineHeight="1rem"
 							color="#007D99"
-							_hover={{ cursor: "pointer" }}
-							onClick={() => push("/register")}
 						>
 							Cadastrar
-						</Text>
+						</Button>
 					</Flex>
 				</Flex>
 			</Flex>

@@ -8,28 +8,25 @@ export default Login;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies["livn_auth"];
+	let user: any;
 
 	if (!token) {
 		return { props: {} };
 	}
 
-	const user: any = jwt_decode(token);
-
-	if (!user?.investor_id) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: "/register",
-			},
-			props: { user, token },
-		};
+	try {
+		user = jwt_decode(token);
+	} catch (error) {
+		user = null;
 	}
 
-	return {
-		redirect: {
-			permanent: false,
-			destination: "/portfolio",
-		},
-		props: { user, token },
-	};
+	return !user
+		? { props: {} }
+		: {
+				redirect: {
+					permanent: false,
+					destination: !user?.investor_id ? "/register" : "/portfolio",
+				},
+				props: { user, token },
+		  };
 };
