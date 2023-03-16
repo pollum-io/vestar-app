@@ -1,15 +1,13 @@
 import {
 	ModalOverlay,
-	Button,
 	ModalContent,
-	ModalCloseButton,
-	ModalHeader,
-	ModalFooter,
 	ModalBody,
 	Modal,
-	Img,
+	Flex,
+	Text,
 } from "@chakra-ui/react";
 import { Carousel } from "./Carousel";
+import { GrFormClose } from "react-icons/gr";
 
 interface ICollectionsModal {
 	isOpen: boolean;
@@ -19,16 +17,41 @@ interface ICollectionsModal {
 
 export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 	const { isOpen, onClose, images } = props;
+
 	return (
 		<>
-			<Modal blockScrollOnMount size="4xl" isOpen={isOpen} onClose={onClose}>
+			<Modal blockScrollOnMount size="full" isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent mt="15rem" mr="10rem" bgColor={"transparent"} boxShadow="none">
-					<ModalCloseButton right={"-3.5rem"} top={"-2rem"} bgColor={"#ffffff1a"} position={"absolute"} />
-
+				<ModalContent bgColor={"#ffffff"} h="100%">
 					<ModalBody>
-
-						<Carousel modal_images={images} widthValue="58rem" heightValue="30rem" />
+						<Flex
+							justifyContent="center"
+							alignItems="center"
+							h="100%"
+							flexDirection="column"
+							gap="1.125rem"
+						>
+							<Flex
+								gap="1rem"
+								color="#171923"
+								w="95%"
+								maxWidth="70rem"
+								justifyContent="end"
+								alignItems="center"
+							>
+								<Text fontFamily="Poppins" fontSize="1rem" lineHeight="1.5rem">
+									Fechar
+								</Text>
+								<Flex _hover={{ cursor: "pointer" }}>
+									<GrFormClose size={22} onClick={onClose} />
+								</Flex>
+							</Flex>
+							<Carousel
+								modal_images={images}
+								widthValue="55.8125rem"
+								heightValue="37.5rem"
+							/>
+						</Flex>
 					</ModalBody>
 				</ModalContent>
 			</Modal>

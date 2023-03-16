@@ -1,12 +1,15 @@
 import { BsCheck } from "react-icons/bs";
 import {
 	Flex,
+	IconButton,
+	Img,
 	Menu,
 	MenuButton,
 	MenuItem,
 	MenuList,
 	Icon,
 	Text,
+	Button,
 	Accordion,
 	AccordionItem,
 	AccordionButton,
@@ -20,6 +23,7 @@ import { logout } from "../../services/logout";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
+
 	return (
 		<Menu>
 			<MenuButton>
@@ -33,11 +37,10 @@ export const HamburguerMenu: React.FC = () => {
 					border="0.0625rem solid #E2E8F0"
 					rounded={"1rem"}
 				>
-					<Icon color="#4A5568 " as={FiMenu} />
 					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Menu
+						Olá, Fulano
 					</Text>
-					<Icon color="#4A5568 " as={HiOutlineUserCircle} />
+					<Icon color="#4A5568 " as={FiMenu} />
 				</Flex>
 			</MenuButton>
 			<MenuList
@@ -45,6 +48,7 @@ export const HamburguerMenu: React.FC = () => {
 				border="0.0625rem solid #E2E8F0"
 				borderRadius="1rem"
 				w="12.625rem"
+				pb="0.8rem"
 			>
 				<Accordion allowMultiple>
 					<AccordionItem border="none">
@@ -74,7 +78,7 @@ export const HamburguerMenu: React.FC = () => {
 							</Flex>
 						</AccordionButton>
 
-						<AccordionPanel p="0" pb="0.4rem">
+						<AccordionPanel p="0" pb="0.4rem" fontWeight="400">
 							<Flex flexDirection="column" gap="0.25rem">
 								<Flex
 									justifyContent="space-between"
@@ -118,11 +122,12 @@ export const HamburguerMenu: React.FC = () => {
 					fontSize="0.875rem"
 					lineHeight="1.25rem"
 					color="#4A5568"
-					bgColor="#FFF"
-					_hover={{ bgColor: "#FFF" }}
+					pl="0.9375rem"
+					_focus={{}}
+					_hover={{ bgColor: "#F7FAFC" }}
 					onClick={() => logout(push)}
 				>
-					logout
+					Sair
 				</MenuItem>
 			</MenuList>
 		</Menu>

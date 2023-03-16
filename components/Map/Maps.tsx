@@ -8,16 +8,18 @@ interface IMaps {
 }
 
 export const Maps: FunctionComponent<IMaps> = ({ localization, localizations }) => {
-	const [getLocalization, setGetLocalization] = useState<any>([])
+	const [getLocalization, setGetLocalization] = useState<any>([]);
 	const [data, setData] = useState<any>([])
 
-	const { isLoaded } = useLoadScript({ googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_APY_KEY as any })
+	const { isLoaded } = useLoadScript({
+		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_APY_KEY as any,
+	});
 
 	useEffect(() => {
 		if (localization) {
 			fetchGeocode(localization as any).then(res => { setData(res) })
 		}
-	}, [localization])
+	}, [localization]);
 
 	useEffect(() => {
 		const getPlace = data?.results?.map((data: any) => data?.geometry?.location)
@@ -47,9 +49,8 @@ export const Maps: FunctionComponent<IMaps> = ({ localization, localizations }) 
 						position={convertPlace} />
 				</GoogleMap>
 			) : (
-				<Flex>Oi</Flex>
+				<Flex>Loading...</Flex>
 			)}
-
 		</>
-	)
-}
+	);
+};
