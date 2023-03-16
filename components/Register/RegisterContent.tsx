@@ -12,6 +12,7 @@ import {
 import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
+import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
@@ -45,25 +46,26 @@ export const RegisterContent: FunctionComponent<any> = props => {
 		});
 	}
 	const onSubmitForm = async (data: any) => {
-		console.log({ data }, "data");
-
-		const request = isPhysical
-			? {
+		console.log(data, 'data');
+		const request = isPhysical ?
+			{
+				enterprise_name: String(data.enterprise_name),
+				cnpj: data.cnpj.replace(/[-./]/g, ""),
+				uf: data.uf,
+				is_legal_entity: isPhysical,
+				invited_by: String(data.invited_by),
+			}
+			:
+			{
 				full_name: String(data.full_name),
-				cpf: data.cpf,
+				cpf: data.cpf.replace(/[.-]/g, ""),
 				birthday_date: new Date(data.birthday_date),
 				is_legal_entity: isPhysical,
 				invited_by: String(data.invited_by),
 			}
-			: {
-				corporate_name: data.corporate_name,
-				cnpj: data.cnpj,
-				uf: data.uf,
-				is_legal_entity: isPhysical,
-				invited_by: String(data.invited_by),
-			};
+		console.log(request, 'request');
 
-		await fetchCreateInvestor(request, token)
+		await (isPhysical ? fetchCreateEnterprise(request, token) : fetchCreateInvestor(request, token))
 			.then(res => {
 				if (res) {
 					push("/oportunidades");
@@ -73,6 +75,18 @@ export const RegisterContent: FunctionComponent<any> = props => {
 				console.log({ err });
 			});
 	};
+
+	const handleClearInputs = () => {
+		reset({
+			full_name: "",
+			enterprise_name: "",
+			cpf: "",
+			birthday_date: "",
+			cnpj: "",
+			uf: "",
+			corporate_name: "",
+		});
+	}
 
 	return (
 		<Flex>
@@ -84,17 +98,17 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								<Flex gap="0.75rem">
 									<Checkbox
 										spacing="0.75rem"
-										isChecked={isPhysical}
+										isChecked={isPhysical === false ? true : false}
 										variant="circular"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										borderColor="#E2E8F0"
-										onChange={() => setIsPhysical(true)}
+										onChange={() => { setIsPhysical(false); handleClearInputs() }}
 									/>
 									<Text
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
-										color={isPhysical ? "#2D3748" : "#718096"}
-										fontWeight={isPhysical ? "500" : "400"}
+										color={isPhysical ? "#718096" : "#2D3748"}
+										fontWeight={isPhysical ? "400" : "500"}
 									>
 										Sou Pessoa Física
 									</Text>
@@ -102,18 +116,18 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								<Flex gap="0.75rem">
 									<Checkbox
 										spacing="0.75rem"
-										isChecked={!isPhysical ? true : false}
+										isChecked={isPhysical === false ? false : true}
 										fontStyle="normal"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										variant="circular"
 										borderColor="#E2E8F0"
-										onChange={() => setIsPhysical(false)}
+										onChange={() => { setIsPhysical(true); handleClearInputs() }}
 									>
 										<Text
 											fontSize="0.875rem"
 											lineHeight="1.25rem"
-											color={!isPhysical ? "#2D3748" : "#718096"}
-											fontWeight={!isPhysical ? "500" : "400"}
+											color={isPhysical ? "#2D3748" : "#718096"}
+											fontWeight={isPhysical ? "500" : "400"}
 										>
 											Sou Pessoa Jurídica
 										</Text>

@@ -41,6 +41,7 @@
 		"react-dom": "18.2.0",
 		"react-hook-form": "^7.43.5",
 		"react-icons": "^4.7.1",
+		"react-input-mask": "^2.0.4",
 		"react-password-strength-bar": "^0.4.1",
 		"react-query": "^3.39.3",
 		"react-responsive-carousel": "^3.2.23",
@@ -53,6 +54,7 @@
 	"devDependencies": {
 		"@types/cookie": "^0.5.1",
 		"@types/mime-types": "^2.1.1",
+		"@types/react-input-mask": "^3.0.2",
 		"@types/react-slick": "^0.23.10",
 		"@types/uuid": "^9.0.1"
 	}

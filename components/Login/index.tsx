@@ -11,7 +11,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
 
-		push(!data.user?.investor_id ? "/register" : "/oportunidades");
+		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 
 	return (
@@ -57,7 +57,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							E-mail
 						</Text>
 						<Input
-							placeholder="Hello"
+							placeholder="Digite seu email"
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -99,7 +99,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							</Text>
 						</Flex>
 						<Input
-							placeholder="Hello"
+							placeholder="Digite sua senha"
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -113,6 +113,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							pl="0.7rem"
 							color="#2D3748"
 							onChange={e => setPassword(e.target.value)}
+							type={"password"}
 						/>
 					</Flex>
 					<Flex mt="2.5rem">
@@ -161,6 +162,8 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							fontSize="0.75rem"
 							lineHeight="1rem"
 							color="#007D99"
+							bg={"transparent"}
+							_hover={{ opacity: 0.8 }}
 						>
 							Cadastrar
 						</Button>
