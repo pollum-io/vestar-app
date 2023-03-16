@@ -11,6 +11,7 @@ import {
 import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
+import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const {
@@ -35,9 +36,10 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const { push } = useRouter();
 
 	const onSubmitForm = async (data: any) => {
+		console.log(data, 'data');
 		const request = isPhysical ?
 			{
-				corporate_name: data.corporate_name,
+				enterprise_name: String(data.enterprise_name),
 				cnpj: data.cnpj.replace(/[-./]/g, ""),
 				uf: data.uf,
 				is_legal_entity: isPhysical,
@@ -51,8 +53,9 @@ export const RegisterContent: FunctionComponent<any> = props => {
 				is_legal_entity: isPhysical,
 				invited_by: String(data.invited_by),
 			}
+		console.log(request, 'request');
 
-		await fetchCreateInvestor(request, token)
+		await (isPhysical ? fetchCreateEnterprise(request, token) : fetchCreateInvestor(request, token))
 			.then(res => {
 				if (res) {
 					push("/oportunidades");
@@ -66,6 +69,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const handleClearInputs = () => {
 		reset({
 			full_name: "",
+			enterprise_name: "",
 			cpf: "",
 			birthday_date: "",
 			cnpj: "",

@@ -101,7 +101,7 @@ export const DefaultInputs: FunctionComponent<any> = props => {
 				title={isPhysical ? "Razão Social" : "Nome Completo"}
 				inputSize="20rem"
 				placeholder={isPhysical ? "Insira aqui" : "Sem abreviações"}
-				registerType="full_name"
+				registerType={isPhysical ? "enterprise_name" : "full_name"}
 				register={register}
 			/>
 			<DefaultInput
