@@ -1,16 +1,11 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
-	Button,
 	Flex,
 	Img,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
 	Radio,
 	RadioGroup,
 	Stack,
 	Text,
+	SimpleGrid,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useState } from "react";
@@ -38,7 +33,7 @@ const PieChartPortfolio = dynamic(
 
 export const PortfolioContainer: FunctionComponent = () => {
 	const [value, setValue] = useState("1");
-	const [isInvestor, setIsInvestor] = useState(true);
+	const [isInvestor, setIsInvestor] = useState(false);
 	const [hasInvest, setHasInvest] = useState(true);
 
 	return (
@@ -71,7 +66,12 @@ export const PortfolioContainer: FunctionComponent = () => {
 				</Flex>
 			</Flex>
 			{hasInvest ? (
-				<Flex justifyContent="center" alignItems="center" px="5rem">
+				<Flex
+					justifyContent="center"
+					alignItems="center"
+					px="5rem"
+					flexDirection="column"
+				>
 					<Flex flexDirection="column" maxWidth="70rem" w="100%">
 						<Flex mt="6.1875rem" flexDir={"column"} pb="8.5rem">
 							<Text
@@ -198,7 +198,7 @@ export const PortfolioContainer: FunctionComponent = () => {
 											: "Cotas mais vendidas"}
 									</Text>
 								</Flex>
-								<Flex>
+								<Flex display={isInvestor ? "flex" : "none"}>
 									<MenuChart defaultSelection="Todos os imóveis" />
 								</Flex>
 								{!isInvestor && (
@@ -281,7 +281,7 @@ export const PortfolioContainer: FunctionComponent = () => {
 									</Flex>
 								</Flex>
 							) : (
-								<Flex w="77rem" h="25rem">
+								<Flex w="100%" h="25rem">
 									<BarCharts />
 								</Flex>
 							)}
@@ -307,108 +307,126 @@ export const PortfolioContainer: FunctionComponent = () => {
 									fontSize={"sm"}
 									fontWeight="400"
 									mb="1rem"
-									display="none"
 								>
 									{isInvestor ? (
-										<Flex alignItems="end">
-											<Text pr="24.5rem">Imóvel</Text>
-											<Text pr="11.5rem">Cota</Text>
-											<Text pr="7.5rem" w="6.375rem">
-												Total investido
-											</Text>
-											<Text pr="8.5rem">Vencimento</Text>
-											<Text pr="8.5rem">Investimento</Text>
-											<Text mr="8rem" w="6.375rem">
-												Rentabilidade Esperada
-											</Text>
-											<Text w="6.375rem">Valor Atual de Mercado</Text>
+										<Flex w="100%" justifyContent="space-between">
+											<Flex w="18rem" alignItems="end">
+												<Text>Imóvel</Text>
+											</Flex>
+											<Flex
+												justifyContent="space-between"
+												w="70%"
+												alignItems="end"
+											>
+												<Text w="7rem">Cota</Text>
+												<Text w="7rem">Total investido</Text>
+												<Flex gap="0.375rem" alignItems="center" w="7rem">
+													<Text>Vencimento</Text>
+													<Img src="icons/InfoSquare.png" />
+												</Flex>
+												<Flex gap="0.375rem" alignItems="center" w="7rem">
+													<Text w="6.375rem">Rentabilidade Esperada</Text>
+													<Img src="icons/InfoSquare.png" />
+												</Flex>
+												<Flex gap="0.375rem" alignItems="center" w="7rem">
+													<Text w="6.375rem">Valor Atual de Mercado</Text>
+													<Img src="icons/InfoSquare.png" />
+												</Flex>
+											</Flex>
 										</Flex>
 									) : (
-										<Flex>
-											<Text flex="2">Imóvel</Text>
-											<Text flex="1">Cota</Text>
-											<Text flex="1">Arrecadação</Text>
-											<Text flex="1">Cotas Emitidas</Text>
-											<Text flex="1">Cotas Disponiveis</Text>
+										<Flex w="100%" justifyContent="space-between">
+											<Flex w="18rem" alignItems="end">
+												<Text>Imóvel</Text>
+											</Flex>
+											<Flex
+												w="70%"
+												justifyContent="space-between"
+												alignItems="end"
+											>
+												<Text w="7rem">Cota</Text>
+												<Text w="7rem">Arrecadação</Text>
+												<Text w="7rem">Cotas Emitidas</Text>
+												<Text w="9rem">Cotas Disponiveis</Text>
+											</Flex>
 										</Flex>
 									)}
 								</Flex>
 								<Flex flexDirection="column" gap="0.75rem">
-									<ImovelList isInvest={true} isFinished={false} />
-									<ImovelList isInvest={true} isFinished={true} />
+									<ImovelList isInvest={false} isFinished={true} />
 									<ImovelList isInvest={false} isFinished={false} />
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex flexDir={"column"} mb="7.5rem" w="100%">
-							<Text
-								mb="2rem"
-								fontSize={"2xl"}
-								fontWeight={"600"}
-								color={"#171923"}
-							>
+						<Flex flexDir={"column"} mb="2rem" w="100%">
+							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
 								{isInvestor
 									? "Onde você tem investido"
 									: "Empreendimentos cadastrados"}
 							</Text>
-							<Flex gap="1.5rem" flexWrap={"wrap"}>
-								{isInvestor ? (
-									<Img w="100%" src="images/Map.png" />
-								) : (
-									<>
-										<OpportunitiesCard
-											time="Encerrado"
-											name="Nome do Empreendimento"
-											location="Campeche, Florianópolis"
-											type="Comercial"
-											finished={false}
-											isPortfolio={true}
-										/>
-										<OpportunitiesCard
-											time="Disponivel"
-											name="Nome do Empreendimento"
-											location="Campeche, Florianópolis"
-											type="Comercial"
-											finished={false}
-											isPortfolio={true}
-										/>
-										<OpportunitiesCard
-											time="Disponivel"
-											name="Nome do Empreendimento"
-											location="Campeche, Florianópolis"
-											type="Comercial"
-											finished={false}
-											isPortfolio={true}
-										/>
-										<OpportunitiesCard
-											time="Disponivel"
-											name="Nome do Empreendimento"
-											location="Campeche, Florianópolis"
-											type="Comercial"
-											finished={false}
-											isPortfolio={true}
-										/>
-										<OpportunitiesCard
-											time="Disponivel"
-											name="Nome do Empreendimento"
-											location="Campeche, Florianópolis"
-											type="Comercial"
-											finished={false}
-											isPortfolio={true}
-										/>
-										<OpportunitiesCard
-											time="Disponivel"
-											name="Nome do Empreendimento"
-											location="Campeche, Florianópolis"
-											type="Comercial"
-											finished={false}
-											isPortfolio={true}
-										/>
-									</>
-								)}
+							<Flex gap="1.5rem">
+								{isInvestor && <Img w="100%" src="images/Map.png" />}
 							</Flex>
 						</Flex>
 					</Flex>
+					{!isInvestor && (
+						<SimpleGrid
+							columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+							spacing="1.5rem"
+							w="fit-content"
+							rowGap="2rem"
+							mb="6.8125rem"
+						>
+							<OpportunitiesCard
+								time="Encerrado"
+								name="Nome do Empreendimento"
+								location="Campeche, Florianópolis"
+								type="Comercial"
+								finished={false}
+								isPortfolio={true}
+							/>
+							<OpportunitiesCard
+								time="Disponivel"
+								name="Nome do Empreendimento"
+								location="Campeche, Florianópolis"
+								type="Comercial"
+								finished={false}
+								isPortfolio={true}
+							/>
+							<OpportunitiesCard
+								time="Disponivel"
+								name="Nome do Empreendimento"
+								location="Campeche, Florianópolis"
+								type="Comercial"
+								finished={false}
+								isPortfolio={true}
+							/>
+							<OpportunitiesCard
+								time="Disponivel"
+								name="Nome do Empreendimento"
+								location="Campeche, Florianópolis"
+								type="Comercial"
+								finished={false}
+								isPortfolio={true}
+							/>
+							<OpportunitiesCard
+								time="Disponivel"
+								name="Nome do Empreendimento"
+								location="Campeche, Florianópolis"
+								type="Comercial"
+								finished={false}
+								isPortfolio={true}
+							/>
+							<OpportunitiesCard
+								time="Disponivel"
+								name="Nome do Empreendimento"
+								location="Campeche, Florianópolis"
+								type="Comercial"
+								finished={false}
+								isPortfolio={true}
+							/>
+						</SimpleGrid>
+					)}
 				</Flex>
 			) : (
 				<NotInvestWarn />

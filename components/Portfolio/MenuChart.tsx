@@ -43,6 +43,9 @@ export const MenuChart: FunctionComponent<IMenuChart> = ({
 					border="1px solid #E2E8F0"
 					borderRadius="0.375rem"
 					rightIcon={<MdExpandMore style={{ marginLeft: "4rem" }} />}
+					_hover={{}}
+					_expanded={{}}
+					_focus={{ boxShadow: "none" }}
 				>
 					{defaultSelection}
 				</MenuButton>
