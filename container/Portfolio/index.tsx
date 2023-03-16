@@ -26,7 +26,7 @@ const PieChartPortfolio = dynamic(
 export const PortfolioContainer: FunctionComponent = () => {
 	const [value, setValue] = useState("1");
 	const [isInvestor, setIsInvestor] = useState(true);
-	const [hasInvest, setHasInvest] = useState(true);
+	const [hasInvest, setHasInvest] = useState(false);
 
 	return (
 		<DefaultTemplate>
@@ -44,7 +44,11 @@ export const PortfolioContainer: FunctionComponent = () => {
 						<Text fontWeight={"600"} fontSize="3xl">
 							Olá, Pred!
 						</Text>
-						<Text fontSize={"sm"} fontWeight="400">
+						<Text
+							fontSize={"sm"}
+							fontWeight="400"
+							display={hasInvest ? "flex" : "none"}
+						>
 							Esse é o portfólio da Nome da Empresa de 28/nov/22
 						</Text>
 					</Flex>
