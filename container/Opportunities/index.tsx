@@ -1,10 +1,11 @@
-import { Flex, Img, Text } from "@chakra-ui/react";
+import { Flex, Img, Text, useMediaQuery } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
 
 export const OpportunitiesContainer: FunctionComponent = () => {
+	const [bannerRes] = useMediaQuery("(max-width: 1110px)");
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -29,8 +30,13 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 						w="100%"
 						h="21.3125rem"
 						position="absolute"
-						gap="5%"
-						justifyContent="center"
+						gap={bannerRes ? "unset" : ["unset", "unset", "5%", "5%"]}
+						justifyContent={
+							bannerRes
+								? "space-between"
+								: ["unset", "unset", "center", "center"]
+						}
+						px={["", "", "", "1rem", "unset"]}
 					>
 						<Flex position="relative" alignItems="center">
 							<Img
@@ -55,7 +61,12 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 								Investir é muito mais fácil com a LIVN
 							</Text>
 						</Flex>
-						<Flex h="21.3125rem" alignItems="center" w="50%" maxWidth="47rem">
+						<Flex
+							h="21.3125rem"
+							alignItems="center"
+							w={["unset", "unset", "unset", "unset", "50%"]}
+							maxWidth="47rem"
+						>
 							<Flex justifyContent="space-between" w="100%" gap="1.5rem">
 								<Flex flexDirection="column" gap="0.625rem">
 									<Img src="images/firstIcon.png" w="2.2rem" h="2.8rem" />

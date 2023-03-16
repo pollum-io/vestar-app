@@ -18,7 +18,7 @@ export const CompanieContainer = () => {
 						id="CNPJ: 00.000.000/0001-00"
 						location="Campeche, Florianópolis - Santa Catarina"
 					/>
-					<Flex h="45rem">
+					<Flex h="45rem" w="">
 						<CompanieContact
 							website="www.capitalcity.com.br"
 							whats="(48) 3333 - 3333"
@@ -97,7 +97,12 @@ export const CompanieContainer = () => {
 						<Text>Quem constrói nossa história</Text>
 
 						<CompanieMembers />
-						<Flex mt="8.5rem" flexDirection="column" gap="2rem">
+						<Flex
+							mt="8.5rem"
+							flexDirection="column"
+							gap="2rem"
+							bgColor={["", "green", "blue", "red"]}
+						>
 							<Text>Saiba mais sobre a empresa</Text>
 							<Flex gap="2.75rem">
 								<Flex
