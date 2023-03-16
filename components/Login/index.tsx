@@ -11,7 +11,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
 
-		push(!data.user?.investor_id ? "/register" : "/oportunidades");
+		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 
 	return (
