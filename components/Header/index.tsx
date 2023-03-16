@@ -1,9 +1,10 @@
-import { Flex, Image, Icon, Img } from "@chakra-ui/react";
+import { Flex, Img } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { HamburguerMenu } from "./HamburguerMenu";
 import { HeaderLinks } from "./HeaderLinks";
-import livn from "./images/livnlogo.png";
 
 export const Header: React.FC = () => {
+	const { push } = useRouter();
 	return (
 		<Flex
 			w="100%"
@@ -12,15 +13,26 @@ export const Header: React.FC = () => {
 			alignItems={"center"}
 			justifyContent="space-around"
 			bgColor={"#FFFFFF"}
-			gap="24rem"
+			borderBottom="0.0625rem solid #E2E8F0"
+			boxShadow="0rem 0.0625rem 0.125rem rgba(0, 0, 0, 0.05)"
 		>
-			<Flex>
+			<Flex
+				onClick={() => push("/oportunidades")}
+				_hover={{ cursor: "pointer" }}
+			>
 				<Img src={"/images/livnlogo.png"} w="5" h="7" alt="Livn logo" />
 			</Flex>
 			<Flex>
 				<HeaderLinks />
 			</Flex>
-			<Flex>
+			<Flex
+				gap="0.75rem"
+				fontFamily="Poppins"
+				fontWeight="500"
+				fontSize="0.875rem"
+				lineHeight="1.25rem"
+				alignItems="center"
+			>
 				<HamburguerMenu />
 			</Flex>
 		</Flex>

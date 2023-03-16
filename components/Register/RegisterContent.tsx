@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import { Flex, Checkbox, Button, Text, SlideFade } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
+import { useToasty } from "../../hooks/useToasty";
 import { DefaultInputs } from "../Inputs/DeafultInput/DefaultInput";
 import { useForm } from "react-hook-form";
 import {
@@ -14,6 +15,8 @@ import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
 import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 
 export const RegisterContent: FunctionComponent<any> = props => {
+	const { token } = props;
+	const [canSend, setCanSend] = useState(false);
 	const {
 		firstStep,
 		secondStep,
@@ -29,12 +32,19 @@ export const RegisterContent: FunctionComponent<any> = props => {
 		formState: { isSubmitSuccessful },
 		reset,
 	} = useForm();
-	const { token } = props;
-
-	const [canSend, setCanSend] = useState(false);
-
 	const { push } = useRouter();
+	const { toast } = useToasty();
 
+	const toastyfunction = () => {
+		toast({
+			id: "toast1",
+			position: "top-right",
+			status: "success",
+			title: "Cadastro enviado com sucesso!",
+			description:
+				"Você receberá no e-mail informado mais informações em breve.",
+		});
+	}
 	const onSubmitForm = async (data: any) => {
 		console.log(data, 'data');
 		const request = isPhysical ?
@@ -144,7 +154,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 									lineHeight="1.25rem"
 									borderRadius="0.5rem"
 									color="#ffffff"
-									type="button"
 									onClick={() => {
 										setSecondStep(true), setFirstStep(false);
 									}}
@@ -195,47 +204,46 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											mr="1.0625rem"
 										>
 											Lorem ipsum dolor sit amet consectetur. Pellentesque vel
-											malesuada accumsan mattis quis elit lectus vitae. Ut
-											aliquam pellentesque nascetur proin eget bibendum
-											penatibus senectus. Quis turpis arcu maecenas viverra.
-											Posuere semper duis morbi lobortis amet a. Adipiscing
-											cursus in lectus tortor ullamcorper eget. Vitae diam quam
-											et euismod. Eget sed metus est pharetra euismod est
-											faucibus. Pharetra faucibus posuere volutpat cursus velit
-											viverra vitae fringilla. Arcu consectetur viverra non
-											tempus. Consequat faucibus tortor bibendum nisl enim
-											accumsan id nec quis. Malesuada cursus donec nulla vel
-											condimentum ut augue. Auctor venenatis malesuada ultrices
-											diam enim integer vitae tincidunt adipiscing. Sed enim
-											neque pellentesque lacus nunc. Vitae pellentesque eu in
-											scelerisque. Faucibus quam in maecenas phasellus id tempus
-											senectus molestie eros. Dolor nunc vivamus neque convallis
-											vestibulum pellentesque urna. Massa proin amet iaculis
-											elementum quisque enim. Adipiscing molestie imperdiet
-											pellentesque arcu ultrices facilisi dolor phasellus. Velit
-											vulputate lacus mauris senectus porta malesuada nibh
-											sollicitudin sagittis. Adipiscing cursus in lectus tortor
-											ullamcorper eget. Vitae diam quam et euismod. Eget sed
-											metus est pharetra euismod est faucibus. Pharetra faucibus
-											posuere volutpat cursus velit viverra vitae fringilla.
-											Arcu consectetur viverra non tempus. Consequat faucibus
-											tortor bibendum nisl enim accumsan id nec quis. Malesuada
-											cursus donec nulla vel condimentum ut augue. Auctor
-											venenatis malesuada ultrices diam enim integer vitae
+											malesuada accumsan mattis quis elit lectus vitae. Ut aliquam
+											pellentesque nascetur proin eget bibendum penatibus
+											senectus. Quis turpis arcu maecenas viverra. Posuere semper
+											duis morbi lobortis amet a. Adipiscing cursus in lectus
+											tortor ullamcorper eget. Vitae diam quam et euismod. Eget
+											sed metus est pharetra euismod est faucibus. Pharetra
+											faucibus posuere volutpat cursus velit viverra vitae
+											fringilla. Arcu consectetur viverra non tempus. Consequat
+											faucibus tortor bibendum nisl enim accumsan id nec quis.
+											Malesuada cursus donec nulla vel condimentum ut augue.
+											Auctor venenatis malesuada ultrices diam enim integer vitae
+											tincidunt adipiscing. Sed enim neque pellentesque lacus
+											nunc. Vitae pellentesque eu in scelerisque. Faucibus quam in
+											maecenas phasellus id tempus senectus molestie eros. Dolor
+											nunc vivamus neque convallis vestibulum pellentesque urna.
+											Massa proin amet iaculis elementum quisque enim. Adipiscing
+											molestie imperdiet pellentesque arcu ultrices facilisi dolor
+											phasellus. Velit vulputate lacus mauris senectus porta
+											malesuada nibh sollicitudin sagittis. Adipiscing cursus in
+											lectus tortor ullamcorper eget. Vitae diam quam et euismod.
+											Eget sed metus est pharetra euismod est faucibus. Pharetra
+											faucibus posuere volutpat cursus velit viverra vitae
+											fringilla. Arcu consectetur viverra non tempus. Consequat
+											faucibus tortor bibendum nisl enim accumsan id nec quis.
+											Malesuada cursus donec nulla vel condimentum ut augue.
+											Auctor venenatis malesuada ultrices diam enim integer vitae
 											tincidunt adipiscing. eros. Dolor nunc vivamus neque
 											convallis vestibulum pellentesque urna. Massa proin amet
 											iaculis elementum quisque enim. Adipiscing molestie
 											imperdiet pellentesque arcu ultrices facilisi dolor
 											phasellus. Velit vulputate lacus mauris senectus porta
 											malesuada nibh sollicitudin sagittis. Adipiscing cursus in
-											lectus tortor ullamcorper eget. Vitae diam quam et
-											euismod. Eget sed metus est pharetra euismod est faucibus.
-											Pharetra faucibus posuere volutpat cursus velit viverra
-											vitae fringilla. Arcu consectetur viverra non tempus.
-											Consequat faucibus tortor bibendum nisl enim accumsan id
-											nec quis. Malesuada cursus donec nulla vel condimentum ut
-											augue. Auctor venenatis malesuada ultrices diam enim
-											integer vitae tincidunt adipiscing.
+											lectus tortor ullamcorper eget. Vitae diam quam et euismod.
+											Eget sed metus est pharetra euismod est faucibus. Pharetra
+											faucibus posuere volutpat cursus velit viverra vitae
+											fringilla. Arcu consectetur viverra non tempus. Consequat
+											faucibus tortor bibendum nisl enim accumsan id nec quis.
+											Malesuada cursus donec nulla vel condimentum ut augue.
+											Auctor venenatis malesuada ultrices diam enim integer vitae
+											tincidunt adipiscing.
 										</Text>
 									</Flex>
 								</Flex>
@@ -252,11 +260,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											setCanSend(!canSend), setSecondStep(!secondStep);
 										}}
 									/>
-									<Text
-										fontSize="0.875rem"
-										lineHeight="1.25rem"
-										color="#2D3748"
-									>
+									<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
 										Declaro que li e aceito os termos acima.
 									</Text>
 								</Flex>
@@ -279,11 +283,8 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
 										borderRadius="0.5rem"
-										type="button"
 										onClick={() => {
-											setFirstStep(true),
-												setSecondStep(false),
-												setCanSend(false);
+											setFirstStep(true), setSecondStep(false), setCanSend(false);
 										}}
 									>
 										<BsArrowLeftShort size={22} />
@@ -309,7 +310,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										lineHeight="1.25rem"
 										borderRadius="0.5rem"
 										color="#ffffff"
-										type="submit"
+										onClick={() => toastyfunction()}
 									>
 										Enviar Cadastro
 									</Button>
@@ -321,4 +322,4 @@ export const RegisterContent: FunctionComponent<any> = props => {
 			</form>
 		</Flex>
 	);
-};
+}
