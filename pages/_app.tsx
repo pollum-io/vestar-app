@@ -9,14 +9,6 @@ import "../styles/mapsLabel.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastyProvider } from "../contexts/toasty";
 
-const userTheme = {
-	...theme,
-	config: {
-		...theme.config,
-		initialColorMode: "light",
-	},
-};
-
 const toasty = {
 	bg: "#FFFFFF",
 	text: "#2D3748",
@@ -27,7 +19,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ChakraProvider resetCSS theme={userTheme}>
+			<ChakraProvider resetCSS theme={theme}>
 				<ToastyProvider {...toasty}>
 					<AppWrapper>
 						<Component {...pageProps} />

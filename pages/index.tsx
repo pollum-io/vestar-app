@@ -23,10 +23,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	return !user
 		? { props: {} }
 		: {
-				redirect: {
-					permanent: false,
-					destination: !user?.investor_id ? "/register" : "/portfolio",
-				},
-				props: { user, token },
-		  };
+			redirect: {
+				permanent: false,
+				destination: !user?.investor_id ? "/registrar" : "/portfolio",
+			},
+			props: { user, token },
+		};
 };

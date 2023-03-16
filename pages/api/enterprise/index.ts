@@ -22,10 +22,10 @@ const InsertSchema = z.object({
 	enterprise_name: z.string().max(60),
 	enterprise_logo: z.optional(z.string()),
 	cnpj: z.string().max(14),
-	site_url: z.string().max(40),
-	address: z.object({} as { [key: string]: any }),
-	email: z.string(),
-	contact_number: z.string(),
+	site_url: z.optional(z.string().max(40)),
+	address: z.optional(z.object({} as { [key: string]: any })),
+	email: z.optional(z.string()),
+	contact_number: z.optional(z.string()),
 	social_media: z.optional(z.object({} as { [key: string]: any })),
 	description: z.optional(z.string()),
 	team: z.optional(z.array(z.object({} as { [key: string]: any }))),
@@ -34,6 +34,8 @@ const InsertSchema = z.object({
 	aum: z.optional(z.number()),
 	wallet_address: z.optional(z.string()),
 	investments: z.optional(z.array(z.any())),
+	invited_by: z.string(),
+	uf: z.string(),
 });
 
 const fetchSchema = z.object({

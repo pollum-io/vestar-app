@@ -1,5 +1,5 @@
-export const fetchCreateInvestor = async (data: any, token: any) => {
-	const request = await fetch(`http://localhost:3000/api/investor`, {
+export const fetchCreateEnterprise = async (data: any, token: any) => {
+	const request = await fetch(`http://localhost:3000/api/enterprise`, {
 		method: "POST",
 		body: JSON.stringify(data),
 		headers: {
