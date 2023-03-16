@@ -17,24 +17,12 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import PasswordStrengthBar from "react-password-strength-bar";
 
 export const Forgot_PasswordContainer = () => {
-	const [isCode, setIsCode] = useState<boolean>(true);
-	const [isChange, setIsChange] = useState<boolean>(true);
+	const [isCode, setIsCode] = useState<boolean>(false);
+	const [isChange, setIsChange] = useState<boolean>(false);
 	const [validCode, setValidCode] = useState<boolean>(false);
 	const [showFirst, setShowFirst] = useState<boolean>(false);
 	const [showSecond, setShowSecond] = useState<boolean>(false);
 	const { push } = useRouter();
-	const [buttonScore, setButtonScore] = useState<any>()
-	const [isButtonValid, setIsButtonValid] = useState<any>()
-	const [firstPassword, setFirstPassword] = useState<any>()
-	const [secondPassword, setSecondPassword] = useState<any>()
-
-	useMemo(() => {
-		if (buttonScore < 2 || firstPassword !== secondPassword) {
-			return setIsButtonValid(true)
-		} else {
-			return setIsButtonValid(false)
-		}
-	}, [buttonScore, firstPassword, secondPassword])
 
 	return (
 		<Flex
@@ -148,7 +136,6 @@ export const Forgot_PasswordContainer = () => {
 									h="2rem"
 									pl="0.7rem"
 									color="#2D3748"
-									onChange={e => setFirstPassword(e.target.value)}
 								/>
 								<InputRightElement
 									display={isChange ? "flex" : "none"}
@@ -174,7 +161,7 @@ export const Forgot_PasswordContainer = () => {
 							color="rgba(0, 0, 0, 0.36)"
 							display={isChange ? "flex" : "none"}
 						>
-							Deve conter no mínimo 8 caracteres incluindo números e letras
+							Deve conter no mínimo X caracteres incluindo números e letras
 						</Text>
 					</Flex>
 					<Flex
@@ -234,40 +221,36 @@ export const Forgot_PasswordContainer = () => {
 								</PinInput>
 							</HStack>
 						) : (
-							<Flex flexDir={"column"}>
-								<InputGroup size="md">
-									<Input
-										placeholder={isChange ? "Senha" : "exemplo@exemplo.com"}
-										_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
-										border="0.0938rem solid #E2E8F0"
-										type={isChange ? (showSecond ? "text" : "password") : "text"}
-										_hover={{}}
-										fontStyle="normal"
-										fontWeight="400"
-										fontSize="0.875rem"
-										lineHeight="1.25rem"
-										borderRadius="0.375rem"
-										h="2rem"
-										pl="0.7rem"
-										color="#2D3748"
-										onChange={e => setSecondPassword(e.target.value)}
-									/>
-									<InputRightElement
-										display={isChange ? "flex" : "none"}
-										onClick={() => setShowSecond(!showSecond)}
-										alignItems="center"
-										_hover={{ cursor: "pointer" }}
-										pb="0.55rem"
-									>
-										{showSecond ? (
-											<AiOutlineEye size={25} color="#2D3748" />
-										) : (
-											<AiOutlineEyeInvisible size={25} color="#2D3748" />
-										)}
-									</InputRightElement>
-								</InputGroup>
-								<PasswordStrengthBar onChangeScore={(score, feedback) => setButtonScore(score)} minLength={8} password={firstPassword} />
-							</Flex>
+							<InputGroup size="md">
+								<Input
+									placeholder={isChange ? "Senha" : "exemplo@exemplo.com"}
+									_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
+									border="0.0938rem solid #E2E8F0"
+									type={isChange ? (showSecond ? "text" : "password") : "text"}
+									_hover={{}}
+									fontStyle="normal"
+									fontWeight="400"
+									fontSize="0.875rem"
+									lineHeight="1.25rem"
+									borderRadius="0.375rem"
+									h="2rem"
+									pl="0.7rem"
+									color="#2D3748"
+								/>
+								<InputRightElement
+									display={isChange ? "flex" : "none"}
+									onClick={() => setShowSecond(!showSecond)}
+									alignItems="center"
+									_hover={{ cursor: "pointer" }}
+									pb="0.55rem"
+								>
+									{showSecond ? (
+										<AiOutlineEye size={25} color="#2D3748" />
+									) : (
+										<AiOutlineEyeInvisible size={25} color="#2D3748" />
+									)}
+								</InputRightElement>
+							</InputGroup>
 						)}
 					</Flex>
 				</Flex>
@@ -298,7 +281,6 @@ export const Forgot_PasswordContainer = () => {
 							validCode ? () => setIsChange(true) : () => setIsCode(!isCode)
 						}
 						disabled={isCode ? !validCode : false}
-						isDisabled={isButtonValid ? true : false}
 					>
 						{isCode ? (!isChange ? "Verificar" : "Confirmar") : "Enviar código"}
 					</Button>

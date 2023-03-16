@@ -86,7 +86,9 @@ export const CompanieContact: FunctionComponent<ICompanieContact> = ({
 			border="0.0625rem solid #E5E7EB"
 			boxShadow="0rem 1.25rem 1.5625rem rgba(31, 41, 55, 0.1), 0rem 0.625rem 0.625rem rgba(31, 41, 55, 0.04)"
 			borderRadius="0.75rem"
-			bgColor="#ffffff"
+			bgColor="white"
+			position="sticky"
+			top="10%"
 		>
 			{infos.map(item => (
 				item.content && (
