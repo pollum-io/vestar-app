@@ -7,8 +7,8 @@ import "../helpers/translation";
 import { useEffect, useState } from "react";
 import "../styles/maps.css";
 import "../styles/mapsLabel.css";
-
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastyProvider } from "../contexts/toasty";
 
 const userTheme = {
 	...theme,
@@ -16,6 +16,11 @@ const userTheme = {
 		...theme.config,
 		initialColorMode: "light",
 	},
+};
+
+const toasty = {
+	bg: "#FFFFFF",
+	text: "#2D3748",
 };
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -32,9 +37,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ChakraProvider resetCSS theme={userTheme}>
-				<AppWrapper>
-					<Component {...pageProps} />
-				</AppWrapper>
+				<ToastyProvider {...toasty}>
+					<AppWrapper>
+						<Component {...pageProps} />
+					</AppWrapper>
+				</ToastyProvider>
 			</ChakraProvider>
 		</QueryClientProvider>
 	);

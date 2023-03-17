@@ -1,17 +1,4 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-	Button,
-	Flex,
-	Img,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
-	Radio,
-	RadioGroup,
-	Stack,
-	Text,
-} from "@chakra-ui/react";
+import { Flex, Img, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useState } from "react";
 import { OpportunitiesCard } from "../../components";

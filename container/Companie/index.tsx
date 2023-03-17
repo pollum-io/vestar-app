@@ -20,16 +20,18 @@ export const CompanieContainer = () => {
 						id="CNPJ: 00.000.000/0001-00"
 						location="Campeche, Florianópolis - Santa Catarina"
 					/>
-					<CompanieContact
-						website="www.capitalcity.com.br"
-						whats="(48) 3333 - 3333"
-						phone="(48) 3333 - 3333"
-						email="contato@capitalcity.com.br"
-						instagram="@capitalcityoficial"
-						twitter="@capital.city"
-						telegram="@capitalcity"
-						facebook="@capital_city"
-					/>
+					<Flex h="45rem">
+						<CompanieContact
+							website="www.capitalcity.com.br"
+							whats="(48) 3333 - 3333"
+							phone="(48) 3333 - 3333"
+							email="contato@capitalcity.com.br"
+							instagram="@capitalcityoficial"
+							twitter="@capital.city"
+							telegram="@capitalcity"
+							facebook="@capital_city"
+						/>
+					</Flex>
 				</Flex>
 
 				<Flex
@@ -92,6 +94,7 @@ export const CompanieContainer = () => {
 						fontSize="1.5rem"
 						lineHeight="2rem"
 						color="#171923"
+						w="70rem"
 					>
 						<Text>{t("companieDetails.whoBuilds")}</Text>
 
@@ -102,31 +105,30 @@ export const CompanieContainer = () => {
 								<Flex
 									boxShadow="0rem 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)"
 									borderRadius="0.75rem"
-									_hover={{ cursor: "pointer" }}
+									_hover={{
+										cursor: "pointer",
+										boxShadow:
+											"0rem 0.345rem 0.675rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)",
+									}}
+									transition="150ms"
 								>
 									<Img src="images/backgrounds/JusBrasil.png" />
 								</Flex>
 								<Flex
 									boxShadow="0rem 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)"
 									borderRadius="0.75rem"
-									_hover={{ cursor: "pointer" }}
+									_hover={{
+										cursor: "pointer",
+										boxShadow:
+											"0rem 0.345rem 0.675rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)",
+									}}
+									transition="150ms"
 								>
 									<Img src="images/backgrounds/ReclameAqui.png" />
 								</Flex>
 							</Flex>
 						</Flex>
 					</Flex>
-
-					<CompanieContact
-						website="www.capitalcity.com.br"
-						whats="(48) 3333 - 3333"
-						phone="(48) 3333 - 3333"
-						email="contato@capitalcity.com.br"
-						instagram="@capitalcityoficial"
-						twitter="@capital.city"
-						telegram="@capitalcity"
-						facebook="@capital_city"
-					/>
 				</Flex>
 				<Flex mt="8.5rem" alignItems="center" flexDirection="column" gap="2rem">
 					<Flex px="5rem" w="100%" justifyContent="center">

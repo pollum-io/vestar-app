@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import { Flex, Checkbox, Button, Text, SlideFade } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
+import { useToasty } from "../../hooks/useToasty";
 import { DefaultInputs } from "../Inputs/DeafultInput/DefaultInput";
 import {
 	BsArrowRightShort,
@@ -23,6 +24,17 @@ export const RegisterContent: FunctionComponent = () => {
 	const [canSend, setCanSend] = useState(false);
 	const { t } = useTranslation();
 
+	const { toast } = useToasty();
+	const toastyfunction = () => {
+		toast({
+			id: "toast1",
+			position: "top-right",
+			status: "success",
+			title: "Cadastro enviado com sucesso!",
+			description:
+				"Você receberá no e-mail informado mais informações em breve.",
+		});
+	};
 	return (
 		<Flex>
 			{firstStep ? (
@@ -56,16 +68,15 @@ export const RegisterContent: FunctionComponent = () => {
 									variant="circular"
 									borderColor="#E2E8F0"
 									onChange={() => setIsPhysical(false)}
+								/>
+								<Text
+									fontSize="0.875rem"
+									lineHeight="1.25rem"
+									color={!isPhysical ? "#2D3748" : "#718096"}
+									fontWeight={!isPhysical ? "500" : "400"}
 								>
-									<Text
-										fontSize="0.875rem"
-										lineHeight="1.25rem"
-										color={!isPhysical ? "#2D3748" : "#718096"}
-										fontWeight={!isPhysical ? "500" : "400"}
-									>
-										{t("register.legalPerson")}
-									</Text>
-								</Checkbox>
+									{t("register.legalPerson")}
+								</Text>
 							</Flex>
 						</Flex>
 						<Flex flexDirection="column" gap="2rem">
@@ -118,7 +129,7 @@ export const RegisterContent: FunctionComponent = () => {
 								border="0.0625rem solid #E2E8F0"
 								w="47.4375rem"
 								h="17.75rem"
-								padding="22px 22px 0 22px"
+								padding="1.375rem 1.375rem 0 1.375rem"
 								mr="1rem"
 							>
 								<Flex
@@ -243,6 +254,7 @@ export const RegisterContent: FunctionComponent = () => {
 									fontSize="0.875rem"
 									lineHeight="1.25rem"
 									borderRadius="0.5rem"
+									onClick={() => toastyfunction()}
 									color="#ffffff"
 								>
 									{t("register.send")}

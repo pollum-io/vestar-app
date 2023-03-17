@@ -23,19 +23,37 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 				mb="1rem"
 			>
 				{isInvest ? (
-					<>
-						<Text pr="24.5rem">{t("wantToInvest.property")}</Text>
-						<Text pr="11.5rem">{t("wantToInvest.quota")}</Text>
-						<Text pr="7.5rem">{t("portfolio.totalInvested")}</Text>
-						<Text pr="8.5rem">{t("portfolio.maturity")}</Text>
-						<Text pr="8.5rem">{t("portfolio.investment")}</Text>
-						<Text mr="8rem" maxW="5%" flexWrap={"wrap"}>
-							{t("opportunities.card.expected")}
+					<Flex alignItems="end" justifyContent="space-between" w="100%">
+						<Text w="19.5rem">{t("wantToInvest.property")}</Text>
+						<Text ml="1.6rem">{t("wantToInvest.quota")}</Text>
+						<Text w="6.375rem" ml="4.8rem">
+							{t("portfolio.totalInvested")}
 						</Text>
-						<Text maxW="5%" flexWrap={"wrap"}>
-							{t("portfolio.current")}
-						</Text>
-					</>
+						<Flex alignItems="center" gap="0.3125rem">
+							<Text ml="1rem">{t("portfolio.maturity")}</Text>
+							<Img
+								src="images/icons/info-square.png"
+								w="0.7706rem"
+								h="0.7706rem"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="0.3125rem">
+							<Text w="6.375rem">{t("opportunities.card.expected")}</Text>
+							<Img
+								src="images/icons/info-square.png"
+								w="0.7706rem"
+								h="0.7706rem"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="0.3125rem" mr="6.5rem">
+							<Text w="6.375rem">{t("portfolio.current")}</Text>
+							<Img
+								src="images/icons/info-square.png"
+								w="0.7706rem"
+								h="0.7706rem"
+							/>
+						</Flex>
+					</Flex>
 				) : (
 					<>
 						<Text flex="2">{t("wantToInvest.property")}</Text>
@@ -49,9 +67,16 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 			<Flex
 				id="body-table-container"
 				alignItems={"center"}
-				boxShadow="0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
 				borderRadius="0.75rem"
 				opacity={isFinished ? "0.5" : "1"}
+				border="1px solid #EDF2F7"
+				_hover={{
+					cursor: "pointer",
+					boxShadow:
+						"0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
+					border: "1px solid transparent",
+				}}
+				transition="150ms"
 			>
 				<Flex alignItems={"center"} gap="4" flex="2">
 					{isFinished ? (
@@ -129,7 +154,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 						</Text>
 					)}
 				</Flex>
-				<Flex flex="1">
+				<Flex flex="1" display={isInvest ? "none" : "flex"}>
 					<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
 						150
 					</Text>
