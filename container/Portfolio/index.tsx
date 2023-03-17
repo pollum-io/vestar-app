@@ -33,7 +33,7 @@ const PieChartPortfolio = dynamic(
 
 export const PortfolioContainer: FunctionComponent = () => {
 	const [value, setValue] = useState("1");
-	const [isInvestor, setIsInvestor] = useState(false);
+	const [isInvestor, setIsInvestor] = useState(true);
 	const [hasInvest, setHasInvest] = useState(true);
 
 	return (
