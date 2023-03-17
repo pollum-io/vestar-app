@@ -5,7 +5,6 @@ import { useRegister } from "../../hooks";
 import { useRouter } from "next/router";
 import { useOpportunities } from "../../hooks/useOpportunities";
 interface IPriceCard {
-	axisY: string;
 	id: any;
 	price: number;
 	minted: number;
@@ -14,7 +13,7 @@ interface IPriceCard {
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
-	const { axisY, id, price, minted, supply, address } = props;
+	const { id, price, minted, supply, address } = props;
 	const [isInvestidor, setIsInvestidor] = useState(true);
 	const { ended, hasToken } = useOpportunities();
 	const { push } = useRouter();

@@ -222,7 +222,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								minted={imovelDetails?.token_minted}
 								price={imovelDetails?.token_price}
 								supply={imovelDetails?.token_supply}
-								axisY="43rem"
 							/>
 						</Flex>
 					</Flex>
