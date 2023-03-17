@@ -32,6 +32,9 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 				fontWeight="400"
 				fontSize="0.875rem"
 				lineHeight="1.25rem"
+				_hover={{}}
+				_expanded={{ bgColor: "#ffffff" }}
+				_focus={{ boxShadow: "none", bgColor: "#ffffff" }}
 			>
 				{placeholder}
 			</MenuButton>

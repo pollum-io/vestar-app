@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { RegisterContainer } from "../container";
 
-const Register: NextPage = () => <RegisterContainer />;
+const Registrar: NextPage = () => <RegisterContainer />;
 
-export default Register;
+export default Registrar;

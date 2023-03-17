@@ -19,6 +19,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 			borderRadius={"0.75rem"}
 			justifyContent="space-between"
 			alignItems={"end"}
+			border="1px solid #E5E7EB"
 		>
 			<Flex
 				w={isInvestidor ? "20%" : "max"}
