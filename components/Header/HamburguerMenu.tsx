@@ -20,9 +20,11 @@ import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { logout } from "../../services/logout";
+import { useWallet } from "../../hooks/useWallet";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
+	const { disconnectWallet } = useWallet()
 
 	return (
 		<Menu>
@@ -124,7 +126,7 @@ export const HamburguerMenu: React.FC = () => {
 					pl="0.9375rem"
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
-					onClick={() => logout(push)}
+					onClick={() => { logout(push); disconnectWallet() }}
 				>
 					Sair
 				</MenuItem>

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import {
 	Button,
 	Checkbox,
@@ -17,15 +17,21 @@ import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
+import { useTransactions } from "../../hooks/useTransactions";
 
 interface IInvest {
 	data: IOpportunitiesCard;
 	cotas: number;
+	oportunitiesAddress: string;
 }
 
-export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => {
+export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oportunitiesAddress }) => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<number>(Number(cotas));
+	const { aprrove } = useTransactions()
+	const totalValue = counter * data.token_price
+	const BRZ_DECIMALS = 10 ** 8
+	const amount = totalValue * BRZ_DECIMALS
 
 	const avalible = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
@@ -39,6 +45,11 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => 
 		style: 'currency',
 		currency: 'BRL',
 	});
+
+
+	const aproveTransfer = async (spender: any, amount: any) => {
+		await aprrove(spender, amount)
+	}
 
 	return (
 		<DefaultTemplate>
@@ -325,6 +336,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => 
 									_hover={
 										!isTerms ? { opacity: "0.3" } : { bgColor: "#EDF2F7" }
 									}
+									onClick={() => aproveTransfer(oportunitiesAddress, amount)}
 								>
 									Confirmar Investimento
 								</Button>

@@ -1,12 +1,15 @@
-import React, { createContext, useMemo, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import { createWalletClient, custom, getAccount } from 'viem'
 import { polygonMumbai } from 'viem/chains'
+import PersistentFramework from "../utils/persistent";
 
 declare let window: any;
-
 interface IWallet {
 	connectWallet: any;
+	disconnectWallet: any;
 	wallet: any;
+	account: string;
+	isConnected: any;
 }
 
 export const WalletContext = createContext({} as IWallet);
@@ -16,9 +19,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	let wallet: any
 	const [isConnected, setIsConnected] = useState<boolean>(false);
-	const [disconnect, setDisconnect] = useState<boolean>(false);
 	const [account, setAccount] = useState<string>("");
-	const [chainId, setChainId] = useState<number>();
 
 	if (typeof window !== "undefined" && typeof window?.ethereum !== "undefined") {
 		wallet = createWalletClient({
@@ -39,8 +40,10 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 				} else {
 					const [address] = await wallet.requestAddresses()
 					setAccount(address)
+					setIsConnected(true)
+					PersistentFramework.add("connected", { isConnected: true });
+					PersistentFramework.add("address", address);
 				}
-				setIsConnected(true)
 			} catch (err: any) {
 				setIsConnected(false)
 				console.log(err.message);
@@ -50,9 +53,33 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	}
 
+	const disconnectWallet = () => {
+		const value = PersistentFramework.get("connected") as { [k: string]: any };
+
+		if (value?.isConnected) {
+			PersistentFramework.remove("address");
+			PersistentFramework.remove("connected");
+			setIsConnected(false)
+			setAccount("")
+		}
+	}
+
+	useEffect(() => {
+		const value = PersistentFramework.get("connected") as { [k: string]: any };
+
+		if (value?.isConnected) {
+			const address = PersistentFramework.get("address") as any;
+
+			setIsConnected(true)
+			setAccount(address)
+		}
+	}, [])
+
+
 	const providerValue = useMemo(
 		() => ({
 			connectWallet,
+			disconnectWallet,
 			wallet,
 			account,
 			isConnected,
@@ -62,7 +89,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 		[
 			account,
 			isConnected,
-			setIsConnected
+			setIsConnected,
 		]
 	);
 

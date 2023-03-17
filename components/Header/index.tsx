@@ -1,10 +1,12 @@
 import { Flex, Img } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useWallet } from "../../hooks/useWallet";
 import { HamburguerMenu } from "./HamburguerMenu";
 import { HeaderLinks } from "./HeaderLinks";
 
 export const Header: React.FC = () => {
 	const { push } = useRouter();
+	const { connectWallet, account, isConnected } = useWallet()
 	return (
 		<Flex
 			w="100%"
@@ -21,6 +23,9 @@ export const Header: React.FC = () => {
 				_hover={{ cursor: "pointer" }}
 			>
 				<Img src={"/images/livnlogo.png"} w="5" h="7" alt="Livn logo" />
+			</Flex>
+			<Flex onClick={connectWallet}>
+				{isConnected ? account : "Conectar"}
 			</Flex>
 			<Flex>
 				<HeaderLinks />
