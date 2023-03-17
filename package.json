@@ -49,6 +49,7 @@
 		"recharts": "^2.4.1",
 		"typescript": "4.9.4",
 		"uuid": "^9.0.0",
+		"viem": "^0.1.21",
 		"zod": "^3.20.6"
 	},
 	"devDependencies": {
