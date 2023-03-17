@@ -8,6 +8,9 @@ const EnterpriseSchema = new mongoose.Schema(
 			required: true,
 			maxlength: 60,
 		},
+		enterprise_logo: {
+			type: String,
+		},
 		cnpj: {
 			type: String,
 			required: true,

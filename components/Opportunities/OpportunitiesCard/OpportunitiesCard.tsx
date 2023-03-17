@@ -26,6 +26,12 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 			boxShadow="0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.05)"
 			borderRadius="0.75rem"
 			flexDirection="column"
+			_hover={{
+				cursor: "pointer",
+				boxShadow:
+					"0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
+			}}
+			transition="150ms"
 		>
 			<Flex
 				w="18.125rem"
@@ -143,76 +149,86 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 						Atualizar andamento da obra
 					</Button>
 				) : (
-					<Flex justifyContent="space-between">
-						<Flex flexDirection="column" alignItems="left">
-							<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-								{t("opportunities.card.minInvest")}
-							</Text>
-							<Flex gap="0.25rem" fontFamily="Poppins">
+					<Flex flexDirection="column" gap="1rem" mt="1.5rem">
+						<Flex
+							alignItems="center"
+							justifyContent="space-between"
+							w="100%"
+							filter={blocked ? "blur(0.25rem)" : "none"}
+						>
+							<Flex flexDirection="column" alignItems="left">
 								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									{t("opportunities.card.sign")}
+									{t("opportunities.card.minInvest")}
 								</Text>
-								<Text
-									mt="0.0625rem"
-									fontSize="1rem"
-									lineHeight="1.5rem"
-									color="#171923"
-								>
-									{minimumInvest}
+								<Flex gap="0.25rem" fontFamily="Poppins">
+									<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
+										{t("opportunities.card.sign")}
+									</Text>
+									<Text
+										mt="0.0625rem"
+										fontSize="1rem"
+										lineHeight="1.5rem"
+										color="#171923"
+									>
+										{minimumInvest}
+									</Text>
+								</Flex>
+							</Flex>
+							<Flex
+								flexDirection="column"
+								alignItems="left"
+								fontFamily="Poppins"
+							>
+								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
+									{t("opportunities.card.estConc")}
+								</Text>
+								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
+									{estimateFinish}
 								</Text>
 							</Flex>
 						</Flex>
-						<Flex flexDirection="column" alignItems="left" fontFamily="Poppins">
-							<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-								{t("opportunities.card.estConc")}
-							</Text>
-							<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-								{estimateFinish}
-							</Text>
-						</Flex>
+						{!blocked ? (
+							<Flex
+								justifyContent="center"
+								alignItems="center"
+								w="100%"
+								background="#E4F2F3"
+								borderRadius="2.6875rem"
+								py="0.125rem"
+								fontSize="0.75rem"
+								lineHeight="1rem"
+								color="#00576B"
+								fontFamily="Poppins"
+								gap="0.2rem"
+							>
+								<Text fontWeight="500">
+									{t("opportunities.card.expected")}: {rentability}{" "}
+									{t("opportunities.card.p/y")}
+								</Text>
+								<Text fontWeight="400">{t("opportunities.card.max")}</Text>
+							</Flex>
+						) : (
+							<Button
+								justifyContent="center"
+								alignItems="center"
+								w="16.125rem"
+								h="1.5rem"
+								border="0.0625rem solid #007D99"
+								borderRadius="0.375rem"
+								fontFamily="Poppins"
+								fontWeight="500"
+								fontSize="0.75rem"
+								lineHeight="1rem"
+								color="#007D99"
+								bgColor="#ffffff"
+								_hover={{ bgColor: "#EDF2F7" }}
+							>
+								{finished
+									? t("opportunities.card.access")
+									: t("opportunities.card.accessTo")}
+							</Button>
+						)}
 					</Flex>
-				)}
-
-				{!blocked ? (
-					<Flex
-						justifyContent="center"
-						alignItems="center"
-						w="100%"
-						background="#E4F2F3"
-						borderRadius="2.6875rem"
-						py="0.125rem"
-						fontSize="0.75rem"
-						lineHeight="1rem"
-						color="#00576B"
-						fontFamily="Poppins"
-						gap="0.2rem"
-					>
-						<Text fontWeight="500">
-							{t("opportunities.card.expected")}: {rentability}{" "}
-							{t("opportunities.card.p/y")}
-						</Text>
-						<Text fontWeight="400">{t("opportunities.card.max")}</Text>
-					</Flex>
-				) : (
-					<Button
-						justifyContent="center"
-						alignItems="center"
-						w="16.125rem"
-						h="1.5rem"
-						border="0.0625rem solid #007D99"
-						borderRadius="0.375rem"
-						fontFamily="Poppins"
-						fontWeight="500"
-						fontSize="0.75rem"
-						lineHeight="1rem"
-						color="#007D99"
-						_hover={{ bgColor: "#EDF2F7" }}
-						mt="0.5625rem"
-					>
-						{finished
-							? t("opportunities.card.access")
-							: t("opportunities.card.accessTo")}
-					</Button>
 				)}
 			</Flex>
 		</Flex>
@@ -223,7 +239,7 @@ export const OpportunitiesCards: FunctionComponent = () => {
 	const { t } = useTranslation();
 	return (
 		<SimpleGrid
-			columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+			columns={{ sm: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
 			spacing="1.5rem"
 			w="fit-content"
 			rowGap="2rem"

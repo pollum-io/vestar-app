@@ -56,10 +56,6 @@ export const CompaniesContainer: FunctionComponent = () => {
 									lineHeight="1.25rem"
 									h="2rem"
 									_hover={{}}
-									_focus={{
-										boxShadow: "none",
-										border: "0.0625rem solid #CBD5E0",
-									}}
 								/>
 							</InputGroup>
 						</Flex>
