@@ -18,16 +18,15 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	registerType,
 	register,
 }) => {
-
 	const validation = useMemo(() => {
 		if (title === "CPF") {
-			return "999.999.999-99"
+			return "999.999.999-99";
 		} else if (title === "CNPJ") {
-			return "99.999.999/9999-99"
+			return "99.999.999/9999-99";
 		} else {
-			return
+			return;
 		}
-	}, [title])
+	}, [title]);
 
 	return (
 		<Flex flexDirection="column" fontFamily="Poppins" gap="0.5rem">
@@ -46,20 +45,25 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 					w={inputSize || ""}
 					h="2rem"
 					border={border ? border : "0.0938rem solid #E2E8F0"}
-					placeholder='Select option' color={"black"}
+					placeholder="Select option"
+					color={"black"}
 					fontSize="0.875rem"
 					{...register(registerType, { required: true })}
 				>
-					{states?.map((value: any) =>
-						<option key={value.id} value={value.Uf}>{value.State}</option>
-					)}
+					{states?.map((value: any) => (
+						<option key={value.id} value={value.Uf}>
+							{value.State}
+						</option>
+					))}
 				</Select>
 			) : (
 				<FormControl>
 					<Input
 						placeholder={placeholder}
 						_placeholder={{
-							color: placeholderColor ? placeholderColor : "rgba(0, 0, 0, 0.36)",
+							color: placeholderColor
+								? placeholderColor
+								: "rgba(0, 0, 0, 0.36)",
 							fontFamily: "Poppins",
 						}}
 						border={border ? border : "0.0938rem solid #E2E8F0"}
@@ -80,14 +84,13 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 							border: border ? border : "0.0938rem solid #E2E8F0",
 						}}
 						{...register(registerType, { required: true })}
-						as={title === "CPF" || title === "CNPJ" ? InputMask : ''}
+						as={title === "CPF" || title === "CNPJ" ? InputMask : ""}
 						mask={validation}
 						maskChar={null}
 					/>
 				</FormControl>
-			)
-			}
-		</Flex >
+			)}
+		</Flex>
 	);
 };
 
