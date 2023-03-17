@@ -7,10 +7,6 @@ interface IRegister {
 	setSecondStep: React.Dispatch<React.SetStateAction<boolean>>;
 	isPhysical: boolean;
 	setIsPhysical: React.Dispatch<React.SetStateAction<boolean>>;
-	ended: boolean;
-	setEnded: React.Dispatch<React.SetStateAction<boolean>>;
-	hasToken: boolean;
-	setHasToken: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const RegisterContext = createContext({} as IRegister);
@@ -21,8 +17,6 @@ export const RegisterProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [firstStep, setFirstStep] = useState<boolean>(true);
 	const [secondStep, setSecondStep] = useState<boolean>(false);
 	const [isPhysical, setIsPhysical] = useState<boolean>(true);
-	const [ended, setEnded] = useState(false);
-	const [hasToken, setHasToken] = useState(false);
 	const providerValue = useMemo(
 		() => ({
 			firstStep,
@@ -31,10 +25,6 @@ export const RegisterProvider: React.FC<{ children: React.ReactNode }> = ({
 			setSecondStep,
 			isPhysical,
 			setIsPhysical,
-			ended,
-			setEnded,
-			hasToken,
-			setHasToken,
 		}),
 		[
 			firstStep,
@@ -43,10 +33,6 @@ export const RegisterProvider: React.FC<{ children: React.ReactNode }> = ({
 			setSecondStep,
 			isPhysical,
 			setIsPhysical,
-			ended,
-			setEnded,
-			hasToken,
-			setHasToken,
 		]
 	);
 

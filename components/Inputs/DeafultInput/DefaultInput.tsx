@@ -83,7 +83,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 							boxShadow: "none",
 							border: border ? border : "0.0938rem solid #E2E8F0",
 						}}
-						//{...register(registerType, { required: true })}
+						{...register(registerType, { required: true })}
 						as={title === "CPF" || title === "CNPJ" ? InputMask : ""}
 						mask={validation}
 						maskChar={null}

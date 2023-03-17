@@ -6,10 +6,11 @@ import { PriceCard } from "./PriceCard";
 import { Carousel } from "./Carousel";
 import { TbInfoSquare } from "react-icons/tb";
 import { Maps } from "../Map/Maps";
-import { IOpportunitiesCard } from "../Opportunities/OpportunitiesCard/dto";
 import { formatDate } from "../../utils/formatDate";
 import { useEffect } from "react";
 import { useRegister } from "../../hooks";
+import { IOpportunitiesCard } from "../../dtos/Oportunities";
+import { useOpportunities } from "../../hooks/useOpportunities";
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
 }
@@ -17,7 +18,7 @@ interface IImovelProps {
 export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
 }) => {
-	const { ended, hasToken } = useRegister();
+	const { ended, hasToken } = useOpportunities();
 	return (
 		<Flex flexDir={"column"}>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -45,6 +46,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							>
 								{imovelDetails?.enterprise_type}
 							</Text>
+							{/* TODO: FALTA */}
 							<Flex
 								bgColor="#F0E8FF"
 								py="0.25rem"
@@ -53,7 +55,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								fontSize={"sm"}
 								color="#171923"
 								gap="0.25rem"
-								display={hasToken ? "flex" : "none"}
+								display={!hasToken ? "flex" : "none"}
 							>
 								<Text fontWeight="400">Você possui</Text>
 								<Text fontWeight="600">12 cotas</Text>
@@ -110,6 +112,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									</Flex>
 								</Flex>
 							</Flex>
+							{/* TODO: FALTA */}
 							<Flex gap="5.25rem">
 								<Flex flexDir={"column"} gap="0.25rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
@@ -209,7 +212,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
 									>
-										Preço unitário no próximo lote: R$ 180
+										Preço unitário no próximo lote: R$ {imovelDetails.token_price * 2}
 									</Text>
 								</Flex>
 							)}
@@ -244,7 +247,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit Square.png"} />
+							<Img src={"/images/icons/Edit-Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 								Auditorias
 							</Text>
