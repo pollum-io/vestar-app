@@ -18,6 +18,10 @@ export interface IOpportunitiesCard {
 	neighbor_description: string;
 	pictures_extra: string[];
 	pictures_neighbor: string[];
+	token_price: number;
+	token_minted: number;
+	token_supply: number;
+	token_address: string;
 	createdAt: string; // ou data
 	updatedAt: string; // ou data
 	blocked?: boolean;
