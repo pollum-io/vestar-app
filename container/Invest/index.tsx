@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useMemo, useState } from "react";
 import {
 	Button,
 	Checkbox,
@@ -15,18 +15,29 @@ import { DefaultTemplate } from "../DefaultTemplate";
 import { PaymentMethods, DefaultInput } from "../../components";
 import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
-import { useQuery as query } from "react-query";
-import { fetchImovelDetail } from "../../services/imovelDetail";
+import { IOpportunitiesCard } from "../../dtos/Oportunities";
+import { useOpportunities } from "../../hooks/useOpportunities";
 
-export const InvestContainer: FunctionComponent = () => {
+interface IInvest {
+	data: IOpportunitiesCard;
+	cotas: number;
+}
+
+export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
-	const [counter, setCounter] = useState<any>(1);
-	const router = useRouter();
-	const id = router.query.id;
-	console.log(id);
-	const { data: cardsInfo } = query("oportunity", fetchImovelDetail(id), {
-		refetchOnWindowFocus: false,
-		refetchInterval: false,
+	const [counter, setCounter] = useState<number>(Number(cotas));
+
+	const avalible = useMemo(() => {
+		if (data.token_supply > data.token_minted) {
+			return data.token_supply - data.token_minted;
+		} else {
+			return data.token_minted - data.token_supply;
+		}
+	}, [data.token_minted, data.token_supply]);
+
+	const formatter = new Intl.NumberFormat('pt-br', {
+		style: 'currency',
+		currency: 'BRL',
 	});
 
 	return (
@@ -38,7 +49,7 @@ export const InvestContainer: FunctionComponent = () => {
 					px="5.5%"
 					mt="6.25rem"
 					justifyContent="space-between"
-					mb="9.9375rem"
+					mb="12rem"
 				>
 					<Flex flexDirection="column" gap="4.25rem" w="70%">
 						<Flex flexDirection="column" gap="1rem">
@@ -103,7 +114,7 @@ export const InvestContainer: FunctionComponent = () => {
 											lineHeight="1.5rem"
 											color="#171923"
 										>
-											Crypto Plaza 502
+											{data.name}
 										</Text>
 										<Text
 											fontWeight="400"
@@ -111,7 +122,7 @@ export const InvestContainer: FunctionComponent = () => {
 											lineHeight="1rem"
 											color="#2D3748"
 										>
-											Residencial
+											{data.enterprise_type}
 										</Text>
 									</Flex>
 								</Flex>
@@ -140,7 +151,7 @@ export const InvestContainer: FunctionComponent = () => {
 											lineHeight="1rem"
 											color="#2D3748"
 										>
-											R$ 150
+											R$ {data.token_price}
 										</Text>
 									</Flex>
 									<Flex flexDirection="column" gap="0.1875rem">
@@ -162,7 +173,7 @@ export const InvestContainer: FunctionComponent = () => {
 														: { bgColor: "#f4f7fa" }
 												}
 												border="0.0625rem solid #E2E8F0"
-												onClick={() => setCounter(counter - 1)}
+												onClick={() => setCounter(counter === 0 ? 0 : counter - 1)}
 												h="2rem"
 												fontSize="0.875rem"
 												bgColor="#ffffff"
@@ -171,7 +182,7 @@ export const InvestContainer: FunctionComponent = () => {
 											</InputLeftAddon>
 											<Input
 												type="number"
-												placeholder={counter}
+												placeholder={String(counter)}
 												_placeholder={{ color: "#171923" }}
 												fontFamily="Poppins"
 												fontSize="0.875rem"
@@ -189,7 +200,7 @@ export const InvestContainer: FunctionComponent = () => {
 												justifyContent="center"
 												alignItems="center"
 												w="2.5rem"
-												isDisabled={counter === 5}
+												isDisabled={counter > avalible}
 												border="0.0625rem solid #E2E8F0"
 												borderLeft="0.0625rem solid #E2E8F0"
 												color="#171923"
@@ -202,7 +213,7 @@ export const InvestContainer: FunctionComponent = () => {
 														? { opacity: "0.3" }
 														: { bgColor: "#f4f7fa" }
 												}
-												onClick={() => setCounter(counter + 1)}
+												onClick={() => setCounter(counter === avalible ? counter : counter + 1)}
 												h="2rem"
 												fontSize="0.875rem"
 												bgColor="#ffffff"
@@ -251,7 +262,7 @@ export const InvestContainer: FunctionComponent = () => {
 								fontWeight="400"
 							>
 								<Text>cota_name</Text>
-								<Text>R$150</Text>
+								<Text>R${data.token_price}</Text>
 							</Flex>
 							<Flex
 								justifyContent="space-between"
@@ -260,19 +271,16 @@ export const InvestContainer: FunctionComponent = () => {
 								fontWeight="500"
 							>
 								<Text>Total</Text>
-								<Text>R$150</Text>
+								<Text>{formatter.format(counter * data.token_price)}</Text>
 							</Flex>
 							<Flex w="100%" bgColor="#4BA3B7" h="0.0625rem" />
-
-							<DefaultInput
-								color="#FFFFFF"
-								title="Sua assinatura digital"
+							{/* <Input
 								placeholder="Insira aqui"
+								_placeholder={{ color: "#7CB3C0" }}
 								bgColor="#1789A3"
-								placeholderColor="rgba(255, 255, 255, 0.48)"
 								border="0.0625rem solid #4BA3B7"
-								inputColor="#ffffff"
-							/>
+								_hover={{ opacity: 0.8 }}
+							/> */}
 							<Flex gap="0.5rem" alignItems="center">
 								<Checkbox
 									defaultChecked={false}
@@ -325,6 +333,6 @@ export const InvestContainer: FunctionComponent = () => {
 					</Flex>
 				</Flex>
 			</Flex>
-		</DefaultTemplate>
+		</DefaultTemplate >
 	);
 };

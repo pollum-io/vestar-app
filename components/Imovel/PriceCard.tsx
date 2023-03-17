@@ -3,6 +3,7 @@ import { FiCopy } from "react-icons/fi";
 import { useMemo, useState } from "react";
 import { useRegister } from "../../hooks";
 import { useRouter } from "next/router";
+import { useOpportunities } from "../../hooks/useOpportunities";
 interface IPriceCard {
 	axisY: string;
 	id: any;
@@ -15,9 +16,9 @@ interface IPriceCard {
 export const PriceCard: React.FC<IPriceCard> = props => {
 	const { axisY, id, price, minted, supply, address } = props;
 	const [isInvestidor, setIsInvestidor] = useState(true);
-	const [cotas, setCotas] = useState<number>(0);
-	const { ended, hasToken } = useRegister();
+	const { ended, hasToken } = useOpportunities();
 	const { push } = useRouter();
+	const [cotas, setCotas] = useState<number>(0);
 
 	const avalible = useMemo(() => {
 		if (supply > minted) {
@@ -26,6 +27,11 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			return minted - supply;
 		}
 	}, [minted, supply]);
+
+	const formatter = new Intl.NumberFormat('pt-br', {
+		style: 'currency',
+		currency: 'BRL',
+	});
 
 	return (
 		<Flex
@@ -101,7 +107,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									: "Total"}
 							</Text>
 							<Text fontWeight={"500"} display={ended ? "none" : "flex"}>
-								R$150
+								{formatter.format(cotas * price)}
 							</Text>
 						</Flex>
 
@@ -121,7 +127,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 										? { opacity: "0.3" }
 										: { bgColor: "#F7FAFC" }
 								}
-								onClick={() => push({ pathname: "/investir", query: { id } })}
+								onClick={() => push({ pathname: "/investir", query: { id, cotas }, })}
 							>
 								{ended
 									? hasToken

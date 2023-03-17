@@ -36,23 +36,21 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const { toast } = useToasty();
 
 	const onSubmitForm = async (data: any) => {
-		console.log(data, "data");
 		const request = isPhysical
 			? {
-					enterprise_name: String(data.enterprise_name),
-					cnpj: data.cnpj.replace(/[-./]/g, ""),
-					uf: data.uf,
-					is_legal_entity: isPhysical,
-					invited_by: String(data.invited_by),
-			  }
+				enterprise_name: String(data.enterprise_name),
+				cnpj: data.cnpj.replace(/[-./]/g, ""),
+				uf: data.uf,
+				is_legal_entity: isPhysical,
+				invited_by: String(data.invited_by),
+			}
 			: {
-					full_name: String(data.full_name),
-					cpf: data.cpf.replace(/[.-]/g, ""),
-					birthday_date: new Date(data.birthday_date),
-					is_legal_entity: isPhysical,
-					invited_by: String(data.invited_by),
-			  };
-		console.log(request, "request");
+				full_name: String(data.full_name),
+				cpf: data.cpf.replace(/[.-]/g, ""),
+				birthday_date: new Date(data.birthday_date),
+				is_legal_entity: isPhysical,
+				invited_by: String(data.invited_by),
+			};
 
 		await (isPhysical
 			? fetchCreateEnterprise(request, token)

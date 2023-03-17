@@ -1,13 +1,22 @@
 import { GetServerSideProps, NextPage } from "next";
 import { InvestContainer } from "../container";
 import jwt_decode from "jwt-decode";
+import { fetchImovelDetail } from "../services/imovelDetail";
+import { IOpportunitiesCard } from "../dtos/Oportunities";
 
-const Investir: NextPage = () => <InvestContainer />;
+interface IInvest {
+	data: IOpportunitiesCard;
+	cotas: number;
+}
+
+const Investir: NextPage<IInvest> = ({ data, cotas }) => <InvestContainer data={data} cotas={cotas} />;
 
 export default Investir;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
 	const token = req.cookies["livn_auth"];
+	const response = await fetchImovelDetail(query.id)
+	let cotas = query.cotas
 
 	if (!token) {
 		return {
@@ -35,6 +44,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		props: {
 			user,
 			token,
+			data: response.data,
+			cotas
 		},
 	};
 };
