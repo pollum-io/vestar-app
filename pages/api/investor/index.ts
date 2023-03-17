@@ -34,12 +34,25 @@ const router = nextConnect({
 });
 
 const insertSchema = z.object({
-	full_name: z.optional(z.string()),
-	cpf: z.optional(z.string().min(11).max(11)),
-	birthday_date: z.optional(z.string().datetime({ offset: true })),
+	full_name: z.string(),
+	mother_name: z.string(),
+	cpf: z.string().min(11).max(11),
+	rg: z.optional(z.string()),
+	cnh: z.optional(z.string()),
+	profession: z.optional(z.string()),
+	// address: z.optional(z.object()),
+	wallet_address: z.optional(z.string()),
+	// marital_status: z.optional(z.object()),
+	phone_number: z.optional(z.string()),
+	birthday_date: z.string().datetime({ offset: true }),
+	birthday_city: z.optional(z.string()),
+	// TODO: remove
 	cnpj: z.optional(z.string().min(14).max(14)),
+	// TODO: remove
 	corporate_name: z.optional(z.string()),
+	// TODO: remove
 	uf: z.optional(z.string()),
+	// TODO: remove
 	is_legal_entity: z.optional(z.boolean()),
 	invited_by: z.string(),
 });
