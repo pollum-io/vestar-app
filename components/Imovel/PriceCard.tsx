@@ -1,15 +1,31 @@
 import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
 import { FiCopy } from "react-icons/fi";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRegister } from "../../hooks";
+import { useRouter } from "next/router";
 interface IPriceCard {
 	axisY: string;
+	id: any;
+	price: number;
+	minted: number;
+	supply: number;
+	address: string;
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
-	const { axisY } = props;
+	const { axisY, id, price, minted, supply, address } = props;
 	const [isInvestidor, setIsInvestidor] = useState(true);
+	const [cotas, setCotas] = useState<number>(0);
 	const { ended, hasToken } = useRegister();
+	const { push } = useRouter();
+
+	const avalible = useMemo(() => {
+		if (supply > minted) {
+			return supply - minted;
+		} else {
+			return minted - supply;
+		}
+	}, [minted, supply]);
 
 	return (
 		<Flex
@@ -44,13 +60,29 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								Selecione a Quantidade
 							</Text>
 							<Text fontSize={"sm"} fontWeight="400">
-								1 cota
+								{cotas} cota
 							</Text>
 						</Flex>
 
 						<Flex gap="0.3125rem">
-							<Img _hover={{ cursor: "pointer" }} src={"icons/PlusIcon.png"} />
-							<Img _hover={{ cursor: "pointer" }} src={"icons/MinusIcon.png"} />
+							<Img
+								_hover={{
+									cursor: "pointer",
+									opacity: 0.5,
+									transition: "all 0.4s",
+								}}
+								src={"/icons/PlusIcon.png"}
+								onClick={() => setCotas(cotas === avalible ? cotas : cotas + 1)}
+							/>
+							<Img
+								_hover={{
+									cursor: "pointer",
+									opacity: 0.5,
+									transition: "all 0.4s",
+								}}
+								src={"/icons/MinusIcon.png"}
+								onClick={() => setCotas(cotas === 0 ? 0 : cotas - 1)}
+							/>
 						</Flex>
 					</Flex>
 					<Flex
@@ -89,6 +121,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 										? { opacity: "0.3" }
 										: { bgColor: "#F7FAFC" }
 								}
+								onClick={() => push({ pathname: "/investir", query: { id } })}
 							>
 								{ended
 									? hasToken
@@ -121,7 +154,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 				>
 					<Flex justifyContent="space-between" w="100%">
 						<Text>Preço unitário</Text>
-						<Text>R$150</Text>
+						<Text>{price}</Text>
 					</Flex>
 					<Flex w="100%" border="1px solid #4BA3B7" my="1rem" />
 				</Flex>
@@ -133,7 +166,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
-							0xe42c...e306
+							{`${address.slice(0, 5)}...${address.slice(38)}`}
 						</Text>
 						<Icon
 							color={"#4BA3B7"}
@@ -152,7 +185,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						Preço unitário
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						R$150
+						R${price}
 					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
@@ -160,7 +193,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						Cotas emitidas
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						237
+						{minted}
 					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
@@ -168,7 +201,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						Cotas disponíveis
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						13
+						{avalible}
 					</Text>
 				</Flex>
 			</Flex>

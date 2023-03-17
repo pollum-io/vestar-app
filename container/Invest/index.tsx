@@ -14,10 +14,20 @@ import {
 import { DefaultTemplate } from "../DefaultTemplate";
 import { PaymentMethods, DefaultInput } from "../../components";
 import { RiCheckFill } from "react-icons/ri";
+import { useRouter } from "next/router";
+import { useQuery as query } from "react-query";
+import { fetchImovelDetail } from "../../services/imovelDetail";
 
 export const InvestContainer: FunctionComponent = () => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<any>(1);
+	const router = useRouter();
+	const id = router.query.id;
+	console.log(id);
+	const { data: cardsInfo } = query("oportunity", fetchImovelDetail(id), {
+		refetchOnWindowFocus: false,
+		refetchInterval: false,
+	});
 
 	return (
 		<DefaultTemplate>
