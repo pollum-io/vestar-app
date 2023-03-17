@@ -10,10 +10,11 @@ interface IPriceCard {
 	minted: number;
 	supply: number;
 	address: string;
+	oportunitiesAddress: string;
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
-	const { id, price, minted, supply, address } = props;
+	const { id, price, minted, supply, address, oportunitiesAddress } = props;
 	const [isInvestidor, setIsInvestidor] = useState(true);
 	const { ended, hasToken } = useOpportunities();
 	const { push } = useRouter();
@@ -126,7 +127,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 										? { opacity: "0.3" }
 										: { bgColor: "#F7FAFC" }
 								}
-								onClick={() => push({ pathname: "/investir", query: { id, cotas }, })}
+								onClick={() => push({ pathname: "/investir", query: { id, cotas, oportunitiesAddress }, })}
 							>
 								{ended
 									? hasToken

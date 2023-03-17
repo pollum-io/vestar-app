@@ -7,9 +7,10 @@ import { IOpportunitiesCard } from "../dtos/Oportunities";
 interface IInvest {
 	data: IOpportunitiesCard;
 	cotas: number;
+	address: string;
 }
 
-const Investir: NextPage<IInvest> = ({ data, cotas }) => <InvestContainer data={data} cotas={cotas} />;
+const Investir: NextPage<IInvest> = ({ data, cotas, address }) => <InvestContainer data={data} cotas={cotas} oportunitiesAddress={address} />;
 
 export default Investir;
 
@@ -17,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 	const token = req.cookies["livn_auth"];
 	const response = await fetchImovelDetail(query.id)
 	let cotas = query.cotas
+	let address = query.oportunitiesAddress
 
 	if (!token) {
 		return {
@@ -45,7 +47,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 			user,
 			token,
 			data: response.data,
-			cotas
+			cotas,
+			address
 		},
 	};
 };
