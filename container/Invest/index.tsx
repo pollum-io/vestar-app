@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { useTransactions } from "../../hooks/useTransactions";
+import { useWallet } from "../../hooks/useWallet";
 
 interface IInvest {
 	data: IOpportunitiesCard;
@@ -25,13 +26,18 @@ interface IInvest {
 	oportunitiesAddress: string;
 }
 
-export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oportunitiesAddress }) => {
+export const InvestContainer: FunctionComponent<IInvest> = ({
+	data,
+	cotas,
+	oportunitiesAddress,
+}) => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<number>(Number(cotas));
-	const { aprrove } = useTransactions()
-	const totalValue = counter * data.token_price
-	const BRZ_DECIMALS = 10 ** 8
-	const amount = totalValue * BRZ_DECIMALS
+	const { aprrove } = useTransactions();
+	const { account } = useWallet();
+	const totalValue = counter * data.token_price;
+	const BRZ_DECIMALS = 10 ** 8;
+	const amount = totalValue * BRZ_DECIMALS;
 
 	const avalible = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
@@ -41,15 +47,16 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oport
 		}
 	}, [data.token_minted, data.token_supply]);
 
-	const formatter = new Intl.NumberFormat('pt-br', {
-		style: 'currency',
-		currency: 'BRL',
+	const formatter = new Intl.NumberFormat("pt-br", {
+		style: "currency",
+		currency: "BRL",
 	});
 
+	const aproveTransfer = async (spender: any, amount: any, account: string) => {
+		console.log(account, "acc");
 
-	const aproveTransfer = async (spender: any, amount: any) => {
-		await aprrove(spender, amount)
-	}
+		await aprrove(spender, amount, account);
+	};
 
 	return (
 		<DefaultTemplate>
@@ -184,7 +191,9 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oport
 														: { bgColor: "#f4f7fa" }
 												}
 												border="0.0625rem solid #E2E8F0"
-												onClick={() => setCounter(counter === 0 ? 0 : counter - 1)}
+												onClick={() =>
+													setCounter(counter === 0 ? 0 : counter - 1)
+												}
 												h="2rem"
 												fontSize="0.875rem"
 												bgColor="#ffffff"
@@ -224,7 +233,11 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oport
 														? { opacity: "0.3" }
 														: { bgColor: "#f4f7fa" }
 												}
-												onClick={() => setCounter(counter === avalible ? counter : counter + 1)}
+												onClick={() =>
+													setCounter(
+														counter === avalible ? counter : counter + 1
+													)
+												}
 												h="2rem"
 												fontSize="0.875rem"
 												bgColor="#ffffff"
@@ -336,7 +349,9 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oport
 									_hover={
 										!isTerms ? { opacity: "0.3" } : { bgColor: "#EDF2F7" }
 									}
-									onClick={() => aproveTransfer(oportunitiesAddress, amount)}
+									onClick={() =>
+										aproveTransfer(oportunitiesAddress, amount, account)
+									}
 								>
 									Confirmar Investimento
 								</Button>
@@ -345,6 +360,6 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas, oport
 					</Flex>
 				</Flex>
 			</Flex>
-		</DefaultTemplate >
+		</DefaultTemplate>
 	);
 };
