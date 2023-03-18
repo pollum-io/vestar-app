@@ -12,7 +12,7 @@ import { useRegister } from "../../hooks";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import moment from "moment-timezone";
-import Countdown from 'react-countdown';
+import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
@@ -24,27 +24,32 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
 }) => {
 	const { hasToken } = useOpportunities();
-	const [dateEndend, setDateEnded] = useState<any>()
-	const [ended, setEnded] = useState<any>()
+	const [dateEndend, setDateEnded] = useState<any>();
+	const [ended, setEnded] = useState<any>();
 	const [cota, setCota] = useState<number>();
 	const { account } = useWallet();
-	const { shares } = useTransactions()
+	const { shares } = useTransactions();
 
-	const renderer = ({ days, hours, minutes, completed, props: { date } }: CountdownRenderProps) => {
-
+	const renderer = ({
+		days,
+		hours,
+		minutes,
+		completed,
+		props: { date },
+	}: CountdownRenderProps) => {
 		const dateFormated = moment(date).format("DD/MM/YYYY");
 
 		if (completed) {
-			setEnded(true)
-			setDateEnded(dateFormated)
-			return
+			setEnded(true);
+			setDateEnded(dateFormated);
+			return;
 		} else {
-			setEnded(false)
+			setEnded(false);
 			return (
 				<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem" id="timer">
 					{days} dias {hours} horas {minutes} min
 				</Text>
-			)
+			);
 		}
 	};
 
@@ -52,16 +57,18 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		() => {
 			const getCotas = async () => {
 				if (imovelDetails.token_address && account) {
-					const valorDeCotas = await shares(imovelDetails.token_address, account)
-					setCota(Number(valorDeCotas))
+					const valorDeCotas = await shares(
+						imovelDetails.token_address,
+						account
+					);
+					setCota(Number(valorDeCotas));
 				}
-			}
+			};
 			getCotas();
 		},
 		// eslint-disable-next-line
-		[imovelDetails.token_address, account],
-	)
-
+		[imovelDetails.token_address, account]
+	);
 	return (
 		<Flex flexDir={"column"}>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -101,8 +108,12 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								display={!hasToken ? "flex" : "none"}
 								w="max"
 							>
-								<Text w="max" fontWeight="400">Você possui</Text>
-								<Text w="max" fontWeight="600">{cota} cotas</Text>
+								<Text w="max" fontWeight="400">
+									Você possui
+								</Text>
+								<Text w="max" fontWeight="600">
+									{cota} cotas
+								</Text>
 							</Flex>
 						</Flex>
 						<Flex gap="0.625rem" pb="1.5rem">
@@ -249,10 +260,15 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									h="max-content"
 								>
 									<Countdown
-										date={new Date(1679071754 * 1000)}
+										date={new Date(+imovelDetails?.sale_end_at * 1000)}
 										renderer={renderer}
 									/>
-									<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem" id="timer">
+									<Text
+										fontWeight="500"
+										fontSize="1.25rem"
+										lineHeight="2rem"
+										id="timer"
+									>
 										para encerrar as vendas
 									</Text>
 									<Text
@@ -260,7 +276,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
 									>
-										Preço unitário no próximo lote: R$ {imovelDetails.token_price * 2}
+										Preço unitário no próximo lote: R${" "}
+										{imovelDetails.token_price * 2}
 									</Text>
 								</Flex>
 							)}
