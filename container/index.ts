@@ -8,4 +8,5 @@ export * from "./Register";
 export * from "./Companies";
 export * from "./Companie";
 export * from "./Invest";
+export * from "./Edit_Profile";
 export { default as AppWrapper } from "./AppWrapper";
