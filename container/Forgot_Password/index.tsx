@@ -12,10 +12,10 @@ import {
 	InputRightElement,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-export const Forgot_PasswordContainer = () => {
+export const Forgot_PasswordContainer: FunctionComponent = () => {
 	const [isCode, setIsCode] = useState<boolean>(false);
 	const [isChange, setIsChange] = useState<boolean>(false);
 	const [validCode, setValidCode] = useState<boolean>(false);
@@ -269,11 +269,11 @@ export const Forgot_PasswordContainer = () => {
 						_hover={
 							validCode || !isCode
 								? {
-									cursor: "pointer",
-									bgColor: "#007D99",
-									boxShadow:
-										"0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
-								}
+										cursor: "pointer",
+										bgColor: "#007D99",
+										boxShadow:
+											"0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+								  }
 								: { opacity: "0.3" }
 						}
 						onClick={
