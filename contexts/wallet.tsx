@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
-import { createWalletClient, custom, getAccount } from 'viem'
+import { Account, createWalletClient, custom, getAccount, WalletClient } from 'viem'
 import { polygonMumbai } from 'viem/chains'
 import PersistentFramework from "../utils/persistent";
 
@@ -7,9 +7,10 @@ declare let window: any;
 interface IWallet {
 	connectWallet: any;
 	disconnectWallet: any;
-	wallet: any;
-	account: string;
+	wallet: WalletClient;
+	account: `0x${string}`;
 	isConnected: any;
+	signer: Account;
 }
 
 export const WalletContext = createContext({} as IWallet);
@@ -19,7 +20,8 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	let wallet: any
 	const [isConnected, setIsConnected] = useState<boolean>(false);
-	const [account, setAccount] = useState<string>("");
+	const [account, setAccount] = useState<`0x${string}` | any>("");
+	const [signer, setSigner] = useState<Account | any>();
 
 	if (typeof window !== "undefined" && typeof window?.ethereum !== "undefined") {
 		wallet = createWalletClient({
@@ -41,6 +43,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 					const [address] = await wallet.requestAddresses()
 					setAccount(address)
 					setIsConnected(true)
+					setSigner(getAccount(address));
 					PersistentFramework.add("connected", { isConnected: true });
 					PersistentFramework.add("address", address);
 				}
@@ -68,7 +71,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 		const value = PersistentFramework.get("connected") as { [k: string]: any };
 
 		if (value?.isConnected) {
-			const address = PersistentFramework.get("address") as any;
+			const address = PersistentFramework.get("address") as `0x${string}`;
 
 			setIsConnected(true)
 			setAccount(address)
@@ -83,13 +86,15 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 			wallet,
 			account,
 			isConnected,
-			setIsConnected
+			setIsConnected,
+			signer
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
 			account,
 			isConnected,
 			setIsConnected,
+			signer
 		]
 	);
 

@@ -33,11 +33,15 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 }) => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<number>(Number(cotas));
-	const { aprrove } = useTransactions();
-	const { account } = useWallet();
+	const { approve } = useTransactions();
 	const totalValue = counter * data.token_price;
-	const BRZ_DECIMALS = 10 ** 8;
-	const amount = totalValue * BRZ_DECIMALS;
+	const BRZ_DECIMALS = 10 ** 4;
+	const amount = totalValue * (BRZ_DECIMALS);
+	const { connectWallet, isConnected, signer, account } = useWallet()
+
+	console.log(totalValue, "valor antes")
+
+	console.log(amount, "conta")
 
 	const avalible = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
@@ -52,11 +56,21 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 		currency: "BRL",
 	});
 
-	const aproveTransfer = async (spender: any, amount: any, account: string) => {
-		console.log(account, "acc");
-
-		await aprrove(spender, amount, account);
+	const approveTransfer = async (spender: any, amount: any) => {
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			return await approve(spender, amount, account);
+		}
 	};
+
+	const buttonText = useMemo(() => {
+		if (!isConnected || !signer) {
+			return "Connectar metamask"
+		} else {
+			return "Confirmar investimento"
+		}
+	}, [isConnected, signer])
 
 	return (
 		<DefaultTemplate>
@@ -350,10 +364,10 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 										!isTerms ? { opacity: "0.3" } : { bgColor: "#EDF2F7" }
 									}
 									onClick={() =>
-										aproveTransfer(oportunitiesAddress, amount, account)
+										approveTransfer(oportunitiesAddress, amount)
 									}
 								>
-									Confirmar Investimento
+									{buttonText}
 								</Button>
 							</Flex>
 						</Flex>
