@@ -17,16 +17,19 @@ const router = nextConnect({
 	},
 });
 
-router.get(async (req, res) => {
+router.get(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const { cpf } = req.query;
+		const { id } = req.query;
+		const { user } = req;
 
-		const investor = await InvestorSchema.findOne({ cpf });
+		const investor = await InvestorSchema.findById(id);
 
-		if (!investor) {
-			return res.status(204).end(`There is no match for ${cpf}`);
+		if (!investor || user?.investor_id !== `${investor._id}`) {
+			return res
+				.status(200)
+				.json({ data: null, message: "investor not found" });
 		}
 
 		res.status(200).json({ data: investor });
@@ -39,12 +42,16 @@ router.put(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const { cpf } = req.query;
+		const { id } = req.query;
 
-		const investor = await InvestorSchema.findOneAndUpdate({ cpf }, req.body, {
-			new: true,
-			runValidators: true,
-		});
+		const investor = await InvestorSchema.findOneAndUpdate(
+			{ _id: id },
+			req.body,
+			{
+				new: true,
+				runValidators: true,
+			}
+		);
 
 		if (!investor) {
 			return res.status(204).end("no investor data to udpate");
@@ -60,9 +67,9 @@ router.delete(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const { cpf } = req.query;
+		const { id } = req.query;
 
-		const deletedInvestor = await InvestorSchema.deleteOne({ cpf });
+		const deletedInvestor = await InvestorSchema.deleteOne({ _id: id });
 
 		if (!deletedInvestor) {
 			return res.status(202).end("no investor data to delete");
