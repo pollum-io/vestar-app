@@ -10,7 +10,7 @@ declare let window: any;
 
 interface ITransactions {
 	shares: any;
-	aprrove: any;
+	approve: any;
 }
 
 export const TransactionsContext = createContext({} as ITransactions);
@@ -19,10 +19,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	let publicClient: any;
-	const { wallet } = useWallet();
-	const [spender, setSpender] = useState<string>("");
-	const [amount, setAmount] = useState<number>();
-	const [valor, setValor] = useState<number>();
+	const { wallet, signer } = useWallet();
 
 	if (
 		typeof window !== "undefined" &&
@@ -34,20 +31,22 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 	}
 
-	const aprrove = async (spender: any, amount: any, account: string) => {
-		console.log(account, "acc");
+	const approve = async (spender: any, amount: any, address: `0x${string}`) => {
+		console.log(amount, 'amount')
+		try {
+			const { request } = await publicClient.simulateContract({
+				address: "0xf1afd12a36f60663cd41b69d486432cc32e3a336" as `0x${string}`,
+				abi: ERC20Mod,
+				functionName: "approve",
+				args: [spender, amount],
+				chain: polygonMumbai,
+				account: getAccount(address) || signer,
+			});
 
-		const request = await publicClient.simulateContract({
-			address: "0xf1afd12a36f60663cd41b69d486432cc32e3a336",
-			abi: ERC20Mod,
-			functionName: "approve",
-			args: [spender, amount],
-			account: getAccount(account as `0x${string}`),
-		});
-		console.log(request, "request");
-		console.log(wallet, "wallet");
-
-		await wallet?.writeContract(request);
+			await wallet?.writeContract(request);
+		} catch (err: any) {
+			console.log("Erro");
+		}
 	};
 
 	const shares = async (oportunityAddress: string, accountAddress: string) => {
@@ -62,7 +61,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const providerValue = useMemo(
 		() => ({
-			aprrove,
+			approve,
 			shares,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
