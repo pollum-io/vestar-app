@@ -51,9 +51,6 @@ const InvestorSchema = new mongoose.Schema(
 		is_legal_entity: {
 			type: Boolean,
 		},
-		wallet_address: {
-			type: String,
-		},
 		invited_by: {
 			type: String,
 			required: true,
