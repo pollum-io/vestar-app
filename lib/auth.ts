@@ -43,7 +43,12 @@ export function generateToken(user: any) {
 	if (!user) return "";
 
 	const token = jwt.sign(
-		{ id: user._id, email: user.email, investor_id: user?.investor_id || null },
+		{
+			id: user._id,
+			email: user.email,
+			investor_id: user?.investor_id || null,
+			enterprise_id: user?.enterprise_id || null,
+		},
 		JWT_SECRET,
 		{ expiresIn: "7d" }
 	);
