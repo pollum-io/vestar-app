@@ -11,6 +11,8 @@ interface Request extends NextApiRequest {
 type DecodedUser = {
 	id: string;
 	email: string;
+	investor_id?: string | null;
+	enterprise_id?: string | null;
 	iat: number;
 	exp: number;
 };
