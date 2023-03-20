@@ -6,9 +6,12 @@ import {
 	Stack,
 	Text,
 	SimpleGrid,
+	Checkbox,
+	Button,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useState } from "react";
+import { BsCircleFill } from "react-icons/bs";
 import { OpportunitiesCard } from "../../components";
 import { ImovelList } from "../../components/Portfolio/ImovelList";
 import { MenuChart } from "../../components/Portfolio/MenuChart";
@@ -33,8 +36,10 @@ const PieChartPortfolio = dynamic(
 
 export const PortfolioContainer: FunctionComponent = () => {
 	const [value, setValue] = useState("1");
-	const [isInvestor, setIsInvestor] = useState(true);
+	const [isInvestor, setIsInvestor] = useState(false);
 	const [hasInvest, setHasInvest] = useState(true);
+	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
+	const [quotaFilter, setQuotaFilter] = useState("percentage");
 
 	return (
 		<DefaultTemplate>
@@ -202,42 +207,112 @@ export const PortfolioContainer: FunctionComponent = () => {
 									<MenuChart defaultSelection="Todos os imóveis" />
 								</Flex>
 								{!isInvestor && (
-									<Flex alignItems="center" gap="10">
-										<Flex alignItems={"center"} gap="3">
-											<Text fontWeight={"500"} fontSize="sm" color="#718096">
-												Mês
-											</Text>
-											<Text
-												px="3"
-												py="2"
-												borderRadius="0.9375rem"
-												bgColor={"#B1D8DF"}
-												color={"#00262D"}
+									<Flex alignItems="center" gap="3.5rem">
+										<Flex alignItems={"center"} gap="0.3125rem">
+											<Button
 												fontWeight={"500"}
 												fontSize="sm"
+												color={
+													quotaTimeFilter === "month" ? "#00262D" : "#718096"
+												}
+												justifyContent="center"
+												alignItems="center"
+												padding="0.5rem 0.75rem"
+												bgColor={
+													quotaTimeFilter === "month"
+														? "#B1D8DF"
+														: "transparent"
+												}
+												_hover={{}}
+												borderRadius="full"
+												onClick={() => setQuotaTimeFilter("month")}
+												_active={{}}
+											>
+												Mês
+											</Button>
+											<Button
+												fontWeight={"500"}
+												fontSize="sm"
+												color={
+													quotaTimeFilter === "year" ? "#00262D" : "#718096"
+												}
+												justifyContent="center"
+												alignItems="center"
+												padding="0.5rem 0.75rem"
+												bgColor={
+													quotaTimeFilter === "year" ? "#B1D8DF" : "transparent"
+												}
+												_hover={{}}
+												borderRadius="full"
+												onClick={() => setQuotaTimeFilter("year")}
+												_active={{}}
 											>
 												Ano
-											</Text>
-											<Text fontWeight={"500"} fontSize="sm" color="#718096">
+											</Button>
+											<Button
+												fontWeight={"500"}
+												fontSize="sm"
+												color={
+													quotaTimeFilter === "max" ? "#00262D" : "#718096"
+												}
+												justifyContent="center"
+												alignItems="center"
+												padding="0.5rem 0.75rem"
+												bgColor={
+													quotaTimeFilter === "max" ? "#B1D8DF" : "transparent"
+												}
+												_hover={{}}
+												borderRadius="full"
+												onClick={() => setQuotaTimeFilter("max")}
+												_active={{}}
+											>
 												Máximo
-											</Text>
+											</Button>
 										</Flex>
 										<Flex>
-											<RadioGroup onChange={setValue} value={value}>
-												<Stack direction="row" color={"#171923"}>
-													<Radio
-														colorScheme="cyan"
-														value="1"
-														fontWeight={"500"}
-														fontSize="sm"
+											<Flex gap="1.5625rem" fontFamily="Poppins">
+												<Flex gap="0.75rem">
+													<Checkbox
+														spacing="0.75rem"
+														isChecked={quotaFilter === "unity" ? true : false}
+														variant="circular"
+														icon={<BsCircleFill color="#ffffff" size={7} />}
+														borderColor="#E2E8F0"
+														onChange={() => setQuotaFilter("unity")}
+													/>
+													<Text
+														fontSize="0.875rem"
+														lineHeight="1.25rem"
+														color="#171923"
+														fontWeight={quotaFilter === "unity" ? "500" : "400"}
 													>
 														Unidades
-													</Radio>
-													<Radio value="2" fontWeight={"500"} fontSize="sm">
-														Porcentagens
-													</Radio>
-												</Stack>
-											</RadioGroup>
+													</Text>
+												</Flex>
+												<Flex gap="0.75rem">
+													<Checkbox
+														spacing="0.75rem"
+														isChecked={
+															quotaFilter === "percentage" ? true : false
+														}
+														fontStyle="normal"
+														icon={<BsCircleFill color="#ffffff" size={"50%"} />}
+														variant="circular"
+														borderColor="#E2E8F0"
+														onChange={() => setQuotaFilter("percentage")}
+													/>
+													<Text
+														fontSize="0.875rem"
+														lineHeight="1.25rem"
+														color="#171923"
+														fontWeight={
+															quotaFilter === "percentage" ? "500" : "400"
+														}
+													>
+														Porcentagem
+													</Text>
+												</Flex>
+											</Flex>
 										</Flex>
 									</Flex>
 								)}
