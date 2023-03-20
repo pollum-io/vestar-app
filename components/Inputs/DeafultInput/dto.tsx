@@ -10,4 +10,5 @@ export interface IDefaultInput {
 	inputColor?: string;
 	registerType?: string;
 	register?: any;
+	display?: boolean;
 }

@@ -17,6 +17,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	inputColor,
 	registerType,
 	register,
+	display,
 }) => {
 	const validation = useMemo(() => {
 		if (title === "CPF") {
@@ -29,7 +30,12 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	}, [title]);
 
 	return (
-		<Flex flexDirection="column" fontFamily="Poppins" gap="0.5rem">
+		<Flex
+			flexDirection="column"
+			fontFamily="Poppins"
+			gap="0.5rem"
+			display={display === undefined ? "flex" : display ? "flex" : "none"}
+		>
 			<Text
 				fontStyle="normal"
 				fontWeight="500"
@@ -48,7 +54,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 					placeholder="Select option"
 					color={"black"}
 					fontSize="0.875rem"
-					{...register(registerType, { required: true })}
+					//{...register(registerType, { required: true })}
 				>
 					{states?.map((value: any) => (
 						<option key={value.id} value={value.Uf}>
@@ -83,7 +89,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 							boxShadow: "none",
 							border: border ? border : "0.0938rem solid #E2E8F0",
 						}}
-						{...register(registerType, { required: true })}
+						//{...register(registerType, { required: true })}
 						as={title === "CPF" || title === "CNPJ" ? InputMask : ""}
 						mask={validation}
 						maskChar={null}

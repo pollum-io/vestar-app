@@ -6,6 +6,7 @@ import { DefaultTemplate } from "../DefaultTemplate";
 export const Edit_ProfileContainer = () => {
 	const [pagePath, setPagePath] = useState("personal");
 	const [isDisabled, setIsDisabled] = useState(true);
+	const [isMarried, setIsMarried] = useState(true);
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -123,6 +124,42 @@ export const Edit_ProfileContainer = () => {
 										type="text"
 										border="0.0625rem solid #E2E8F0"
 										inputColor="#2D3748"
+									/>
+									<DefaultInput
+										title="Nome Completo do Cônjuge"
+										color="#2D3748"
+										placeholderColor="#2D3748"
+										bgColor="transparent"
+										inputSize="100%"
+										placeholder="Fulana da Silva e Sousa"
+										type="text"
+										border="0.0625rem solid #E2E8F0"
+										inputColor="#2D3748"
+										display={isMarried}
+									/>
+									<DefaultInput
+										title="CPF do Cônjuge"
+										color="#2D3748"
+										placeholderColor="#2D3748"
+										bgColor="transparent"
+										inputSize="100%"
+										placeholder="000.000.000-00"
+										type="text"
+										border="0.0625rem solid #E2E8F0"
+										inputColor="#2D3748"
+										display={isMarried}
+									/>
+									<DefaultInput
+										title="RG do Cônjuge"
+										color="#2D3748"
+										placeholderColor="#2D3748"
+										bgColor="transparent"
+										inputSize="100%"
+										placeholder="0.000.000"
+										type="text"
+										border="0.0625rem solid #E2E8F0"
+										inputColor="#2D3748"
+										display={isMarried}
 									/>
 									<DefaultInput
 										title="Endereço Residencial"
