@@ -42,7 +42,7 @@ const InvestorSchema = new mongoose.Schema(
 		birthday_date: {
 			type: String,
 		},
-		birthday_city: {
+		city_of_birth: {
 			type: String,
 		},
 		uf: {

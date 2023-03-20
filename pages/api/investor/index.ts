@@ -45,7 +45,7 @@ const insertSchema = z.object({
 	// marital_status: z.optional(z.object()),
 	phone_number: z.optional(z.string()),
 	birthday_date: z.string().datetime({ offset: true }),
-	birthday_city: z.optional(z.string()),
+	city_of_birth: z.optional(z.string()),
 	// TODO: remove
 	cnpj: z.optional(z.string().min(14).max(14)),
 	// TODO: remove
