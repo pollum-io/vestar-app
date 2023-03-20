@@ -158,6 +158,18 @@
         "units": "Unidades",
         "percentage": "Porcentagem"
     },
+		"editProfile": {
+		"edit": "Editar Perfil",
+		"editProf": "Editar perfil",
+		"mother": "Nome da Mãe",
+		"city": "Cidade de Nascimento",
+		"cnh": "CNH",
+		"civil": "Estado Civil",
+		"address": "Endereço Residencial",
+		"occupation": "Ocupação Profissional",
+		"phone": "Telefone"
+
+		},
     "inputs": {
 
         "noAbb": "Sem abreviações",
