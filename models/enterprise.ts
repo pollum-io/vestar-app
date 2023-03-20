@@ -11,6 +11,10 @@ const EnterpriseSchema = new mongoose.Schema(
 		enterprise_logo: {
 			type: String,
 		},
+		enterprise_banner: {
+			type: String,
+
+		},
 		cnpj: {
 			type: String,
 			required: true,
