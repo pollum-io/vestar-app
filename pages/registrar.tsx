@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const user: any = jwt_decode(token);
 
-	if (!user?.investor_id) {
+	if (!user?.investor_id && !user?.enterprise_id) {
 		return {
 			props: { user, token },
 		};

@@ -48,15 +48,12 @@ router.post(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const userData = req.body;
+		const investorData = req.body;
 		const user = req?.user;
 
-		insertSchema.parse(userData);
+		insertSchema.parse(investorData);
 
-		const investorExists = await Investor.findOne({
-			...((userData?.cpf && { cpf: userData.cpf }) ||
-				(userData?.cnpj && { cnpj: userData?.cnpj })),
-		});
+		const investorExists = await Investor.findOne({ cpf: investorData.cpf });
 
 		if (investorExists) {
 			return res.status(400).json({
@@ -64,7 +61,7 @@ router.post(verifyUser, async (req, res) => {
 			});
 		}
 
-		const investor = await Investor.create(req.body);
+		const investor = await Investor.create(investorData);
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: user?.id },
