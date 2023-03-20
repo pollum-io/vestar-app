@@ -138,11 +138,15 @@ export const OpportunitiesCard: FunctionComponent<IOpportunitiesCard> = ({
 						fontFamily="Poppins"
 						fontWeight="500"
 						fontSize="0.75rem"
+						bgColor="#ffffff"
 						lineHeight="1rem"
 						color="#007D99"
-						_hover={{ bgColor: "#EDF2F7" }}
+						_hover={
+							time === "Encerrado" ? { opacity: "0.3" } : { bgColor: "#EDF2F7" }
+						}
 						opacity={time === "Encerrado" ? "0.4" : "1"}
 						cursor={time === "Encerrado" ? "default" : "pointer"}
+						isDisabled={time === "Encerrado"}
 					>
 						Atualizar andamento da obra
 					</Button>

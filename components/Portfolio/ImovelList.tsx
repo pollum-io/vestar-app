@@ -14,11 +14,18 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 		<Flex
 			id="body-table-container"
 			alignItems={"center"}
-			boxShadow="0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
 			borderRadius="0.75rem"
 			opacity={isFinished ? "0.5" : "1"}
 			w="100%"
 			justifyContent="space-between"
+			border="1px solid #EDF2F7"
+			_hover={{
+				cursor: "pointer",
+				boxShadow:
+					"0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
+				border: "1px solid transparent",
+			}}
+			transition="150ms"
 		>
 			<Flex alignItems={"center"} w="18rem" gap="1rem">
 				{isFinished ? (
