@@ -39,15 +39,18 @@ export function setCookie(
 	);
 }
 
-export function authenticateUser(res: NextApiResponse, user: any) {
+export function generateToken(user: any) {
 	if (!user) return "";
 
 	const token = jwt.sign(
-		{ id: user._id, email: user.email, investor_id: user?.investor_id || null },
-		JWT_SECRET,
 		{
-			expiresIn: "7d",
-		}
+			id: user._id,
+			email: user.email,
+			investor_id: user?.investor_id || null,
+			enterprise_id: user?.enterprise_id || null,
+		},
+		JWT_SECRET,
+		{ expiresIn: "7d" }
 	);
 
 	return token;
@@ -83,7 +86,7 @@ export async function verifyUser(
 }
 
 export function clearUser(res: NextApiResponse): void {
-	setCookie(res, "auth", "0", {
+	setCookie(res, "livn_auth", "0", {
 		...cookieOptions,
 		path: "/",
 		maxAge: 1,

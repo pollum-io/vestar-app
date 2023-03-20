@@ -3,6 +3,7 @@ import { checkboxTheme } from "./checkboxes";
 
 const config: ThemeConfig = {
 	useSystemColorMode: false,
+	initialColorMode: "light",
 };
 
 export const theme = extendTheme({
