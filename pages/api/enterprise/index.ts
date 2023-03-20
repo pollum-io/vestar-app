@@ -4,8 +4,9 @@ import { z } from "zod";
 
 import dbConnect from "../../../lib/dbConnect";
 import Enterprise from "../../../models/enterprise";
-import { verifyUser } from "../../../lib/auth";
+import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
+import User from "../../../models/user";
 
 type ResponseData = ApiResponse<string>;
 
@@ -49,12 +50,33 @@ router.post(verifyUser, async (req, res) => {
 		await dbConnect();
 
 		const enterpriseData = req.body;
+		const user = req?.user;
 
 		InsertSchema.parse(enterpriseData);
 
-		const user = await Enterprise.create(enterpriseData);
+		const enterpriseExists = await Enterprise.findOne({
+			cnpj: enterpriseData.cnpj,
+		});
 
-		res.status(201).json({ data: user });
+		if (enterpriseExists) {
+			return res.status(400).json({
+				error: "CNPJ already registered",
+			});
+		}
+
+		const enterprise = await Enterprise.create(enterpriseData);
+
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: user?.id },
+			{ enterprise_id: enterprise._id },
+			{ new: true }
+		);
+
+		const token = generateToken(updatedUser);
+
+		setCookie(res, "livn_auth", token);
+
+		res.status(201).json({ data: enterprise });
 	} catch (error: any) {
 		res.status(400).json({
 			error: !/^[\[|\{](\s|.*|\w)*[\]|\}]$/.test(error.message)
