@@ -8,14 +8,8 @@ import "../styles/mapsLabel.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastyProvider } from "../contexts/toasty";
-
-const userTheme = {
-	...theme,
-	config: {
-		...theme.config,
-		initialColorMode: "light",
-	},
-};
+import { OpportunitiesProvider } from "../contexts/opportunities";
+import { WalletProvider } from "../contexts/wallet";
 
 const toasty = {
 	bg: "#FFFFFF",
@@ -26,15 +20,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	const queryClient = new QueryClient({});
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<ChakraProvider resetCSS theme={userTheme}>
-				<ToastyProvider {...toasty}>
-					<AppWrapper>
-						<Component {...pageProps} />
-					</AppWrapper>
-				</ToastyProvider>
-			</ChakraProvider>
-		</QueryClientProvider>
+		<WalletProvider>
+			<QueryClientProvider client={queryClient}>
+				<OpportunitiesProvider>
+					<ChakraProvider resetCSS theme={theme}>
+						<ToastyProvider {...toasty}>
+							<AppWrapper>
+								<Component {...pageProps} />
+							</AppWrapper>
+						</ToastyProvider>
+					</ChakraProvider>
+				</OpportunitiesProvider>
+			</QueryClientProvider>
+		</WalletProvider>
 	);
 };
 export default MyApp;

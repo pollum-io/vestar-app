@@ -1,4 +1,17 @@
-import { Flex, Img, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import {
+	Button,
+	Flex,
+	Img,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Radio,
+	RadioGroup,
+	Stack,
+	Text,
+} from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useState } from "react";
 import { OpportunitiesCard } from "../../components";
@@ -16,12 +29,9 @@ const Example = dynamic(() => import("../../components/Portfolio/Chart"), {
 	ssr: false,
 });
 
-const PieChartPortfolio = dynamic(
-	() => import("../../components/Portfolio/PieChart"),
-	{
-		ssr: false,
-	}
-);
+const PieChartPortfolio = dynamic(() => import("../../components/Portfolio/PieChart"), {
+	ssr: false,
+});
 
 export const PortfolioContainer: FunctionComponent = () => {
 	const [value, setValue] = useState("1");
@@ -75,10 +85,7 @@ export const PortfolioContainer: FunctionComponent = () => {
 									{isInvestor ? (
 										<Flex>
 											<MenuChart title="Periodo" defaultSelection="Maximo" />
-											<MenuChart
-												title="Investimentos"
-												defaultSelection="Todos"
-											/>
+											<MenuChart title="Investimentos" defaultSelection="Todos" />
 										</Flex>
 									) : (
 										<MenuChart title="Imóveis" defaultSelection="Todos" />
@@ -221,7 +228,7 @@ export const PortfolioContainer: FunctionComponent = () => {
 						{isInvestor ? (
 							<Flex alignItems={"center"} w="77rem" h="15rem">
 								<PieChartPortfolio />
-								<Flex pl="5rem" gap="3.25rem">
+								<Flex pl='5rem' gap="3.25rem">
 									<Flex flexDir={"column"}>
 										<Text fontWeight={"500"} fontSize="md" color="#171923">
 											15%
@@ -298,57 +305,12 @@ export const PortfolioContainer: FunctionComponent = () => {
 							flexWrap={"wrap"}
 						>
 							{isInvestor ? (
-								<Img w="100%" src="images/Map.png" />
+								<Img w='100%' src="images/Map.png" />
 							) : (
 								<>
 									<OpportunitiesCard
-										time="Encerrado"
-										name="Nome do Empreendimento"
-										location="Campeche, Florianópolis"
-										type="Comercial"
-										finished={false}
-										isPortfolio={true}
 									/>
-									<OpportunitiesCard
-										time="Disponivel"
-										name="Nome do Empreendimento"
-										location="Campeche, Florianópolis"
-										type="Comercial"
-										finished={false}
-										isPortfolio={true}
-									/>
-									<OpportunitiesCard
-										time="Disponivel"
-										name="Nome do Empreendimento"
-										location="Campeche, Florianópolis"
-										type="Comercial"
-										finished={false}
-										isPortfolio={true}
-									/>
-									<OpportunitiesCard
-										time="Disponivel"
-										name="Nome do Empreendimento"
-										location="Campeche, Florianópolis"
-										type="Comercial"
-										finished={false}
-										isPortfolio={true}
-									/>
-									<OpportunitiesCard
-										time="Disponivel"
-										name="Nome do Empreendimento"
-										location="Campeche, Florianópolis"
-										type="Comercial"
-										finished={false}
-										isPortfolio={true}
-									/>
-									<OpportunitiesCard
-										time="Disponivel"
-										name="Nome do Empreendimento"
-										location="Campeche, Florianópolis"
-										type="Comercial"
-										finished={false}
-										isPortfolio={true}
-									/>
+
 								</>
 							)}
 						</Flex>

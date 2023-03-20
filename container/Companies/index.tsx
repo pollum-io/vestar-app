@@ -9,8 +9,16 @@ import {
 import { DefaultTemplate } from "../../container";
 import { BiSearch } from "react-icons/bi";
 import { CompaniesCards } from "../../components";
+import { useQuery } from "react-query";
+import { fetchEnterprise } from "../../services/fetchEnterprise";
 
 export const CompaniesContainer: FunctionComponent = () => {
+
+	const { data } = useQuery("companies", fetchEnterprise, {
+		refetchOnWindowFocus: false,
+		refetchInterval: false,
+	})
+
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -53,6 +61,10 @@ export const CompaniesContainer: FunctionComponent = () => {
 									lineHeight="1.25rem"
 									h="2rem"
 									_hover={{}}
+									_focus={{
+										boxShadow: "none",
+										border: "0.0625rem solid #CBD5E0",
+									}}
 								/>
 							</InputGroup>
 						</Flex>
@@ -62,7 +74,7 @@ export const CompaniesContainer: FunctionComponent = () => {
 							alignItems="center"
 							color="#718096"
 						>
-							274 empresas
+							{data?.data?.length} empresas
 						</Text>
 					</Flex>
 					<Flex>

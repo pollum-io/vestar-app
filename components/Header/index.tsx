@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
 				onClick={() => push("/oportunidades")}
 				_hover={{ cursor: "pointer" }}
 			>
-				<Img src={"images/livnlogo.png"} w="5" h="7" />
+				<Img src={"/images/livnlogo.png"} w="5" h="7" alt="Livn logo" />
 			</Flex>
 			<Flex>
 				<HeaderLinks />

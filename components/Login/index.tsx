@@ -1,9 +1,18 @@
 import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
+import { authenticate } from "../../services/login";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
+	const [email, setEmail] = useState<any>();
+	const [password, setPassword] = useState<any>();
+
+	const handleLogin = async () => {
+		const data = await authenticate(email, password);
+
+		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
+	};
 
 	return (
 		<Flex
@@ -36,7 +45,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							Viva Investindo
 						</Text>
 					</Flex>
-					<Flex flexDirection="column" mt="1rem" gap="0.75rem">
+					<Flex flexDirection="column" mt="1rem" gap="12px">
 						<Text
 							flexDirection="column"
 							fontStyle="normal"
@@ -48,7 +57,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							E-mail
 						</Text>
 						<Input
-							placeholder="Hello"
+							placeholder="Digite seu email"
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -61,6 +70,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							h="2rem"
 							pl="0.7rem"
 							color="#2D3748"
+							onChange={e => setEmail(e.target.value)}
 						/>
 					</Flex>
 					<Flex flexDirection="column" mt="1.5rem" gap="0.75rem">
@@ -89,7 +99,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							</Text>
 						</Flex>
 						<Input
-							placeholder="Hello"
+							placeholder="Digite sua senha"
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -102,6 +112,8 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							h="2rem"
 							pl="0.7rem"
 							color="#2D3748"
+							onChange={e => setPassword(e.target.value)}
+							type={"password"}
 						/>
 					</Flex>
 					<Flex mt="2.5rem">
@@ -116,7 +128,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							w="100%"
 							h="2.2rem"
 							bgColor="#1789A3"
-							onClick={() => push("/opportunities")}
+							onClick={handleLogin}
 							_hover={{
 								cursor: "pointer",
 								bgColor: "#007D99",
@@ -143,17 +155,18 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 						>
 							Ainda não possui uma conta?
 						</Text>
-						<Text
+						<Button
+							type="submit"
 							fontStyle="normal"
 							fontWeight="500"
 							fontSize="0.75rem"
 							lineHeight="1rem"
 							color="#007D99"
-							_hover={{ cursor: "pointer" }}
-							onClick={() => push("/register")}
+							bg={"transparent"}
+							_hover={{ opacity: 0.8 }}
 						>
 							Cadastrar
-						</Text>
+						</Button>
 					</Flex>
 				</Flex>
 			</Flex>
