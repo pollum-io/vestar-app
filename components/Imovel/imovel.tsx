@@ -96,25 +96,26 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							>
 								{imovelDetails?.enterprise_type}
 							</Text>
-							{/* TODO: FALTA */}
-							<Flex
-								bgColor="#F0E8FF"
-								py="0.25rem"
-								px="1rem"
-								borderRadius={"4.875rem"}
-								fontSize={"sm"}
-								color="#171923"
-								gap="0.25rem"
-								display={!hasToken ? "flex" : "none"}
-								w="max"
-							>
-								<Text w="max" fontWeight="400">
-									Você possui
-								</Text>
-								<Text w="max" fontWeight="600">
-									{cota} cotas
-								</Text>
-							</Flex>
+							{cota && cota > 0 && (
+								<Flex
+									bgColor="#F0E8FF"
+									py="0.25rem"
+									px="1rem"
+									borderRadius={"4.875rem"}
+									fontSize={"sm"}
+									color="#171923"
+									gap="0.25rem"
+									display={!hasToken ? "flex" : "none"}
+									w="max"
+								>
+									<Text w="max" fontWeight="400">
+										Você possui
+									</Text>
+									<Text w="max" fontWeight="600">
+										{cota} cotas
+									</Text>
+								</Flex>
+							)}
 						</Flex>
 						<Flex gap="0.625rem" pb="1.5rem">
 							<Icon w="1.25rem" h="1.5rem" color={"#718096"} as={FiMapPin} />

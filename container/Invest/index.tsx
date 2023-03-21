@@ -39,10 +39,6 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 	const amount = totalValue * (BRZ_DECIMALS);
 	const { connectWallet, isConnected, signer, account } = useWallet()
 
-	console.log(totalValue, "valor antes")
-
-	console.log(amount, "conta")
-
 	const avalible = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
 			return data.token_supply - data.token_minted;

@@ -32,7 +32,6 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	}
 
 	const approve = async (spender: any, amount: any, address: `0x${string}`) => {
-		console.log(amount, 'amount')
 		try {
 			const { request } = await publicClient.simulateContract({
 				address: "0xf1afd12a36f60663cd41b69d486432cc32e3a336" as `0x${string}`,
