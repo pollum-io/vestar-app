@@ -1,9 +1,10 @@
-import React, { FunctionComponent, useMemo } from "react";
+import React, { FunctionComponent, LegacyRef, useMemo } from "react";
 import { Flex, Text, Input, FormControl, Select } from "@chakra-ui/react";
 import { useRegister } from "../../../hooks/useRegister";
 import { IDefaultInput } from "./dto";
 import InputMask from "react-input-mask";
 import { states } from "./states";
+import { useFormContext } from "react-hook-form";
 
 export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	title,
@@ -18,6 +19,7 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 	registerType,
 	register,
 	display,
+	defaultValue
 }) => {
 	const validation = useMemo(() => {
 		if (title === "CPF") {
@@ -54,7 +56,8 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 					placeholder="Select option"
 					color={"black"}
 					fontSize="0.875rem"
-					//{...register(registerType, { required: true })}
+					{...register?.(String(registerType), { required: true })}
+
 				>
 					{states?.map((value: any) => (
 						<option key={value.id} value={value.Uf}>
@@ -89,10 +92,11 @@ export const DefaultInput: FunctionComponent<IDefaultInput> = ({
 							boxShadow: "none",
 							border: border ? border : "0.0938rem solid #E2E8F0",
 						}}
-						//{...register(registerType, { required: true })}
+						//{...register?.(String(registerType), { required: true })}
 						as={title === "CPF" || title === "CNPJ" ? InputMask : ""}
 						mask={validation}
 						maskChar={null}
+						defaultValue={defaultValue}
 					/>
 				</FormControl>
 			)}

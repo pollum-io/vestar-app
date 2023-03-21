@@ -20,9 +20,11 @@ import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { logout } from "../../services/logout";
+import { useUser } from "../../hooks/useUser";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
+	const { userInfos } = useUser()
 
 	return (
 		<Menu>
@@ -50,6 +52,19 @@ export const HamburguerMenu: React.FC = () => {
 				w="12.625rem"
 				pb="0.8rem"
 			>
+				<MenuItem
+					fontFamily="Poppins"
+					fontSize="0.875rem"
+					lineHeight="1.25rem"
+					pr="1.1875rem"
+					color="#4A5568"
+					pl="0.9375rem"
+					_focus={{}}
+					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
+					onClick={() => push({ pathname: `/usuario/${userInfos}`, query: userInfos })}
+				>
+					Editar perfil
+				</MenuItem>
 				<Accordion allowMultiple>
 					<AccordionItem border="none">
 						<AccordionButton
