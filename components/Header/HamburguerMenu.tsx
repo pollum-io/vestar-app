@@ -17,14 +17,15 @@ import {
 	AccordionPanel,
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { logout } from "../../services/logout";
 import { useUser } from "../../hooks/useUser";
+import { useState } from "react";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
 	const { userInfos } = useUser();
+	const [isConnected] = useState(true);
 
 	return (
 		<Menu>
@@ -70,7 +71,14 @@ export const HamburguerMenu: React.FC = () => {
 						_hover={{ bgColor: "#EDF2F7" }}
 						_active={{ bgColor: "#E2E8F0" }}
 					>
-						Conectar Carteira
+						{isConnected ? (
+							<Flex alignItems="center" gap="0.5rem">
+								<Img src="icons/MetamaskIcon.png" />
+								<Text>0x6856...BF99</Text>
+							</Flex>
+						) : (
+							<Text>Conectar Carteira</Text>
+						)}
 					</Button>
 				</Flex>
 
@@ -81,7 +89,7 @@ export const HamburguerMenu: React.FC = () => {
 					pr="1.1875rem"
 					color="#4A5568"
 					pl="0.9375rem"
-					mt="0.5rem"
+					mt="0.3rem"
 					h="1.8rem"
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC" }}
