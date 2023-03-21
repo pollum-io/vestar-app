@@ -13,7 +13,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
-		await getInfos(data.data.user?.investor_id)
+		await getInfos(data.data.user?.investor_id === null ? data.data.user?.enterprise_id : data.data.user?.investor_id)
 		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 

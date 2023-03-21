@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { Flex, Checkbox, Button, Text, SlideFade } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
 import { useToasty } from "../../hooks/useToasty";
-import { DefaultInputs } from "../Inputs/DeafultInput/DefaultInput";
+import { InputComponent } from "../Inputs/DeafultInput/InputComponent";
 import { useForm } from "react-hook-form";
 import {
 	BsArrowRightShort,
@@ -138,9 +138,22 @@ export const RegisterContent: FunctionComponent<any> = props => {
 									</Checkbox>
 								</Flex>
 							</Flex>
-							<Flex flexDirection="column" gap="2rem">
-								<DefaultInputs register={register} />
-
+							<Flex flexDirection="column" gap="0rem">
+								{isPhysical ? (
+									<>
+										<InputComponent label="Razão Social" type="text" {...register("enterprise_name")} />
+										<InputComponent label="CNPJ" maxLength={18} type="text" {...register("cnpj")} />
+										<InputComponent label="Uf" type="text" {...register("uf")} />
+										<InputComponent label="Quem convidou você para a LIVN?" type="text" {...register("invited_by")} />
+									</>
+								) : (
+									<>
+										<InputComponent label="Nome Completo" type="text" {...register("full_name")} />
+										<InputComponent label="Data de Nascimento" type="date" {...register("birthday_date")} />
+										<InputComponent label="CPF" maxLength={14} type="text" {...register("cpf")} />
+										<InputComponent label="Quem convidou você para a LIVN?" type="text" {...register("invited_by")} />
+									</>
+								)}
 								<Button
 									mt="0.375rem"
 									w="9.25rem"
