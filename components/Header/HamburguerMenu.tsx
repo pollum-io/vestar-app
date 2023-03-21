@@ -25,7 +25,7 @@ import { useUser } from "../../hooks/useUser";
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
 	const { userInfos } = useUser()
-
+	console.log(userInfos)
 	return (
 		<Menu>
 			<MenuButton>
@@ -61,7 +61,7 @@ export const HamburguerMenu: React.FC = () => {
 					pl="0.9375rem"
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
-					onClick={() => push({ pathname: `/usuario/${userInfos}`, query: userInfos })}
+					onClick={() => { userInfos === undefined ? logout(push) : push({ pathname: `/usuario/${userInfos}`, query: userInfos }) }}
 				>
 					Editar perfil
 				</MenuItem>
@@ -144,6 +144,6 @@ export const HamburguerMenu: React.FC = () => {
 					Sair
 				</MenuItem>
 			</MenuList>
-		</Menu>
+		</Menu >
 	);
 };
