@@ -1,3 +1,5 @@
+import { FieldValues, UseFormRegister } from "react-hook-form";
+
 export interface IDefaultInput {
 	title?: string;
 	color?: string;
@@ -9,6 +11,8 @@ export interface IDefaultInput {
 	border?: string;
 	inputColor?: string;
 	registerType?: string;
-	register?: any;
+	name?: any;
 	display?: boolean;
+	defaultValue?: any;
+	register?: UseFormRegister<FieldValues>;
 }

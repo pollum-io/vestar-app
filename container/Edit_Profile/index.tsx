@@ -1,12 +1,71 @@
 import { Button, Flex, Img, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
+import { useForm } from "react-hook-form";
 import { DefaultInput } from "../../components";
+import { formatDateBirthday } from "../../utils/formatDate";
 import { DefaultTemplate } from "../DefaultTemplate";
+import { useQuery } from "react-query";
+import { useUser } from "../../hooks/useUser";
+import { fetchEditInvestor } from "../../services/fetchEditInvestor";
+import { useToasty } from "../../hooks/useToasty";
 
-export const Edit_ProfileContainer = () => {
+interface IEditProfile {
+	data: any;
+}
+
+export const Edit_ProfileContainer: FunctionComponent<any> = props => {
+	const { data, token } = props;
 	const [pagePath, setPagePath] = useState("personal");
 	const [isDisabled, setIsDisabled] = useState(true);
 	const [isMarried, setIsMarried] = useState(true);
+	const {
+		register,
+		handleSubmit,
+		control,
+		formState: { isSubmitSuccessful },
+		reset,
+	} = useForm();
+	const { userInfos } = useUser()
+	const { toast } = useToasty();
+
+
+	console.log(data, "investor")
+
+	const onSubmitForm = async (data: any) => {
+		const request =
+		{
+			full_name: data.full_name,
+			mother_name: data.mother_name,
+			city_of_birth: data.city_of_birth,
+			birthday_date: data.birthday_date,
+			cpf: data.cpf,
+			rg: data.rg,
+			cnh: data.cnh,
+			marital_status: data.marital_status,
+			address: data.address,
+			profession: data.profession,
+			email: data.email,
+			phone_number: data.phone_number,
+		}
+
+		// await fetchEditInvestor(userInfos, request, token).then(res => {
+		// 	if (res) {
+		// 		toast({
+		// 			id: "toast-edit",
+		// 			position: "top-right",
+		// 			status: "success",
+		// 			title: "Dados editados!",
+		// 			description:
+		// 				"Os seus dados foram atualizados!",
+		// 		});
+		// 	}
+		// })
+		// 	.catch(err => {
+		// 		console.log({ err });
+		// 	});
+
+	};
+
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -52,7 +111,7 @@ export const Edit_ProfileContainer = () => {
 							maxWidth="47.4375rem"
 						>
 							<Flex gap="1.5rem" alignItems="center">
-								<Img src="icons/Avatar.png" w="6rem" h="6rem" />
+								<Img src="/icons/Avatar.png" w="6rem" h="6rem" />
 								<Text
 									fontFamily="Poppins"
 									fontWeight="600"
@@ -64,169 +123,254 @@ export const Edit_ProfileContainer = () => {
 									Editar Perfil
 								</Text>
 							</Flex>
-							<Flex justifyContent="space-between" w="100%">
-								<Flex
-									flexDirection="column"
-									fontFamily="Poppins"
-									fontStyle="normal"
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
-									color="#2D3748"
-									w="100%"
-									maxWidth="18.5rem"
-									gap="1.5rem"
-								>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">Nome Completo</Text>
-										<Text fontWeight="400">João da Silva e Sousa</Text>
+
+							<form onSubmit={handleSubmit(onSubmitForm)}>
+								<Flex justifyContent="space-between" w="100%">
+									<Flex
+										flexDirection="column"
+										fontFamily="Poppins"
+										fontStyle="normal"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										color="#2D3748"
+										w="100%"
+										maxWidth="18.5rem"
+										gap="1.5rem"
+									>
+										<Flex flexDirection="column" gap="0.25rem">
+											<Text fontWeight="500">Nome Completo</Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"full_name"}
+												register={register}
+												defaultValue={data.full_name}
+											/>
+										</Flex>
+										<Flex flexDirection="column">
+											<Text fontWeight="500">Nome da Mãe</Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"mother_name"}
+												register={register}
+											/>
+										</Flex>
+										<Flex flexDirection="column">
+											<Text fontWeight="500">Cidade de Nascimento</Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"city_of_birth"}
+												register={register}
+											/>
+										</Flex>
+										<Flex flexDirection="column" gap="0.25rem">
+											<Text fontWeight="500">Data de Nascimento </Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"birthday_date"}
+												register={register}
+												defaultValue={formatDateBirthday(data.birthday_date)}
+											/>
+										</Flex>
+										<Flex flexDirection="column" gap="0.25rem">
+											<Text fontWeight="500">CPF</Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"cpf"}
+												register={register}
+												defaultValue={data.cpf}
+											/>
+										</Flex>
+										<Flex flexDirection="column">
+											<Text fontWeight="500">RG</Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"rg"}
+												register={register}
+											/>
+										</Flex>
+										<Flex flexDirection="column">
+											<Text fontWeight="500">CNH</Text>
+											<DefaultInput
+												color="#2D3748"
+												placeholderColor="#2D3748"
+												bgColor="transparent"
+												inputSize="100%"
+												type="text"
+												border="0.0625rem solid #E2E8F0"
+												inputColor="#2D3748"
+												registerType={"cnh"}
+												register={register}
+											/>
+										</Flex>
 									</Flex>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">Nome da Mãe</Text>
-										<Text fontWeight="400">Maria da Silva</Text>
-									</Flex>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">Cidade de Nascimento</Text>
-										<Text fontWeight="400">São José dos Campos - SP</Text>
-									</Flex>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">Data de Nascimento </Text>
-										<Text fontWeight="400">10/10/1972</Text>
-									</Flex>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">CPF</Text>
-										<Text fontWeight="400">004.053.079-58</Text>
-									</Flex>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">RG</Text>
-										<Text fontWeight="400">2.056.262</Text>
-									</Flex>
-									<Flex flexDirection="column" gap="0.25rem">
-										<Text fontWeight="500">CNH</Text>
-										<Text fontWeight="400">1-45457221</Text>
+									<Flex
+										flexDirection="column"
+										gap="1.5rem"
+										fontFamily="Poppins"
+										fontStyle="normal"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										w="20rem"
+									>
+										<DefaultInput
+											title="Estado Civil"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											registerType={"marital_status"}
+											register={register}
+										/>
+										<DefaultInput
+											title="Nome Completo do Cônjuge"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											display={isMarried}
+											registerType={""}
+											register={register}
+										/>
+										<DefaultInput
+											title="CPF do Cônjuge"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											display={isMarried}
+											registerType={""}
+											register={register}
+										/>
+										<DefaultInput
+											title="RG do Cônjuge"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											display={isMarried}
+											registerType={""}
+											register={register}
+										/>
+										<DefaultInput
+											title="Endereço Residencial"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											registerType={"address"}
+											register={register}
+										/>
+										<DefaultInput
+											title="Ocupação Profissional"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											registerType={"profession"}
+											register={register}
+										/>
+										<DefaultInput
+											title="E-mail"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="100%"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											registerType={"email"}
+											register={register}
+										/>
+										<DefaultInput
+											title="Telefone"
+											color="#2D3748"
+											placeholderColor="#2D3748"
+											bgColor="transparent"
+											inputSize="9.875rem"
+											type="text"
+											border="0.0625rem solid #E2E8F0"
+											inputColor="#2D3748"
+											registerType={"phone_number"}
+											register={register}
+										/>
 									</Flex>
 								</Flex>
-								<Flex
-									flexDirection="column"
-									gap="1.5rem"
-									fontFamily="Poppins"
-									fontStyle="normal"
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
-									w="20rem"
-								>
-									<DefaultInput
-										title="Estado Civil"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="Casado"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-									/>
-									<DefaultInput
-										title="Nome Completo do Cônjuge"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="Fulana da Silva e Sousa"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-										display={isMarried}
-									/>
-									<DefaultInput
-										title="CPF do Cônjuge"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="000.000.000-00"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-										display={isMarried}
-									/>
-									<DefaultInput
-										title="RG do Cônjuge"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="0.000.000"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-										display={isMarried}
-									/>
-									<DefaultInput
-										title="Endereço Residencial"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="Rua, n, Bairro - Cidade"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-									/>
-									<DefaultInput
-										title="Ocupação Profissional"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="Engenheiro Civil"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-									/>
-									<DefaultInput
-										title="E-mail"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="100%"
-										placeholder="exemplo@exemplo.com"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-									/>
-									<DefaultInput
-										title="Telefone"
-										color="#2D3748"
-										placeholderColor="#2D3748"
-										bgColor="transparent"
-										inputSize="9.875rem"
-										placeholder="(48) 99999-9999"
-										type="text"
-										border="0.0625rem solid #E2E8F0"
-										inputColor="#2D3748"
-									/>
+								<Flex w="100%" justifyContent="flex-start">
+									<Button
+										w="13.375rem"
+										h="2rem"
+										background="#2D3748"
+										borderRadius="0.5rem"
+										fontFamily="Poppins"
+										fontWeight="500"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										color="#FFFFFF"
+										isDisabled={isDisabled}
+										_hover={
+											isDisabled ? { opacity: "0.3" } : { bgColor: "#171923" }
+										}
+										_active={{}}
+										type="submit"
+									>
+										Salvar Alterações
+									</Button>
 								</Flex>
-							</Flex>
-							<Flex w="100%" justifyContent="flex-start">
-								<Button
-									w="13.375rem"
-									h="2rem"
-									background="#2D3748"
-									borderRadius="0.5rem"
-									fontFamily="Poppins"
-									fontWeight="500"
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
-									color="#FFFFFF"
-									isDisabled={isDisabled}
-									_hover={
-										isDisabled ? { opacity: "0.3" } : { bgColor: "#171923" }
-									}
-									_active={{}}
-								>
-									Salvar Alterações
-								</Button>
-							</Flex>
+							</form>
 						</Flex>
 					</Flex>
 				</Flex>
