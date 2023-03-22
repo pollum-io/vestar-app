@@ -35,7 +35,7 @@ const router = nextConnect({
 
 const insertSchema = z.object({
 	full_name: z.string(),
-	mother_name: z.string(),
+	mother_name: z.optional(z.string()),
 	cpf: z.string().min(11).max(11),
 	rg: z.optional(z.string()),
 	cnh: z.optional(z.string()),

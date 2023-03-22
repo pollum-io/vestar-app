@@ -24,8 +24,7 @@ import { useUser } from "../../hooks/useUser";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
-	const { userInfos } = useUser()
-	console.log(userInfos)
+	const { userInfos, username } = useUser();
 	return (
 		<Menu>
 			<MenuButton>
@@ -40,7 +39,7 @@ export const HamburguerMenu: React.FC = () => {
 					rounded={"1rem"}
 				>
 					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Olá, Fulano
+						Olá, {username}
 					</Text>
 					<Icon color="#4A5568 " as={FiMenu} />
 				</Flex>
@@ -61,7 +60,11 @@ export const HamburguerMenu: React.FC = () => {
 					pl="0.9375rem"
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
-					onClick={() => { userInfos === undefined ? logout(push) : push({ pathname: `/usuario/${userInfos}`, query: userInfos }) }}
+					onClick={() => {
+						userInfos === undefined
+							? logout(push)
+							: push({ pathname: `/usuario/${userInfos}`, query: userInfos });
+					}}
 				>
 					Editar perfil
 				</MenuItem>
@@ -144,6 +147,6 @@ export const HamburguerMenu: React.FC = () => {
 					Sair
 				</MenuItem>
 			</MenuList>
-		</Menu >
+		</Menu>
 	);
 };
