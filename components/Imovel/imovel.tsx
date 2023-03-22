@@ -13,12 +13,16 @@ import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
+	usersId: any;
 }
 
 export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
+	usersId
 }) => {
 	const { ended, hasToken } = useOpportunities();
+
+	console.log(usersId, "usersId")
 	return (
 		<Flex flexDir={"column"}>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -222,6 +226,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								minted={imovelDetails?.token_minted}
 								price={imovelDetails?.token_price}
 								supply={imovelDetails?.token_supply}
+								investor_id={usersId?.investor_id}
+								enterprise_id={usersId?.enterprise_id}
 							/>
 						</Flex>
 					</Flex>
