@@ -66,11 +66,16 @@ router.get(async (req, res) => {
 		const { opportunities_available, opportunities_closed } =
 			await getAvailableAndClosedOpportunities(id);
 
+		const defaultOppData = {
+			opportunities_closed: 0,
+			opportunities_available: 0,
+		};
+
 		res.status(200).json({
 			data: {
 				...enterprise,
-				opportunities_closed,
-				opportunities_available,
+				opportunities_closed: opportunities_closed || defaultOppData,
+				opportunities_available: opportunities_available || defaultOppData,
 			},
 		});
 	} catch (error: any) {

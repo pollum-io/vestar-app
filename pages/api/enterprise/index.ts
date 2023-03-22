@@ -73,7 +73,7 @@ router.get(async (req, res) => {
 		const limit: number = (req.query.limit as any) || 12;
 		const totalPages = Math.ceil((await Enterprise.countDocuments({})) / limit);
 
-		const enterprises = await Enterprise.find({})
+		let enterprises = await Enterprise.find({})
 			.limit(limit)
 			.skip(page * limit)
 			.sort({ createdAt: -1 })
@@ -84,25 +84,20 @@ router.get(async (req, res) => {
 		);
 
 		const oppData = await getAvailableAndClosedOpportunities(ids);
+		const defaultOppData = {
+			opportunities_closed: 0,
+			opportunities_available: 0,
+		};
 
-		enterprises.forEach(function (enterprise, index) {
+		enterprises = enterprises.map((enterprise: any) => {
 			const hasOpportunities = oppData.find(
 				(item: any) => `${item._id}` === `${enterprise._id}`
 			);
 
-			if (hasOpportunities) {
-				enterprise = {
-					...enterprise,
-					opportunities_available: hasOpportunities.opportunities_available,
-					opportunities_closed: hasOpportunities.opportunities_closed,
-				};
-			} else {
-				enterprise = {
-					...enterprise,
-					opportunities_available: 0,
-					opportunities_closed: 0,
-				};
-			}
+			return (enterprise = {
+				...enterprise,
+				...(hasOpportunities || defaultOppData),
+			});
 		});
 
 		res.status(200).json({ data: enterprises, totalPages });
