@@ -72,7 +72,7 @@ export const HamburguerMenu: React.FC = () => {
 					>
 						{isConnected ? (
 							<Flex alignItems="center" gap="0.5rem">
-								<Img src="icons/MetamaskIcon.png" />
+								<Img src="/icons/MetamaskIcon.png" />
 								<Text>0x6856...BF99</Text>
 							</Flex>
 						) : (
