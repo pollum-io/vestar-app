@@ -12,18 +12,19 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { DefaultTemplate } from "../DefaultTemplate";
-import { PaymentMethods, DefaultInput } from "../../components";
+import { PaymentMethods } from "../../components";
 import { RiCheckFill } from "react-icons/ri";
-import { useRouter } from "next/router";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
-import { useOpportunities } from "../../hooks/useOpportunities";
 
 interface IInvest {
 	data: IOpportunitiesCard;
 	cotas: number;
 }
 
-export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => {
+export const InvestContainer: FunctionComponent<IInvest> = ({
+	data,
+	cotas,
+}) => {
 	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<number>(Number(cotas));
 
@@ -35,9 +36,9 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => 
 		}
 	}, [data.token_minted, data.token_supply]);
 
-	const formatter = new Intl.NumberFormat('pt-br', {
-		style: 'currency',
-		currency: 'BRL',
+	const formatter = new Intl.NumberFormat("pt-br", {
+		style: "currency",
+		currency: "BRL",
 	});
 
 	return (
@@ -173,7 +174,9 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => 
 														: { bgColor: "#f4f7fa" }
 												}
 												border="0.0625rem solid #E2E8F0"
-												onClick={() => setCounter(counter === 0 ? 0 : counter - 1)}
+												onClick={() =>
+													setCounter(counter === 0 ? 0 : counter - 1)
+												}
 												h="2rem"
 												fontSize="0.875rem"
 												bgColor="#ffffff"
@@ -213,7 +216,11 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => 
 														? { opacity: "0.3" }
 														: { bgColor: "#f4f7fa" }
 												}
-												onClick={() => setCounter(counter === avalible ? counter : counter + 1)}
+												onClick={() =>
+													setCounter(
+														counter === avalible ? counter : counter + 1
+													)
+												}
 												h="2rem"
 												fontSize="0.875rem"
 												bgColor="#ffffff"
@@ -333,6 +340,6 @@ export const InvestContainer: FunctionComponent<IInvest> = ({ data, cotas }) => 
 					</Flex>
 				</Flex>
 			</Flex>
-		</DefaultTemplate >
+		</DefaultTemplate>
 	);
 };
