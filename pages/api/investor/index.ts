@@ -42,7 +42,7 @@ const insertSchema = z.object({
 	profession: z.optional(z.string()),
 	// address: z.optional(z.object()),
 	wallet_address: z.optional(z.string()),
-	// marital_status: z.optional(z.object()),
+	marital_status: z.optional(z.object({} as { [key: string]: any })),
 	phone_number: z.optional(z.string()),
 	birthday_date: z.string().datetime({ offset: true }),
 	city_of_birth: z.optional(z.string()),

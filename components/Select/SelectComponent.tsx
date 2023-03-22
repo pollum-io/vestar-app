@@ -8,19 +8,23 @@ import {
 } from "@chakra-ui/react";
 import { states } from "./states";
 
-
 interface SelectProps extends ChakraSelectProps {
 	name: string;
 	label?: string;
 	type?: string;
 	selectValue?: any;
-	setIsMarried?: any;
+	setData?: any;
 	defaultValue?: string;
 }
 
-export const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
-	{ name, label, type, selectValue, setIsMarried, defaultValue, ...rest }, ref) => {
-	console.log(defaultValue, "defaultValue")
+export const SelectComponent: ForwardRefRenderFunction<
+	HTMLSelectElement,
+	SelectProps
+> = (
+	{ name, label, type, selectValue, setData, defaultValue, ...rest },
+	ref
+) => {
+	console.log(defaultValue, "defaultValue");
 
 	return (
 		<FormControl id={name}>
@@ -38,7 +42,7 @@ export const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Select
 					</Text>
 				</FormLabel>
 			)}
-			{(states && type === "uf") && (
+			{states && type === "uf" && (
 				<Select
 					id={name}
 					name={name}
@@ -58,7 +62,7 @@ export const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Select
 					))}
 				</Select>
 			)}
-			{(selectValue && type === "marital") && (
+			{selectValue && type === "marital" && (
 				<Select
 					id={name}
 					name={name}
@@ -70,7 +74,29 @@ export const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Select
 					placeholder="Select option"
 					color={"black"}
 					fontSize="0.875rem"
-					onChange={(e) => setIsMarried(e.target.value)}
+					onChange={e => setData(e.target.value)}
+					defaultValue={defaultValue}
+				>
+					{selectValue?.map((value: any) => (
+						<option key={value.id} value={value.name}>
+							{value.name}
+						</option>
+					))}
+				</Select>
+			)}
+			{selectValue && type === "regime_patrimonial" && (
+				<Select
+					id={name}
+					name={name}
+					{...rest}
+					_hover={{}}
+					w={""}
+					h="2rem"
+					border={"0.0938rem solid #E2E8F0"}
+					placeholder="Select option"
+					color={"black"}
+					fontSize="0.875rem"
+					onChange={e => setData(e.target.value)}
 					defaultValue={defaultValue}
 				>
 					{selectValue?.map((value: any) => (
@@ -83,5 +109,3 @@ export const SelectComponent: ForwardRefRenderFunction<HTMLSelectElement, Select
 		</FormControl>
 	);
 };
-
-
