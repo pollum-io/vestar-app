@@ -7,11 +7,16 @@ interface IEditProfile {
 	data: any;
 }
 
-const Editar_Perfil: NextPage<IEditProfile> = (props) => <Edit_ProfileContainer {...props} />;
+const Editar_Perfil: NextPage<IEditProfile> = props => (
+	<Edit_ProfileContainer {...props} />
+);
 
 export default Editar_Perfil;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+	query,
+}) => {
 	const token = req.cookies["livn_auth"];
 
 	if (!token) {
@@ -26,8 +31,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 
 	const user: any = jwt_decode(token);
 
-	const response = await fetchGetInvestorById(query.id, token)
-	console.log(response, "response")
+	const response = await fetchGetInvestorById(query.id, token);
+
 	if (!user?.investor_id) {
 		return {
 			redirect: {
@@ -42,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 		props: {
 			user,
 			token,
-			data: response.data
+			data: response.data,
 		},
 	};
 };

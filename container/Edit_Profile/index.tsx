@@ -35,7 +35,11 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 	const { data, token } = props;
 	const [pagePath, setPagePath] = useState("personal");
 	const [isDisabled, setIsDisabled] = useState(true);
-	const [maritalStatus, setMaritalStatus] = useState<any>("");
+	const [maritalStatus, setMaritalStatus] = useState<any>(
+		data?.marital_status?.status
+	);
+	const isMerried: boolean = maritalStatus === "Casado(a)" ? true : false;
+
 	const [equityRegime, setEquityRegime] = useState<any>("");
 	const {
 		register,
@@ -50,12 +54,11 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 		.toISOString()
 		.split("T")[0];
 	console.log(maritalStatus, "maritalStatus");
+	console.log(isMerried, "isMerried");
 
-	console.log(data, "Dados vindo da API");
+	console.log(data?.marital_status?.status, "Dados vindo da API");
 
 	const onSubmitForm = async (data: any) => {
-		console.log(data, "Dados chegando na funcao");
-
 		const request = {
 			full_name: data.full_name,
 			mother_name: data.mother_name,
@@ -66,10 +69,10 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 			cnh: data.cnh,
 			marital_status: {
 				status: maritalStatus,
-				equity_regime: equityRegime,
-				spouse_name: data.spouse_name,
-				spouse_cpf: data.spouse_cpf,
-				spouse_rg: data.spouse_rg,
+				equity_regime: isMerried ? equityRegime : null,
+				spouse_name: isMerried ? data.spouse_name : null,
+				spouse_cpf: isMerried ? data.spouse_cpf : null,
+				spouse_rg: isMerried ? data.spouse_rg : null,
 			},
 			address: data.address,
 			profession: data.profession,
@@ -171,30 +174,35 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 									>
 										<Flex flexDirection="column" gap="0.25rem" mb="2.75rem">
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="Nome"
 												type="text"
 												{...register("full_name")}
 												defaultValue={data?.full_name}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="Nome da Mãe"
 												type="text"
 												{...register("mother_name")}
 												defaultValue={data?.mother_name}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="Cidade de nascimento"
 												type="text"
 												{...register("city_of_birth")}
 												defaultValue={data?.city_of_birth}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="Data de Nascimento "
 												type="date"
 												{...register("birthday_date")}
 												defaultValue={dataFormatada}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="CPF"
 												type="text"
 												maxLength={14}
@@ -202,12 +210,14 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 												defaultValue={formatCPF(data?.cpf)}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="RG"
 												type="text"
 												{...register("rg")}
 												defaultValue={data?.rg}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="CNH"
 												type="text"
 												{...register("cnh")}
@@ -232,12 +242,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 											selectValue={estadosCivis}
 											{...register("status")}
 										/>
-										<Collapse
-											in={
-												maritalStatus === "Casado(a)" ||
-												data?.marital_status?.status === "Casado(a)"
-											}
-										>
+										<Collapse in={maritalStatus === "Casado(a)" && isMerried}>
 											<SelectComponent
 												defaultValue={data.marital_status?.equity_regime}
 												setData={setEquityRegime}
@@ -247,12 +252,14 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 												{...register("equity_regime")}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="Nome Completo do Cônjuge"
 												type="text"
 												{...register("spouse_name")}
 												defaultValue={data?.marital_status?.spouse_name}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="CPF do Cônjuge"
 												type="text"
 												{...register("spouse_cpf")}
@@ -261,6 +268,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 												)}
 											/>
 											<InputComponent
+												placeholderText="Insira aqui"
 												label="RG do Cônjuge"
 												type="text"
 												{...register("spouse_rg")}
@@ -268,24 +276,28 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 											/>
 										</Collapse>
 										<InputComponent
+											placeholderText="Insira aqui"
 											label="Endereço Residencial"
 											type="text"
 											{...register("address")}
 											defaultValue={data?.address}
 										/>
 										<InputComponent
+											placeholderText="Insira aqui"
 											label="Ocupação Profissional"
 											type="text"
 											{...register("profession")}
 											defaultValue={data?.profession}
 										/>
 										<InputComponent
+											placeholderText="Insira aqui"
 											label="Email"
 											type="email"
 											{...register("email")}
 											defaultValue={data?.email}
 										/>
 										<InputComponent
+											placeholderText="Insira aqui"
 											label="Telefone"
 											type="text"
 											maxLength={15}

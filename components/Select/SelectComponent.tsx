@@ -6,8 +6,6 @@ import {
 	Text,
 	SelectProps as ChakraSelectProps,
 } from "@chakra-ui/react";
-import { states } from "./states";
-
 interface SelectProps extends ChakraSelectProps {
 	name: string;
 	label?: string;
@@ -42,7 +40,7 @@ export const SelectComponent: ForwardRefRenderFunction<
 					</Text>
 				</FormLabel>
 			)}
-			{states && type === "uf" && (
+			{selectValue && type === "uf" && (
 				<Select
 					id={name}
 					name={name}
@@ -55,7 +53,7 @@ export const SelectComponent: ForwardRefRenderFunction<
 					color={"black"}
 					fontSize="0.875rem"
 				>
-					{states?.map((value: any) => (
+					{selectValue?.map((value: any) => (
 						<option key={value.id} value={value.Uf}>
 							{value.State}
 						</option>
