@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { Flex, Checkbox, Button, Text, SlideFade } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
 import { useToasty } from "../../hooks/useToasty";
-import { DefaultInputs } from "../Inputs/DeafultInput/DefaultInput";
+import { InputComponent } from "../Inputs/DeafultInput/InputComponent";
 import { useForm } from "react-hook-form";
 import {
 	BsArrowRightShort,
@@ -13,6 +13,8 @@ import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
 import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
+import { SelectComponent } from "../Select/SelectComponent";
+import { brasilStates } from "./states";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
@@ -38,19 +40,19 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const onSubmitForm = async (data: any) => {
 		const request = isPhysical
 			? {
-				enterprise_name: String(data.enterprise_name),
-				cnpj: data.cnpj.replace(/[-./]/g, ""),
-				uf: data.uf,
-				is_legal_entity: isPhysical,
-				invited_by: String(data.invited_by),
-			}
+					enterprise_name: String(data.enterprise_name),
+					cnpj: data.cnpj.replace(/[-./]/g, ""),
+					uf: data.uf,
+					is_legal_entity: isPhysical,
+					invited_by: String(data.invited_by),
+			  }
 			: {
-				full_name: String(data.full_name),
-				cpf: data.cpf.replace(/[.-]/g, ""),
-				birthday_date: new Date(data.birthday_date),
-				is_legal_entity: isPhysical,
-				invited_by: String(data.invited_by),
-			};
+					full_name: String(data.full_name),
+					cpf: data.cpf.replace(/[.-]/g, ""),
+					birthday_date: new Date(data.birthday_date),
+					is_legal_entity: isPhysical,
+					invited_by: String(data.invited_by),
+			  };
 
 		await (isPhysical
 			? fetchCreateEnterprise(request, token)
@@ -138,11 +140,66 @@ export const RegisterContent: FunctionComponent<any> = props => {
 									</Checkbox>
 								</Flex>
 							</Flex>
-							<Flex flexDirection="column" gap="2rem">
-								<DefaultInputs register={register} />
-
+							<Flex flexDirection="column" gap="0rem">
+								{isPhysical ? (
+									<>
+										<InputComponent
+											placeholderText="Insira aqui"
+											label="Razão Social"
+											type="text"
+											{...register("enterprise_name")}
+										/>
+										<InputComponent
+											placeholderText="00.000.000/0000-00"
+											label="CNPJ"
+											maxLength={18}
+											type="text"
+											{...register("cnpj")}
+										/>
+										<SelectComponent
+											label="Uf"
+											type="uf"
+											selectValue={brasilStates}
+											{...register("uf")}
+										/>
+										<InputComponent
+											label="Quem convidou você para a LIVN?"
+											type="text"
+											placeholderText="Insira aqui"
+											{...register("invited_by")}
+										/>
+									</>
+								) : (
+									<>
+										<InputComponent
+											label="Sem abreviações"
+											type="text"
+											placeholderText="Insira aqui"
+											{...register("full_name")}
+										/>
+										<InputComponent
+											label="Data de Nascimento"
+											type="date"
+											placeholderText="dd/mm/aaaa"
+											{...register("birthday_date")}
+										/>
+										<InputComponent
+											label="CPF"
+											maxLength={14}
+											type="text"
+											placeholderText="000.000.000-00"
+											{...register("cpf")}
+										/>
+										<InputComponent
+											label="Quem convidou você para a LIVN?"
+											type="text"
+											placeholderText="Insira aqui"
+											{...register("invited_by")}
+										/>
+									</>
+								)}
 								<Button
-									mt="0.375rem"
+									mt="2rem"
 									w="9.25rem"
 									h="2rem"
 									justifyContent="center"

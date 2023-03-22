@@ -5,3 +5,9 @@ export const formatDate = (value: number | undefined | string) => {
 
 	return valor
 }
+
+export const formatDateBirthday = (value: string) => {
+	const valor = moment(value).format('DD/MM/YYYY');
+
+	return valor
+}

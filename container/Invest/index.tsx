@@ -12,7 +12,8 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { DefaultTemplate } from "../DefaultTemplate";
-import { useRouter } from "next/router";
+import { PaymentMethods } from "../../components";
+import { RiCheckFill } from "react-icons/ri";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { useTransactions } from "../../hooks/useTransactions";
