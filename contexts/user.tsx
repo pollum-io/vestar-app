@@ -26,9 +26,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getInfos = async (data: any) => {
 		const response = await fetchGetInvestorById(userInfos, data);
-		const name = response?.data?.full_name
-			? response?.data?.full_name
-			: response?.data?.enterprise_name;
+		const name = response?.data?.full_name;
+
 		PersistentFramework.add("name", String(name));
 	};
 

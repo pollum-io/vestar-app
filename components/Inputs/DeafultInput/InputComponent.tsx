@@ -26,15 +26,36 @@ interface InputProps extends ChakraInputProps {
 	defaultValue?: string;
 	maxLength?: number;
 	placeholderText?: string;
+	setInputValues?: React.Dispatch<any>;
 }
 
 export const InputBase: ForwardRefRenderFunction<
 	HTMLInputElement,
 	InputProps
 > = (
-	{ name, label, defaultValue, type, maxLength, placeholderText, ...rest },
+	{
+		name,
+		label,
+		defaultValue,
+		type,
+		maxLength,
+		placeholderText,
+		setInputValues,
+		...rest
+	},
 	ref
 ) => {
+	const maskValidation = useMemo(() => {
+		if (label === "CPF" || label === "CPF do Cônjuge") {
+			return "999.999.999-99";
+		} else if (label === "CNPJ") {
+			return "99.999.999/9999-99";
+		} else if (label === "Telefone") {
+			return "(99) 9 9999-9999";
+		}
+		return "";
+	}, [label]);
+
 	return (
 		<FormControl id={name}>
 			{label && (
@@ -51,35 +72,43 @@ export const InputBase: ForwardRefRenderFunction<
 					</Text>
 				</FormLabel>
 			)}
-			<ChakraInput
-				disableUnderline
-				id={name}
-				name={name}
-				ref={ref}
-				{...rest}
-				_placeholder={{
-					placeholderColor: "rgba(0, 0, 0, 0.36)",
-					fontFamily: "Poppins",
-				}}
-				placeholder={placeholderText}
-				border={"0.0938rem solid #E2E8F0"}
-				fontStyle="normal"
-				fontWeight="400"
-				fontSize="0.875rem"
-				lineHeight="1.25rem"
-				borderRadius="0.375rem"
-				h="2rem"
-				pl="0.7rem"
-				color={"#2D3748"}
-				type={type}
-				_hover={{}}
-				_focus={{
-					boxShadow: "none",
-					border: "0.0938rem solid #E2E8F0",
-				}}
-				defaultValue={defaultValue}
-				maxLength={maxLength}
-			/>
+			<InputMask
+				mask={String(maskValidation)}
+				value={rest.value}
+				onBlur={rest.onBlur}
+				onChange={rest.onChange}
+				maskChar={null}
+			>
+				<ChakraInput
+					disableUnderline={true}
+					id={name}
+					name={name}
+					ref={ref}
+					{...rest}
+					_placeholder={{
+						placeholderColor: "rgba(0, 0, 0, 0.36)",
+						fontFamily: "Poppins",
+					}}
+					placeholder={placeholderText}
+					border={"0.0938rem solid #E2E8F0"}
+					fontStyle="normal"
+					fontWeight="400"
+					fontSize="0.875rem"
+					lineHeight="1.25rem"
+					borderRadius="0.375rem"
+					h="2rem"
+					pl="0.7rem"
+					color={"#2D3748"}
+					type={type}
+					_hover={{}}
+					_focus={{
+						boxShadow: "none",
+						border: "0.0938rem solid #E2E8F0",
+					}}
+					defaultValue={defaultValue}
+					maxLength={maxLength}
+				/>
+			</InputMask>
 		</FormControl>
 	);
 };
