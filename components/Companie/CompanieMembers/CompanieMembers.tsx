@@ -19,6 +19,7 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 				alignItems="center"
 				color="#171923"
 				gap="0.25rem"
+				textAlign="center"
 				flexDirection="column"
 			>
 				<Text>{name}</Text>
@@ -32,7 +33,7 @@ export const CompanieMembers: FunctionComponent = () => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3, xl: 3 }}
-			spacing="6.625rem"
+			spacing={["unset", "unset", "unset", "4rem", "6.625rem"]}
 			w="fit-content"
 			rowGap="2.75rem"
 			mt="2rem"
