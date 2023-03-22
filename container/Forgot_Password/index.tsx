@@ -13,11 +13,11 @@ import {
 	ScaleFade,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useMemo, useState } from "react";
+import React, { FunctionComponent, useMemo, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import PasswordStrengthBar from "react-password-strength-bar";
 
-export const Forgot_PasswordContainer = () => {
+export const Forgot_PasswordContainer: FunctionComponent = () => {
 	//pages states
 	const [emailPage, setEmailPage] = useState<boolean>(true);
 	const [pinPage, setPinPage] = useState<boolean>(false);

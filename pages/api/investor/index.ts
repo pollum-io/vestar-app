@@ -35,14 +35,14 @@ const router = nextConnect({
 
 const insertSchema = z.object({
 	full_name: z.string(),
-	mother_name: z.string(),
+	mother_name: z.optional(z.string()),
 	cpf: z.string().min(11).max(11),
 	rg: z.optional(z.string()),
 	cnh: z.optional(z.string()),
 	profession: z.optional(z.string()),
 	// address: z.optional(z.object()),
 	wallet_address: z.optional(z.string()),
-	// marital_status: z.optional(z.object()),
+	marital_status: z.optional(z.object({} as { [key: string]: any })),
 	phone_number: z.optional(z.string()),
 	birthday_date: z.string().datetime({ offset: true }),
 	city_of_birth: z.optional(z.string()),
