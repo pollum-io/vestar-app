@@ -11,11 +11,22 @@ interface IPriceCard {
 	supply: number;
 	address: string;
 	oportunitiesAddress: string;
+	investor_id?: string;
+	enterprise_id?: string;
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
-	const { id, price, minted, supply, address, oportunitiesAddress } = props;
-	const [isInvestidor, setIsInvestidor] = useState(true);
+	const {
+		id,
+		price,
+		minted,
+		supply,
+		address,
+		oportunitiesAddress,
+		investor_id,
+		enterprise_id,
+	} = props;
+	const [isInvestidor, setIsInvestidor] = useState(investor_id ? true : false);
 	const { ended, hasToken } = useOpportunities();
 	const { push } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
@@ -28,9 +39,9 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		}
 	}, [minted, supply]);
 
-	const formatter = new Intl.NumberFormat('pt-br', {
-		style: 'currency',
-		currency: 'BRL',
+	const formatter = new Intl.NumberFormat("pt-br", {
+		style: "currency",
+		currency: "BRL",
 	});
 
 	return (
@@ -127,7 +138,12 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 										? { opacity: "0.3" }
 										: { bgColor: "#F7FAFC" }
 								}
-								onClick={() => push({ pathname: "/investir", query: { id, cotas, oportunitiesAddress }, })}
+								onClick={() =>
+									push({
+										pathname: "/investir",
+										query: { id, cotas, oportunitiesAddress },
+									})
+								}
 							>
 								{ended
 									? hasToken

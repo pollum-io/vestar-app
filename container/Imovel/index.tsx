@@ -5,13 +5,14 @@ import { IOpportunitiesCard } from "../../dtos/Oportunities";
 
 interface IImovelProps {
 	imovel: IOpportunitiesCard;
+	usersId: any;
 }
 
-export const ImovelContainer: FunctionComponent<IImovelProps> = ({ imovel }) => {
+export const ImovelContainer: FunctionComponent<IImovelProps> = ({ imovel, usersId }) => {
 
 	return (
 		<DefaultTemplate>
-			<ImovelDetail imovelDetails={imovel} />
+			<ImovelDetail imovelDetails={imovel} usersId={usersId} />
 		</DefaultTemplate>
 	);
 };

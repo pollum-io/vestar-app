@@ -18,10 +18,12 @@ import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
+	usersId: any;
 }
 
 export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
+	usersId,
 }) => {
 	const { hasToken } = useOpportunities();
 	const [dateEndend, setDateEnded] = useState<any>();
@@ -69,6 +71,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		// eslint-disable-next-line
 		[imovelDetails.token_address, account]
 	);
+
+	console.log(usersId, "usersId");
 	return (
 		<Flex flexDir={"column"}>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -289,6 +293,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								price={imovelDetails?.token_price}
 								supply={imovelDetails?.token_supply}
 								oportunitiesAddress={imovelDetails?.token_address}
+								investor_id={usersId?.investor_id}
+								enterprise_id={usersId?.enterprise_id}
 							/>
 						</Flex>
 					</Flex>
