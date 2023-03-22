@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useCallback, useState } from "react";
 import { Flex, Img, Text, Icon } from "@chakra-ui/react";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "./Collections";
@@ -11,14 +11,68 @@ import { useEffect } from "react";
 import { useRegister } from "../../hooks";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
+import moment from "moment-timezone";
+import Countdown from "react-countdown";
+import { CountdownRenderProps } from "react-countdown/dist/Countdown";
+import { useTransactions } from "../../hooks/useTransactions";
+import { useWallet } from "../../hooks/useWallet";
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
+	usersId: any;
 }
 
 export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
+	usersId,
 }) => {
-	const { ended, hasToken } = useOpportunities();
+	const { hasToken } = useOpportunities();
+	const [dateEndend, setDateEnded] = useState<any>();
+	const [ended, setEnded] = useState<any>();
+	const [cota, setCota] = useState<number>();
+	const { account } = useWallet();
+	const { shares } = useTransactions();
+
+	const renderer = ({
+		days,
+		hours,
+		minutes,
+		completed,
+		props: { date },
+	}: CountdownRenderProps) => {
+		const dateFormated = moment(date).format("DD/MM/YYYY");
+
+		if (completed) {
+			setEnded(true);
+			setDateEnded(dateFormated);
+			return;
+		} else {
+			setEnded(false);
+			return (
+				<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem" id="timer">
+					{days} dias {hours} horas {minutes} min
+				</Text>
+			);
+		}
+	};
+
+	useEffect(
+		() => {
+			const getCotas = async () => {
+				if (imovelDetails.token_address && account) {
+					const valorDeCotas = await shares(
+						imovelDetails.token_address,
+						account
+					);
+					setCota(Number(valorDeCotas));
+				}
+			};
+			getCotas();
+		},
+		// eslint-disable-next-line
+		[imovelDetails.token_address, account]
+	);
+
+	console.log(usersId, "usersId");
 	return (
 		<Flex flexDir={"column"}>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -46,20 +100,26 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							>
 								{imovelDetails?.enterprise_type}
 							</Text>
-							{/* TODO: FALTA */}
-							<Flex
-								bgColor="#F0E8FF"
-								py="0.25rem"
-								px="1rem"
-								borderRadius={"4.875rem"}
-								fontSize={"sm"}
-								color="#171923"
-								gap="0.25rem"
-								display={!hasToken ? "flex" : "none"}
-							>
-								<Text fontWeight="400">Você possui</Text>
-								<Text fontWeight="600">12 cotas</Text>
-							</Flex>
+							{cota && cota > 0 && (
+								<Flex
+									bgColor="#F0E8FF"
+									py="0.25rem"
+									px="1rem"
+									borderRadius={"4.875rem"}
+									fontSize={"sm"}
+									color="#171923"
+									gap="0.25rem"
+									display={!hasToken ? "flex" : "none"}
+									w="max"
+								>
+									<Text w="max" fontWeight="400">
+										Você possui
+									</Text>
+									<Text w="max" fontWeight="600">
+										{cota} cotas
+									</Text>
+								</Flex>
+							)}
 						</Flex>
 						<Flex gap="0.625rem" pb="1.5rem">
 							<Icon w="1.25rem" h="1.5rem" color={"#718096"} as={FiMapPin} />
@@ -190,7 +250,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									gap="0.25rem"
 									justifyContent="center"
 								>
-									<Text fontWeight="400">Encerrado em 06/03/2023</Text>
+									<Text fontWeight="400">Encerrado em {dateEndend}</Text>
 								</Flex>
 							) : (
 								<Flex
@@ -204,15 +264,25 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									color="#FFFFFF"
 									h="max-content"
 								>
-									<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem">
-										6 dias 17 h e 36min para encerrar as vendas
+									<Countdown
+										date={new Date(+imovelDetails?.sale_end_at * 1000)}
+										renderer={renderer}
+									/>
+									<Text
+										fontWeight="500"
+										fontSize="1.25rem"
+										lineHeight="2rem"
+										id="timer"
+									>
+										para encerrar as vendas
 									</Text>
 									<Text
 										fontWeight="400"
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
 									>
-										Preço unitário no próximo lote: R$ {imovelDetails.token_price * 2}
+										Preço unitário no próximo lote: R${" "}
+										{imovelDetails.token_price * 2}
 									</Text>
 								</Flex>
 							)}
@@ -222,6 +292,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								minted={imovelDetails?.token_minted}
 								price={imovelDetails?.token_price}
 								supply={imovelDetails?.token_supply}
+								oportunitiesAddress={imovelDetails?.token_address}
+								investor_id={usersId?.investor_id}
+								enterprise_id={usersId?.enterprise_id}
 							/>
 						</Flex>
 					</Flex>

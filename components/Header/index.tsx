@@ -5,6 +5,7 @@ import { HeaderLinks } from "./HeaderLinks";
 
 export const Header: React.FC = () => {
 	const { push } = useRouter();
+
 	return (
 		<Flex
 			w="100%"

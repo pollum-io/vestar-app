@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import {
 	Button,
 	Checkbox,
@@ -15,18 +15,27 @@ import { DefaultTemplate } from "../DefaultTemplate";
 import { PaymentMethods } from "../../components";
 import { RiCheckFill } from "react-icons/ri";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
+import { useOpportunities } from "../../hooks/useOpportunities";
+import { useTransactions } from "../../hooks/useTransactions";
+import { useWallet } from "../../hooks/useWallet";
 
 interface IInvest {
 	data: IOpportunitiesCard;
 	cotas: number;
+	oportunitiesAddress: string;
 }
 
 export const InvestContainer: FunctionComponent<IInvest> = ({
 	data,
 	cotas,
+	oportunitiesAddress,
 }) => {
-	const [isTerms, setIsTerms] = useState<boolean>(false);
 	const [counter, setCounter] = useState<number>(Number(cotas));
+	const { approve } = useTransactions();
+	const totalValue = counter * data.token_price;
+	const BRZ_DECIMALS = 10 ** 4;
+	const amount = totalValue * BRZ_DECIMALS;
+	const { connectWallet, isConnected, signer, account } = useWallet();
 
 	const avalible = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
@@ -40,6 +49,22 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 		style: "currency",
 		currency: "BRL",
 	});
+
+	const approveTransfer = async (spender: any, amount: any) => {
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			return await approve(spender, amount, account);
+		}
+	};
+
+	const buttonText = useMemo(() => {
+		if (!isConnected || !signer) {
+			return "Connectar metamask";
+		} else {
+			return "Confirmar investimento";
+		}
+	}, [isConnected, signer]);
 
 	return (
 		<DefaultTemplate>
@@ -232,19 +257,6 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex flexDirection="column" gap="1.5rem">
-							<Text
-								fontFamily="Poppins"
-								fontStyle="normal"
-								fontWeight="600"
-								fontSize="1.5rem"
-								lineHeight="2rem"
-								color="#171923"
-							>
-								Selecione a forma de pagamento
-							</Text>
-							<PaymentMethods />
-						</Flex>
 					</Flex>
 					<Flex w="30%" justifyContent="end">
 						<Flex
@@ -288,39 +300,36 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 								border="0.0625rem solid #4BA3B7"
 								_hover={{ opacity: 0.8 }}
 							/> */}
-							<Flex gap="0.5rem" alignItems="center">
-								<Checkbox
-									defaultChecked={false}
-									variant="white"
-									spacing="0.75rem"
-									icon={
-										<RiCheckFill
-											size={18}
-											color={isTerms ? "#007D99" : "#1789A3"}
-										/>
-									}
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
-									onChange={() => setIsTerms(!isTerms)}
-									w="max-content"
-								/>
-								<Text>
-									Declaro que li e aceito os{" "}
-									<Link
-										textDecoration="underline"
-										_hover={{ fontWeight: "500" }}
-									>
-										Termos de Compra
-									</Link>
-									.
-								</Text>
-							</Flex>
-							<Flex mt="1rem">
+
+							<Flex
+								mt="1rem"
+								flexDirection="column"
+								gap="2rem"
+								fontFamily="Poppins"
+								fontSize="0.875rem"
+								lineHeight="1.25rem"
+								color="#FFFFFF"
+							>
+								<Flex>
+									{isConnected ? (
+										<Text>
+											Siga os passos da carteira para realizar o investimento.
+											Sua compra será finalizada após a assinatura do contrato
+											que será enviado ao seu e-mail cadastrado.{" "}
+										</Text>
+									) : (
+										<Text>
+											Conecte-se à sua carteira digital do Metamask e siga os
+											passos da carteira para realizar o investimento. Sua
+											compra será finalizada após a assinatura do contrato que
+											será enviado ao seu e-mail cadastrado.
+										</Text>
+									)}
+								</Flex>
 								<Button
 									justifyContent="center"
 									alignItems="center"
 									w="100%"
-									isDisabled={!isTerms}
 									h="2.5rem"
 									bgColor="#FFFFFF"
 									borderRadius="0.5rem"
@@ -329,11 +338,11 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 									fontSize="1rem"
 									lineHeight="1.5rem"
 									color="#007088"
-									_hover={
-										!isTerms ? { opacity: "0.3" } : { bgColor: "#EDF2F7" }
-									}
+									_hover={{ bgColor: "#EDF2F7" }}
+									_active={{ bgColor: "#E2E8F0" }}
+									onClick={() => approveTransfer(oportunitiesAddress, amount)}
 								>
-									Confirmar Investimento
+									{buttonText}
 								</Button>
 							</Flex>
 						</Flex>
