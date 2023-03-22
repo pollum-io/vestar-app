@@ -177,7 +177,17 @@
         "insertHere": "Insert here",
         "findCompanie": "Find company",
         "emailExample": "example@example.com"
-    }
+    },
+		"header": {
+			"hello": "Hi, Fulano",
+			"logOut": "Log Out",
+			"lang": "Language",
+			"connect": "Connect Wallet",
+			"pt": "Portuguese",
+			"en": "English",
+			"portfolio": "Portfolio",
+			"companies": "Companies"
+		}
     }
 
 
