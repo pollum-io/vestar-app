@@ -26,8 +26,7 @@ import { useWallet } from "../../hooks/useWallet";
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
 	const { userInfos, username } = useUser();
-	const [isConnected] = useState(true);
-	const { disconnectWallet } = useWallet();
+	const { disconnectWallet, isConnected, account, connectWallet } = useWallet();
 
 	return (
 		<Menu>
@@ -74,13 +73,13 @@ export const HamburguerMenu: React.FC = () => {
 						_hover={{ bgColor: "#EDF2F7" }}
 						_active={{ bgColor: "#E2E8F0" }}
 					>
-						{isConnected ? (
+						{isConnected || account ? (
 							<Flex alignItems="center" gap="0.5rem">
 								<Img src="/icons/MetamaskIcon.png" />
-								<Text>0x6856...BF99</Text>
+								<Text> {`${account.slice(0, 5)}...${account.slice(38)}`}</Text>
 							</Flex>
 						) : (
-							<Text>Conectar Carteira</Text>
+							<Text onClick={() => connectWallet()}>Conectar Carteira</Text>
 						)}
 					</Button>
 				</Flex>

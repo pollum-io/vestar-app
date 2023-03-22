@@ -23,7 +23,8 @@ export const OpportunitiesCard: FunctionComponent = () => {
 	});
 
 	const [cardImage, setCardImage] = useState<string[]>([]);
-
+	const currentTime = new Date().getTime();
+	console.log(3366443292 * 1000);
 	useEffect(() => {
 		if (cardsInfo) {
 			cardsInfo.data.map((card: IOpportunitiesCard) => {
@@ -79,15 +80,28 @@ export const OpportunitiesCard: FunctionComponent = () => {
 								py="0.125rem"
 								blur="1.25rem"
 							>
-								<Text
-									fontFamily="Poppins"
-									fontWeight="500"
-									fontSize="0.75rem"
-									lineHeight="1rem"
-									color="#FFFFFF"
-								>
-									FALTA
-								</Text>
+								{cards.token_minted === cards.token_supply ||
+								currentTime > cards?.sale_end_at * 1000 ? (
+									<Text
+										fontFamily="Poppins"
+										fontWeight="500"
+										fontSize="0.75rem"
+										lineHeight="1rem"
+										color="#FFFFFF"
+									>
+										Encerrado
+									</Text>
+								) : (
+									<Text
+										fontFamily="Poppins"
+										fontWeight="500"
+										fontSize="0.75rem"
+										lineHeight="1rem"
+										color="#FFFFFF"
+									>
+										Disponivel
+									</Text>
+								)}
 							</Flex>
 						</Flex>
 					</Flex>

@@ -1,21 +1,16 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useMemo, useState } from "react";
 import {
 	Button,
-	Checkbox,
 	Flex,
 	Img,
 	Input,
 	InputGroup,
 	InputLeftAddon,
 	InputRightAddon,
-	Link,
 	Text,
 } from "@chakra-ui/react";
 import { DefaultTemplate } from "../DefaultTemplate";
-import { PaymentMethods } from "../../components";
-import { RiCheckFill } from "react-icons/ri";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
-import { useOpportunities } from "../../hooks/useOpportunities";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 
@@ -37,7 +32,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 	const amount = totalValue * BRZ_DECIMALS;
 	const { connectWallet, isConnected, signer, account } = useWallet();
 
-	const avalible = useMemo(() => {
+	const available = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
 			return data.token_supply - data.token_minted;
 		} else {
@@ -228,7 +223,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 												justifyContent="center"
 												alignItems="center"
 												w="2.5rem"
-												isDisabled={counter > avalible}
+												isDisabled={counter > available}
 												border="0.0625rem solid #E2E8F0"
 												borderLeft="0.0625rem solid #E2E8F0"
 												color="#171923"
@@ -243,7 +238,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 												}
 												onClick={() =>
 													setCounter(
-														counter === avalible ? counter : counter + 1
+														counter === available ? counter : counter + 1
 													)
 												}
 												h="2rem"
