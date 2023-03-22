@@ -17,14 +17,15 @@ import {
 	AccordionPanel,
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { logout } from "../../services/logout";
 import { useUser } from "../../hooks/useUser";
+import { useState } from "react";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
 	const { userInfos, username } = useUser();
+	const [isConnected] = useState(true);
 	return (
 		<Menu>
 			<MenuButton>
@@ -50,7 +51,36 @@ export const HamburguerMenu: React.FC = () => {
 				borderRadius="1rem"
 				w="12.625rem"
 				pb="0.8rem"
+				pt="1rem"
+				justifyContent="center"
 			>
+				<Flex w="100%" px="0.9375rem" h="max-content">
+					<Button
+						padding="0.625rem 0.5rem"
+						w="100%"
+						h="1.5rem"
+						bgColor="#ffffff"
+						border="0.0625rem solid #007D99"
+						borderRadius="0.375rem"
+						fontFamily="Poppins"
+						fontWeight="500"
+						fontSize="0.75rem"
+						lineHeight="1rem"
+						color="#007D99"
+						_hover={{ bgColor: "#EDF2F7" }}
+						_active={{ bgColor: "#E2E8F0" }}
+					>
+						{isConnected ? (
+							<Flex alignItems="center" gap="0.5rem">
+								<Img src="/icons/MetamaskIcon.png" />
+								<Text>0x6856...BF99</Text>
+							</Flex>
+						) : (
+							<Text>Conectar Carteira</Text>
+						)}
+					</Button>
+				</Flex>
+
 				<MenuItem
 					fontFamily="Poppins"
 					fontSize="0.875rem"
@@ -58,13 +88,13 @@ export const HamburguerMenu: React.FC = () => {
 					pr="1.1875rem"
 					color="#4A5568"
 					pl="0.9375rem"
+					mt="0.3rem"
+					h="1.8rem"
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
-					onClick={() => {
-						userInfos === undefined
-							? logout(push)
-							: push({ pathname: `/usuario/${userInfos}`, query: userInfos });
-					}}
+					onClick={() =>
+						push({ pathname: `/usuario/${userInfos}`, query: userInfos })
+					}
 				>
 					Editar perfil
 				</MenuItem>
@@ -72,13 +102,14 @@ export const HamburguerMenu: React.FC = () => {
 					<AccordionItem border="none">
 						<AccordionButton
 							background="none"
-							_hover={{ bgColor: "#FFF", opacity: 0.8 }}
+							_hover={{ bgColor: "#FFF" }}
 							_focus={{
 								background: "none !important",
 							}}
 							w="100%"
 							pr="1.1875rem"
 							pl="1rem"
+							h="1.8rem"
 						>
 							<Flex justifyContent="space-between" alignItems="center" w="100%">
 								<Text
@@ -141,8 +172,9 @@ export const HamburguerMenu: React.FC = () => {
 					color="#4A5568"
 					pl="0.9375rem"
 					_focus={{}}
-					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
+					_hover={{ bgColor: "#F7FAFC" }}
 					onClick={() => logout(push)}
+					h="1.8rem"
 				>
 					Sair
 				</MenuItem>
