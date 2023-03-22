@@ -28,7 +28,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	const { hasToken } = useOpportunities();
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
-	const [cota, setCota] = useState<number>();
+	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
 	const { shares } = useTransactions();
 
@@ -100,7 +100,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							>
 								{imovelDetails?.enterprise_type}
 							</Text>
-							{cota && cota > 0 && (
+							{cota > 0 && (
 								<Flex
 									bgColor="#F0E8FF"
 									py="0.25rem"
