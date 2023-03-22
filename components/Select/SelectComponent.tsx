@@ -13,17 +13,25 @@ interface SelectProps extends ChakraSelectProps {
 	selectValue?: any;
 	setData?: any;
 	defaultValue?: string;
+	setInputValues?: React.Dispatch<any>;
 }
 
 export const SelectComponent: ForwardRefRenderFunction<
 	HTMLSelectElement,
 	SelectProps
 > = (
-	{ name, label, type, selectValue, setData, defaultValue, ...rest },
+	{
+		name,
+		label,
+		type,
+		selectValue,
+		setData,
+		defaultValue,
+		setInputValues,
+		...rest
+	},
 	ref
 ) => {
-	console.log(defaultValue, "defaultValue");
-
 	return (
 		<FormControl id={name}>
 			{label && (
@@ -52,6 +60,13 @@ export const SelectComponent: ForwardRefRenderFunction<
 					placeholder="Select option"
 					color={"black"}
 					fontSize="0.875rem"
+					onChange={e => {
+						setInputValues &&
+							setInputValues((prevState: any) => ({
+								...prevState,
+								[type]: e.target.value,
+							}));
+					}}
 				>
 					{selectValue?.map((value: any) => (
 						<option key={value.id} value={value.Uf}>
@@ -94,7 +109,14 @@ export const SelectComponent: ForwardRefRenderFunction<
 					placeholder="Select option"
 					color={"black"}
 					fontSize="0.875rem"
-					onChange={e => setData(e.target.value)}
+					onChange={e => {
+						setData(e.target.value);
+						setInputValues &&
+							setInputValues((prevState: any) => ({
+								...prevState,
+								[type]: e.target.value,
+							}));
+					}}
 					defaultValue={defaultValue}
 				>
 					{selectValue?.map((value: any) => (

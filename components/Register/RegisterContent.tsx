@@ -60,7 +60,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 		)
 			.then(res => {
 				if (res) {
-					console.log(res, "res");
 					toast({
 						id: "toast1",
 						position: "top-right",

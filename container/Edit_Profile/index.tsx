@@ -1,10 +1,8 @@
-import { Button, Collapse, Flex, Img, SlideFade, Text } from "@chakra-ui/react";
+import { Button, Collapse, Flex, Img, Text } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputComponent } from "../../components";
-import { formatDateBirthday } from "../../utils/formatDate";
 import { DefaultTemplate } from "../DefaultTemplate";
-import { useQuery } from "react-query";
 import { useUser } from "../../hooks/useUser";
 import { fetchEditInvestor } from "../../services/fetchEditInvestor";
 import { useToasty } from "../../hooks/useToasty";
@@ -39,7 +37,6 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 		data?.marital_status?.status
 	);
 	const isMerried: boolean = maritalStatus === "Casado(a)" ? true : false;
-
 	const [equityRegime, setEquityRegime] = useState<any>("");
 	const {
 		register,
@@ -53,10 +50,6 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 	const dataFormatada = new Date(data?.birthday_date)
 		.toISOString()
 		.split("T")[0];
-	console.log(maritalStatus, "maritalStatus");
-	console.log(isMerried, "isMerried");
-
-	console.log(data?.marital_status?.status, "Dados vindo da API");
 
 	const onSubmitForm = async (data: any) => {
 		const request = {
@@ -85,8 +78,6 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 		await fetchEditInvestor(userInfos, request, token)
 			.then(res => {
 				if (res) {
-					console.log(res, "res");
-
 					toast({
 						id: "toast-edit",
 						position: "top-right",
@@ -205,7 +196,6 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 												placeholderText="Insira aqui"
 												label="CPF"
 												type="text"
-												maxLength={14}
 												{...register("cpf")}
 												defaultValue={formatCPF(data?.cpf)}
 											/>
@@ -300,7 +290,6 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 											placeholderText="Insira aqui"
 											label="Telefone"
 											type="text"
-											maxLength={15}
 											{...register("phone_number")}
 											defaultValue={formatPhoneNumber(data?.phone_number)}
 										/>
@@ -317,7 +306,6 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
 										color="#FFFFFF"
-										isDisabled={!isDisabled}
 										_hover={
 											isDisabled ? { opacity: "0.3" } : { bgColor: "#171923" }
 										}
