@@ -19,14 +19,22 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { SlArrowUp } from "react-icons/sl";
+import i18next from "i18next";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 export const HamburguerMenu: React.FC = () => {
+	const { t, i18n } = useTranslation();
+	const { language } = i18n;
+	useEffect(() => {
+		console.log(language);
+	});
 	return (
 		<Menu>
 			<MenuButton>
 				<Flex
 					h="max"
-					px="2"
+					px="0.75rem"
 					py="1"
 					flexDir={"row"}
 					alignItems={"center"}
@@ -35,9 +43,9 @@ export const HamburguerMenu: React.FC = () => {
 					rounded={"1rem"}
 				>
 					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Olá, Fulano
+						{t("header.hello")}
 					</Text>
-					<Icon color="#4A5568 " as={FiMenu} />
+					<Icon color="black" as={FiMenu} />
 				</Flex>
 			</MenuButton>
 			<MenuList
@@ -68,14 +76,14 @@ export const HamburguerMenu: React.FC = () => {
 									lineHeight="1.25rem"
 									color="#4A5568"
 								>
-									Idioma
+									{t("header.lang")}
 								</Text>
 
 								<AccordionIcon color="#666c77" />
 							</Flex>
 						</AccordionButton>
 
-						<AccordionPanel p="0" pb="0.4rem" fontWeight="400">
+						<AccordionPanel p="0" fontWeight="400">
 							<Flex flexDirection="column" gap="0.25rem">
 								<Flex
 									justifyContent="space-between"
@@ -83,6 +91,10 @@ export const HamburguerMenu: React.FC = () => {
 									pr="1.22rem"
 									pl="1.625rem"
 									py="0.2rem"
+									onClick={() => {
+										i18next.changeLanguage("pt-br");
+									}}
+									bgColor={language === "pt-br" ? "#F7FAFC" : "#ffffff"}
 								>
 									<Text
 										fontFamily="Poppins"
@@ -90,9 +102,11 @@ export const HamburguerMenu: React.FC = () => {
 										lineHeight="1.25rem"
 										color="#4A5568"
 									>
-										Português
+										{t("header.pt")}
 									</Text>
-									<BsCheck color="#1789A3" size={18} />
+									<Flex display={language === "pt-br" ? "flex" : "none"}>
+										<BsCheck color="#1789A3" size={18} />
+									</Flex>
 								</Flex>
 								<Flex
 									justifyContent="space-between"
@@ -100,6 +114,10 @@ export const HamburguerMenu: React.FC = () => {
 									pr="1.25rem"
 									pl="1.625rem"
 									py="0.2rem"
+									onClick={() => {
+										i18next.changeLanguage("en");
+									}}
+									bgColor={language === "en" ? "#F7FAFC" : "#ffffff"}
 								>
 									<Text
 										fontFamily="Poppins"
@@ -107,8 +125,11 @@ export const HamburguerMenu: React.FC = () => {
 										lineHeight="1.25rem"
 										color="#4A5568"
 									>
-										Inglês
+										{t("header.en")}
 									</Text>
+									<Flex display={language === "en" ? "flex" : "none"}>
+										<BsCheck color="#1789A3" size={18} />
+									</Flex>
 								</Flex>
 							</Flex>
 						</AccordionPanel>
@@ -123,7 +144,7 @@ export const HamburguerMenu: React.FC = () => {
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC" }}
 				>
-					Sair
+					{t("header.logOut")}
 				</MenuItem>
 			</MenuList>
 		</Menu>

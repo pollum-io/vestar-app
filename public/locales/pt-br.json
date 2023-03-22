@@ -171,14 +171,23 @@
 
 		},
     "inputs": {
-
         "noAbb": "Sem abreviações",
         "date": "dd/mm/aaaa",
         "insertHere": "Insira aqui",
         "findCompanie": "Procurar empresa",
         "emailExample": "exemplo@exemplo.com"
 
-    }
+    },
+		"header": {
+			"hello": "Olá, Fulano",
+			"logOut": "Sair",
+			"lang": "Idioma",
+			"connect": "Conectar Carteira",
+			"pt": "Português",
+			"en": "Inglês",
+			"portfolio": "Portfólio",
+			"companies": "Empresas"
+		}
     }
 
 
