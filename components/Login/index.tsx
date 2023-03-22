@@ -9,11 +9,15 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
 	const [email, setEmail] = useState<any>();
 	const [password, setPassword] = useState<any>();
-	const { getInfos } = useUser()
+	const { getInfosId } = useUser();
 
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
-		await getInfos(data.data.user?.investor_id)
+		getInfosId(
+			data.data.user?.investor_id === null
+				? data.data?.user?.enterprise_id
+				: data.data?.user?.investor_id
+		);
 		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 

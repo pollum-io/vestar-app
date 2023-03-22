@@ -24,9 +24,8 @@ import { useState } from "react";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
-	const { userInfos } = useUser();
+	const { userInfos, username } = useUser();
 	const [isConnected] = useState(true);
-
 	return (
 		<Menu>
 			<MenuButton>
@@ -41,7 +40,7 @@ export const HamburguerMenu: React.FC = () => {
 					rounded={"1rem"}
 				>
 					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Olá, Fulano
+						Olá, {username}
 					</Text>
 					<Icon color="#4A5568 " as={FiMenu} />
 				</Flex>
@@ -92,7 +91,7 @@ export const HamburguerMenu: React.FC = () => {
 					mt="0.3rem"
 					h="1.8rem"
 					_focus={{}}
-					_hover={{ bgColor: "#F7FAFC" }}
+					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
 					onClick={() =>
 						push({ pathname: `/usuario/${userInfos}`, query: userInfos })
 					}

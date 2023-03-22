@@ -1,10 +1,28 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
+import { useUser } from "../../hooks/useUser";
 
-export const OpportunitiesContainer: FunctionComponent = () => {
+export const OpportunitiesContainer: FunctionComponent = (props: any) => {
+	const { getInfosId, getInfos } = useUser();
+
+	useEffect(() => {
+		getInfosId(
+			props?.user?.investor_id === null
+				? props?.user?.enterprise_id
+				: props?.user?.investor_id
+		);
+		getInfos(props.token);
+	}, [
+		getInfos,
+		getInfosId,
+		props.token,
+		props?.user?.enterprise_id,
+		props?.user?.investor_id,
+	]);
+
 	return (
 		<DefaultTemplate>
 			<Flex

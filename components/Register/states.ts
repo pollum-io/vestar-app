@@ -1,4 +1,4 @@
-export const states = [
+export const brasilStates = [
 	{ id: 1, Uf: "AC", State: "Acre" },
 	{ id: 2, Uf: "AL", State: "Alagoas" },
 	{ id: 3, Uf: "AP", State: "Amapá" },
@@ -26,4 +26,4 @@ export const states = [
 	{ id: 25, Uf: "SP", State: "São Paulo" },
 	{ id: 26, Uf: "SE", State: "Sergipe" },
 	{ id: 27, Uf: "TO", State: "Tocantins" },
-]
+];
