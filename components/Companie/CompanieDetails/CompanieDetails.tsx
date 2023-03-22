@@ -12,7 +12,7 @@ export const CompanieDetails: FunctionComponent<ICompanieDetails> = ({
 	description,
 }) => {
 	return (
-		<Flex w="44.125rem" flexDirection="column" gap="2.5rem">
+		<Flex w="100%" flexDirection="column" gap="2.5rem">
 			<Flex w="100%" flexDirection="column" borderRadius="0.75rem">
 				<Flex
 					w="100%"
