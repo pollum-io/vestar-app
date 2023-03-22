@@ -53,6 +53,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 			setUserInfos,
 			getInfosId,
 		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[isUserLogged, userInfos, username]
 	);
 
