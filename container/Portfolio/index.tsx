@@ -10,7 +10,7 @@ import {
 	Button,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { BsCircleFill } from "react-icons/bs";
 import { OpportunitiesCard } from "../../components";
 import { ImovelList } from "../../components/Portfolio/ImovelList";
@@ -19,6 +19,9 @@ import { NotInvestWarn } from "../../components/Portfolio/NotInvestWarn";
 import { YourDetailtCard } from "../../components/Portfolio/YourDetailCard";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { Examaple } from "../../components/Portfolio/Chart";
+import { useUser } from "../../hooks/useUser";
+import moment from "moment";
+import { Maps } from "../../components/Map/Maps";
 interface IPortfolio {
 	portfolioData: any;
 }
@@ -39,10 +42,13 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 }) => {
 	const [value, setValue] = useState("1");
 	const [isInvestor, setIsInvestor] = useState(true);
-	const [hasInvest, setHasInvest] = useState(true);
+	const [hasInvest, setHasInvest] = useState(
+		portfolioData.length ? true : false
+	);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
-
+	const { username } = useUser();
+	const formattedDate = moment().format("DD/MMM/YY");
 	return (
 		<DefaultTemplate>
 			<Flex w="100%">
@@ -60,14 +66,20 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 					<Flex w="100%" justifyContent="space-between" maxWidth="70rem">
 						<Flex flexDir={"column"} color="white" mr="3rem">
 							<Text fontWeight={"600"} fontSize="3xl">
-								Olá, Pred!
+								Olá, {username}!
 							</Text>
-							<Text fontSize={"sm"} fontWeight="400">
-								Esse é o portfólio da Nome da Empresa de 28/nov/22
-							</Text>
+							{!hasInvest ? (
+								<Text fontSize={"sm"} fontWeight="400">
+									Esse é o portfólio da Nome da Empresa de {formattedDate}
+								</Text>
+							) : (
+								<Text fontSize={"sm"} fontWeight="400">
+									Seu portfólio esta vazio ainda
+								</Text>
+							)}
 						</Flex>
 						<Flex position="relative" w="34rem" h="5.25rem">
-							<YourDetailtCard />
+							{hasInvest ? <YourDetailtCard /> : null}
 						</Flex>
 					</Flex>
 				</Flex>
@@ -103,8 +115,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								<Flex justifyContent={"space-between"} alignItems="baseline">
 									<Flex>
 										{isInvestor ? (
-											<MenuChart title="Imóveis" defaultSelection="Todos" />
-										) : (
 											<Flex>
 												<MenuChart title="Periodo" defaultSelection="Maximo" />
 												<MenuChart
@@ -112,76 +122,29 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 													defaultSelection="Todos"
 												/>
 											</Flex>
+										) : (
+											<MenuChart title="Imóveis" defaultSelection="Todos" />
 										)}
 									</Flex>
-									{isInvestor ? (
-										<Flex alignItems="center" gap="4">
-											<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
-												Mês
-											</Text>
-											<Text
-												px="3"
-												py="2"
-												borderRadius="0.9375rem"
-												bgColor={"#FFFFFF"}
-												color={"#865DF0"}
-												fontWeight={"500"}
-												fontSize="sm"
-											>
-												Ano
-											</Text>
-											<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
-												Máximo
-											</Text>
-										</Flex>
-									) : (
-										<Flex gap="0.5rem">
-											<Text
-												bgColor={"#FFFFFF"}
-												color={"#865DF0"}
-												fontSize="sm"
-												fontWeight={"500"}
-												px="3"
-												py="2"
-												borderRadius={"0.75rem"}
-											>
-												CDI
-											</Text>
-											<Text
-												bgColor={"#F687B3"}
-												color={"#ffffff"}
-												fontSize="sm"
-												fontWeight={"500"}
-												px="3"
-												py="2"
-												borderRadius={"0.75rem"}
-											>
-												IPCA
-											</Text>
-											<Text
-												bgColor={"#007D99"}
-												color={"#ffffff"}
-												fontSize="sm"
-												fontWeight={"500"}
-												px="3"
-												py="2"
-												borderRadius={"0.75rem"}
-											>
-												IBOVE
-											</Text>
-											<Text
-												bgColor={"#6E40E7"}
-												color={"#ffffff"}
-												fontSize="sm"
-												fontWeight={"500"}
-												px="3"
-												py="2"
-												borderRadius={"0.75rem"}
-											>
-												IFIX
-											</Text>
-										</Flex>
-									)}
+									<Flex alignItems="center" gap="4">
+										<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
+											Mês
+										</Text>
+										<Text
+											px="3"
+											py="2"
+											borderRadius="0.9375rem"
+											bgColor={"#FFFFFF"}
+											color={"#865DF0"}
+											fontWeight={"500"}
+											fontSize="sm"
+										>
+											Ano
+										</Text>
+										<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
+											Máximo
+										</Text>
+									</Flex>
 								</Flex>
 								<Examaple chartData={portfolioData} />
 							</Flex>
@@ -430,8 +393,11 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									)}
 								</Flex>
 								<Flex flexDirection="column" gap="0.75rem">
-									<ImovelList isInvest={false} isFinished={true} />
-									<ImovelList isInvest={false} isFinished={false} />
+									<ImovelList
+										investmentData={portfolioData}
+										isInvest={true}
+										isFinished={false}
+									/>
 								</Flex>
 							</Flex>
 						</Flex>
@@ -442,7 +408,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									: "Empreendimentos cadastrados"}
 							</Text>
 							<Flex gap="1.5rem">
-								{isInvestor && <Img w="100%" src="images/Map.png" />}
+								{isInvestor && <Maps localizations={portfolioData} />}
 							</Flex>
 						</Flex>
 					</Flex>

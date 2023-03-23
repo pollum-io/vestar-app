@@ -24,7 +24,6 @@ export const OpportunitiesCard: FunctionComponent = () => {
 
 	const [cardImage, setCardImage] = useState<string[]>([]);
 	const currentTime = new Date().getTime();
-	console.log(3366443292 * 1000);
 	useEffect(() => {
 		if (cardsInfo) {
 			cardsInfo.data.map((card: IOpportunitiesCard) => {
