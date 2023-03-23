@@ -1,11 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import { z } from "zod";
+import mongoose from "mongoose";
 
 import dbConnect from "../../../lib/dbConnect";
 import Enterprise from "../../../models/enterprise";
 import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
+import { getAvailableAndClosedOpportunities } from "./[id]";
 import User from "../../../models/user";
 
 type ResponseData = ApiResponse<string>;
@@ -93,15 +95,37 @@ router.get(async (req, res) => {
 		fetchSchema.parse(req.query);
 
 		const page = (req.query.page as any) ? (req.query.page as any) - 1 : 0;
-		const limit = (req.query.limit as any) || 12;
+		const limit: number = (req.query.limit as any) || 12;
 		const totalPages = Math.ceil((await Enterprise.countDocuments({})) / limit);
 
-		const enterpises = await Enterprise.find({})
+		let enterprises = await Enterprise.find({})
 			.limit(limit)
 			.skip(page * limit)
-			.sort({ createdAt: -1 });
+			.sort({ createdAt: -1 })
+			.lean();
 
-		res.status(200).json({ data: enterpises, totalPages });
+		const ids = enterprises.map(
+			enterprise => new mongoose.Types.ObjectId(enterprise._id)
+		);
+
+		const oppData = await getAvailableAndClosedOpportunities(ids);
+		const defaultOppData = {
+			opportunities_closed: 0,
+			opportunities_available: 0,
+		};
+
+		enterprises = enterprises.map((enterprise: any) => {
+			const hasOpportunities = oppData.find(
+				(item: any) => `${item._id}` === `${enterprise._id}`
+			);
+
+			return (enterprise = {
+				...enterprise,
+				...(hasOpportunities || defaultOppData),
+			});
+		});
+
+		res.status(200).json({ data: enterprises, totalPages });
 	} catch (error: any) {
 		res.status(400).json({
 			error: !/^[\[|\{](\s|.*|\w)*[\]|\}]$/.test(error.message)
