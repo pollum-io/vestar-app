@@ -36,7 +36,7 @@ export const CompanieContainer = () => {
 											"max-content",
 											"max-content",
 											"max-content",
-											"49.9375rem",
+											"max-content",
 										]}
 										h="max-content"
 										py="1.5rem"
@@ -50,9 +50,9 @@ export const CompanieContainer = () => {
 										justifyContent="end"
 										gap={["unset", "unset", "unset", "1.5rem", "3.5rem"]}
 										mt="4.25rem"
-										position="absolute"
 										left="0"
-										pl={["unset", "unset", "unset", "5rem", "unset"]}
+										borderLeft="none"
+										pl="0"
 									>
 										<Flex flexDirection="column" gap="0.25rem">
 											<Text
@@ -102,6 +102,28 @@ export const CompanieContainer = () => {
 												Lorem ipsum
 											</Text>
 										</Flex>
+									</Flex>
+									<Flex
+										w={[
+											"max-content",
+											"max-content",
+											"max-content",
+											"max-content",
+											"50%",
+										]}
+										h="max-content"
+										py="1.5rem"
+										border="0.0625rem solid #E5E7EB"
+										pr={["unset", "unset", "unset", "6rem", "3.625rem"]}
+										left="0"
+										position="absolute"
+										borderRight="none"
+										mt="4.25rem"
+									>
+										<Flex
+											h={["unset", "unset", "unset", "16.5rem", "3rem"]}
+											bgColor="transparent"
+										/>
 									</Flex>
 								</Flex>
 								<Flex gap="5.75rem" mt="8.5rem">
