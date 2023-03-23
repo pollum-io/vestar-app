@@ -11,6 +11,8 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	enterprise_name,
 	enterprise_info,
 	enterprise_logo,
+	opportunities_closed,
+	opportunities_available,
 }) => {
 	const { push } = useRouter();
 
@@ -67,7 +69,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 									Oportunidades Disponíveis
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									1
+									{opportunities_available}
 								</Text>
 							</Flex>
 							<Flex gap="0.5rem" alignItems="baseline">
@@ -75,7 +77,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 									Encerradas
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									2
+									{opportunities_closed}
 								</Text>
 							</Flex>
 						</Flex>
@@ -118,6 +120,8 @@ export const CompaniesCards: FunctionComponent = () => {
 					enterprise_name={infos.enterprise_name}
 					enterprise_info={infos.enterprise_info}
 					enterprise_logo={infos.enterprise_logo}
+					opportunities_available={infos.opportunities_available}
+					opportunities_closed={infos.opportunities_closed}
 				/>
 			))}
 		</Flex>
