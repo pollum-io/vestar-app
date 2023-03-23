@@ -46,7 +46,21 @@ export const HamburguerMenu: React.FC = () => {
 				borderRadius="1rem"
 				w="12.625rem"
 				pb="0.8rem"
+				pt="0.8rem"
+				filter="drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))"
 			>
+				<MenuItem
+					fontFamily="Poppins"
+					fontSize="0.875rem"
+					lineHeight="1.25rem"
+					color="#4A5568"
+					h="1.8rem"
+					pl="0.9375rem"
+					_focus={{}}
+					_hover={{ bgColor: "#F7FAFC" }}
+				>
+					Editar perfil
+				</MenuItem>
 				<Accordion allowMultiple>
 					<AccordionItem border="none">
 						<AccordionButton
@@ -60,6 +74,7 @@ export const HamburguerMenu: React.FC = () => {
 							w="100%"
 							pr="1.1875rem"
 							pl="1rem"
+							h="1.8rem"
 						>
 							<Flex justifyContent="space-between" alignItems="center" w="100%">
 								<Text
@@ -75,7 +90,7 @@ export const HamburguerMenu: React.FC = () => {
 							</Flex>
 						</AccordionButton>
 
-						<AccordionPanel p="0" pb="0.4rem" fontWeight="400">
+						<AccordionPanel p="0" pb="0.375rem" pt="0.375rem" fontWeight="400">
 							<Flex flexDirection="column" gap="0.25rem">
 								<Flex
 									justifyContent="space-between"
@@ -119,6 +134,7 @@ export const HamburguerMenu: React.FC = () => {
 					fontSize="0.875rem"
 					lineHeight="1.25rem"
 					color="#4A5568"
+					h="1.8rem"
 					pl="0.9375rem"
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC" }}
