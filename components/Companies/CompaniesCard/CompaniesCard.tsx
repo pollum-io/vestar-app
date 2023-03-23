@@ -10,19 +10,19 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	_id,
 	enterprise_name,
 	enterprise_info,
-	enterprise_logo
+	enterprise_logo,
 }) => {
 	const { push } = useRouter();
 
-	const [images, setImages] = useState<string>()
+	const [images, setImages] = useState<string>();
 
 	useMemo(() => {
 		if (enterprise_logo) {
 			fetchImages(enterprise_logo).then((res: any) => {
-				setImages(res)
-			})
+				setImages(res);
+			});
 		}
-	}, [enterprise_logo])
+	}, [enterprise_logo]);
 
 	return (
 		<Flex
@@ -37,9 +37,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				background="linear-gradient(102.22deg, #ECECEC 65.27%, #FFFFFF 89.66%)"
 				borderRadius="0.75rem"
 				h="9.3125rem"
-			>
-
-			</Flex>
+			></Flex>
 			<Flex
 				gap="1.5rem"
 				pr="1rem"
@@ -94,7 +92,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 							lineHeight="1rem"
 							color="#007D99"
 							_hover={{ bgColor: "#EDF2F7" }}
-							onClick={() => push({ pathname: `/empresas/${_id}`, query: { _id } })}
+							onClick={() => push({ pathname: `/empresas/${_id}` })}
 						>
 							Saiba mais
 						</Button>
@@ -106,17 +104,22 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 };
 
 export const CompaniesCards: FunctionComponent = () => {
-
 	const { data } = useQuery("companies", fetchEnterprise, {
 		refetchOnWindowFocus: false,
 		refetchInterval: false,
-	})
+	});
 
 	return (
 		<Flex flexDirection="column" gap="1.5rem" w="100%">
-			{data?.data?.map((infos: ICompaniesCard) =>
-				<CompaniesCard key={infos._id} _id={infos._id} enterprise_name={infos.enterprise_name} enterprise_info={infos.enterprise_info} enterprise_logo={infos.enterprise_logo} />
-			)}
+			{data?.data?.map((infos: ICompaniesCard) => (
+				<CompaniesCard
+					key={infos._id}
+					_id={infos._id}
+					enterprise_name={infos.enterprise_name}
+					enterprise_info={infos.enterprise_info}
+					enterprise_logo={infos.enterprise_logo}
+				/>
+			))}
 		</Flex>
 	);
 };

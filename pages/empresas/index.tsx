@@ -1,8 +1,16 @@
 import jwt_decode from "jwt-decode";
 import { GetServerSideProps, NextPage } from "next";
 import { CompaniesContainer } from "../../container";
+import { fetchEnterprise } from "../../services/fetchEnterprise";
+import { fetchEnterpriseById } from "../../services/fetchEnterpriseById";
 
-const Companies: NextPage = () => <CompaniesContainer />;
+interface ICompanies {
+	companies: any;
+}
+
+const Companies: NextPage<ICompanies> = ({ companies }) => (
+	<CompaniesContainer data={companies} />
+);
 
 export default Companies;
 
@@ -31,10 +39,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
+	const requestAllCompanies = await fetchEnterprise();
+
 	return {
 		props: {
 			user,
 			token,
+			companies: requestAllCompanies.data,
 		},
 	};
 };

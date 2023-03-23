@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react"
+import { FunctionComponent, useEffect, useState } from "react";
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { CompanieDetails } from "./CompanieDetails/CompanieDetails";
 import { CompanieContact } from "./CompanieContact/CompanieContact";
@@ -6,22 +6,27 @@ import { CompanieMembers } from "./CompanieMembers/CompanieMembers";
 import { OpportunitiesCards } from "../Opportunities/OpportunitiesCard/OpportunitiesCard";
 import { useRouter } from "next/router";
 import { fetchEnterpriseById } from "../../services/fetchEnterpriseById";
-import { ICompaniesDetails, ICompaniesInfo, ICompaniesTeam } from "../Companies/CompaniesCard/dto";
+import {
+	ICompaniesDetails,
+	ICompaniesInfo,
+	ICompaniesTeam,
+} from "../Companies/CompaniesCard/dto";
 
 interface ICompanie {
 	companieDetail: ICompaniesDetails;
 }
 
-export const CompaniePage: FunctionComponent<ICompanie> = ({ companieDetail }) => {
-
+export const CompaniePage: FunctionComponent<ICompanie> = ({
+	companieDetail,
+}) => {
 	return (
 		<Flex flexDirection="column" mt="6.25rem" mb="4.5rem">
 			<Flex justifyContent="center" gap="2.75rem" px="5rem">
 				<CompanieDetails
-					logo="images/companiesCardLogo.png"
+					logo="/images/companiesCardLogo.png"
 					name={companieDetail?.enterprise_name}
 					id={`CNPJ: ${companieDetail?.cnpj}`}
-					location={`${companieDetail?.address.street}, ${companieDetail?.address.neighborhood} - ${companieDetail?.address.state}`}
+					location={`${companieDetail?.address?.street}, ${companieDetail?.address?.neighborhood} - ${companieDetail?.address?.state}`}
 					description={companieDetail?.description}
 				/>
 				<CompanieContact
@@ -29,10 +34,10 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({ companieDetail }) =
 					whats={companieDetail?.contact_number}
 					phone={companieDetail?.contact_number}
 					email={companieDetail?.email}
-					instagram={companieDetail?.social_media.instagram}
-					twitter={companieDetail?.social_media.twitter}
-					facebook={companieDetail?.social_media.facebook}
-					telegram={companieDetail?.social_media.telegram}
+					instagram={companieDetail?.social_media?.instagram}
+					twitter={companieDetail?.social_media?.twitter}
+					facebook={companieDetail?.social_media?.facebook}
+					telegram={companieDetail?.social_media?.telegram}
 				/>
 			</Flex>
 
@@ -98,10 +103,14 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({ companieDetail }) =
 					color="#171923"
 				>
 					<Text>Quem constrói nossa história</Text>
-					{companieDetail?.team?.map((team: ICompaniesTeam) =>
+					{companieDetail?.team?.map((team: ICompaniesTeam) => (
 						// eslint-disable-next-line react/jsx-key
-						<CompanieMembers name={team.name} position={team.position} image={team.image} />
-					)}
+						<CompanieMembers
+							name={team.name}
+							position={team.position}
+							image={team.image}
+						/>
+					))}
 					{/* <Flex mt="8.5rem" flexDirection="column" gap="2rem">
 						<Text>Saiba mais sobre a empresa</Text>
 						<Flex gap="2.75rem">
@@ -127,10 +136,10 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({ companieDetail }) =
 					whats={companieDetail?.contact_number}
 					phone={companieDetail?.contact_number}
 					email={companieDetail?.email}
-					instagram={companieDetail?.social_media.instagram}
-					twitter={companieDetail?.social_media.twitter}
-					facebook={companieDetail?.social_media.facebook}
-					telegram={companieDetail?.social_media.telegram}
+					instagram={companieDetail?.social_media?.instagram}
+					twitter={companieDetail?.social_media?.twitter}
+					facebook={companieDetail?.social_media?.facebook}
+					telegram={companieDetail?.social_media?.telegram}
 				/>
 			</Flex>
 			<Flex mt="8.5rem" alignItems="center" flexDirection="column" gap="2rem">
@@ -147,9 +156,9 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({ companieDetail }) =
 					</Text>
 				</Flex>
 				<Flex px="1.5rem">
-					<OpportunitiesCards />
+					<OpportunitiesCards enterpriseId={companieDetail?._id} />
 				</Flex>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};

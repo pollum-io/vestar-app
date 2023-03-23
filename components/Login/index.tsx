@@ -1,7 +1,7 @@
 import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
 import React, { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
-import { authenticate } from "../../services/login";
+import { authenticate } from "../../services/fetchLogin";
 import { useUser } from "../../hooks/useUser";
 import PersistentFramework from "../../utils/persistent";
 

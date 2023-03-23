@@ -12,13 +12,12 @@ import { CompaniesCards } from "../../components";
 import { useQuery } from "react-query";
 import { fetchEnterprise } from "../../services/fetchEnterprise";
 
-export const CompaniesContainer: FunctionComponent = () => {
+interface ICompanies {
+	data: any;
+}
 
-	const { data } = useQuery("companies", fetchEnterprise, {
-		refetchOnWindowFocus: false,
-		refetchInterval: false,
-	})
-
+export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
+	console.log(data);
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -74,7 +73,7 @@ export const CompaniesContainer: FunctionComponent = () => {
 							alignItems="center"
 							color="#718096"
 						>
-							{data?.data?.length} empresas
+							{data?.length} empresas
 						</Text>
 					</Flex>
 					<Flex>
