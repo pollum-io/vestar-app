@@ -5,9 +5,10 @@ import mongoose from "mongoose";
 
 import dbConnect from "../../../lib/dbConnect";
 import Enterprise from "../../../models/enterprise";
-import { verifyUser } from "../../../lib/auth";
+import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 import { getAvailableAndClosedOpportunities } from "./[id]";
+import User from "../../../models/user";
 
 type ResponseData = ApiResponse<string>;
 
@@ -23,11 +24,12 @@ const router = nextConnect({
 const InsertSchema = z.object({
 	enterprise_name: z.string().max(60),
 	enterprise_logo: z.optional(z.string()),
+	enterprise_banner: z.optional(z.string()),
 	cnpj: z.string().max(14),
-	site_url: z.string().max(40),
-	address: z.object({} as { [key: string]: any }),
-	email: z.string(),
-	contact_number: z.string(),
+	site_url: z.optional(z.string().max(40)),
+	address: z.optional(z.object({} as { [key: string]: any })),
+	email: z.optional(z.string()),
+	contact_number: z.optional(z.string()),
 	social_media: z.optional(z.object({} as { [key: string]: any })),
 	description: z.optional(z.string()),
 	team: z.optional(z.array(z.object({} as { [key: string]: any }))),
@@ -36,6 +38,8 @@ const InsertSchema = z.object({
 	aum: z.optional(z.number()),
 	wallet_address: z.optional(z.string()),
 	investments: z.optional(z.array(z.any())),
+	invited_by: z.string(),
+	uf: z.string(),
 });
 
 const fetchSchema = z.object({
@@ -48,12 +52,33 @@ router.post(verifyUser, async (req, res) => {
 		await dbConnect();
 
 		const enterpriseData = req.body;
+		const user = req?.user;
 
 		InsertSchema.parse(enterpriseData);
 
-		const user = await Enterprise.create(enterpriseData);
+		const enterpriseExists = await Enterprise.findOne({
+			cnpj: enterpriseData.cnpj,
+		});
 
-		res.status(201).json({ data: user });
+		if (enterpriseExists) {
+			return res.status(400).json({
+				error: "CNPJ already registered",
+			});
+		}
+
+		const enterprise = await Enterprise.create(enterpriseData);
+
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: user?.id },
+			{ enterprise_id: enterprise._id },
+			{ new: true }
+		);
+
+		const token = generateToken(updatedUser);
+
+		setCookie(res, "livn_auth", token);
+
+		res.status(201).json({ data: enterprise });
 	} catch (error: any) {
 		res.status(400).json({
 			error: !/^[\[|\{](\s|.*|\w)*[\]|\}]$/.test(error.message)
