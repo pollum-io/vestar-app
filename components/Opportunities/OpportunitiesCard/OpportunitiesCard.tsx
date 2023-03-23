@@ -53,30 +53,24 @@ export const OpportunitiesCard: FunctionComponent<
 			const cardsInfoCompany = await fetchOpportunitiesByCompany(enterpriseId);
 			setCardsInfoCompany(cardsInfoCompany);
 		};
-
 		fetchData();
 	}, [enterpriseId]);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const cardsInfoCompany = await fetchOpportunitiesByCompany(enterpriseId);
-			setCardsInfoCompany(cardsInfoCompany);
-		};
-
-		fetchData();
-	}, [enterpriseId]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const companyLogo = await fetchEnterpriseById(enterpriseId);
-			console.log(companyLogo?.data?.enterprise_logo, "companyLogo");
-			fetchOpportunitiesImages(companyLogo?.data?.enterprise_logo).then(res => {
-				console.log(res);
-				setCompanyLogo(res);
+			cardsInfo?.data?.map((card: IOpportunitiesCard) => {
+				fetchOpportunitiesImages(card?.enterprise_logo).then(res => {
+					setCompanyLogo(res);
+				});
 			});
 		};
 		fetchData();
-	}, [companyLogo, enterpriseId]);
+	}, [
+		cardsInfo?.data,
+		cardsInfo?.data?.enterprise_logo,
+		companyLogo,
+		enterpriseId,
+	]);
 
 	return (
 		<>
