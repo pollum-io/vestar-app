@@ -75,6 +75,7 @@ router.get(verifyUser, async (req, res) => {
 				expected_delivery_date: opportunity?.expected_delivery_date || "",
 				profitability: opportunity?.profitability || "",
 				address: opportunity?.address || {},
+				pictures_enterprise: opportunity?.pictures_enterprise || {},
 			};
 		});
 
