@@ -7,20 +7,32 @@ interface ICompanieProps {
 	data: ICompaniesDetails;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+const Companie: NextPage<ICompanieProps> = ({ data }) => {
+	return <CompanieContainer data={data} />;
+};
 
-	const response = await fetchEnterpriseById(query.id)
+export default Companie;
+
+export const getServerSideProps: GetServerSideProps = async ({
+	query,
+	req,
+}) => {
+	const token = req.cookies["livn_auth"];
+
+	if (!token) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: "/",
+			},
+			props: {},
+		};
+	}
+	const response = await fetchEnterpriseById(query.id, token);
 
 	return {
 		props: {
-			data: response?.data
-		}
-	}
-}
-
-
-const Companie: NextPage<ICompanieProps> = ({ data }) => {
-	return <CompanieContainer data={data} />;
-}
-
-export default Companie;
+			data: response?.data,
+		},
+	};
+};
