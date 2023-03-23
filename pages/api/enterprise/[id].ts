@@ -63,8 +63,7 @@ router.get(async (req, res) => {
 			return res.status(404).json({ error: "enterprise not found" });
 		}
 
-		const { opportunities_available, opportunities_closed } =
-			await getAvailableAndClosedOpportunities(id);
+		const opData = await getAvailableAndClosedOpportunities(id);
 
 		const defaultOppData = {
 			opportunities_closed: 0,
@@ -74,8 +73,7 @@ router.get(async (req, res) => {
 		res.status(200).json({
 			data: {
 				...enterprise,
-				opportunities_closed: opportunities_closed || defaultOppData,
-				opportunities_available: opportunities_available || defaultOppData,
+				...(opData || defaultOppData),
 			},
 		});
 	} catch (error: any) {
