@@ -29,7 +29,7 @@ export const MenuChart: FunctionComponent<IMenuChart> = ({
 			<Text fontSize={"sm"} fontWeight="500" color={titleColor}>
 				{title}
 			</Text>
-			<Menu>
+			<Menu placement={"bottom-end"}>
 				<MenuButton
 					w="max"
 					h="max"

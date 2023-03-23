@@ -9,11 +9,10 @@ export const YourDetailtCard: FunctionComponent = () => {
 		<Flex
 			w={hasInvest ? "34.4375rem" : "29.5625rem"}
 			zIndex="9"
-			right="5rem"
-			top={hasInvest ? "13rem" : "11rem"}
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
 			bgColor="#FFFFFF"
+			top="2rem"
 			px="1.5rem"
 			py="1.5rem"
 			borderRadius={"0.75rem"}
