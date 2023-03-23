@@ -1,6 +1,7 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
-
+import moment from "moment";
+import { FunctionComponent, useEffect, useState } from "react";
+import { fetchOpportunitiesImages } from "../../services/opportunitiesImages";
 interface IImovelList {
 	isFinished: boolean;
 	isInvest: boolean;
@@ -12,22 +13,43 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 	isInvest,
 	investmentData,
 }) => {
-	const result = investmentData.reduce((acc, investment) => {
+	const [resultWithImages, setResultWithImages] = useState<any>([]);
+
+	const result = investmentData.reduce((acc: any, investment: any) => {
 		const existingInvestment = acc.find(
-			item => item.investment_address === investment.investment_address
+			(item: any) => item.investment_address === investment.investment_address
 		);
 		if (existingInvestment) {
 			existingInvestment.amount += investment.amount;
+			existingInvestment.shares += investment.shares;
 		} else {
 			acc.push({ ...investment });
 		}
 		return acc;
 	}, []);
 
-	console.log(result);
+	const totalAmount = result.reduce((accumulator: any, investment: any) => {
+		return accumulator + investment.amount;
+	}, 0);
+
+	useEffect(() => {
+		const getImage = async () => {
+			const newResultWithImages = await Promise.all(
+				result.map(async (item: any) => {
+					const image = item.pictures_enterprise[0];
+					const imageUrl = await fetchOpportunitiesImages(image);
+					return { ...item, pictures_enterprise: imageUrl };
+				})
+			);
+			setResultWithImages(newResultWithImages);
+		};
+
+		getImage();
+	}, [result]);
+
 	return (
 		<>
-			{result?.map((investment: any) => (
+			{resultWithImages?.map((investment: any) => (
 				// eslint-disable-next-line react/jsx-key
 				<Flex
 					id="body-table-container"
@@ -55,7 +77,11 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 									alignItems="center"
 									justifyContent="center"
 								>
-									<Img src="images/ImagePort.png" w="100%" h="100%" />
+									<Img
+										src={investment?.pictures_enterprise}
+										w="100%"
+										h="100%"
+									/>
 									<Flex
 										bgColor={"rgba(0, 0, 0, 0.36)"}
 										color={"#FFFFFF"}
@@ -74,8 +100,14 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 									w="6rem"
 									h="4.25rem"
 									borderRadius="0.75rem 0rem 0rem 0.75rem"
+									alignItems="center"
+									justifyContent="center"
 								>
-									<Img src="images/ImagePort.png" w="100%" h="100%" />
+									<Img
+										src={investment?.pictures_enterprise}
+										w="100%"
+										h="100%"
+									/>
 								</Flex>
 							)}
 
@@ -127,7 +159,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 											R$ {investment?.amount}
 										</Text>
 										<Text fontSize={"xs"} fontWeight="400" color={"#171923"}>
-											0,5 % do portfólio
+											{(investment?.amount / totalAmount) * 100} % do portfólio
 										</Text>
 									</Flex>
 								) : (
@@ -148,14 +180,17 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 							</Flex>
 							<Flex w={isInvest ? "7rem" : "9rem"}>
 								<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-									{isInvest ? investment?.expected_delivery_date : "47"}
+									{isInvest
+										? investment.expected_delivery_date &&
+										  moment(investment.expected_delivery_date).format("YYYY")
+										: "47"}
 								</Text>
 							</Flex>
 							{isInvest && (
 								<>
 									<Flex w="7rem">
 										<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-											R$ 0,00
+											R$ {investment?.profitability}
 										</Text>
 									</Flex>
 									<Flex w="7rem">
