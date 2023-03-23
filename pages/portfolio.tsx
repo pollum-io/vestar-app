@@ -1,8 +1,15 @@
 import jwt_decode from "jwt-decode";
 import type { GetServerSideProps, NextPage } from "next";
 import { PortfolioContainer } from "../container";
+import { fetchGetInvestment } from "../services/fetchGetInvestment";
 
-const Portfolio: NextPage = () => <PortfolioContainer />;
+interface IPortfolio {
+	data: any;
+}
+
+const Portfolio: NextPage<IPortfolio> = ({ data }) => (
+	<PortfolioContainer portfolioData={data} />
+);
 
 export default Portfolio;
 
@@ -31,10 +38,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
+	const response = await fetchGetInvestment(user?.investor_id, token);
+
 	return {
 		props: {
 			user,
 			token,
+			data: response.data,
 		},
 	};
 };

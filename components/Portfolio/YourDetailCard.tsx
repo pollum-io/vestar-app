@@ -2,7 +2,7 @@ import { Flex, Img, Text } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 
 export const YourDetailtCard: FunctionComponent = () => {
-	const [isInvestidor, setIsInvestidor] = useState(false);
+	const [isInvestidor, setIsInvestidor] = useState(true);
 	const [hasInvest, setHasInvest] = useState(false);
 
 	return (

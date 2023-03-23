@@ -18,12 +18,12 @@ import { MenuChart } from "../../components/Portfolio/MenuChart";
 import { NotInvestWarn } from "../../components/Portfolio/NotInvestWarn";
 import { YourDetailtCard } from "../../components/Portfolio/YourDetailCard";
 import { DefaultTemplate } from "../DefaultTemplate";
+import { Examaple } from "../../components/Portfolio/Chart";
+interface IPortfolio {
+	portfolioData: any;
+}
 
 const BarCharts = dynamic(() => import("../../components/Portfolio/BarChart"), {
-	ssr: false,
-});
-
-const Example = dynamic(() => import("../../components/Portfolio/Chart"), {
 	ssr: false,
 });
 
@@ -34,9 +34,11 @@ const PieChartPortfolio = dynamic(
 	}
 );
 
-export const PortfolioContainer: FunctionComponent = () => {
+export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
+	portfolioData,
+}) => {
 	const [value, setValue] = useState("1");
-	const [isInvestor, setIsInvestor] = useState(false);
+	const [isInvestor, setIsInvestor] = useState(true);
 	const [hasInvest, setHasInvest] = useState(true);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
@@ -101,6 +103,8 @@ export const PortfolioContainer: FunctionComponent = () => {
 								<Flex justifyContent={"space-between"} alignItems="baseline">
 									<Flex>
 										{isInvestor ? (
+											<MenuChart title="Imóveis" defaultSelection="Todos" />
+										) : (
 											<Flex>
 												<MenuChart title="Periodo" defaultSelection="Maximo" />
 												<MenuChart
@@ -108,11 +112,29 @@ export const PortfolioContainer: FunctionComponent = () => {
 													defaultSelection="Todos"
 												/>
 											</Flex>
-										) : (
-											<MenuChart title="Imóveis" defaultSelection="Todos" />
 										)}
 									</Flex>
 									{isInvestor ? (
+										<Flex alignItems="center" gap="4">
+											<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
+												Mês
+											</Text>
+											<Text
+												px="3"
+												py="2"
+												borderRadius="0.9375rem"
+												bgColor={"#FFFFFF"}
+												color={"#865DF0"}
+												fontWeight={"500"}
+												fontSize="sm"
+											>
+												Ano
+											</Text>
+											<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
+												Máximo
+											</Text>
+										</Flex>
+									) : (
 										<Flex gap="0.5rem">
 											<Text
 												bgColor={"#FFFFFF"}
@@ -159,29 +181,9 @@ export const PortfolioContainer: FunctionComponent = () => {
 												IFIX
 											</Text>
 										</Flex>
-									) : (
-										<Flex alignItems="center" gap="4">
-											<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
-												Mês
-											</Text>
-											<Text
-												px="3"
-												py="2"
-												borderRadius="0.9375rem"
-												bgColor={"#FFFFFF"}
-												color={"#865DF0"}
-												fontWeight={"500"}
-												fontSize="sm"
-											>
-												Ano
-											</Text>
-											<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
-												Máximo
-											</Text>
-										</Flex>
 									)}
 								</Flex>
-								<Example />
+								<Examaple chartData={portfolioData} />
 							</Flex>
 						</Flex>
 						<Flex flexDir={"column"} mb="6.5625rem">

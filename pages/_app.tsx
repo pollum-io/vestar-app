@@ -11,7 +11,7 @@ import { OpportunitiesProvider } from "../contexts/opportunities";
 import { WalletProvider } from "../contexts/wallet";
 import { UserProvider } from "../contexts/user";
 import { TransactionsProvider } from "../contexts/transactions";
-
+import "../styles/tooltipChart.css";
 const toasty = {
 	bg: "#FFFFFF",
 	text: "#2D3748",
