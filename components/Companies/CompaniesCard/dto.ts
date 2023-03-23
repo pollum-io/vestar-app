@@ -3,6 +3,8 @@ export interface ICompaniesCard {
 	enterprise_name?: string;
 	enterprise_info?: ICompaniesInfo[];
 	enterprise_logo?: string;
+	opportunities_available?: number;
+	opportunities_closed?: number;
 }
 
 export interface ICompaniesDetails {
@@ -26,8 +28,8 @@ export interface ICompaniesDetails {
 interface ICompaniesSocial {
 	[key: string]: {
 		url: string;
-		username: string
-	}
+		username: string;
+	};
 }
 
 interface ICompaniesAddress {

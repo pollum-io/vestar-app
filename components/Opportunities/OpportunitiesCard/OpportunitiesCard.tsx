@@ -14,6 +14,7 @@ import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
 import { fetchOpportunitiesImages } from "../../../services/fetchOpportunitiesImages";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
+import { fetchEnterpriseById } from "../../../services";
 
 interface IOpportunitiesCompaniesCard {
 	enterpriseId?: any;
@@ -25,6 +26,8 @@ export const OpportunitiesCard: FunctionComponent<
 	const [isCompany, setIsCompany] = useState(enterpriseId ? true : false);
 	const [cardsInfoCompany, setCardsInfoCompany] = useState<any>([]);
 	const [cardImage, setCardImage] = useState<string[]>([]);
+	const [companyLogo, setCompanyLogo] = useState<any>();
+
 	const currentTime = new Date().getTime();
 	const router = useRouter();
 
@@ -53,6 +56,27 @@ export const OpportunitiesCard: FunctionComponent<
 
 		fetchData();
 	}, [enterpriseId]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const cardsInfoCompany = await fetchOpportunitiesByCompany(enterpriseId);
+			setCardsInfoCompany(cardsInfoCompany);
+		};
+
+		fetchData();
+	}, [enterpriseId]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const companyLogo = await fetchEnterpriseById(enterpriseId);
+			console.log(companyLogo?.data?.enterprise_logo, "companyLogo");
+			fetchOpportunitiesImages(companyLogo?.data?.enterprise_logo).then(res => {
+				console.log(res);
+				setCompanyLogo(res);
+			});
+		};
+		fetchData();
+	}, [companyLogo, enterpriseId]);
 
 	return (
 		<>
@@ -126,9 +150,7 @@ export const OpportunitiesCard: FunctionComponent<
 						<Flex mt="1rem" px="1rem" flexDirection="column" pb="0.9375rem">
 							<Flex gap="0.3125rem" flexDirection="column">
 								<Flex gap="0.5rem" alignItems="center" filter={"none"}>
-									{!cards.isPortfolio && (
-										<Img w={4} h={4} src="images/backgrounds/avatar.png" />
-									)}
+									{!cards.isPortfolio && <Img w={4} h={4} src={companyLogo} />}
 									<Text
 										fontFamily="Poppins"
 										fontWeight="500"

@@ -1,6 +1,7 @@
 export interface IOpportunitiesCard {
 	__v: number;
 	_id: string;
+	enterprise_logo: string;
 	address: IOpportunitieAddress;
 	profitability: number;
 	pictures_enterprise: string[];
