@@ -54,12 +54,7 @@ export const PortfolioContainer: FunctionComponent = () => {
 					w="100%"
 					justifyContent="center"
 				>
-					<Flex
-						w="100%"
-						justifyContent="space-between"
-						maxWidth="70rem"
-						bgColor="pink"
-					>
+					<Flex w="100%" justifyContent="space-between" maxWidth="70rem">
 						<Flex flexDir={"column"} color="white" justifyContent="center">
 							<Text fontWeight={"600"} fontSize="3xl">
 								Olá, Pred!
@@ -76,7 +71,6 @@ export const PortfolioContainer: FunctionComponent = () => {
 							position="relative"
 							w="34rem"
 							h="5.25rem"
-							bgColor="red"
 							justifyContent="end"
 						>
 							<YourDetailtCard />
