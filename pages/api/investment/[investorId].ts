@@ -46,7 +46,9 @@ router.get(verifyUser, async (req, res) => {
 			})) / limit
 		);
 
-		const investments = await Investment.find({ owner_address: wallet_address })
+		const investments = await Investment.find({
+			investor_address: wallet_address,
+		})
 			.limit(limit)
 			.skip(page * limit)
 			.sort({ createdAt: -1 })
