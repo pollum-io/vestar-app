@@ -5,7 +5,7 @@ import nextConnect from "next-connect";
 
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/user";
-import { authenticateUser } from "../../../lib/auth";
+import { generateToken, setCookie } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
 const authSchema = z.object({
@@ -30,10 +30,6 @@ router.post(async (req, res) => {
 
 		const { email, password } = req.body;
 
-		if (req.method !== "POST") {
-			return res.status(400).json({ error: "No response for this request" });
-		}
-
 		authSchema.parse(req.body);
 
 		const user = await User.findOne({ email }).lean();
@@ -48,12 +44,14 @@ router.post(async (req, res) => {
 
 		delete user.password;
 
-		const token = authenticateUser(res, user);
+		const token = generateToken(user);
 
-		const data = { user, token };
+		let data = { user, token };
+
+		setCookie(res, "livn_auth", token);
 
 		if (!user?.investor_id) {
-			return res.redirect("/register").json({ data });
+			data.user.investor_id = null;
 		}
 
 		res.status(200).json({ data });
