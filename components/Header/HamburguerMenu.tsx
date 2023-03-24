@@ -76,7 +76,10 @@ export const HamburguerMenu: React.FC = () => {
 						{isConnected || account ? (
 							<Flex alignItems="center" gap="0.5rem">
 								<Img src="/icons/MetamaskIcon.png" />
-								<Text> {`${account.slice(0, 5)}...${account.slice(38)}`}</Text>
+								<Text>
+									{" "}
+									{`${account?.slice(0, 5)}...${account?.slice(38)}`}
+								</Text>
 							</Flex>
 						) : (
 							<Text onClick={() => connectWallet()}>Conectar Carteira</Text>
