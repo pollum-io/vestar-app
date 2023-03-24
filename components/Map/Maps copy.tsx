@@ -18,7 +18,6 @@ export const Maps: FunctionComponent<IMaps> = ({
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_APY_KEY as any,
 	});
-
 	useEffect(() => {
 		if (localization) {
 			fetchGeocode(localization as any).then(res => {
@@ -32,23 +31,12 @@ export const Maps: FunctionComponent<IMaps> = ({
 			});
 		}
 	}, [localization, localizations]);
+	//aqui nessa funcao eu mando o address e recebo um array com todos os dados do lugar
 
 	useEffect(() => {
 		if (localizations) {
 			const asd = data?.map((data: any) => data?.results).flat();
-			const aaa = asd?.map((data: any) => data?.geometry?.location);
-
-			const getPlace = aaa.reduce((acc: any, curr: any) => {
-				const alreadyExists = acc.some(
-					(marker: any) => marker.lat === curr.lat && marker.lng === curr.lng
-				);
-
-				if (!alreadyExists) {
-					acc.push(curr);
-				}
-
-				return acc;
-			}, []);
+			const getPlace = asd?.map((data: any) => data?.geometry?.location);
 
 			setGetLocalizations(getPlace);
 		}
@@ -57,14 +45,29 @@ export const Maps: FunctionComponent<IMaps> = ({
 		);
 		setGetLocalization(getPlace);
 	}, [data, localizations]);
+	//aqui eu pego o location que tem lat e lng e que sao um array de obj [{}]
 
 	const convertPlace = useMemo(() => getLocalization?.[0], [getLocalization]);
-	const convertPlaces = useMemo(
-		() => getLocalizations?.[0],
-		[getLocalizations]
-	);
+	//const convertPlaces = useMemo(() => getLocalizations, [getLocalizations]);
 
-	console.log(getLocalizations);
+	const convertPlaces = getLocalizations.reduce((acc: any, curr: any) => {
+		const alreadyExists = acc.some(
+			(marker: any) => marker.lat === curr.lat && marker.lng === curr.lng
+		);
+
+		if (!alreadyExists) {
+			acc.push(curr);
+		}
+
+		return acc;
+	}, []);
+
+	useEffect(() => {
+		const ddd = convertPlaces.map((acc: any) => {
+			console.log(acc.lat, "accaccaccacc");
+		});
+	}, [convertPlaces]);
+	//aqui eu so pego o objeto da posicao 0
 
 	return (
 		<>
@@ -72,10 +75,10 @@ export const Maps: FunctionComponent<IMaps> = ({
 				localizations?.length ? (
 					<GoogleMap
 						zoom={16}
-						center={convertPlace?.length ? convertPlace : convertPlaces}
+						center={convertPlace}
 						mapContainerClassName="map-container"
 					>
-						{getLocalizations.map((places: any) => (
+						{convertPlaces.map((places: any) => {
 							// eslint-disable-next-line react/jsx-key
 							<MarkerF
 								icon={{
@@ -88,8 +91,8 @@ export const Maps: FunctionComponent<IMaps> = ({
 									className: "map-label",
 								}}
 								position={{ lat: places.lat, lng: places.lng }}
-							/>
-						))}
+							/>;
+						})}
 					</GoogleMap>
 				) : (
 					<GoogleMap
