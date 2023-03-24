@@ -45,7 +45,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 		};
 
 		getImage();
-	}, [result]);
+	}, []);
 
 	return (
 		<>
