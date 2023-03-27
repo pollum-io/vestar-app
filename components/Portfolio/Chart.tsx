@@ -40,8 +40,7 @@ export const Examaple: React.FC<IExample> = props => {
 				margin={{
 					top: 5,
 					bottom: 5,
-					right: 10,
-					left: 20,
+					right: 5,
 				}}
 			>
 				<CartesianGrid vertical={false} />

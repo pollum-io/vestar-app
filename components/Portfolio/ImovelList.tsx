@@ -49,33 +49,30 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 
 	return (
 		<>
-			{resultWithImages?.map((investment: any) => (
-				// eslint-disable-next-line react/jsx-key
-				<Flex
-					id="body-table-container"
-					borderRadius="0.75rem"
-					opacity={isFinished ? "0.5" : "1"}
-					w="100%"
-					border="1px solid #EDF2F7"
-					_hover={{
-						cursor: "pointer",
-						boxShadow:
-							"0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
-						border: "1px solid transparent",
-					}}
-					transition="150ms"
-					flexDirection="column"
-					justifyContent={"space-between"}
-				>
-					<Flex>
+			{resultWithImages?.map((investment: any) => {
+				return (
+					// eslint-disable-next-line react/jsx-key
+					<Flex
+						id="body-table-container"
+						borderRadius="0.75rem"
+						opacity={isFinished ? "0.5" : "1"}
+						w="100%"
+						border="1px solid #EDF2F7"
+						_hover={{
+							cursor: "pointer",
+							boxShadow:
+								"0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
+							border: "1px solid transparent",
+						}}
+						transition="150ms"
+						justifyContent={"space-between"}
+					>
 						<Flex alignItems={"center"} w="18rem" gap="1rem">
 							{isFinished ? (
 								<Flex
 									w="6rem"
 									h="4.25rem"
 									borderRadius="0.75rem 0rem 0rem 0.75rem"
-									alignItems="center"
-									justifyContent="center"
 								>
 									<Img
 										src={investment?.pictures_enterprise}
@@ -96,22 +93,17 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 									</Flex>
 								</Flex>
 							) : (
-								<Flex
-									w="6rem"
-									h="4.25rem"
-									borderRadius="0.75rem 0rem 0rem 0.75rem"
-									alignItems="center"
-									justifyContent="center"
-								>
+								<Flex borderRadius="0.75rem 0rem 0rem 0.75rem">
 									<Img
 										src={investment?.pictures_enterprise}
-										w="100%"
-										h="100%"
+										w="6rem"
+										h="4.25rem"
+										borderRadius="0.75rem 0rem 0rem 0.75rem"
 									/>
 								</Flex>
 							)}
 
-							<Flex flexDir={"column"}>
+							<Flex flexDir={"column"} w="8.5625rem">
 								<Text fontSize={"md"} fontWeight={"500"} color={"#171923"}>
 									{investment?.name}
 								</Text>
@@ -193,17 +185,12 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 											R$ {investment?.profitability}
 										</Text>
 									</Flex>
-									<Flex w="7rem">
-										<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-											R$ 0,00
-										</Text>
-									</Flex>
 								</>
 							)}
 						</Flex>
 					</Flex>
-				</Flex>
-			))}
+				);
+			})}
 		</>
 	);
 };
