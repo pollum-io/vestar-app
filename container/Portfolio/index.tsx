@@ -114,7 +114,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							)}
 						</Flex>
 						<Flex position="relative" w="34rem" h="5.25rem">
-							{hasInvest ? <YourDetailtCard /> : null}
+							{hasInvest ? <YourDetailtCard data={portfolioData} /> : null}
 						</Flex>
 					</Flex>
 				</Flex>
@@ -148,7 +148,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								boxShadow="0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.04);"
 							>
 								<Flex justifyContent={"space-between"} alignItems="baseline">
-									<Flex mb="2.75rem">
+									{/* <Flex mb="2.75rem">
 										{isInvestor ? (
 											<Flex>
 												<MenuChart title="Periodo" defaultSelection="Maximo" />
@@ -179,7 +179,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 										<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
 											Máximo
 										</Text>
-									</Flex>
+									</Flex> */}
 								</Flex>
 								<Examaple chartData={portfolioData} />
 							</Flex>
@@ -203,9 +203,9 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 											: "Cotas mais vendidas"}
 									</Text>
 								</Flex>
-								<Flex display={isInvestor ? "flex" : "none"}>
+								{/* <Flex display={isInvestor ? "flex" : "none"}>
 									<MenuChart defaultSelection="Todos os imóveis" />
-								</Flex>
+								</Flex> */}
 								{!isInvestor && (
 									<Flex alignItems="center" gap="3.5rem">
 										<Flex alignItems={"center"} gap="0.3125rem">
@@ -370,7 +370,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									{isInvestor ? "Seus investimentos" : "Cotas"}
 								</Text>
 								<Flex alignItems={"center"} justifyContent="center" gap="4rem">
-									<Flex
+									{/* <Flex
 										gap="1.5625rem"
 										fontFamily="Poppins"
 										display={isInvestor ? "flex" : "none"}
@@ -425,7 +425,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 										title="Empreendimentos"
 										titleColor="#171923"
 										defaultSelection="Todos"
-									/>
+									/> */}
 								</Flex>
 							</Flex>
 							<Flex w="100%" flexDir={"column"}>
@@ -490,7 +490,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
 								{isInvestor ? "Onde você tem investido" : "Imóveis cadastrados"}
 							</Text>
-							<Flex gap="1.5rem">
+							<Flex gap="1.5rem" mb={"10rem"}>
 								{isInvestor && <Maps localizations={portfolioData} />}
 							</Flex>
 						</Flex>

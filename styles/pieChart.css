@@ -1,4 +1,7 @@
-.recharts-pie-sector-active {
+.recharts-responsive-container
+	.recharts-pie-sector
+	.recharts-pie-sector-active {
+	cursor: pointer;
 	stroke: none !important;
-	border: none;
+	outline: none;
 }

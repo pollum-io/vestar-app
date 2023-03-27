@@ -58,6 +58,7 @@ export const PieChartPortfolio: React.FC<IPieChart> = props => {
 				fill="white"
 				textAnchor={"middle"}
 				dominantBaseline="central"
+				style={{ transition: "all 0.5s ease-in-out" }}
 			>
 				{`${(percent * 100).toFixed(2)}%`}
 			</text>
@@ -77,6 +78,7 @@ export const PieChartPortfolio: React.FC<IPieChart> = props => {
 				startAngle={startAngle}
 				endAngle={endAngle}
 				fill={fill}
+				className="recharts-pie-sector-active"
 			/>
 		);
 	};
@@ -116,12 +118,15 @@ export const PieChartPortfolio: React.FC<IPieChart> = props => {
 				onMouseEnter={onPieEnter}
 				label={renderCustomizedLabel}
 				labelLine={false}
-				isAnimationActive={true}
-				animationDuration={2500}
-				animationEasing="ease-in-out"
+				className="recharts-pie-sector-active"
+				stroke="none"
 			>
 				{pieChartData.map((entry: any, index: any) => (
-					<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+					<Cell
+						style={{ outline: "none" }}
+						key={`cell-${index}`}
+						fill={COLORS[index % COLORS.length]}
+					/>
 				))}
 			</Pie>
 		</PieChart>
