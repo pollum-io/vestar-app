@@ -65,7 +65,7 @@ export const Examaple: React.FC<IExample> = props => {
 						padding: "10px",
 						border: "none",
 					}}
-					wrapperStyle={{ border: "none" }}
+					wrapperStyle={{ outline: "none" }}
 					itemStyle={{ color: "#6c5ce7" }}
 					content={CustomTooltip}
 				/>

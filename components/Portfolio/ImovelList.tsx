@@ -64,7 +64,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 								"0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
 							border: "1px solid transparent",
 						}}
-						transition="150ms"
+						transition="0.4s"
 						justifyContent={"space-between"}
 					>
 						<Flex alignItems={"center"} w="18rem" gap="1rem">
