@@ -12,6 +12,7 @@ import { WalletProvider } from "../contexts/wallet";
 import { UserProvider } from "../contexts/user";
 import { TransactionsProvider } from "../contexts/transactions";
 import "../styles/tooltipChart.css";
+import "../styles/pieChart.css";
 
 const toasty = {
 	bg: "#FFFFFF",

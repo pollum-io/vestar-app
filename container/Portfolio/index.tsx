@@ -10,7 +10,7 @@ import {
 	Button,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { BsCircleFill } from "react-icons/bs";
 import { OpportunitiesCard } from "../../components";
 import { ImovelList } from "../../components/Portfolio/ImovelList";
@@ -19,9 +19,11 @@ import { NotInvestWarn } from "../../components/Portfolio/NotInvestWarn";
 import { YourDetailtCard } from "../../components/Portfolio/YourDetailCard";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { Examaple } from "../../components/Portfolio/Chart";
+
 import { useUser } from "../../hooks/useUser";
 import moment from "moment";
 import { Maps } from "../../components/Map/Maps";
+
 interface IPortfolio {
 	portfolioData: any;
 }
@@ -31,7 +33,10 @@ const BarCharts = dynamic(() => import("../../components/Portfolio/BarChart"), {
 });
 
 const PieChartPortfolio = dynamic(
-	() => import("../../components/Portfolio/PieChart"),
+	async () => {
+		const mod = await import("../../components/Portfolio/PieChart");
+		return mod.PieChartPortfolio;
+	},
 	{
 		ssr: false,
 	}
@@ -42,13 +47,42 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 }) => {
 	const [value, setValue] = useState("1");
 	const [isInvestor, setIsInvestor] = useState(true);
+	const [yoursInvestments, setYoursInvestments] = useState<any>();
+
 	const [hasInvest, setHasInvest] = useState(
-		portfolioData.length ? true : false
+		portfolioData.length > 1 ? true : false
 	);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
 	const { username } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
+	console.log(portfolioData);
+
+	const calcularPorcentagensDeTipos = (objetos: any) => {
+		const contagemDeTipos: any = {};
+		objetos.forEach((objeto: any) => {
+			const tipo = objeto.enterprise_type;
+			if (!contagemDeTipos[tipo]) {
+				contagemDeTipos[tipo] = 0;
+			}
+			contagemDeTipos[tipo]++;
+		});
+
+		const totalDeObjetos = objetos.length;
+		const porcentagensDeTipos: any = {};
+		Object.entries(contagemDeTipos).forEach(([tipo, contagem]: any) => {
+			const porcentagem = (contagem / totalDeObjetos) * 100;
+			porcentagensDeTipos[tipo] = porcentagem.toFixed(2);
+		});
+		console.log(porcentagensDeTipos);
+		setYoursInvestments(porcentagensDeTipos);
+		return porcentagensDeTipos;
+	};
+
+	useMemo(() => {
+		calcularPorcentagensDeTipos(portfolioData);
+	}, [portfolioData]);
+
 	return (
 		<DefaultTemplate>
 			<Flex w="100%">
@@ -68,9 +102,9 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							<Text fontWeight={"600"} fontSize="3xl">
 								Olá, {username}!
 							</Text>
-							{!hasInvest ? (
+							{hasInvest ? (
 								<Text fontSize={"sm"} fontWeight="400">
-									Esse é o portfólio da Nome da Empresa de {formattedDate}
+									Esse é o portfólio de {formattedDate}
 								</Text>
 							) : (
 								<Text fontSize={"sm"} fontWeight="400">
@@ -284,40 +318,38 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							</Flex>
 							{isInvestor ? (
 								<Flex alignItems={"center"} w="100%" h="15rem">
-									<PieChartPortfolio />
+									<PieChartPortfolio data={portfolioData} />
 									<Flex pl="5rem" gap="3.25rem">
-										<Flex flexDir={"column"}>
-											<Text fontWeight={"500"} fontSize="md" color="#171923">
-												15%
-											</Text>
-											<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-												Residencial
-											</Text>
-										</Flex>
-										<Flex flexDir={"column"}>
-											<Text fontWeight={"500"} fontSize="md" color="#171923">
-												28%
-											</Text>
-											<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-												Comercial
-											</Text>
-										</Flex>
-										<Flex flexDir={"column"}>
-											<Text fontWeight={"500"} fontSize="md" color="#171923">
-												13%
-											</Text>
-											<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-												Escritorios
-											</Text>
-										</Flex>
-										<Flex flexDir={"column"}>
-											<Text fontWeight={"500"} fontSize="md" color="#171923">
-												44%
-											</Text>
-											<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-												Tipo 4
-											</Text>
-										</Flex>
+										{yoursInvestments?.Residencial && (
+											<Flex flexDir={"column"}>
+												<Text fontWeight={"500"} fontSize="md" color="#171923">
+													{yoursInvestments?.Residencial}%
+												</Text>
+												<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
+													Residencial
+												</Text>
+											</Flex>
+										)}
+										{yoursInvestments?.Comercial && (
+											<Flex flexDir={"column"}>
+												<Text fontWeight={"500"} fontSize="md" color="#171923">
+													{yoursInvestments?.Comercial}%
+												</Text>
+												<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
+													Comercial
+												</Text>
+											</Flex>
+										)}
+										{yoursInvestments?.Escritorio && (
+											<Flex flexDir={"column"}>
+												<Text fontWeight={"500"} fontSize="md" color="#171923">
+													{yoursInvestments?.Escritorio}%
+												</Text>
+												<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
+													Escritorios
+												</Text>
+											</Flex>
+										)}
 									</Flex>
 								</Flex>
 							) : (

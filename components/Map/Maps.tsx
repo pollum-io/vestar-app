@@ -64,8 +64,6 @@ export const Maps: FunctionComponent<IMaps> = ({
 		[getLocalizations]
 	);
 
-	console.log(getLocalizations);
-
 	return (
 		<>
 			{isLoaded ? (
