@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {},
 		};
 	}
-	const response = await fetchEnterpriseById(query.id, token);
+	const response = await fetchEnterpriseById(query.id);
 
 	return {
 		props: {
