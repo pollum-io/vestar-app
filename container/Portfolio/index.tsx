@@ -54,6 +54,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
+	const [imvestmentFilter, setInvestmentFilter] = useState("processed");
 	const { username } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
 	console.log(portfolioData);
@@ -140,14 +141,14 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								bgImage="linear-gradient(135deg, #A593E7 0%, #D7A6F0 100%, #D9A6F1 100%);"
 								w="100%"
 								h="25rem"
-								pl="2"
-								pr="4"
+								pl="1.5625rem"
+								pr="2.1875rem"
 								py="1.75rem"
 								flexDirection={"column"}
 								boxShadow="0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.04);"
 							>
 								<Flex justifyContent={"space-between"} alignItems="baseline">
-									<Flex>
+									<Flex mb="2.75rem">
 										{isInvestor ? (
 											<Flex>
 												<MenuChart title="Periodo" defaultSelection="Maximo" />
@@ -190,7 +191,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								alignItems="start"
 								w="100%"
 							>
-								<Flex>
+								<Flex mb="2.5625rem">
 									<Text
 										mr={isInvestor ? "4.5rem" : "unset"}
 										fontSize={"2xl"}
@@ -359,11 +360,67 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							)}
 						</Flex>
 						<Flex flexDir={"column"} mb="7.5rem">
-							<Flex justifyContent={"space-between"} mb="2.1875rem">
+							<Flex
+								justifyContent={"space-between"}
+								mb="2.1875rem"
+								alignItems="center"
+								gap="1rem"
+							>
 								<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
 									{isInvestor ? "Seus investimentos" : "Cotas"}
 								</Text>
-								<Flex alignItems={"center"} gap="0.75rem">
+								<Flex alignItems={"center"} justifyContent="center" gap="4rem">
+									<Flex
+										gap="1.5625rem"
+										fontFamily="Poppins"
+										display={isInvestor ? "flex" : "none"}
+									>
+										<Flex gap="0.75rem">
+											<Checkbox
+												spacing="0.75rem"
+												isChecked={
+													imvestmentFilter === "processed" ? true : false
+												}
+												variant="circular"
+												icon={<BsCircleFill color="#ffffff" size={7} />}
+												borderColor="#E2E8F0"
+												onChange={() => setInvestmentFilter("processed")}
+											/>
+											<Text
+												fontSize="0.875rem"
+												lineHeight="1.25rem"
+												color="#171923"
+												fontWeight={
+													imvestmentFilter === "processed" ? "500" : "400"
+												}
+											>
+												Processados
+											</Text>
+										</Flex>
+										<Flex gap="0.75rem">
+											<Checkbox
+												spacing="0.75rem"
+												isChecked={
+													imvestmentFilter === "pendent" ? true : false
+												}
+												fontStyle="normal"
+												icon={<BsCircleFill color="#ffffff" size={"50%"} />}
+												variant="circular"
+												borderColor="#E2E8F0"
+												onChange={() => setInvestmentFilter("pendent")}
+											/>
+											<Text
+												fontSize="0.875rem"
+												lineHeight="1.25rem"
+												color="#171923"
+												fontWeight={
+													imvestmentFilter === "pendent" ? "500" : "400"
+												}
+											>
+												Pendentes
+											</Text>
+										</Flex>
+									</Flex>
 									<MenuChart
 										title="Empreendimentos"
 										titleColor="#171923"
@@ -400,10 +457,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 													<Text w="6.375rem">Rentabilidade Esperada</Text>
 													<Img src="icons/InfoSquare.png" />
 												</Flex>
-												<Flex gap="0.375rem" alignItems="center" w="7rem">
-													<Text w="6.375rem">Valor Atual de Mercado</Text>
-													<Img src="icons/InfoSquare.png" />
-												</Flex>
 											</Flex>
 										</Flex>
 									) : (
@@ -433,11 +486,9 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex flexDir={"column"} mb="2rem" w="100%">
+						<Flex flexDir={"column"} w="100%" gap="1.75rem">
 							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
-								{isInvestor
-									? "Onde você tem investido"
-									: "Empreendimentos cadastrados"}
+								{isInvestor ? "Onde você tem investido" : "Imóveis cadastrados"}
 							</Text>
 							<Flex gap="1.5rem">
 								{isInvestor && <Maps localizations={portfolioData} />}
@@ -450,7 +501,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							spacing="1.5rem"
 							w="fit-content"
 							rowGap="2rem"
-							mb="6.8125rem"
+							mb="12.3125rem"
 						>
 							<OpportunitiesCard />
 						</SimpleGrid>

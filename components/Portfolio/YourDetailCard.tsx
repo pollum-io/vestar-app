@@ -8,7 +8,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 	return (
 		<Flex
 			w="100%"
-			minWidth="30rem"
+			minWidth={isInvestidor ? "33rem" : "30rem"}
 			zIndex="9"
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
@@ -18,11 +18,11 @@ export const YourDetailtCard: FunctionComponent = () => {
 			py="1.5rem"
 			borderRadius={"0.75rem"}
 			justifyContent="space-between"
-			alignItems={"end"}
+			alignItems={"center"}
 			border="1px solid #E5E7EB"
 		>
 			<Flex
-				w={isInvestidor ? "20%" : "max"}
+				w={isInvestidor ? "8.1875rem" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
 				opacity={hasInvest ? 0.5 : 1}
