@@ -13,18 +13,24 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	enterprise_logo,
 	opportunities_closed,
 	opportunities_available,
+	enterprise_banner,
 }) => {
 	const { push } = useRouter();
 
 	const [images, setImages] = useState<string>();
+	const [banner, setBanner] = useState<string>();
 
 	useMemo(() => {
 		if (enterprise_logo) {
 			fetchImages(enterprise_logo).then((res: any) => {
 				setImages(res);
 			});
+		} else if (enterprise_banner) {
+			fetchImages(enterprise_banner).then((res: any) => {
+				setBanner(res);
+			});
 		}
-	}, [enterprise_logo]);
+	}, [enterprise_banner, enterprise_logo]);
 
 	return (
 		<Flex
@@ -39,7 +45,9 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				background="linear-gradient(102.22deg, #ECECEC 65.27%, #FFFFFF 89.66%)"
 				borderRadius="0.75rem"
 				h="9.3125rem"
-			></Flex>
+			>
+				<Img borderRadius="0.75rem" w="100%" h="100%" src={banner} />
+			</Flex>
 			<Flex
 				gap="1.5rem"
 				pr="1rem"
@@ -111,6 +119,8 @@ export const CompaniesCards: FunctionComponent = () => {
 		refetchInterval: false,
 	});
 
+	console.log(data);
+
 	return (
 		<Flex flexDirection="column" gap="1.5rem" w="100%">
 			{data?.data?.map((infos: ICompaniesCard) => (
@@ -122,6 +132,7 @@ export const CompaniesCards: FunctionComponent = () => {
 					enterprise_logo={infos.enterprise_logo}
 					opportunities_available={infos.opportunities_available}
 					opportunities_closed={infos.opportunities_closed}
+					enterprise_banner={infos.enterprise_banner}
 				/>
 			))}
 		</Flex>
