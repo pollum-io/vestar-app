@@ -14,11 +14,17 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
 		getInfosId(
-			data.data.user?.investor_id === null
+			data.data?.user?.investor_id === null
 				? data.data?.user?.enterprise_id
 				: data.data?.user?.investor_id
 		);
 		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
+	};
+
+	const handleKeyPress = (event: any) => {
+		if (event.key === "Enter") {
+			handleLogin();
+		}
 	};
 
 	return (
@@ -78,6 +84,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							pl="0.7rem"
 							color="#2D3748"
 							onChange={e => setEmail(e.target.value)}
+							onKeyPress={handleKeyPress}
 						/>
 					</Flex>
 					<Flex flexDirection="column" mt="1.5rem" gap="0.75rem">
@@ -121,6 +128,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							color="#2D3748"
 							onChange={e => setPassword(e.target.value)}
 							type={"password"}
+							onKeyPress={handleKeyPress}
 						/>
 					</Flex>
 					<Flex mt="2.5rem">

@@ -18,7 +18,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 			py="1.5rem"
 			borderRadius={"0.75rem"}
 			justifyContent="space-between"
-			alignItems={"end"}
+			alignItems={"center"}
 			border="1px solid #E5E7EB"
 		>
 			<Flex
