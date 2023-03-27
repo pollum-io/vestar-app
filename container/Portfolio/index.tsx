@@ -368,10 +368,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 													<Text w="6.375rem">Rentabilidade Esperada</Text>
 													<Img src="icons/InfoSquare.png" />
 												</Flex>
-												<Flex gap="0.375rem" alignItems="center" w="7rem">
-													<Text w="6.375rem">Valor Atual de Mercado</Text>
-													<Img src="icons/InfoSquare.png" />
-												</Flex>
 											</Flex>
 										</Flex>
 									) : (
@@ -401,7 +397,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex flexDir={"column"} mb="2rem" w="100%">
+						<Flex flexDir={"column"} mb="8.5rem" w="100%" gap="1.5rem">
 							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
 								{isInvestor
 									? "Onde você tem investido"
