@@ -7,6 +7,7 @@ import Investment from "../../../models/Investment";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 import Investor from "../../../models/investor";
+import Opportunity from "../../../models/oportunity";
 
 type ResponseData = ApiResponse<string>;
 
@@ -46,13 +47,37 @@ router.get(verifyUser, async (req, res) => {
 			})) / limit
 		);
 
-		const investments = await Investment.find({
+		let investments = await Investment.find({
 			investor_address: wallet_address,
 		})
 			.limit(limit)
 			.skip(page * limit)
 			.sort({ createdAt: -1 })
 			.lean();
+
+		const addresses = investments.map(
+			({ investment_address }) => investment_address
+		);
+
+		const opportunities = await Opportunity.find({
+			token_address: { $in: addresses },
+		}).lean();
+
+		investments = investments.map(investment => {
+			const opportunity = opportunities.find(
+				({ token_address }) => token_address === investment?.investment_address
+			);
+
+			return {
+				...investment,
+				name: opportunity?.name || "",
+				enterprise_type: opportunity?.enterprise_type || "",
+				expected_delivery_date: opportunity?.expected_delivery_date || "",
+				profitability: opportunity?.profitability || "",
+				address: opportunity?.address || {},
+				pictures_enterprise: opportunity?.pictures_enterprise || {},
+			};
+		});
 
 		res.status(200).json({ data: investments, totalPages });
 	} catch (error: any) {

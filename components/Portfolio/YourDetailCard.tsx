@@ -1,9 +1,24 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useMemo, useState } from "react";
 
-export const YourDetailtCard: FunctionComponent = () => {
+interface IYourDeital {
+	data: any;
+}
+
+export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 	const [isInvestidor, setIsInvestidor] = useState(false);
 	const [hasInvest, setHasInvest] = useState(false);
+
+	const totalAmount = useMemo(() => {
+		const total = data.reduce((acc: any, item: any) => acc + item.amount, 0);
+
+		const formattedTotal = total.toLocaleString("pt-BR", {
+			style: "currency",
+			currency: "BRL",
+		});
+
+		return formattedTotal;
+	}, [data]);
 
 	return (
 		<Flex
@@ -17,11 +32,11 @@ export const YourDetailtCard: FunctionComponent = () => {
 			py="1.5rem"
 			borderRadius={"0.75rem"}
 			justifyContent="space-between"
-			alignItems={"end"}
+			alignItems={"center"}
 			border="1px solid #E5E7EB"
 		>
 			<Flex
-				w={isInvestidor ? "20%" : "max"}
+				w={isInvestidor ? "8.1875rem" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
 				opacity={hasInvest ? 1 : 0.5}
@@ -38,7 +53,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 					/>
 				</Flex>
 				<Text fontSize={"xl"} fontWeight="600" color="#171923">
-					{hasInvest ? (isInvestidor ? "42" : "R$ 237.097,68") : "R$0"}
+					{isInvestidor ? "42" : totalAmount}
 				</Text>
 			</Flex>
 			<Flex
@@ -48,7 +63,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{isInvestidor ? "Arrecadação" : "Resultado"}
+					{isInvestidor ? "Arrecadação" : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
@@ -56,7 +71,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
 					textAlign={"left"}
 				>
-					{hasInvest ? (isInvestidor ? "R$ 2.584.256" : "+ R$ 3.256") : "-"}
+					{isInvestidor ? "R$ 2.584.256" : ""}
 				</Text>
 			</Flex>
 			<Flex
@@ -66,14 +81,14 @@ export const YourDetailtCard: FunctionComponent = () => {
 				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{isInvestidor ? "Contas Negociadas" : "Rentabilidade"}
+					{isInvestidor ? "Contas Negociadas" : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
 					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
 				>
-					{hasInvest ? (isInvestidor ? "37%" : "+ 13,5 %") : "-"}
+					{isInvestidor ? "37%" : ""}
 				</Text>
 			</Flex>
 		</Flex>
