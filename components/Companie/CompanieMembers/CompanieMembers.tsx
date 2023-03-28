@@ -9,16 +9,15 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 	name,
 	occupation,
 }) => {
-
-	const [images, setImages] = useState<string>()
+	const [images, setImages] = useState<string>();
 
 	useEffect(() => {
 		if (image) {
 			fetchImages(image).then(res => {
-				setImages(res)
-			})
+				setImages(res);
+			});
 		}
-	}, [image])
+	}, [image]);
 
 	return (
 		<Flex flexDirection="column" gap="0.5rem" alignItems="center">
@@ -41,18 +40,20 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 	);
 };
 
-export const CompanieMembers: FunctionComponent<ICompaniesTeam> = props => {
-	const { name, image, position } = props;
-
+export const CompanieMembers: FunctionComponent<any> = ({
+	image,
+	name,
+	occupation,
+}) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3, xl: 3 }}
-			spacing="6.625rem"
+			spacing={["unset", "unset", "unset", "4rem", "6.625rem"]}
 			w="fit-content"
 			rowGap="2.75rem"
 			mt="2rem"
 		>
-			<CompanieMember image={image} name={name} occupation={position} />
+			<CompanieMember image={image} name={name} occupation={occupation} />
 		</SimpleGrid>
 	);
 };

@@ -25,13 +25,13 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 			fetchImages(enterprise_logo).then((res: any) => {
 				setImages(res);
 			});
-		} else if (enterprise_banner) {
+		}
+		if (enterprise_banner) {
 			fetchImages(enterprise_banner).then((res: any) => {
 				setBanner(res);
 			});
 		}
 	}, [enterprise_banner, enterprise_logo]);
-
 	return (
 		<Flex
 			w="100%"
@@ -119,7 +119,7 @@ export const CompaniesCards: FunctionComponent = () => {
 		refetchInterval: false,
 	});
 
-	console.log(data);
+	console.log(data, "a");
 
 	return (
 		<Flex flexDirection="column" gap="1.5rem" w="100%">
