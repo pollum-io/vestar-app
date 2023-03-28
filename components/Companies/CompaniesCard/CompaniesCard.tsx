@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { fetchEnterprise } from "../../../services/fetchEnterprise";
 import { fetchImages } from "../../../services/fetchImages";
 
-const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
+export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	_id,
 	enterprise_name,
 	enterprise_info,
@@ -109,32 +109,6 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 					</Flex>
 				</Flex>
 			</Flex>
-		</Flex>
-	);
-};
-
-export const CompaniesCards: FunctionComponent = () => {
-	const { data } = useQuery("companies", fetchEnterprise, {
-		refetchOnWindowFocus: false,
-		refetchInterval: false,
-	});
-
-	console.log(data, "a");
-
-	return (
-		<Flex flexDirection="column" gap="1.5rem" w="100%">
-			{data?.data?.map((infos: ICompaniesCard) => (
-				<CompaniesCard
-					key={infos._id}
-					_id={infos._id}
-					enterprise_name={infos.enterprise_name}
-					enterprise_info={infos.enterprise_info}
-					enterprise_logo={infos.enterprise_logo}
-					opportunities_available={infos.opportunities_available}
-					opportunities_closed={infos.opportunities_closed}
-					enterprise_banner={infos.enterprise_banner}
-				/>
-			))}
 		</Flex>
 	);
 };
