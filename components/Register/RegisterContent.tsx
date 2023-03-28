@@ -89,7 +89,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	};
 
 	return (
-		<Flex>
+		<Flex w="100%" alignItems="center" justifyContent="center">
 			<form onSubmit={handleSubmit(onSubmitForm)}>
 				{firstStep ? (
 					<SlideFade in={firstStep} offsetY="-30px">

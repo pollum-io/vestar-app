@@ -91,15 +91,14 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 					bgColor={"#1789A3"}
 					alignItems="center"
 					borderBottomRadius="0.75rem"
-					pr="5.5rem"
-					pl="5rem"
+					px="5rem"
 					pt="6.8125rem"
 					pb="1.5rem"
 					w="100%"
 					justifyContent="center"
 				>
 					<Flex w="100%" justifyContent="space-between" maxWidth="70rem">
-						<Flex flexDir={"column"} color="white" mr="3rem">
+						<Flex flexDir={"column"} color="white" justifyContent="center">
 							<Text fontWeight={"600"} fontSize="3xl">
 								Olá, {username}!
 							</Text>
@@ -113,7 +112,12 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								</Text>
 							)}
 						</Flex>
-						<Flex position="relative" w="34rem" h="5.25rem">
+						<Flex
+							position="relative"
+							w="34rem"
+							h="5.25rem"
+							justifyContent="end"
+						>
 							{hasInvest ? <YourDetailtCard data={portfolioData} /> : null}
 						</Flex>
 					</Flex>

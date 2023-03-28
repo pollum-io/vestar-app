@@ -86,15 +86,23 @@ router.put(verifyUser, async (req, res) => {
 		await dbConnect();
 
 		const { id } = req.query;
+		const data = req?.body;
 
-		const enterprise = await Enterprise.findOneAndUpdate(
-			{ _id: id },
-			req.body,
-			{
-				new: true,
-				runValidators: true,
-			}
-		);
+		if (!data) {
+			return res.status(400).json({ error: "empty data" });
+		}
+
+		const enterprise = await Enterprise.findOneAndUpdate({ _id: id }, data, {
+			new: true,
+			runValidators: true,
+		});
+
+		if (data?.enterprise_logo) {
+			Opportunity.updateMany(
+				{ enterprise_id: id },
+				{ enterprise_logo: data.enterprise_logo }
+			);
+		}
 
 		if (!enterprise) {
 			return res.status(204).end("no enterprise data to update");

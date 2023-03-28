@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { InvestContainer } from "../container";
 import jwt_decode from "jwt-decode";
-import { fetchImovelDetail } from "../services/imovelDetail";
+import { fetchImovelDetail } from "../services/fetchImovelDetail";
 import { IOpportunitiesCard } from "../dtos/Oportunities";
 
 interface IInvest {
@@ -10,15 +10,20 @@ interface IInvest {
 	address: string;
 }
 
-const Investir: NextPage<IInvest> = ({ data, cotas, address }) => <InvestContainer data={data} cotas={cotas} oportunitiesAddress={address} />;
+const Investir: NextPage<IInvest> = ({ data, cotas, address }) => (
+	<InvestContainer data={data} cotas={cotas} oportunitiesAddress={address} />
+);
 
 export default Investir;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+	query,
+}) => {
 	const token = req.cookies["livn_auth"];
-	const response = await fetchImovelDetail(query.id)
-	let cotas = query.cotas
-	let address = query.oportunitiesAddress
+	const response = await fetchImovelDetail(query.id);
+	let cotas = query.cotas;
+	let address = query.oportunitiesAddress;
 
 	if (!token) {
 		return {
@@ -48,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 			token,
 			data: response.data,
 			cotas,
-			address
+			address,
 		},
 	};
 };
