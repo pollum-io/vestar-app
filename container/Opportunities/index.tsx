@@ -1,11 +1,29 @@
 import { Flex, Img, Text, useMediaQuery } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
+import { useUser } from "../../hooks/useUser";
 
-export const OpportunitiesContainer: FunctionComponent = () => {
+export const OpportunitiesContainer: FunctionComponent = (props: any) => {
+	const { getInfosId, getInfos } = useUser();
 	const [bannerRes] = useMediaQuery("(max-width: 1110px)");
+
+	useEffect(() => {
+		getInfosId(
+			props?.user?.investor_id === null
+				? props?.user?.enterprise_id
+				: props?.user?.investor_id
+		);
+		getInfos(props.token);
+	}, [
+		getInfos,
+		getInfosId,
+		props.token,
+		props?.user?.enterprise_id,
+		props?.user?.investor_id,
+	]);
+
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -168,7 +186,7 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 						>
 							<MenuInputs />
 							<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
-								147 resultados
+								1 resultados
 							</Text>
 						</Flex>
 					</Flex>

@@ -1,7 +1,10 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 
 export const NotInvestWarn: FunctionComponent = () => {
+	const { push } = useRouter();
+
 	return (
 		<Flex
 			flexDirection={"column"}

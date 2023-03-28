@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import dbConnect from "../../../lib/dbConnect";
 import Opportunity from "../../../models/oportunity";
+import Enterprise from "../../../models/enterprise";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
@@ -35,7 +36,11 @@ const OpportunitySchema = z.object({
 	neighbor_description: z.string(),
 	pictures_neighbor: z.array(z.string()),
 	pictures_enterprise: z.array(z.string()),
+	sale_end_at: z.optional(z.string()),
 	token_address: z.optional(z.string()),
+	token_price: z.optional(z.number()),
+	token_minted: z.optional(z.number()),
+	token_supply: z.optional(z.number()),
 	enterprise_type: z.string(),
 	description_extra: z.optional(z.string()),
 	picture_extra: z.optional(z.array(z.string())),
@@ -54,11 +59,18 @@ router.post(verifyUser, async (req, res) => {
 
 		const opportunitiyData = req.body;
 
+		const enterprise = await Enterprise.findById(
+			opportunitiyData.enterprise_id
+		).lean();
+
 		OpportunitySchema.parse(opportunitiyData);
 
-		const user = await Opportunity.create(opportunitiyData);
+		const opportunity = await Opportunity.create({
+			...opportunitiyData,
+			enterprise_logo: enterprise.enterprise_logo,
+		});
 
-		res.status(201).json({ data: user });
+		res.status(201).json({ data: opportunity });
 	} catch (error: any) {
 		res.status(400).json({
 			error: !/^[\[|\{](\s|.*|\w)*[\]|\}]$/.test(error.message)

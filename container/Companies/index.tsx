@@ -1,16 +1,32 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import {
+	Collapse,
 	Flex,
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Slide,
 	Text,
 } from "@chakra-ui/react";
 import { DefaultTemplate } from "../../container";
 import { BiSearch } from "react-icons/bi";
-import { CompaniesCards } from "../../components";
+import { CompaniesCard } from "../../components";
+import { useQuery } from "react-query";
+import { fetchEnterprise } from "../../services/fetchEnterprise";
 
-export const CompaniesContainer: FunctionComponent = () => {
+interface ICompanies {
+	data: any;
+}
+
+export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
+	console.log(data);
+
+	const [searchTerm, setSearchTerm] = useState("");
+
+	const filteredImoveis = data.filter((imovel: any) =>
+		imovel.enterprise_name.toLowerCase().includes(searchTerm.toLowerCase())
+	);
+
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -53,6 +69,12 @@ export const CompaniesContainer: FunctionComponent = () => {
 									lineHeight="1.25rem"
 									h="2rem"
 									_hover={{}}
+									_focus={{
+										boxShadow: "none",
+										border: "0.0625rem solid #CBD5E0",
+									}}
+									value={searchTerm}
+									onChange={e => setSearchTerm(e.target.value)}
 								/>
 							</InputGroup>
 						</Flex>
@@ -62,11 +84,23 @@ export const CompaniesContainer: FunctionComponent = () => {
 							alignItems="center"
 							color="#718096"
 						>
-							274 empresas
+							{data?.length} empresas
 						</Text>
 					</Flex>
-					<Flex>
-						<CompaniesCards />
+					<Flex flexDirection={"column"} gap="1.5rem" w="100%">
+						{filteredImoveis.map((imoveis: any) => (
+							// eslint-disable-next-line react/jsx-key
+							<CompaniesCard
+								key={imoveis._id}
+								_id={imoveis._id}
+								enterprise_name={imoveis.enterprise_name}
+								enterprise_info={imoveis.enterprise_info}
+								enterprise_logo={imoveis.enterprise_logo}
+								opportunities_available={imoveis.opportunities_available}
+								opportunities_closed={imoveis.opportunities_closed}
+								enterprise_banner={imoveis.enterprise_banner}
+							/>
+						))}
 					</Flex>
 				</Flex>
 			</Flex>

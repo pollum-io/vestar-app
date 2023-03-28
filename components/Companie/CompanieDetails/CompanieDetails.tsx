@@ -12,7 +12,7 @@ export const CompanieDetails: FunctionComponent<ICompanieDetails> = ({
 	description,
 }) => {
 	return (
-		<Flex w="100%" flexDirection="column" gap="2.5rem">
+		<Flex w="44.125rem" flexDirection="column" gap="2.5rem">
 			<Flex w="100%" flexDirection="column" borderRadius="0.75rem">
 				<Flex
 					w="100%"
@@ -61,7 +61,7 @@ export const CompanieDetails: FunctionComponent<ICompanieDetails> = ({
 					<FiMapPin color="#718096" />
 					<Text
 						fontFamily="Poppins"
-						fontSize="0.75rem"
+						fontSize={"md"}
 						lineHeight="1rem"
 						alignItems="center"
 						color="#718096"
@@ -70,27 +70,7 @@ export const CompanieDetails: FunctionComponent<ICompanieDetails> = ({
 					</Text>
 				</Flex>
 				<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-					Fundada em 2003, a empresa é a de lorem ipsum dolor sit amet,
-					consectetur adipiscing elit. Ut odio porta sed posuere purus donec
-					vitae posuere fringilla. Sit nibh id senectus sed eget nisl, mollis
-					leo justo. Blandit tristique purus tortor rhoncus. Dolor tristique
-					nulla dignissim tellus cursus ac fermentum sit nisi. Viverra odio diam
-					non porttitor commodo nullam iaculis in pretium. In elementum eu
-					varius eu massa senectus faucibus lacinia blandit. Semper quam posuere
-					commodo dui sed urna, senectus nunc. Elementum odio euismod fermentum
-					urna euismod blandit risus viverra. Ligula elementum erat nullam
-					faucibus neque viverra. Lacinia eget consectetur pharetra fermentum
-					pellentesque aenean elementum pretium. Quis euismod arcu fermentum ac
-					suscipit sed neque sodales amet. Donec massa sit enim urna tristique
-					adipiscing. Enim id ultrices elit venenatis. Ut egestas venenatis
-					lacus vel diam feugiat lobortis tortor et. Volutpat massa sagittis,
-					quis vestibulum nunc, eget ullamcorper. Aliquet vitae pulvinar risus
-					hac in a. Elementum turpis dis ultrices enim. Fringilla in phasellus
-					arcu placerat tristique eget lacinia. Aliquam sed hac platea sit
-					ornare nam pellentesque. Nunc lacus sapien senectus faucibus felis.
-					Enim id ultrices elit venenatis. Ut egestas venenatis lacus vel diam
-					feugiat lobortis tortor et. Volutpat massa sagittis, quis vestibulum
-					nunc, eget ullamcorper. Aliquet vitae pulvinar risus hac in a.
+					{description}
 				</Text>
 			</Flex>
 		</Flex>
