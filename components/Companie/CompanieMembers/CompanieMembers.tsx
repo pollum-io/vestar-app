@@ -1,5 +1,7 @@
 import { Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
+import { fetchImages } from "../../../services/fetchImages";
+import { ICompaniesTeam } from "../../Companies/CompaniesCard/dto";
 import { ICompanieMembers } from "./dto";
 
 export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
@@ -7,10 +9,20 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 	name,
 	occupation,
 }) => {
+	const [images, setImages] = useState<string>();
+
+	useEffect(() => {
+		if (image) {
+			fetchImages(image).then(res => {
+				setImages(res);
+			});
+		}
+	}, [image]);
+
 	return (
 		<Flex flexDirection="column" gap="0.5rem" alignItems="center">
 			<Flex w="4rem" h="4rem">
-				<Img src="images/CompanieMemberImage.png" />
+				<Img src={images} />
 			</Flex>
 			<Flex
 				fontFamily="Poppins"
@@ -19,7 +31,6 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 				alignItems="center"
 				color="#171923"
 				gap="0.25rem"
-				textAlign="center"
 				flexDirection="column"
 			>
 				<Text>{name}</Text>
@@ -29,7 +40,11 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 	);
 };
 
-export const CompanieMembers: FunctionComponent = () => {
+export const CompanieMembers: FunctionComponent<any> = ({
+	image,
+	name,
+	occupation,
+}) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3, xl: 3 }}
@@ -38,14 +53,7 @@ export const CompanieMembers: FunctionComponent = () => {
 			rowGap="2.75rem"
 			mt="2rem"
 		>
-			<CompanieMember name="Celso Filho" occupation="Sócio Fundador" />
-			<CompanieMember name="Antônio da Silva" occupation="Vice Presidente" />
-			<CompanieMember name="Antônio M. Neto" occupation="Diretor Geral" />
-			<CompanieMember name="João C. Marques" occupation="Diretor Financeiro" />
-			<CompanieMember
-				name="Henrique B. de Souza"
-				occupation="Gerente de Vendas"
-			/>
+			<CompanieMember image={image} name={name} occupation={occupation} />
 		</SimpleGrid>
 	);
 };

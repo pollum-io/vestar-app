@@ -1,44 +1,103 @@
 import { Flex } from "@chakra-ui/react";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
-import { useQuery } from "react-query";
 import { fetchGeocode } from "../../services";
+interface IMaps {
+	localization?: any;
+	localizations?: any;
+}
 
-export const Maps: FunctionComponent = () => {
+export const Maps: FunctionComponent<IMaps> = ({
+	localization,
+	localizations,
+}) => {
 	const [getLocalization, setGetLocalization] = useState<any>([]);
+	const [getLocalizations, setGetLocalizations] = useState<any>([]);
+
+	const [data, setData] = useState<any>([]);
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_APY_KEY as any,
 	});
-	const { data } = useQuery("geocode", fetchGeocode, {
-		refetchOnWindowFocus: false,
-		refetchInterval: 300000,
-	});
 
 	useEffect(() => {
-		const localiza = data?.results.map((data: any) => data?.geometry?.location);
-		setGetLocalization(localiza);
-	}, [data]);
+		if (localization) {
+			fetchGeocode(localization as any).then(res => {
+				setData(res);
+			});
+		} else if (localizations) {
+			localizations?.map((data: any) => {
+				fetchGeocode(data.address as any).then(res => {
+					setData((prevState: any) => [...prevState, res]);
+				});
+			});
+		}
+	}, [localization, localizations]);
 
-	const localization = useMemo(() => getLocalization?.[0], [getLocalization]);
+	useEffect(() => {
+		if (localizations) {
+			const asd = data?.map((data: any) => data?.results).flat();
+			const aaa = asd?.map((data: any) => data?.geometry?.location);
 
-	const markers = [
-		{ id: 1, lat: -30.056766674179258, lng: -51.16853770737718 },
-		{ id: 2, lat: -30.056432373116305, lng: -51.17922362813253 },
-	];
+			const getPlace = aaa.reduce((acc: any, curr: any) => {
+				const alreadyExists = acc.some(
+					(marker: any) => marker.lat === curr.lat && marker.lng === curr.lng
+				);
+
+				if (!alreadyExists) {
+					acc.push(curr);
+				}
+
+				return acc;
+			}, []);
+
+			setGetLocalizations(getPlace);
+		}
+		const getPlace = data?.results?.map(
+			(data: any) => data?.geometry?.location
+		);
+		setGetLocalization(getPlace);
+	}, [data, localizations]);
+
+	const convertPlace = useMemo(() => getLocalization?.[0], [getLocalization]);
+	const convertPlaces = useMemo(
+		() => getLocalizations?.[0],
+		[getLocalizations]
+	);
 
 	return (
 		<>
 			{isLoaded ? (
-				<GoogleMap
-					zoom={16}
-					center={{ lat: -30.056766674179258, lng: -51.16853770737718 }}
-					mapContainerClassName="map-container"
-				>
-					{markers.map((data: any) => (
+				localizations?.length ? (
+					<GoogleMap
+						zoom={16}
+						center={convertPlace?.length ? convertPlace : convertPlaces}
+						mapContainerClassName="map-container"
+					>
+						{getLocalizations.map((places: any) => (
+							// eslint-disable-next-line react/jsx-key
+							<MarkerF
+								icon={{
+									url: "/images/icons/Home-Maps.svg",
+									scaledSize: new google.maps.Size(57, 57),
+									labelOrigin: new google.maps.Point(30, -32),
+								}}
+								label={{
+									text: "Crypto Plaza",
+									className: "map-label",
+								}}
+								position={{ lat: places.lat, lng: places.lng }}
+							/>
+						))}
+					</GoogleMap>
+				) : (
+					<GoogleMap
+						zoom={16}
+						center={convertPlace}
+						mapContainerClassName="map-container"
+					>
 						<MarkerF
-							key={data.id}
 							icon={{
-								url: "icons/Home-Maps.svg",
+								url: "/images/icons/Home-Maps.svg",
 								scaledSize: new google.maps.Size(57, 57),
 								labelOrigin: new google.maps.Point(30, -32),
 							}}
@@ -46,12 +105,12 @@ export const Maps: FunctionComponent = () => {
 								text: "Crypto Plaza",
 								className: "map-label",
 							}}
-							position={{ lat: data.lat, lng: data.lng }}
+							position={convertPlace}
 						/>
-					))}
-				</GoogleMap>
+					</GoogleMap>
+				)
 			) : (
-				<Flex>Oi</Flex>
+				<Flex>Loading...</Flex>
 			)}
 		</>
 	);

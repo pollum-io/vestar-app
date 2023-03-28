@@ -5,17 +5,14 @@ import "../styles/termsScrollbar.css";
 import AppWrapper from "../container/AppWrapper";
 import "../styles/maps.css";
 import "../styles/mapsLabel.css";
-
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastyProvider } from "../contexts/toasty";
-
-const userTheme = {
-	...theme,
-	config: {
-		...theme.config,
-		initialColorMode: "light",
-	},
-};
+import { OpportunitiesProvider } from "../contexts/opportunities";
+import { WalletProvider } from "../contexts/wallet";
+import { UserProvider } from "../contexts/user";
+import { TransactionsProvider } from "../contexts/transactions";
+import "../styles/tooltipChart.css";
+import "../styles/pieChart.css";
 
 const toasty = {
 	bg: "#FFFFFF",
@@ -26,15 +23,23 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	const queryClient = new QueryClient({});
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<ChakraProvider resetCSS theme={userTheme}>
-				<ToastyProvider {...toasty}>
-					<AppWrapper>
-						<Component {...pageProps} />
-					</AppWrapper>
-				</ToastyProvider>
-			</ChakraProvider>
-		</QueryClientProvider>
+		<WalletProvider>
+			<UserProvider>
+				<TransactionsProvider>
+					<QueryClientProvider client={queryClient}>
+						<OpportunitiesProvider>
+							<ChakraProvider resetCSS theme={theme}>
+								<ToastyProvider {...toasty}>
+									<AppWrapper>
+										<Component {...pageProps} />
+									</AppWrapper>
+								</ToastyProvider>
+							</ChakraProvider>
+						</OpportunitiesProvider>
+					</QueryClientProvider>
+				</TransactionsProvider>
+			</UserProvider>
+		</WalletProvider>
 	);
 };
 export default MyApp;

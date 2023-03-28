@@ -9,21 +9,14 @@ import {
 import { Carousel } from "./Carousel";
 import { GrFormClose } from "react-icons/gr";
 
-export interface ICollectionsModal {
+interface ICollectionsModal {
 	isOpen: boolean;
 	onClose: () => void;
+	images: any;
 }
 
-const images = [
-	{ id: 0, image: "images/backgrounds/Image.png" },
-	{ id: 1, image: "images/backgrounds/Image-1.png" },
-	{ id: 2, image: "images/backgrounds/Image-2.png" },
-	{ id: 3, image: "images/backgrounds/Image-3.png" },
-	{ id: 4, image: "images/backgrounds/Image-4.png" },
-];
-
 export const CollectionsModal: React.FC<ICollectionsModal> = props => {
-	const { isOpen, onClose } = props;
+	const { isOpen, onClose, images } = props;
 
 	return (
 		<>
@@ -54,7 +47,7 @@ export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 								</Flex>
 							</Flex>
 							<Carousel
-								images={images}
+								modal_images={images}
 								widthValue="55.8125rem"
 								heightValue="37.5rem"
 							/>
