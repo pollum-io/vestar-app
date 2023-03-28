@@ -1,4 +1,4 @@
-import { Flex, Img, Text, Icon } from "@chakra-ui/react";
+import { Flex, Img, Text, Icon, SimpleGrid } from "@chakra-ui/react";
 import React, { FunctionComponent, useState } from "react";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "../../components/Imovel/Collections";
@@ -64,8 +64,12 @@ export const ImovelContainer: FunctionComponent = () => {
 							<Text color={"#718096"}>Jurerê, Florianópolis</Text>
 						</Flex>
 						<Flex flexDir={"column"} pb="3rem">
-							<Flex gap="4.25rem" pb="2rem">
-								<Flex flexDir={"column"} gap="0.25rem">
+							<SimpleGrid
+								columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+								w="fit-content"
+								rowGap="2rem"
+							>
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Investimento Mín.
 									</Text>
@@ -76,7 +80,7 @@ export const ImovelContainer: FunctionComponent = () => {
 										<Text color="#000000">150</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Início da Obra
 									</Text>
@@ -84,7 +88,7 @@ export const ImovelContainer: FunctionComponent = () => {
 										<Text color="#000000">Jan 2022</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Prev. Conclusão
 									</Text>
@@ -92,11 +96,16 @@ export const ImovelContainer: FunctionComponent = () => {
 										<Text color="#000000">Out 2025</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex
+									flexDir={"column"}
+									gap="0.25rem"
+									w="10.5rem"
+									order={["unset", "unset", "unset", "1", "unset"]}
+								>
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Rentabilidade Esperada
 									</Text>
-									<Flex gap="0.25rem" alignItems="center">
+									<Flex gap="0.25rem" alignItems="center" w="7rem">
 										<Text color="#000000">12% ao ano</Text>
 										<Img
 											src={"icons/InfoSquare.png"}
@@ -107,9 +116,8 @@ export const ImovelContainer: FunctionComponent = () => {
 										/>
 									</Flex>
 								</Flex>
-							</Flex>
-							<Flex gap="5.25rem">
-								<Flex flexDir={"column"} gap="0.25rem">
+
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Preço Inicial m²
 									</Text>
@@ -120,7 +128,7 @@ export const ImovelContainer: FunctionComponent = () => {
 										<Text color="#000000">12.800,00</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Preço Final m²
 									</Text>
@@ -131,7 +139,7 @@ export const ImovelContainer: FunctionComponent = () => {
 										<Text color="#000000">16.800,00</Text>
 									</Flex>
 								</Flex>
-							</Flex>
+							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
 							<Text color={"#171923"}>
@@ -304,7 +312,13 @@ export const ImovelContainer: FunctionComponent = () => {
 				<Flex maxWidth="70rem">
 					<Maps />
 				</Flex>
-				<Flex mt="2rem" gap="7.75rem" justifyContent="center">
+				<Flex
+					mt="2rem"
+					w="100%"
+					justifyContent="space-between"
+					maxWidth="70rem"
+					gap="3rem"
+				>
 					<Flex flexDir={"column"} gap="1rem" w="34.875rem">
 						<Text fontWeight={"600"} color={"#171923"}>
 							Jurerê, Florianópolis, Santa Catarina

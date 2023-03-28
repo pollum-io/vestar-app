@@ -37,7 +37,7 @@ const PieChartPortfolio = dynamic(
 export const PortfolioContainer: FunctionComponent = () => {
 	const [value, setValue] = useState("1");
 	const [isInvestor, setIsInvestor] = useState(false);
-	const [hasInvest, setHasInvest] = useState(true);
+	const [hasInvest, setHasInvest] = useState(false);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
 
@@ -48,23 +48,31 @@ export const PortfolioContainer: FunctionComponent = () => {
 					bgColor={"#1789A3"}
 					alignItems="center"
 					borderBottomRadius="0.75rem"
-					pr="5.5rem"
-					pl="5rem"
+					px="5rem"
 					pt="6.8125rem"
 					pb="1.5rem"
 					w="100%"
 					justifyContent="center"
 				>
 					<Flex w="100%" justifyContent="space-between" maxWidth="70rem">
-						<Flex flexDir={"column"} color="white" mr="3rem">
+						<Flex flexDir={"column"} color="white" justifyContent="center">
 							<Text fontWeight={"600"} fontSize="3xl">
 								Olá, Pred!
 							</Text>
-							<Text fontSize={"sm"} fontWeight="400">
+							<Text
+								fontSize={"sm"}
+								fontWeight="400"
+								display={hasInvest ? "flex" : "none"}
+							>
 								Esse é o portfólio da Nome da Empresa de 28/nov/22
 							</Text>
 						</Flex>
-						<Flex position="relative" w="34rem" h="5.25rem">
+						<Flex
+							position="relative"
+							w="34rem"
+							h="5.25rem"
+							justifyContent="end"
+						>
 							<YourDetailtCard />
 						</Flex>
 					</Flex>

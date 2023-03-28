@@ -83,7 +83,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 								lineHeight="1rem"
 								color="#007D99"
 								_hover={{ cursor: "pointer" }}
-								onClick={() => push("/forgot_password")}
+								onClick={() => push("/esqueceu_senha")}
 							>
 								Esqueceu a senha?
 							</Text>
@@ -150,14 +150,14 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							lineHeight="1rem"
 							color="#007D99"
 							_hover={{ cursor: "pointer" }}
-							onClick={() => push("/register")}
+							onClick={() => push("/registrar")}
 						>
 							Cadastrar
 						</Text>
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex h="100%" w="max-content">
+			<Flex h="100%" w="54rem">
 				<Img
 					src="images/backgrounds/LoginBackground.png"
 					h="100%"

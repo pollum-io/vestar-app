@@ -7,8 +7,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 
 	return (
 		<Flex
-			w="100%"
-			minWidth="30rem"
+			w={hasInvest ? "34.4375rem" : "29.5625rem"}
 			zIndex="9"
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
@@ -25,7 +24,7 @@ export const YourDetailtCard: FunctionComponent = () => {
 				w={isInvestidor ? "20%" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 0.5 : 1}
+				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Flex alignItems="center" gap="3">
 					<Text fontWeight={"500"} fontSize="sm" color="#007D99">
@@ -39,14 +38,14 @@ export const YourDetailtCard: FunctionComponent = () => {
 					/>
 				</Flex>
 				<Text fontSize={"xl"} fontWeight="600" color="#171923">
-					{isInvestidor ? "42" : "R$ 237.097,68"}
+					{hasInvest ? (isInvestidor ? "42" : "R$ 237.097,68") : "R$0"}
 				</Text>
 			</Flex>
 			<Flex
 				w="max"
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 0.5 : 1}
+				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
 					{isInvestidor ? "Arrecadação" : "Resultado"}
@@ -54,17 +53,17 @@ export const YourDetailtCard: FunctionComponent = () => {
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={isInvestidor ? "#171923" : "#38A169"}
+					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
 					textAlign={"left"}
 				>
-					{isInvestidor ? "R$ 2.584.256" : "+ R$ 3.256"}
+					{hasInvest ? (isInvestidor ? "R$ 2.584.256" : "+ R$ 3.256") : "-"}
 				</Text>
 			</Flex>
 			<Flex
 				w="max"
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 0.5 : 1}
+				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
 					{isInvestidor ? "Contas Negociadas" : "Rentabilidade"}
@@ -72,9 +71,9 @@ export const YourDetailtCard: FunctionComponent = () => {
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={isInvestidor ? "#171923" : "#38A169"}
+					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
 				>
-					{isInvestidor ? "37%" : "+ 13,5 %"}
+					{hasInvest ? (isInvestidor ? "37%" : "+ 13,5 %") : "-"}
 				</Text>
 			</Flex>
 		</Flex>
