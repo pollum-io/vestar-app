@@ -6,9 +6,7 @@ import { FiMapPin } from "react-icons/fi";
 import { fetchOpportunity } from "../../../services/fetchOpportunity";
 import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
-import { fetchOpportunitiesImages } from "../../../services/fetchOpportunitiesImages";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
-import { fetchEnterpriseById } from "../../../services";
 
 interface IOpportunitiesCompaniesCard {
 	enterpriseId?: any;
@@ -101,7 +99,7 @@ export const OpportunitiesCard: FunctionComponent<
 						justifyContent="end"
 					>
 						<Img
-							src={`http://localhost:3000/api/file/${cards.enterprise_logo}`}
+							src={`http://localhost:3000/api/file/${cards.pictures_enterprise[0]}`}
 							borderRadius="0.75rem"
 							filter={"none"}
 						/>
@@ -149,7 +147,7 @@ export const OpportunitiesCard: FunctionComponent<
 									<Img
 										w={4}
 										h={4}
-										src={`http://localhost:3000/api/file/${cards.pictures_enterprise[0]}`}
+										src={`http://localhost:3000/api/file/${cards.enterprise_logo}`}
 									/>
 								)}
 								<Text
