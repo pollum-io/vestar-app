@@ -1,5 +1,5 @@
 import { FunctionComponent, useCallback, useState } from "react";
-import { Flex, Img, Text, Icon } from "@chakra-ui/react";
+import { Flex, Img, Text, Icon, SimpleGrid } from "@chakra-ui/react";
 import { FiMapPin } from "react-icons/fi";
 import { Collections } from "./Collections";
 import { PriceCard } from "./PriceCard";
@@ -72,9 +72,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		[imovelDetails.token_address, account]
 	);
 
-	console.log(usersId, "usersId");
 	return (
-		<Flex flexDir={"column"}>
+		<>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
 				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
 				<Flex gap="2.75rem" maxWidth="70rem">
@@ -124,12 +123,17 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 						<Flex gap="0.625rem" pb="1.5rem">
 							<Icon w="1.25rem" h="1.5rem" color={"#718096"} as={FiMapPin} />
 							<Text color={"#718096"}>
+								{" "}
 								{`${imovelDetails?.address?.street}, ${imovelDetails?.address?.neighborhood}`}
 							</Text>
 						</Flex>
 						<Flex flexDir={"column"} pb="3rem">
-							<Flex gap="4.25rem" pb="2rem">
-								<Flex flexDir={"column"} gap="0.25rem">
+							<SimpleGrid
+								columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+								w="fit-content"
+								rowGap="2rem"
+							>
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Investimento Mín.
 									</Text>
@@ -140,7 +144,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										<Text color="#000000">{`${imovelDetails?.min_investment}$`}</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Início da Obra
 									</Text>
@@ -150,7 +154,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Prev. Conclusão
 									</Text>
@@ -160,21 +164,24 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex
+									flexDir={"column"}
+									gap="0.25rem"
+									w="10.5rem"
+									order={["unset", "unset", "unset", "1", "unset"]}
+								>
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Rentabilidade Esperada
 									</Text>
-									<Flex gap="0.25rem" alignItems="center">
+									<Flex gap="0.25rem" alignItems="center" w="7rem">
 										<Text color="#000000">
 											{imovelDetails?.profitability}% ao ano
 										</Text>
 										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
 								</Flex>
-							</Flex>
-							{/* TODO: FALTA */}
-							<Flex gap="5.25rem">
-								<Flex flexDir={"column"} gap="0.25rem">
+
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Preço Inicial m²
 									</Text>
@@ -185,7 +192,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										<Text color="#000000">12.800,00</Text>
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										Preço Final m²
 									</Text>
@@ -196,11 +203,12 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										<Text color="#000000">16.800,00</Text>
 									</Flex>
 								</Flex>
-							</Flex>
+							</SimpleGrid>
 						</Flex>
-						<Flex flexDir={"column"} gap="5" w="100%">
+						<Flex flexDir={"column"} gap="5">
 							<Text color={"#171923"}>{imovelDetails?.description}</Text>
 						</Flex>
+
 						<Flex mt="4rem" flexDir={"column"}>
 							<Text
 								mb="2rem"
@@ -211,12 +219,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								O que este empreendimento oferece
 							</Text>
 							<Flex gap="8rem">
-								<Flex
-									flexDir={"column"}
-									maxH={"10rem"}
-									flexWrap={"wrap"}
-									color={"#171923"}
-								>
+								<Flex flexDir={"column"} color={"#171923"}>
 									{imovelDetails?.general_info?.map((infos: string, idx) => (
 										<Text key={idx} pr="3">
 											&bull; {infos}
@@ -295,7 +298,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								oportunitiesAddress={imovelDetails?.token_address}
 								investor_id={usersId?.investor_id}
 								enterprise_id={usersId?.enterprise_id}
-							/>
+							/>{" "}
 						</Flex>
 					</Flex>
 				</Flex>
@@ -319,7 +322,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit-Square.png"} />
+							<Img src={"/images/icons/Edit Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 								Auditorias
 							</Text>
@@ -359,8 +362,14 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 				<Flex maxWidth="70rem">
 					<Maps localization={imovelDetails?.address} />
 				</Flex>
-				<Flex w="100%" mt="2rem" justifyContent={"space-between"}>
-					<Flex w="50%" flexDir={"column"} gap="1rem">
+				<Flex
+					mt="2rem"
+					w="100%"
+					justifyContent="space-between"
+					maxWidth="70rem"
+					gap="3rem"
+				>
+					<Flex flexDir={"column"} gap="1rem" w="34.875rem">
 						<Text fontWeight={"600"} color={"#171923"}>
 							{imovelDetails?.address?.street},{" "}
 							{imovelDetails?.address?.neighborhood},{" "}
@@ -370,7 +379,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							{imovelDetails?.neighbor_description}
 						</Text>
 					</Flex>
-					<Flex w="40%" mx="8" justifyContent={"flex-end"}>
+					<Flex>
 						<Carousel
 							extra_images={imovelDetails?.pictures_neighbor as any[]}
 							widthValue="70rem"
@@ -379,6 +388,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 					</Flex>
 				</Flex>
 			</Flex>
-		</Flex>
+		</>
 	);
 };

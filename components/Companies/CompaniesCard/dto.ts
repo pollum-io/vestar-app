@@ -26,8 +26,8 @@ export interface ICompaniesDetails {
 interface ICompaniesSocial {
 	[key: string]: {
 		url: string;
-		username: string
-	}
+		username: string;
+	};
 }
 
 interface ICompaniesAddress {
@@ -38,7 +38,7 @@ interface ICompaniesAddress {
 }
 
 export interface ICompaniesTeam {
-	name: string;
+	name: any;
 	position: string;
 	image: string;
 }
