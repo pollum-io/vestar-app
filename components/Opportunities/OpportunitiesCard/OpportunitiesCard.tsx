@@ -79,7 +79,7 @@ export const OpportunitiesCard: FunctionComponent<
 					<Flex
 						key={cards._id}
 						w="18.125rem"
-						h="24.5625rem"
+						h="max-content"
 						background="#FFFFFF"
 						boxShadow="0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.05)"
 						borderRadius="0.75rem"
