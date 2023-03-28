@@ -40,13 +40,7 @@ export const RegisterContainer: FunctionComponent = (props: any) => {
 						<RegisterSteps />
 					</Flex>
 				</Flex>
-				<Flex
-					pl="27%"
-					w="100%"
-					h="100%"
-					alignItems="flex-start"
-					flexDirection="column"
-				>
+				<Flex w="100%" h="100%" alignItems="center" flexDirection="column">
 					<RegisterContent token={token} />
 				</Flex>
 			</Flex>
