@@ -1,6 +1,6 @@
 import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
 import { FiCopy } from "react-icons/fi";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useRegister } from "../../hooks";
 import { useRouter } from "next/router";
 import { useOpportunities } from "../../hooks/useOpportunities";
@@ -30,7 +30,16 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const { ended, hasToken } = useOpportunities();
 	const { push } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
+	const [copied, setCopied] = useState(false);
 
+	const handleClick = async (value: string) => {
+		try {
+			await navigator.clipboard.writeText(value);
+			setCopied(true);
+		} catch (error) {
+			console.error("Failed to copy text: ", error);
+		}
+	};
 	const avalible = useMemo(() => {
 		if (supply > minted) {
 			return supply - minted;
@@ -188,13 +197,14 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
-							{`${address.slice(0, 5)}...${address.slice(38)}`}
+							{`${address?.slice(0, 5)}...${address?.slice(38)}`}
 						</Text>
 						<Icon
 							color={"#4BA3B7"}
 							w={4}
 							h={4}
 							as={FiCopy}
+							onClick={() => handleClick(address)}
 							_hover={{ cursor: "pointer" }}
 						/>
 					</Flex>
