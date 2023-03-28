@@ -3,11 +3,16 @@ export interface ICompaniesCard {
 	enterprise_name?: string;
 	enterprise_info?: ICompaniesInfo[];
 	enterprise_logo?: string;
+	enterprise_banner?: string;
+	opportunities_available?: number;
+	opportunities_closed?: number;
 }
 
 export interface ICompaniesDetails {
 	_id: string;
 	enterprise_name: string;
+	enterprise_logo?: string;
+	enterprise_banner?: string;
 	cnpj: string;
 	site_url: string;
 	email: string;

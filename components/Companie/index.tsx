@@ -11,7 +11,7 @@ import {
 	ICompaniesInfo,
 	ICompaniesTeam,
 } from "../Companies/CompaniesCard/dto";
-
+import { fetchOpportunitiesImages } from "../../services";
 interface ICompanie {
 	companieDetail: ICompaniesDetails;
 }
@@ -19,6 +19,25 @@ interface ICompanie {
 export const CompaniePage: FunctionComponent<ICompanie> = ({
 	companieDetail,
 }) => {
+	console.log(companieDetail);
+	const [cardLogo, setCardLogo] = useState<any>();
+	const [cardBanner, setCardBanner] = useState<any>();
+
+	useEffect(() => {
+		if (companieDetail) {
+			fetchOpportunitiesImages(companieDetail?.enterprise_logo as any).then(
+				res => {
+					setCardLogo(res);
+				}
+			);
+			fetchOpportunitiesImages(companieDetail?.enterprise_banner as any).then(
+				res => {
+					setCardBanner(res);
+				}
+			);
+		}
+	}, [companieDetail]);
+
 	return (
 		<Flex flexDirection="column" gap="2rem" mt="6.25rem" mb="4.5rem">
 			<Flex
@@ -33,10 +52,11 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 						<Flex flexDirection="column">
 							<Flex>
 								<CompanieDetails
-									logo="images/companiesCardLogo.png"
+									logo={cardLogo}
+									banner={cardBanner}
 									name={companieDetail?.enterprise_name}
 									id={`CNPJ: ${companieDetail?.cnpj}`}
-									location={`${companieDetail?.address.street}, ${companieDetail?.address.neighborhood} - ${companieDetail?.address.state}`}
+									location={`${companieDetail?.address?.street}, ${companieDetail?.address?.neighborhood} - ${companieDetail?.address?.state}`}
 									description={companieDetail?.description}
 								/>
 							</Flex>
@@ -196,7 +216,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 				</Flex>
 			</Flex>
 			<Flex px="1.5rem" w="100%" justifyContent="center">
-				<OpportunitiesCards />
+				<OpportunitiesCards enterpriseId={companieDetail?._id} />
 			</Flex>
 		</Flex>
 	);
