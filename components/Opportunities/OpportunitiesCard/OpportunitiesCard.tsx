@@ -30,44 +30,6 @@ export const OpportunitiesCard: FunctionComponent<
 		}
 	);
 
-	// const [cardImage, setCardImage] = useState<string[]>([]);
-
-	// useEffect(() => {
-	// 	if (cardsInfo) {
-	// 		cardsInfo.data.map((card: IOpportunitiesCard) => {
-	// 			card.pictures_enterprise.map((picture: string) => {
-	// 				fetchOpportunitiesImages(picture).then(res => {
-	// 					setCardImage(prevState => [...prevState, res]);
-	// 				});
-	// 			});
-	// 		});
-	// 	}
-	// }, [cardsInfo]);
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const cardsInfoCompany = await fetchOpportunitiesByCompany(enterpriseId);
-	// 		setCardsInfoCompany(cardsInfoCompany);
-	// 	};
-	// 	fetchData();
-	// }, [enterpriseId]);
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		cardsInfo?.data?.map((card: IOpportunitiesCard) => {
-	// 			fetchOpportunitiesImages(card?.enterprise_logo).then(res => {
-	// 				setCompanyLogo(res);
-	// 			});
-	// 		});
-	// 	};
-	// 	fetchData();
-	// }, [
-	// 	cardsInfo?.data,
-	// 	cardsInfo?.data?.enterprise_logo,
-	// 	companyLogo,
-	// 	enterpriseId,
-	// ]);
-
 	return (
 		<>
 			{cardsInfo?.data?.map((cards: IOpportunitiesCard) => (
