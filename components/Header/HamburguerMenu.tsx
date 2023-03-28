@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { useRouter } from "next/router";
-import { logout } from "../../services/logout";
+import { logout } from "../../services/fetchLogout";
 import { useUser } from "../../hooks/useUser";
 import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet";

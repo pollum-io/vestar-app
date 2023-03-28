@@ -88,6 +88,9 @@ const OpportunitySchema = new mongoose.Schema(
 		picture_extra: {
 			type: Array,
 		},
+		enterprise_logo: {
+			type: String,
+		},
 		enterprise_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,

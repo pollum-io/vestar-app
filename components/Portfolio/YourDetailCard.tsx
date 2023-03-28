@@ -22,8 +22,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 
 	return (
 		<Flex
-			w="100%"
-			minWidth={isInvestidor ? "33rem" : "30rem"}
+			w={hasInvest ? "34.4375rem" : "29.5625rem"}
 			zIndex="9"
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
@@ -40,7 +39,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 				w={isInvestidor ? "8.1875rem" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 0.5 : 1}
+				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Flex alignItems="center" gap="3">
 					<Text fontWeight={"500"} fontSize="sm" color="#007D99">
@@ -61,7 +60,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 				w="max"
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 0.5 : 1}
+				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
 					{isInvestidor ? "Arrecadação" : ""}
@@ -69,7 +68,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={isInvestidor ? "#171923" : "#38A169"}
+					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
 					textAlign={"left"}
 				>
 					{isInvestidor ? "R$ 2.584.256" : ""}
@@ -79,7 +78,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 				w="max"
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 0.5 : 1}
+				opacity={hasInvest ? 1 : 0.5}
 			>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
 					{isInvestidor ? "Contas Negociadas" : ""}
@@ -87,7 +86,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={isInvestidor ? "#171923" : "#38A169"}
+					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
 				>
 					{isInvestidor ? "37%" : ""}
 				</Text>

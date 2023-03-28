@@ -6,24 +6,32 @@ import { useQuery } from "react-query";
 import { fetchEnterprise } from "../../../services/fetchEnterprise";
 import { fetchImages } from "../../../services/fetchImages";
 
-const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
+export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	_id,
 	enterprise_name,
 	enterprise_info,
-	enterprise_logo
+	enterprise_logo,
+	opportunities_closed,
+	opportunities_available,
+	enterprise_banner,
 }) => {
 	const { push } = useRouter();
 
-	const [images, setImages] = useState<string>()
+	const [images, setImages] = useState<string>();
+	const [banner, setBanner] = useState<string>();
 
 	useMemo(() => {
 		if (enterprise_logo) {
 			fetchImages(enterprise_logo).then((res: any) => {
-				setImages(res)
-			})
+				setImages(res);
+			});
 		}
-	}, [enterprise_logo])
-
+		if (enterprise_banner) {
+			fetchImages(enterprise_banner).then((res: any) => {
+				setBanner(res);
+			});
+		}
+	}, [enterprise_banner, enterprise_logo]);
 	return (
 		<Flex
 			w="100%"
@@ -38,7 +46,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				borderRadius="0.75rem"
 				h="9.3125rem"
 			>
-
+				<Img borderRadius="0.75rem" w="100%" h="100%" src={banner} />
 			</Flex>
 			<Flex
 				gap="1.5rem"
@@ -69,7 +77,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 									Oportunidades Disponíveis
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									1
+									{opportunities_available}
 								</Text>
 							</Flex>
 							<Flex gap="0.5rem" alignItems="baseline">
@@ -77,7 +85,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 									Encerradas
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									2
+									{opportunities_closed}
 								</Text>
 							</Flex>
 						</Flex>
@@ -94,29 +102,13 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 							lineHeight="1rem"
 							color="#007D99"
 							_hover={{ bgColor: "#EDF2F7" }}
-							onClick={() => push({ pathname: `/empresas/${_id}`, query: { _id } })}
+							onClick={() => push({ pathname: `/empresas/${_id}` })}
 						>
 							Saiba mais
 						</Button>
 					</Flex>
 				</Flex>
 			</Flex>
-		</Flex>
-	);
-};
-
-export const CompaniesCards: FunctionComponent = () => {
-
-	const { data } = useQuery("companies", fetchEnterprise, {
-		refetchOnWindowFocus: false,
-		refetchInterval: false,
-	})
-
-	return (
-		<Flex flexDirection="column" gap="1.5rem" w="100%">
-			{data?.data?.map((infos: ICompaniesCard) =>
-				<CompaniesCard key={infos._id} _id={infos._id} enterprise_name={infos.enterprise_name} enterprise_info={infos.enterprise_info} enterprise_logo={infos.enterprise_logo} />
-			)}
 		</Flex>
 	);
 };

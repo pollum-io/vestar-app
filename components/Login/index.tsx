@@ -1,7 +1,7 @@
 import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
 import React, { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
-import { authenticate } from "../../services/login";
+import { authenticate } from "../../services/fetchLogin";
 import { useUser } from "../../hooks/useUser";
 import PersistentFramework from "../../utils/persistent";
 
@@ -107,7 +107,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 								lineHeight="1rem"
 								color="#007D99"
 								_hover={{ cursor: "pointer" }}
-								onClick={() => push("/forgot_password")}
+								onClick={() => push("/esqueceu_senha")}
 							>
 								Esqueceu a senha?
 							</Text>
@@ -185,7 +185,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex h="100%" w="max-content">
+			<Flex h="100%" w="54rem">
 				<Img
 					src="images/backgrounds/LoginBackground.png"
 					h="100%"

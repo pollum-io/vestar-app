@@ -7,7 +7,9 @@ interface ICompanieProps {
 	data: ICompaniesDetails;
 }
 
-export const CompanieContainer: FunctionComponent<ICompanieProps> = ({ data }) => {
+export const CompanieContainer: FunctionComponent<ICompanieProps> = ({
+	data,
+}) => {
 	return (
 		<DefaultTemplate>
 			<CompaniePage companieDetail={data} />
