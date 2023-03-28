@@ -27,15 +27,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 	const getInfos = async (data: any) => {
 		const response = await fetchGetInvestorById(userInfos, data);
 		const name = response?.data?.full_name;
-		console.log(name, "namename");
 		setUsername(name);
 		PersistentFramework.add("name", String(name));
 	};
 
 	useEffect(() => {
-		console.log(username, "username");
-		console.log(userInfos);
-
 		if (!userInfos || !username) {
 			const id = PersistentFramework.get("id");
 			const name = PersistentFramework.get("name");

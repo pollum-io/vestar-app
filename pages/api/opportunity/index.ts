@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import dbConnect from "../../../lib/dbConnect";
 import Opportunity from "../../../models/oportunity";
+import Enterprise from "../../../models/enterprise";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
@@ -58,11 +59,18 @@ router.post(verifyUser, async (req, res) => {
 
 		const opportunitiyData = req.body;
 
+		const enterprise = await Enterprise.findById(
+			opportunitiyData.enterprise_id
+		).lean();
+
 		OpportunitySchema.parse(opportunitiyData);
 
-		const user = await Opportunity.create(opportunitiyData);
+		const opportunity = await Opportunity.create({
+			...opportunitiyData,
+			enterprise_logo: enterprise.enterprise_logo,
+		});
 
-		res.status(201).json({ data: user });
+		res.status(201).json({ data: opportunity });
 	} catch (error: any) {
 		res.status(400).json({
 			error: !/^[\[|\{](\s|.*|\w)*[\]|\}]$/.test(error.message)

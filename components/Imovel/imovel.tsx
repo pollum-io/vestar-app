@@ -16,6 +16,9 @@ import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
+import { useQuery as query } from "react-query";
+import { fetchOpportunitiesImages } from "../../services";
+
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
 	usersId: any;
@@ -28,9 +31,22 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	const { hasToken } = useOpportunities();
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
+	const [companyLogo, setCompanyLogo] = useState<any>();
 	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
 	const { shares } = useTransactions();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const cardsInfoCompany = await fetchOpportunitiesImages(
+				imovelDetails?.enterprise_logo
+			);
+			setCompanyLogo(cardsInfoCompany);
+		};
+		fetchData();
+	}, [imovelDetails?.enterprise_logo]);
+
+	console.log(imovelDetails);
 
 	const renderer = ({
 		days,
@@ -79,7 +95,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
 						<Flex gap="0.5rem" pb="0.5rem">
-							<Img src="images/backgrounds/avatar.png" />
+							<Img w="6" h="6" src={companyLogo} />
 							<Text fontWeight={"400"} color="#171923">
 								Nome da Empresa Responsável
 							</Text>

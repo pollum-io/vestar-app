@@ -5,6 +5,7 @@ export interface IOpportunitiesCard {
 	profitability: number;
 	pictures_enterprise: string[];
 	name: string;
+	enterprise_logo: string;
 	enterprise_type: string;
 	expected_delivery_date: string; // ou data
 	min_investment: number;

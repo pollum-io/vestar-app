@@ -1,7 +1,7 @@
 import { Flex, Image, useDisclosure, SimpleGrid, Img } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { fetchOpportunitiesImages } from "../../services/opportunitiesImages";
+import { fetchOpportunitiesImages } from "../../services/fetchOpportunitiesImages";
 import { CollectionsModal } from "./CollectionsModal";
 interface ICollections {
 	images: any[];
@@ -10,21 +10,28 @@ interface ICollections {
 export const Collections: React.FC<ICollections> = props => {
 	const { images } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [cardImage, setCardImage] = useState<string[]>([])
+	const [cardImage, setCardImage] = useState<string[]>([]);
 
 	useEffect(() => {
 		if (images) {
 			images.map((picture: string) => {
 				fetchOpportunitiesImages(picture).then(res => {
-					setCardImage(prevState => [...prevState, res])
-
-				})
-			})
+					setCardImage(prevState => [...prevState, res]);
+				});
+			});
 		}
-	}, [images])
+	}, [images]);
 
 	return (
-		<Flex w="100%" h="100%" gap="0.5rem" pb="1.5rem" pt="2rem" onClick={onOpen} justifyContent="center">
+		<Flex
+			w="100%"
+			h="100%"
+			gap="0.5rem"
+			pb="1.5rem"
+			pt="2rem"
+			onClick={onOpen}
+			justifyContent="center"
+		>
 			<CollectionsModal images={cardImage} isOpen={isOpen} onClose={onClose} />
 			<Flex onClick={onOpen}>
 				<Img
