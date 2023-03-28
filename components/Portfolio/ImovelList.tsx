@@ -1,7 +1,7 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { FunctionComponent, useEffect, useState } from "react";
-import { fetchOpportunitiesImages } from "../../services/opportunitiesImages";
+import { fetchOpportunitiesImages } from "../../services";
 interface IImovelList {
 	isFinished: boolean;
 	isInvest: boolean;
