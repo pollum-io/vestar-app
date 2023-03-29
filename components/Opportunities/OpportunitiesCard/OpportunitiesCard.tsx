@@ -17,7 +17,7 @@ export const OpportunitiesCard: FunctionComponent<
 > = ({ enterpriseId }) => {
 	const currentTime = new Date().getTime();
 	const router = useRouter();
-
+	//TODO: move this request to a lower component level
 	const { data: cardsInfo } = query(
 		["oportunity", router.query],
 		() =>
