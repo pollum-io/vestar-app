@@ -1,7 +1,6 @@
-export async function fetchOpportunitiesImages(url: string) {
-	const request = await fetch(`http://localhost:3000/api/file/${url}`, {
-		method: "GET",
-	});
+import axios from "axios";
 
-	return request.url;
+export async function fetchOpportunitiesImages(url: string) {
+	const response = await axios.get(`http://localhost:3000/api/file/${url}`);
+	return response.data.url;
 }

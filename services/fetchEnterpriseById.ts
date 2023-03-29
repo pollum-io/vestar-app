@@ -1,11 +1,18 @@
-export const fetchEnterpriseById = async (id: any) => {
-	const request = await fetch(`http://localhost:3000/api/enterprise/${id}`, {
-		method: "GET",
-		headers: {
-			"content-type": "application/json",
-			accept: "application/json",
-		},
-	}).then(res => res.json());
+import axios from "axios";
 
-	return request;
+export const fetchEnterpriseById = async (id: any) => {
+	try {
+		const response = await axios.get(
+			`http://localhost:3000/api/enterprise/${id}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					accept: "application/json",
+				},
+			}
+		);
+		return response.data;
+	} catch (error: any) {
+		throw new Error(error.message);
+	}
 };
