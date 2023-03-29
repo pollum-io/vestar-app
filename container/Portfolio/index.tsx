@@ -57,7 +57,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	const [imvestmentFilter, setInvestmentFilter] = useState("processed");
 	const { username } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
-	console.log(portfolioData);
 
 	const calcularPorcentagensDeTipos = (objetos: any) => {
 		const contagemDeTipos: any = {};
@@ -75,7 +74,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 			const porcentagem = (contagem / totalDeObjetos) * 100;
 			porcentagensDeTipos[tipo] = porcentagem.toFixed(2);
 		});
-		console.log(porcentagensDeTipos);
 		setYoursInvestments(porcentagensDeTipos);
 		return porcentagensDeTipos;
 	};

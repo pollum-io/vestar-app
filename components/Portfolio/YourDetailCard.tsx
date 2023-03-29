@@ -39,7 +39,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 				w={isInvestidor ? "8.1875rem" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
-				opacity={hasInvest ? 1 : 0.5}
+				opacity={1}
 			>
 				<Flex alignItems="center" gap="3">
 					<Text fontWeight={"500"} fontSize="sm" color="#007D99">
