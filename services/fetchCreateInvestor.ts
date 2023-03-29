@@ -15,6 +15,6 @@ export const fetchCreateInvestor = async (data: any, token: any) => {
 		);
 		return response.data;
 	} catch (error: any) {
-		throw new Error(error.message);
+		console.log(error.message);
 	}
 };

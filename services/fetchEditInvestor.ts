@@ -19,6 +19,6 @@ export const fetchEditInvestor = async (
 		);
 		return response.data;
 	} catch (error: any) {
-		throw new Error(error.message);
+		console.log(error.message);
 	}
 };
