@@ -1,7 +1,7 @@
 import { Flex, Image, useDisclosure, SimpleGrid, Img } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { fetchOpportunitiesImages } from "../../services/fetchOpportunitiesImages";
+import { fetchImages } from "../../services/fetchImages";
 import { CollectionsModal } from "./CollectionsModal";
 interface ICollections {
 	images: any[];
@@ -15,7 +15,7 @@ export const Collections: React.FC<ICollections> = props => {
 	useEffect(() => {
 		if (images) {
 			images.map((picture: string) => {
-				fetchOpportunitiesImages(picture).then(res => {
+				fetchImages(picture).then(res => {
 					setCardImage(prevState => [...prevState, res]);
 				});
 			});

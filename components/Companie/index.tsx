@@ -11,7 +11,7 @@ import {
 	ICompaniesInfo,
 	ICompaniesTeam,
 } from "../Companies/CompaniesCard/dto";
-import { fetchOpportunitiesImages } from "../../services";
+import { fetchImages } from "../../services";
 interface ICompanie {
 	companieDetail: ICompaniesDetails;
 }
@@ -19,22 +19,17 @@ interface ICompanie {
 export const CompaniePage: FunctionComponent<ICompanie> = ({
 	companieDetail,
 }) => {
-	console.log(companieDetail);
 	const [cardLogo, setCardLogo] = useState<any>();
 	const [cardBanner, setCardBanner] = useState<any>();
 
 	useEffect(() => {
 		if (companieDetail) {
-			fetchOpportunitiesImages(companieDetail?.enterprise_logo as any).then(
-				res => {
-					setCardLogo(res);
-				}
-			);
-			fetchOpportunitiesImages(companieDetail?.enterprise_banner as any).then(
-				res => {
-					setCardBanner(res);
-				}
-			);
+			fetchImages(companieDetail?.enterprise_logo as any).then(res => {
+				setCardLogo(res);
+			});
+			fetchImages(companieDetail?.enterprise_banner as any).then(res => {
+				setCardBanner(res);
+			});
 		}
 	}, [companieDetail]);
 

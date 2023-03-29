@@ -1,7 +1,7 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { FunctionComponent, useEffect, useState } from "react";
-import { fetchOpportunitiesImages } from "../../services";
+import { fetchImages } from "../../services";
 interface IImovelList {
 	isFinished: boolean;
 	isInvest: boolean;
@@ -37,7 +37,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 			const newResultWithImages = await Promise.all(
 				result.map(async (item: any) => {
 					const image = item.pictures_enterprise[0];
-					const imageUrl = await fetchOpportunitiesImages(image);
+					const imageUrl = await fetchImages(image);
 					return { ...item, pictures_enterprise: imageUrl };
 				})
 			);

@@ -19,8 +19,6 @@ interface ICompanies {
 }
 
 export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
-	console.log(data);
-
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const filteredImoveis = data.filter((imovel: any) =>
