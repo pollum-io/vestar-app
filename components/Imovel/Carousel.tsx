@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
-import { fetchOpportunitiesImages } from "../../services/fetchOpportunitiesImages";
+import { fetchImages } from "../../services/fetchImages";
 
 const settings = {
 	dots: true,
@@ -34,7 +34,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 	useEffect(() => {
 		if (extra_images) {
 			extra_images.map((picture: string) => {
-				fetchOpportunitiesImages(picture).then(res => {
+				fetchImages(picture).then(res => {
 					setImagesCarousel(prevState => [...prevState, res]);
 				});
 			});
