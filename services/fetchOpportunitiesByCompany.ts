@@ -1,6 +1,10 @@
-export const fetchOpportunitiesByCompany = async (id: any) => {
+import qs from "qs";
+
+export const fetchOpportunitiesByCompany = async (query: object) => {
+	const params = query ? `?${qs.stringify(query)}` : "";
+
 	const request = await fetch(
-		`http://localhost:3000/api/opportunity?enterprise_id=${id}`,
+		`http://localhost:3000/api/opportunity${params}`,
 		{
 			method: "GET",
 			headers: {
