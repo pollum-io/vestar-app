@@ -10,5 +10,5 @@ export * from "./fetchImovelDetail";
 export * from "./fetchLogin";
 export * from "./fetchLogout";
 export * from "./fetchOpportunitiesByCompany";
-export * from "./fetchOpportunitiesImages";
+export * from "./fetchImages";
 export * from "./fetchOpportunity";
