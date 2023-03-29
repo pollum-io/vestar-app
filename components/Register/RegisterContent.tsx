@@ -152,7 +152,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										<InputComponent
 											placeholderText="00.000.000/0000-00"
 											label="CNPJ"
-											maxLength={18}
 											type="text"
 											{...register("cnpj")}
 										/>
@@ -185,7 +184,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										/>
 										<InputComponent
 											label="CPF"
-											maxLength={14}
 											type="text"
 											placeholderText="000.000.000-00"
 											{...register("cpf")}
