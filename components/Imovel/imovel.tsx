@@ -17,7 +17,7 @@ import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 import { useQuery as query } from "react-query";
-import { fetchOpportunitiesImages } from "../../services";
+import { fetchImages } from "../../services";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -35,18 +35,15 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
 	const { shares } = useTransactions();
-
 	useEffect(() => {
 		const fetchData = async () => {
-			const cardsInfoCompany = await fetchOpportunitiesImages(
+			const cardsInfoCompany = await fetchImages(
 				imovelDetails?.enterprise_logo
 			);
 			setCompanyLogo(cardsInfoCompany);
 		};
 		fetchData();
 	}, [imovelDetails?.enterprise_logo]);
-
-	console.log(imovelDetails);
 
 	const renderer = ({
 		days,
