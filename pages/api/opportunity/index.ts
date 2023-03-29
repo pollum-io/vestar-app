@@ -105,18 +105,19 @@ router.get(async (req, res) => {
 
 		const page = (req.query.page as any) ? (req.query.page as any) - 1 : 0;
 		const limit = (req.query.limit as any) || 12;
-		const totalPages = Math.ceil(
-			(await Opportunity.countDocuments({
-				...(filter.enterprise_id && { enterprise_id: filter.enterprise_id }),
-			})) / limit
-		);
+
+		const results = await Opportunity.countDocuments({
+			...(filter.enterprise_id && { enterprise_id: filter.enterprise_id }),
+		});
+
+		const totalPages = Math.ceil(results / limit);
 
 		const opportunities = await Opportunity.find(filter)
 			.limit(limit)
 			.skip(page * limit)
 			.sort({ createdAt: -1, ...sort });
 
-		const response = { data: opportunities, totalPages };
+		const response = { data: opportunities, totalPages, results };
 
 		res.status(200).json(response);
 	} catch (error: any) {

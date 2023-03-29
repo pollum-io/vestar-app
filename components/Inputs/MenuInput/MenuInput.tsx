@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback } from "react";
+import React, { FunctionComponent, useCallback, useState } from "react";
 import {
 	Flex,
 	Button,
@@ -6,6 +6,7 @@ import {
 	MenuButton,
 	MenuList,
 	MenuItem,
+	Text,
 } from "@chakra-ui/react";
 import { IMenuInput } from "./dto";
 import { IoIosArrowDown } from "react-icons/io";
@@ -18,7 +19,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 	param,
 }) => {
 	const router = useRouter();
-
+	const [value, setValue] = useState<any>("");
 	const setParams = useCallback(
 		(param: string, value: any) => {
 			router.query[param] = value;
@@ -35,7 +36,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 				as={Button}
 				rightIcon={<IoIosArrowDown color="#2D3748" />}
 				px="0.75rem"
-				gap="50%"
+				gap="80%"
 				borderRadius="0.375rem"
 				color={color}
 				w="14.375rem"
@@ -50,7 +51,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 				_expanded={{ bgColor: "#ffffff" }}
 				_focus={{ boxShadow: "none", bgColor: "#ffffff" }}
 			>
-				{placeholder}
+				{value ? value : placeholder}
 			</MenuButton>
 			<MenuList bgColor="#ffffff" border="0.0625rem solid #E2E8F0">
 				{fields?.map(field => (
@@ -58,7 +59,10 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 						key={field}
 						bgColor="#ffffff"
 						color="#2D3748"
-						onClick={() => setParams(param, field)}
+						onClick={() => {
+							setParams(param, field);
+							setValue(field);
+						}}
 					>
 						{field}
 					</MenuItem>
@@ -70,7 +74,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 
 export const MenuInputs: FunctionComponent = () => {
 	return (
-		<Flex gap="1.5rem">
+		<Flex gap="1.5rem" alignItems={"center"}>
 			<MenuInput
 				placeholder="Tipo de Imóvel"
 				color="#2D3748"
@@ -80,13 +84,13 @@ export const MenuInputs: FunctionComponent = () => {
 			<MenuInput
 				placeholder="Previsão de Conclusão"
 				color="#2D3748"
-				fields={["crescente", "decrescente"]}
+				fields={["Crescente", "Decrescente"]}
 				param="expected_delivery_date"
 			/>
 			<MenuInput
 				placeholder="Investimento Mínimo"
 				color="#2D3748"
-				fields={["min", "max"]}
+				fields={["Mínimo", "Máximo"]}
 				param="min_investment"
 			/>
 			{/* <MenuInput placeholder="Localização" color="#A0AEC0"/> */}
