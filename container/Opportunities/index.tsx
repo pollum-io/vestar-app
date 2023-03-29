@@ -185,9 +185,9 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 							]}
 						>
 							<MenuInputs />
-							<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
+							{/* <Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
 								1 resultados
-							</Text>
+							</Text> */}
 						</Flex>
 					</Flex>
 					<Flex mt="2.9375rem" w="100%" justifyContent="center">
