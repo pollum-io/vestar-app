@@ -63,7 +63,12 @@ export const OpportunitiesCard: FunctionComponent<
 						<Img
 							src={`/api/file/${cards.pictures_enterprise[0]}`}
 							borderRadius="0.75rem"
-							filter={"none"}
+							// filter={
+							// 	cards.token_minted === cards.token_supply ||
+							// 	currentTime > cards?.sale_end_at * 1000
+							// 		? "blur(3px)"
+							// 		: "none"
+							// }
 						/>
 						<Flex position="absolute" pt="0.625rem" pr="0.75rem">
 							<Flex
@@ -75,7 +80,6 @@ export const OpportunitiesCard: FunctionComponent<
 								borderRadius="2.6875rem"
 								px="0.5rem"
 								py="0.125rem"
-								blur="1.25rem"
 							>
 								{cards.token_minted === cards.token_supply ||
 								currentTime > cards?.sale_end_at * 1000 ? (

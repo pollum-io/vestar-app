@@ -32,6 +32,7 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 			});
 		}
 	}, [enterprise_banner, enterprise_logo]);
+	console.log(images, "images");
 	return (
 		<Flex
 			w="100%"
@@ -102,7 +103,12 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 							lineHeight="1rem"
 							color="#007D99"
 							_hover={{ bgColor: "#EDF2F7" }}
-							onClick={() => push({ pathname: `/empresas/${_id}` })}
+							onClick={() =>
+								push({
+									pathname: `/empresa/`,
+									query: { enterprise_id: `${_id}` },
+								})
+							}
 						>
 							Saiba mais
 						</Button>
