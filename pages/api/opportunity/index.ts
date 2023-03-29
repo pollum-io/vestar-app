@@ -7,6 +7,7 @@ import Opportunity from "../../../models/oportunity";
 import Enterprise from "../../../models/enterprise";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
+import queryParser from "../../../lib/queryParser";
 
 type ResponseData = ApiResponse<string>;
 
@@ -49,8 +50,10 @@ const OpportunitySchema = z.object({
 const fetchSchema = z.object({
 	page: z.optional(z.preprocess(Number, z.number())),
 	limit: z.optional(z.preprocess(Number, z.number())),
-	min_investment: z.optional(z.number()),
+	min_investment: z.optional(z.string()),
 	enterprise_id: z.optional(z.string()),
+	enterprise_type: z.optional(z.string()),
+	expected_delivery_date: z.optional(z.string()),
 });
 
 router.post(verifyUser, async (req, res) => {
@@ -86,29 +89,36 @@ router.get(async (req, res) => {
 
 		fetchSchema.parse(req.query);
 
-		// to do
-		// criar filtros para : tipo de imovel, investimento minimo, previsao de conclusao, localizaçao
+		const queryFilter = {
+			fields: ["enterprise_type", "enterprise_id"],
+			values: {},
+		};
+
+		const querySort = {
+			fields: ["expected_delivery_date", "min_investment"],
+			values: { min: 1, max: -1, crescente: 1, decrescente: -1 },
+		};
+
+		const filter = queryParser(req.query, queryFilter);
+
+		const sort = queryParser(req.query, querySort);
 
 		const page = (req.query.page as any) ? (req.query.page as any) - 1 : 0;
 		const limit = (req.query.limit as any) || 12;
-		const totalPages = Math.ceil(
-			(await Opportunity.countDocuments({
-				...(req.query?.enterprise_id && {
-					enterprise_id: req.query?.enterprise_id,
-				}),
-			})) / limit
-		);
 
-		const opportunities = await Opportunity.find({
-			...(req.query?.enterprise_id && {
-				enterprise_id: req.query?.enterprise_id,
-			}),
-		})
+		const results = await Opportunity.countDocuments(filter).sort({
+			createdAt: -1,
+			...sort,
+		});
+
+		const totalPages = Math.ceil(results / limit);
+
+		const opportunities = await Opportunity.find(filter)
 			.limit(limit)
 			.skip(page * limit)
-			.sort({ createdAt: -1 });
+			.sort({ createdAt: -1, ...sort });
 
-		const response = { data: opportunities, totalPages };
+		const response = { data: opportunities, totalPages, results };
 
 		res.status(200).json(response);
 	} catch (error: any) {
