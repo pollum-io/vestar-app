@@ -3,7 +3,7 @@ import axios from "axios";
 export const logout = async (push: any) => {
 	const response = await axios({
 		method: "get",
-		url: "http://localhost:3000/api/user/logout",
+		url: "/api/user/logout",
 	});
 	if (response.status === 200) {
 		push("/");
