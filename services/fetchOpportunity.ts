@@ -1,14 +1,12 @@
+import axios from "axios";
 import qs from "qs";
 
-export async function fetchOpportunity(query?: object) {
+export const fetchOpportunity = async (query?: object) => {
 	const params = query ? `?${qs.stringify(query)}` : "";
 
-	const request = await fetch(
-		`http://localhost:3000/api/opportunity${params}`,
-		{
-			method: "GET",
-		}
+	const response = await axios.get(
+		`http://localhost:3000/api/opportunity${params}`
 	);
 
-	return request.json();
-}
+	return response.data;
+};

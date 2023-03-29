@@ -1,13 +1,20 @@
-export const fetchCreateInvestor = async (data: any, token: any) => {
-	const request = await fetch(`http://localhost:3000/api/investor`, {
-		method: "POST",
-		body: JSON.stringify(data),
-		headers: {
-			"content-type": "application/json",
-			accept: "application/json",
-			"Authorization": `Bearer ${token}`
-		}
-	}).then(res => res.json());
+import axios from "axios";
 
-	return request;
-}
+export const fetchCreateInvestor = async (data: any, token: any) => {
+	try {
+		const response = await axios.post(
+			"http://localhost:3000/api/investor",
+			data,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					accept: "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error: any) {
+		throw new Error(error.message);
+	}
+};

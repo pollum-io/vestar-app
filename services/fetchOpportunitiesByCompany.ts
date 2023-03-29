@@ -1,18 +1,18 @@
+import axios from "axios";
 import qs from "qs";
 
 export const fetchOpportunitiesByCompany = async (query: object) => {
 	const params = query ? `?${qs.stringify(query)}` : "";
 
-	const request = await fetch(
+	const response = await axios.get(
 		`http://localhost:3000/api/opportunity${params}`,
 		{
-			method: "GET",
 			headers: {
-				"content-type": "application/json",
-				accept: "application/json",
+				"Content-Type": "application/json",
+				Accept: "application/json",
 			},
 		}
-	).then(res => res.json());
+	);
 
-	return request;
+	return response.data;
 };

@@ -1,11 +1,11 @@
+import axios from "axios";
+
 export async function fetchEnterprise() {
-	const request = await fetch(`http://localhost:3000/api/enterprise`, {
-		method: "GET",
+	const response = await axios.get("http://localhost:3000/api/enterprise", {
 		headers: {
 			"content-type": "application/json",
 			accept: "application/json",
 		},
 	});
-
-	return request.json();
+	return response.data;
 }
