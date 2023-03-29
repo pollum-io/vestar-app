@@ -106,8 +106,9 @@ router.get(async (req, res) => {
 		const page = (req.query.page as any) ? (req.query.page as any) - 1 : 0;
 		const limit = (req.query.limit as any) || 12;
 
-		const results = await Opportunity.countDocuments({
-			...(filter.enterprise_id && { enterprise_id: filter.enterprise_id }),
+		const results = await Opportunity.countDocuments(filter).sort({
+			createdAt: -1,
+			...sort,
 		});
 
 		const totalPages = Math.ceil(results / limit);
