@@ -6,17 +6,13 @@ export const fetchEditInvestor = async (
 	token: any
 ) => {
 	try {
-		const response = await axios.put(
-			`http://localhost:3000/api/investor/${investor_id}`,
-			data,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					accept: "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const response = await axios.put(`/api/investor/${investor_id}`, data, {
+			headers: {
+				"Content-Type": "application/json",
+				accept: "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		});
 		return response.data;
 	} catch (error: any) {
 		console.log(error.message);
