@@ -1,6 +1,7 @@
 import axios from "axios";
+import { api } from "./api";
 
 export async function fetchImages(url: string) {
-	const response = await axios.get(`/api/file/${url}`);
+	const response = await api.get(`/file/${url}`);
 	return response.data.url;
 }

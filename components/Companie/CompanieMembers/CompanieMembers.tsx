@@ -1,5 +1,6 @@
 import { Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { FunctionComponent, useEffect, useState } from "react";
+import { componentsApi } from "../../../services/api";
 import { fetchImages } from "../../../services/fetchImages";
 import { ICompaniesTeam } from "../../Companies/CompaniesCard/dto";
 import { ICompanieMembers } from "./dto";
@@ -9,20 +10,10 @@ export const CompanieMember: FunctionComponent<ICompanieMembers> = ({
 	name,
 	occupation,
 }) => {
-	const [images, setImages] = useState<string>();
-
-	useEffect(() => {
-		if (image) {
-			fetchImages(image).then(res => {
-				setImages(res);
-			});
-		}
-	}, [image]);
-
 	return (
 		<Flex flexDirection="column" gap="0.5rem" alignItems="center">
 			<Flex w="4rem" h="4rem">
-				<Img src={images} />
+				<Img src={`/api/file/${image}`} />
 			</Flex>
 			<Flex
 				fontFamily="Poppins"

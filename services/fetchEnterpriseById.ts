@@ -1,8 +1,9 @@
 import axios from "axios";
+import { api } from "./api";
 
 export const fetchEnterpriseById = async (id: any) => {
 	try {
-		const response = await axios.get(`/api/enterprise/${id}`, {
+		const response = await api.get(`/enterprise/${id}`, {
 			headers: {
 				"Content-Type": "application/json",
 				accept: "application/json",

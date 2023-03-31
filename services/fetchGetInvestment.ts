@@ -1,8 +1,9 @@
 import axios from "axios";
+import { api } from "./api";
 
 export const fetchGetInvestment = async (investor_id: any, token: any) => {
 	try {
-		const response = await axios.get(`/api/investment/${investor_id}`, {
+		const response = await api.get(`/investment/${investor_id}`, {
 			headers: {
 				"Content-Type": "application/json",
 				accept: "application/json",
