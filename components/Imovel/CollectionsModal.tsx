@@ -17,7 +17,6 @@ interface ICollectionsModal {
 
 export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 	const { isOpen, onClose, images } = props;
-
 	return (
 		<>
 			<Modal blockScrollOnMount size="full" isOpen={isOpen} onClose={onClose}>

@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	const user: any = jwt_decode(token);
 
-	const response = await fetchGetInvestorById(query.id, token);
+	const response = await fetchGetInvestorById(query.id, token, false);
 
 	if (!user?.investor_id) {
 		return {

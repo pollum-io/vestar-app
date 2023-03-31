@@ -1,9 +1,8 @@
 import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
 import React, { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
-import { authenticate } from "../../services/fetchLogin";
 import { useUser } from "../../hooks/useUser";
-import PersistentFramework from "../../utils/persistent";
+import { componentsApi } from "../../services/api";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
@@ -12,13 +11,16 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const { getInfosId } = useUser();
 
 	const handleLogin = async () => {
-		const data = await authenticate(email, password);
+		const data = await componentsApi.post("/user/authenticate", {
+			email: email,
+			password: password,
+		});
 		getInfosId(
 			data?.data?.user?.investor_id === null
 				? data?.data?.user?.enterprise_id
 				: data?.data?.user?.investor_id
 		);
-		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
+		push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 
 	const handleKeyPress = (event: any) => {

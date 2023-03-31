@@ -1,6 +1,7 @@
 import { Flex, Image, useDisclosure, SimpleGrid, Img } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { componentsApi } from "../../services/api";
 import { fetchImages } from "../../services/fetchImages";
 import { CollectionsModal } from "./CollectionsModal";
 interface ICollections {
@@ -10,18 +11,6 @@ interface ICollections {
 export const Collections: React.FC<ICollections> = props => {
 	const { images } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [cardImage, setCardImage] = useState<string[]>([]);
-
-	useEffect(() => {
-		if (images) {
-			images.map((picture: string) => {
-				fetchImages(picture).then(res => {
-					setCardImage(prevState => [...prevState, res]);
-				});
-			});
-		}
-	}, [images]);
-
 	return (
 		<Flex
 			w="100%"
@@ -32,12 +21,12 @@ export const Collections: React.FC<ICollections> = props => {
 			onClick={onOpen}
 			justifyContent="center"
 		>
-			<CollectionsModal images={cardImage} isOpen={isOpen} onClose={onClose} />
+			<CollectionsModal images={images} isOpen={isOpen} onClose={onClose} />
 			<Flex onClick={onOpen}>
 				<Img
 					width="34.75rem"
 					height="25rem"
-					src={cardImage?.[0]}
+					src={`/api/file/${images[0]}`}
 					borderLeftRadius="0.75rem"
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -47,7 +36,7 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={cardImage?.[1]}
+					src={`/api/file/${images[1]}`}
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -55,7 +44,7 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={cardImage?.[2]}
+					src={`/api/file/${images[2]}`}
 					borderTopRightRadius="0.75rem"
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
@@ -64,7 +53,7 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={cardImage?.[3]}
+					src={`/api/file/${images[3]}`}
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -72,7 +61,7 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={cardImage?.[4]}
+					src={`/api/file/${images[4]}`}
 					borderBottomRightRadius="0.75rem"
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}

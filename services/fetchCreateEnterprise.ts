@@ -1,8 +1,9 @@
 import axios from "axios";
+import { api, componentsApi } from "./api";
 
 export const fetchCreateEnterprise = async (data: any, token: any) => {
 	try {
-		const response = await axios.post("/api/enterprise", data, {
+		const response = await componentsApi.post("/enterprise", data, {
 			headers: {
 				"Content-Type": "application/json",
 				accept: "application/json",

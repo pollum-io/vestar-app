@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchEnterprise } from "../../../services/fetchEnterprise";
 import { fetchImages } from "../../../services/fetchImages";
+import { componentsApi } from "../../../services/api";
 
 export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	_id,
@@ -16,23 +17,6 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	enterprise_banner,
 }) => {
 	const { push } = useRouter();
-
-	const [images, setImages] = useState<string>();
-	const [banner, setBanner] = useState<string>();
-
-	useMemo(() => {
-		if (enterprise_logo) {
-			fetchImages(enterprise_logo).then((res: any) => {
-				setImages(res);
-			});
-		}
-		if (enterprise_banner) {
-			fetchImages(enterprise_banner).then((res: any) => {
-				setBanner(res);
-			});
-		}
-	}, [enterprise_banner, enterprise_logo]);
-	console.log(images, "images");
 	return (
 		<Flex
 			w="100%"
@@ -47,7 +31,12 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				borderRadius="0.75rem"
 				h="9.3125rem"
 			>
-				<Img borderRadius="0.75rem" w="100%" h="100%" src={banner} />
+				<Img
+					borderRadius="0.75rem"
+					w="100%"
+					h="100%"
+					src={`/api/file/${enterprise_banner}`}
+				/>
 			</Flex>
 			<Flex
 				gap="1.5rem"
@@ -58,7 +47,7 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				borderBottomRadius="0.75rem"
 			>
 				<Flex w="6rem" position="relative">
-					<Img src={images} />
+					<Img src={`/api/file/${enterprise_logo}`} />
 				</Flex>
 				<Flex gap="0.375rem" flexDirection="column">
 					<Text

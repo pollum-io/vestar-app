@@ -1,4 +1,5 @@
 import axios from "axios";
+import { api, componentsApi } from "./api";
 
 export const fetchEditInvestor = async (
 	investor_id: any,
@@ -6,7 +7,7 @@ export const fetchEditInvestor = async (
 	token: any
 ) => {
 	try {
-		const response = await axios.put(`/api/investor/${investor_id}`, data, {
+		const response = await componentsApi.put(`/investor/${investor_id}`, data, {
 			headers: {
 				"Content-Type": "application/json",
 				accept: "application/json",
