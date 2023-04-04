@@ -6,6 +6,5 @@ export async function fetchEnterprise() {
 			accept: "application/json",
 		},
 	});
-
 	return request.json();
 }
