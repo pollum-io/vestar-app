@@ -1,13 +1,13 @@
 import {
-	ModalOverlay,
-	ModalContent,
-	ModalBody,
-	Modal,
 	Flex,
+	Modal,
+	ModalBody,
+	ModalContent,
+	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
-import { Carousel } from "./Carousel";
 import { GrFormClose } from "react-icons/gr";
+import { Carousel } from "./Carousel";
 
 interface ICollectionsModal {
 	isOpen: boolean;

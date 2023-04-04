@@ -1,6 +1,6 @@
+import jwt_decode from "jwt-decode";
 import { GetServerSideProps, NextPage } from "next";
 import { Edit_ProfileContainer } from "../../container";
-import jwt_decode from "jwt-decode";
 import { fetchGetInvestorById } from "../../services/fetchGetInvestorById";
 
 interface IEditProfile {
@@ -30,8 +30,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	}
 
 	const user: any = jwt_decode(token);
+	const host = req.headers.host;
 
-	const response = await fetchGetInvestorById(query.id, token, false);
+	const response = await fetchGetInvestorById(query.id, token, host);
 
 	if (!user?.investor_id) {
 		return {

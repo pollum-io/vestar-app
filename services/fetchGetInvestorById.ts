@@ -1,22 +1,17 @@
-import axios from "axios";
-import { api, componentsApi } from "./api";
+import { apiInstance } from "./api";
 
 export const fetchGetInvestorById = async (
 	investor_id: any,
 	token: any,
-	isOutOfPages?: boolean
+	host?: string
 ) => {
 	try {
-		const response = await (isOutOfPages ? componentsApi : api).get(
-			`/investor/${investor_id}`,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					accept: "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const api = apiInstance();
+		const response = await api.get(`/investor/${investor_id}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 		return response.data;
 	} catch (error: any) {
 		console.log(error.message);
