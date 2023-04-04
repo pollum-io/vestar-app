@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
-import { fetchImages } from "../../services/fetchImages";
-import { componentsApi } from "../../services/api";
+import { apiInstance } from "../../services/api";
 
 const settings = {
 	dots: true,
@@ -29,6 +28,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const top = useBreakpointValue({ base: "90%", md: "50%" });
 	const side = useBreakpointValue({ base: "30%", md: "10px" });
+	const api = apiInstance();
 
 	const [imagesCarousel, setImagesCarousel] = useState<string[]>([]);
 	console.log(modal_images, "modal_images");
@@ -36,7 +36,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 	useEffect(() => {
 		if (extra_images) {
 			extra_images.map((picture: string) => {
-				componentsApi.get(`/file/${picture}`).then(response => {
+				api.get(`/file/${picture}`).then(response => {
 					setImagesCarousel(prevState => [
 						...prevState,
 						response.request?.responseURL,
@@ -45,7 +45,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 			});
 		} else {
 			modal_images.map((picture: string) => {
-				componentsApi.get(`/file/${picture}`).then(response => {
+				api.get(`/file/${picture}`).then(response => {
 					setImagesCarousel(prevState => [
 						...prevState,
 						response.request?.responseURL,

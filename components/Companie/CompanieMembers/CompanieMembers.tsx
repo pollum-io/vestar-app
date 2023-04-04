@@ -1,8 +1,5 @@
-import { Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
-import { FunctionComponent, useEffect, useState } from "react";
-import { componentsApi } from "../../../services/api";
-import { fetchImages } from "../../../services/fetchImages";
-import { ICompaniesTeam } from "../../Companies/CompaniesCard/dto";
+import { Flex, Img, SimpleGrid, Text } from "@chakra-ui/react";
+import { FunctionComponent } from "react";
 import { ICompanieMembers } from "./dto";
 
 export const CompanieMember: FunctionComponent<ICompanieMembers> = ({

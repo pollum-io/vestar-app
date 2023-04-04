@@ -1,18 +1,14 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import { Flex, Img, Text } from "@chakra-ui/react";
-import { CompanieDetails } from "./CompanieDetails/CompanieDetails";
-import { CompanieContact } from "./CompanieContact/CompanieContact";
-import { CompanieMembers } from "./CompanieMembers/CompanieMembers";
-import { OpportunitiesCards } from "../Opportunities/OpportunitiesCard/OpportunitiesCard";
-import { useRouter } from "next/router";
-import { fetchEnterpriseById } from "../../services/fetchEnterpriseById";
+import { Flex, Text } from "@chakra-ui/react";
+import { FunctionComponent } from "react";
 import {
 	ICompaniesDetails,
-	ICompaniesInfo,
 	ICompaniesTeam,
 } from "../Companies/CompaniesCard/dto";
-import { fetchImages } from "../../services";
-import { componentsApi } from "../../services/api";
+import { OpportunitiesCards } from "../Opportunities/OpportunitiesCard/OpportunitiesCard";
+import { CompanieContact } from "./CompanieContact/CompanieContact";
+import { CompanieDetails } from "./CompanieDetails/CompanieDetails";
+import { CompanieMembers } from "./CompanieMembers/CompanieMembers";
+
 interface ICompanie {
 	companieDetail: ICompaniesDetails;
 }

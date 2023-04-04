@@ -1,20 +1,19 @@
-import { FunctionComponent, useState } from "react";
-import { Flex, Img, Text, Icon, SimpleGrid } from "@chakra-ui/react";
-import { FiMapPin } from "react-icons/fi";
-import { Collections } from "./Collections";
-import { PriceCard } from "./PriceCard";
-import { Carousel } from "./Carousel";
-import { TbInfoSquare } from "react-icons/tb";
-import { Maps } from "../Map/Maps";
-import { formatDate } from "../../utils/formatDate";
-import { useEffect } from "react";
-import { IOpportunitiesCard } from "../../dtos/Oportunities";
-import { useOpportunities } from "../../hooks/useOpportunities";
+import { Flex, Icon, Img, SimpleGrid, Text } from "@chakra-ui/react";
 import moment from "moment-timezone";
+import { FunctionComponent, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
+import { FiMapPin } from "react-icons/fi";
+import { TbInfoSquare } from "react-icons/tb";
+import { IOpportunitiesCard } from "../../dtos/Oportunities";
+import { useOpportunities } from "../../hooks/useOpportunities";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
+import { formatDate } from "../../utils/formatDate";
+import { Maps } from "../Map/Maps";
+import { Carousel } from "./Carousel";
+import { Collections } from "./Collections";
+import { PriceCard } from "./PriceCard";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;

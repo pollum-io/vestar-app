@@ -1,8 +1,4 @@
-import { Flex, Image, useDisclosure, SimpleGrid, Img } from "@chakra-ui/react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { componentsApi } from "../../services/api";
-import { fetchImages } from "../../services/fetchImages";
+import { Flex, Img, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { CollectionsModal } from "./CollectionsModal";
 interface ICollections {
 	images: any[];

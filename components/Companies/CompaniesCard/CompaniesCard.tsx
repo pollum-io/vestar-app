@@ -1,11 +1,7 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { Button, Flex, Img, Text } from "@chakra-ui/react";
-import { ICompaniesCard } from "./dto";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
-import { fetchEnterprise } from "../../../services/fetchEnterprise";
-import { fetchImages } from "../../../services/fetchImages";
-import { componentsApi } from "../../../services/api";
+import { FunctionComponent } from "react";
+import { ICompaniesCard } from "./dto";
 
 export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	_id,

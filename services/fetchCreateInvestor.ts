@@ -1,12 +1,10 @@
-import axios from "axios";
-import { api, componentsApi } from "./api";
+import { apiInstance } from "./api";
 
 export const fetchCreateInvestor = async (data: any, token: any) => {
 	try {
-		const response = await componentsApi.post("/investor", data, {
+		const api = apiInstance();
+		const response = await api.post("/investor", data, {
 			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json",
 				Authorization: `Bearer ${token}`,
 			},
 		});

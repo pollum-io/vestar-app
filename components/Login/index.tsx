@@ -1,17 +1,18 @@
-import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
-import React, { FunctionComponent, useState } from "react";
+import { Button, ButtonProps, Flex, Img, Input, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { FunctionComponent, useState } from "react";
 import { useUser } from "../../hooks/useUser";
-import { componentsApi } from "../../services/api";
+import { apiInstance } from "../../services/api";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
 	const [email, setEmail] = useState<any>();
 	const [password, setPassword] = useState<any>();
 	const { getInfosId } = useUser();
+	const api = apiInstance();
 
 	const handleLogin = async () => {
-		const data = await componentsApi.post("/user/authenticate", {
+		const data = await api.post("/user/authenticate", {
 			email: email,
 			password: password,
 		});
