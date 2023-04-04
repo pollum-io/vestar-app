@@ -4,12 +4,14 @@ import { useRouter } from "next/router";
 import { authenticate } from "../../services/fetchLogin";
 import { useUser } from "../../hooks/useUser";
 import PersistentFramework from "../../utils/persistent";
+import { useToasty } from "../../hooks/useToasty";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
 	const [email, setEmail] = useState<any>();
 	const [password, setPassword] = useState<any>();
 	const { getInfosId } = useUser();
+	const { toast } = useToasty();
 
 	const handleLogin = async () => {
 		const data = await authenticate(email, password);
@@ -18,6 +20,15 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				? data?.data?.user?.enterprise_id
 				: data?.data?.user?.investor_id
 		);
+		if (data.error) {
+			console.log("erro");
+			toast({
+				id: "toast-login-error",
+				position: "top-right",
+				status: "error",
+				title: "Email ou senha incorretos!",
+			});
+		}
 		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 
