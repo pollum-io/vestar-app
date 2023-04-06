@@ -6,16 +6,18 @@ interface IImovelList {
 	isFinished: boolean;
 	isInvest: boolean;
 	investmentData?: any;
+	enterpriseData?: any;
 }
 
 export const ImovelList: FunctionComponent<IImovelList> = ({
 	isFinished,
 	isInvest,
 	investmentData,
+	enterpriseData,
 }) => {
 	const [resultWithImages, setResultWithImages] = useState<any>([]);
 
-	const result = investmentData.reduce((acc: any, investment: any) => {
+	const result = investmentData?.reduce((acc: any, investment: any) => {
 		const existingInvestment = acc.find(
 			(item: any) => item.investment_address === investment.investment_address
 		);
@@ -28,14 +30,14 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 		return acc;
 	}, []);
 
-	const totalAmount = result.reduce((accumulator: any, investment: any) => {
+	const totalAmount = result?.reduce((accumulator: any, investment: any) => {
 		return accumulator + investment.amount;
 	}, 0);
 
 	useEffect(() => {
 		const getImage = async () => {
 			const newResultWithImages = await Promise.all(
-				result.map(async (item: any) => {
+				(result ? result : enterpriseData).map(async (item: any) => {
 					const image = item.pictures_enterprise[0];
 					const imageUrl = await fetchImages(image);
 					return { ...item, pictures_enterprise: imageUrl };
@@ -139,7 +141,10 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 											fontWeight="500"
 											color={"#007D99"}
 										>
-											cota_nome
+											{`${investment?.token_address?.slice(
+												0,
+												5
+											)}...${investment?.token_address?.slice(38)}`}
 										</Text>
 									</Flex>
 								)}
@@ -161,13 +166,13 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 										color={"#171923"}
 										w="7rem"
 									>
-										R$ 450
+										R$ {investment?.token_minted * investment?.token_price}
 									</Text>
 								)}
 							</Flex>
 							<Flex display={isInvest ? "none" : "flex"} w="7rem">
 								<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-									150
+									{investment?.token_supply}
 								</Text>
 							</Flex>
 							<Flex w={isInvest ? "7rem" : "9rem"}>
@@ -175,7 +180,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 									{isInvest
 										? investment.expected_delivery_date &&
 										  moment(investment.expected_delivery_date).format("YYYY")
-										: "47"}
+										: investment?.token_supply - investment?.token_minted}
 								</Text>
 							</Flex>
 							{isInvest && (

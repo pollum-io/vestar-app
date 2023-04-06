@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 
 interface IPieChart {
-	data: any;
+	data?: any;
 }
 
 export const PieChartPortfolio: React.FC<IPieChart> = props => {
@@ -18,7 +18,7 @@ export const PieChartPortfolio: React.FC<IPieChart> = props => {
 	const COLORS = ["#2321C0", "#BCA1FF", "#1BA9EA", "#6E40E7"];
 
 	// Conta as instâncias de cada tipo de empresa
-	const countByType = data.reduce((counts: any, item: any) => {
+	const countByType = data?.reduce((counts: any, item: any) => {
 		const type = item.enterprise_type;
 		if (type in counts) {
 			counts[type]++;
@@ -29,7 +29,7 @@ export const PieChartPortfolio: React.FC<IPieChart> = props => {
 	}, {});
 
 	// Calcula as porcentagens de cada tipo de empresa
-	const total: any = Object.values(countByType).reduce(
+	const total: any = Object?.values(countByType).reduce(
 		(sum: any, count: any) => sum + count,
 		0
 	);
