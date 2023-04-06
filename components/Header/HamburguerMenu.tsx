@@ -41,9 +41,15 @@ export const HamburguerMenu: React.FC = () => {
 					border="0.0625rem solid #E2E8F0"
 					rounded={"1rem"}
 				>
-					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Olá, {username}
-					</Text>
+					{username ? (
+						<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
+							Olá, {username}
+						</Text>
+					) : (
+						<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
+							Menu
+						</Text>
+					)}
 					<Icon color="#4A5568 " as={FiMenu} />
 				</Flex>
 			</MenuButton>

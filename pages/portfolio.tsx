@@ -1,14 +1,16 @@
 import jwt_decode from "jwt-decode";
 import type { GetServerSideProps, NextPage } from "next";
 import { PortfolioContainer } from "../container";
+import { fetchEnterpriseById, fetchOpportunitiesByCompany } from "../services";
 import { fetchGetInvestment } from "../services/fetchGetInvestment";
 
 interface IPortfolio {
-	data: any;
+	data?: any;
+	enterpriseData?: any;
 }
 
-const Portfolio: NextPage<IPortfolio> = ({ data }) => (
-	<PortfolioContainer portfolioData={data} />
+const Portfolio: NextPage<IPortfolio> = ({ data, enterpriseData }) => (
+	<PortfolioContainer portfolioData={data} enterpriseData={enterpriseData} />
 );
 
 export default Portfolio;
@@ -28,13 +30,25 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const user: any = jwt_decode(token);
 
-	if (!user?.investor_id) {
+	if (!user?.investor_id && !user?.enterprise_id) {
 		return {
 			redirect: {
 				permanent: false,
 				destination: "/registrar",
 			},
 			props: {},
+		};
+	}
+
+	if (user?.enterprise_id) {
+		const response = await fetchOpportunitiesByCompany(user.enterprise_id);
+
+		return {
+			props: {
+				user,
+				token,
+				enterpriseData: response?.data,
+			},
 		};
 	}
 

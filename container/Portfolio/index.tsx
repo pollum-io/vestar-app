@@ -12,7 +12,7 @@ import {
 import dynamic from "next/dynamic";
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { BsCircleFill } from "react-icons/bs";
-import { OpportunitiesCard } from "../../components";
+import { OpportunitiesCard, OpportunitiesCards } from "../../components";
 import { ImovelList } from "../../components/Portfolio/ImovelList";
 import { MenuChart } from "../../components/Portfolio/MenuChart";
 import { NotInvestWarn } from "../../components/Portfolio/NotInvestWarn";
@@ -26,11 +26,18 @@ import { Maps } from "../../components/Map/Maps";
 
 interface IPortfolio {
 	portfolioData: any;
+	enterpriseData?: any;
 }
 
-const BarCharts = dynamic(() => import("../../components/Portfolio/BarChart"), {
-	ssr: false,
-});
+const BarCharts = dynamic(
+	async () => {
+		const mod = await import("../../components/Portfolio/BarChart");
+		return mod.BarCharts;
+	},
+	{
+		ssr: false,
+	}
+);
 
 const PieChartPortfolio = dynamic(
 	async () => {
@@ -44,43 +51,46 @@ const PieChartPortfolio = dynamic(
 
 export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	portfolioData,
+	enterpriseData,
 }) => {
 	const [value, setValue] = useState("1");
-	const [isInvestor, setIsInvestor] = useState(true);
 	const [yoursInvestments, setYoursInvestments] = useState<any>();
-
-	const [hasInvest, setHasInvest] = useState(
-		portfolioData.length > 1 ? true : false
-	);
+	const [hasInvest, setHasInvest] = useState(true);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
 	const [imvestmentFilter, setInvestmentFilter] = useState("processed");
-	const { username } = useUser();
+
+	const { username, isInvestor, userInfos } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
+	console.log(isInvestor, "isInvestor");
+	console.log(userInfos, "userInfos");
 
-	const calcularPorcentagensDeTipos = (objetos: any) => {
-		const contagemDeTipos: any = {};
-		objetos.forEach((objeto: any) => {
-			const tipo = objeto.enterprise_type;
-			if (!contagemDeTipos[tipo]) {
-				contagemDeTipos[tipo] = 0;
-			}
-			contagemDeTipos[tipo]++;
-		});
+	// const calcularPorcentagensDeTipos = (objetos: any) => {
+	// 	const contagemDeTipos: any = {};
+	// 	objetos?.forEach((objeto: any) => {
+	// 		const tipo = objeto.enterprise_type;
+	// 		if (!contagemDeTipos[tipo]) {
+	// 			contagemDeTipos[tipo] = 0;
+	// 		}
+	// 		contagemDeTipos[tipo]++;
+	// 	});
 
-		const totalDeObjetos = objetos.length;
-		const porcentagensDeTipos: any = {};
-		Object.entries(contagemDeTipos).forEach(([tipo, contagem]: any) => {
-			const porcentagem = (contagem / totalDeObjetos) * 100;
-			porcentagensDeTipos[tipo] = porcentagem.toFixed(2);
-		});
-		setYoursInvestments(porcentagensDeTipos);
-		return porcentagensDeTipos;
-	};
+	// 	const totalDeObjetos = objetos?.length;
 
-	useMemo(() => {
-		calcularPorcentagensDeTipos(portfolioData);
-	}, [portfolioData]);
+	// 	const porcentagensDeTipos: any = {};
+	// 	Object.entries(contagemDeTipos).forEach(([tipo, contagem]: any) => {
+	// 		const porcentagem = (contagem / totalDeObjetos) * 100;
+	// 		porcentagensDeTipos[tipo] = porcentagem.toFixed(2);
+	// 	});
+	// 	setYoursInvestments(porcentagensDeTipos);
+	// 	return porcentagensDeTipos;
+	// };
+
+	// useMemo(() => {
+	// 	calcularPorcentagensDeTipos(portfolioData);
+	// }, [portfolioData]);
+
+	console.log(portfolioData, "portfolioData");
 
 	return (
 		<DefaultTemplate>
@@ -116,7 +126,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							h="5.25rem"
 							justifyContent="end"
 						>
-							{hasInvest ? <YourDetailtCard data={portfolioData} /> : null}
+							{/* {hasInvest ? <YourDetailtCard data={portfolioData} /> : null} */}
 						</Flex>
 					</Flex>
 				</Flex>
@@ -183,7 +193,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 										</Text>
 									</Flex> */}
 								</Flex>
-								<Examaple chartData={portfolioData} />
+								{/* <Examaple chartData={portfolioData} /> */}
 							</Flex>
 						</Flex>
 						<Flex flexDir={"column"} mb="6.5625rem">
@@ -321,7 +331,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							</Flex>
 							{isInvestor ? (
 								<Flex alignItems={"center"} w="100%" h="15rem">
-									<PieChartPortfolio data={portfolioData} />
+									{/* <PieChartPortfolio data={portfolioData} /> */}
 									<Flex pl="5rem" gap="3.25rem">
 										{yoursInvestments?.Residencial && (
 											<Flex flexDir={"column"}>
@@ -357,7 +367,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								</Flex>
 							) : (
 								<Flex w="100%" h="25rem">
-									<BarCharts />
+									<BarCharts chartData={enterpriseData} />
 								</Flex>
 							)}
 						</Flex>
@@ -482,31 +492,33 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								<Flex flexDirection="column" gap="0.75rem">
 									<ImovelList
 										investmentData={portfolioData}
-										isInvest={true}
+										enterpriseData={enterpriseData}
+										isInvest={false}
 										isFinished={false}
 									/>
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex flexDir={"column"} w="100%" gap="1.75rem">
+						<Flex
+							flexDir={"column"}
+							w="100%"
+							gap="1.75rem"
+							pb={isInvestor ? "none" : "2rem"}
+						>
 							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
 								{isInvestor ? "Onde você tem investido" : "Imóveis cadastrados"}
 							</Text>
-							<Flex gap="1.5rem" mb={"10rem"}>
-								{isInvestor && <Maps localizations={portfolioData} />}
-							</Flex>
+							{isInvestor ? (
+								<Flex gap="1.5rem" mb={"10rem"}>
+									<Maps localizations={portfolioData} />
+								</Flex>
+							) : null}
 						</Flex>
 					</Flex>
 					{!isInvestor && (
-						<SimpleGrid
-							columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-							spacing="1.5rem"
-							w="fit-content"
-							rowGap="2rem"
-							mb="12.3125rem"
-						>
-							<OpportunitiesCard />
-						</SimpleGrid>
+						<Flex mb="10rem">
+							<OpportunitiesCards enterpriseId={userInfos} />
+						</Flex>
 					)}
 				</Flex>
 			) : (
