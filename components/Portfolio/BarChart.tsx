@@ -29,7 +29,7 @@ export const BarCharts: React.FC<IExample> = props => {
 
 		return colorScale(value);
 	};
-	const tokenMintedValues = chartData.map(value => value.token_minted);
+	const tokenMintedValues = chartData?.map(value => value.token_minted);
 
 	const renderLabel = (props: any) => {
 		if (props.index === chartData.length - 1) {
