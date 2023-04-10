@@ -55,7 +55,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 }) => {
 	const [value, setValue] = useState("1");
 	const [yoursInvestments, setYoursInvestments] = useState<any>();
-	const [hasInvest, setHasInvest] = useState(true);
+	const [hasInvest, setHasInvest] = useState<boolean>(true);
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
 	const [imvestmentFilter, setInvestmentFilter] = useState("processed");
@@ -126,7 +126,12 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							h="5.25rem"
 							justifyContent="end"
 						>
-							{/* {hasInvest ? <YourDetailtCard data={portfolioData} /> : null} */}
+							{hasInvest ? (
+								<YourDetailtCard
+									investor={portfolioData}
+									enterprise={enterpriseData}
+								/>
+							) : null}
 						</Flex>
 					</Flex>
 				</Flex>
@@ -218,7 +223,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								{/* <Flex display={isInvestor ? "flex" : "none"}>
 									<MenuChart defaultSelection="Todos os imóveis" />
 								</Flex> */}
-								{!isInvestor && (
+								{/* {!isInvestor && (
 									<Flex alignItems="center" gap="3.5rem">
 										<Flex alignItems={"center"} gap="0.3125rem">
 											<Button
@@ -327,7 +332,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 											</Flex>
 										</Flex>
 									</Flex>
-								)}
+								)} */}
 							</Flex>
 							{isInvestor ? (
 								<Flex alignItems={"center"} w="100%" h="15rem">
