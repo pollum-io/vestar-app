@@ -57,7 +57,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 				[k: string]: any;
 			};
 			console.log(investor, "investorinvestor");
-			if (investor.isInvestor === true) {
+			if (investor?.isInvestor === true) {
 				setIsInvestor(true);
 			} else {
 				setIsInvestor(false);
