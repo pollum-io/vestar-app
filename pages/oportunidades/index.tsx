@@ -1,7 +1,6 @@
 import jwt_decode from "jwt-decode";
 import { GetServerSideProps, NextPage } from "next";
 import { OpportunitiesContainer } from "../../container";
-import { fetchGetInvestorById } from "../../services/fetchGetInvestorById";
 
 const Opportunities: NextPage = props => <OpportunitiesContainer {...props} />;
 

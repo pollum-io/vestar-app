@@ -1,19 +1,11 @@
-import axios from "axios";
+import { apiInstance } from "./api";
 
 export const authenticate = async (email: string, password: string) => {
-	const response = await axios.post(
-		"/api/user/authenticate",
-		{
-			email: email,
-			password: password,
-		},
-		{
-			headers: {
-				"content-type": "application/json",
-				accept: "application/json",
-			},
-		}
-	);
+	const api = apiInstance();
+	const response = await api.post("/user/authenticate", {
+		email: email,
+		password: password,
+	});
 
 	return response.data;
 };

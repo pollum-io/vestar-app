@@ -1,11 +1,14 @@
-import axios from "axios";
+import { apiInstance } from "./api";
 
-export const fetchGetInvestorById = async (investor_id: any, token: any) => {
+export const fetchGetInvestorById = async (
+	investor_id: any,
+	token: any,
+	host?: string
+) => {
 	try {
-		const response = await axios.get(`/api/investor/${investor_id}`, {
+		const api = apiInstance();
+		const response = await api.get(`/investor/${investor_id}`, {
 			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json",
 				Authorization: `Bearer ${token}`,
 			},
 		});

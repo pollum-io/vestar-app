@@ -1,8 +1,7 @@
 import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
-import { FiCopy } from "react-icons/fi";
-import { useMemo, useRef, useState } from "react";
-import { useRegister } from "../../hooks";
 import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
+import { FiCopy } from "react-icons/fi";
 import { useOpportunities } from "../../hooks/useOpportunities";
 interface IPriceCard {
 	id: any;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
-import { fetchImages } from "../../services/fetchImages";
+import { apiInstance } from "../../services/api";
 
 const settings = {
 	dots: true,
@@ -28,19 +28,33 @@ export const Carousel: React.FC<ICarousel> = props => {
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const top = useBreakpointValue({ base: "90%", md: "50%" });
 	const side = useBreakpointValue({ base: "30%", md: "10px" });
+	const api = apiInstance();
 
 	const [imagesCarousel, setImagesCarousel] = useState<string[]>([]);
+	console.log(modal_images, "modal_images");
 
 	useEffect(() => {
 		if (extra_images) {
 			extra_images.map((picture: string) => {
-				fetchImages(picture).then(res => {
-					setImagesCarousel(prevState => [...prevState, res]);
+				api.get(`/file/${picture}`).then(response => {
+					setImagesCarousel(prevState => [
+						...prevState,
+						response.request?.responseURL,
+					]);
+				});
+			});
+		} else {
+			modal_images.map((picture: string) => {
+				api.get(`/file/${picture}`).then(response => {
+					setImagesCarousel(prevState => [
+						...prevState,
+						response.request?.responseURL,
+					]);
 				});
 			});
 		}
-	}, [extra_images]);
-
+	}, [extra_images, modal_images]);
+	console.log(imagesCarousel, "imagesCarousel");
 	return (
 		<Box
 			position={"relative"}
@@ -93,20 +107,18 @@ export const Carousel: React.FC<ICarousel> = props => {
 				<MdArrowForwardIos color="#ffffff" size={50} />
 			</IconButton>
 			<Slider {...settings} ref={slider => setSlider(slider)}>
-				{(modal_images ? modal_images : imagesCarousel)?.map(
-					(url: any, index: any) => (
-						<Box
-							key={index}
-							height={heightValue}
-							position="relative"
-							backgroundPosition="center"
-							backgroundRepeat="no-repeat"
-							backgroundSize="cover"
-							backgroundImage={`url(${url})`}
-							objectFit={"cover"}
-						/>
-					)
-				)}
+				{imagesCarousel?.map((url: any, index: any) => (
+					<Box
+						key={index}
+						height={heightValue}
+						position="relative"
+						backgroundPosition="center"
+						backgroundRepeat="no-repeat"
+						backgroundSize="cover"
+						backgroundImage={`url(${url})`}
+						objectFit={"cover"}
+					/>
+				))}
 			</Slider>
 		</Box>
 	);
