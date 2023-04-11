@@ -1,11 +1,8 @@
-import axios from "axios";
+import { apiInstance } from "./api";
 
-export async function fetchEnterprise() {
-	const response = await axios.get("/api/enterprise", {
-		headers: {
-			"content-type": "application/json",
-			accept: "application/json",
-		},
-	});
+export async function fetchEnterprise(host?: string) {
+	const api = apiInstance(host);
+
+	const response = await api.get("/enterprise");
 	return response.data;
 }

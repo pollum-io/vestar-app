@@ -1,13 +1,9 @@
-import axios from "axios";
+import { apiInstance } from "./api";
 
-export const fetchEnterpriseById = async (id: any) => {
+export const fetchEnterpriseById = async (id: any, host?: string) => {
 	try {
-		const response = await axios.get(`/api/enterprise/${id}`, {
-			headers: {
-				"Content-Type": "application/json",
-				accept: "application/json",
-			},
-		});
+		const api = apiInstance(host);
+		const response = await api.get(`/enterprise/${id}`);
 		return response.data;
 	} catch (error: any) {
 		console.log(error.message);

@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
 import { Flex, Text } from "@chakra-ui/react";
-import { IoIosInformationCircle } from "react-icons/io";
-import { AiFillExclamationCircle } from "react-icons/ai";
-import { RiCheckboxCircleFill } from "react-icons/ri";
+import React, { useMemo } from "react";
 import { IconType } from "react-icons";
+import { AiFillExclamationCircle } from "react-icons/ai";
+import { IoIosInformationCircle } from "react-icons/io";
 import { MdOutlineClose } from "react-icons/md";
+import { RiCheckboxCircleFill } from "react-icons/ri";
 import { IToastyCardProps } from "./dto";
 
 const cards: { [k: string]: [string, IconType, number] } = {
