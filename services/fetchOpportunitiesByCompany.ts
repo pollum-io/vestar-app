@@ -1,6 +1,6 @@
 import qs from "qs";
 
-export const fetchOpportunitiesByCompany = async (query: object) => {
+export const fetchOpportunitiesByCompany = async (query?: object) => {
 	const params = query ? `?${qs.stringify(query)}` : "";
 
 	const request = await fetch(

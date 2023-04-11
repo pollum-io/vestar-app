@@ -1,8 +1,8 @@
 import jwt_decode from "jwt-decode";
 import type { GetServerSideProps, NextPage } from "next";
 import { PortfolioContainer } from "../container";
-import { fetchEnterpriseById, fetchOpportunitiesByCompany } from "../services";
 import { fetchGetInvestment } from "../services/fetchGetInvestment";
+import { fetchOpportunitiesByCompanyPortfolio } from "../services/fetchOpportunitiesByCompanyPortfolio";
 
 interface IPortfolio {
 	data?: any;
@@ -41,7 +41,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	}
 
 	if (user?.enterprise_id) {
-		const response = await fetchOpportunitiesByCompany(user.enterprise_id);
+		const response = await fetchOpportunitiesByCompanyPortfolio(
+			user.enterprise_id
+		);
 
 		return {
 			props: {
