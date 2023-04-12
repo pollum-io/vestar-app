@@ -1,7 +1,11 @@
-export async function fetchImovelDetail(id: any) {
-	const request = await fetch(`http://localhost:3000/api/opportunity/${id}`, {
-		method: "GET",
-	});
+import { apiInstance } from "./api";
 
-	return request.json();
+export async function fetchImovelDetail(id: any, host?: string) {
+	try {
+		const api = apiInstance(host);
+		const response = await api.get(`/opportunity/${id}`);
+		return response.data;
+	} catch (error) {
+		console.error(error);
+	}
 }

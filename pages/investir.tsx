@@ -1,8 +1,8 @@
+import jwt_decode from "jwt-decode";
 import { GetServerSideProps, NextPage } from "next";
 import { InvestContainer } from "../container";
-import jwt_decode from "jwt-decode";
-import { fetchImovelDetail } from "../services/fetchImovelDetail";
 import { IOpportunitiesCard } from "../dtos/Oportunities";
+import { fetchImovelDetail } from "../services/fetchImovelDetail";
 
 interface IInvest {
 	data: IOpportunitiesCard;
@@ -20,8 +20,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 	query,
 }) => {
+	const host = req.headers.host;
 	const token = req.cookies["livn_auth"];
-	const response = await fetchImovelDetail(query.id);
+	const response = await fetchImovelDetail(query.id, host);
 	let cotas = query.cotas;
 	let address = query.oportunitiesAddress;
 

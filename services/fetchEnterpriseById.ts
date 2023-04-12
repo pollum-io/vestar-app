@@ -1,11 +1,11 @@
-export const fetchEnterpriseById = async (id: any) => {
-	const request = await fetch(`http://localhost:3000/api/enterprise/${id}`, {
-		method: "GET",
-		headers: {
-			"content-type": "application/json",
-			accept: "application/json",
-		},
-	}).then(res => res.json());
+import { apiInstance } from "./api";
 
-	return request;
+export const fetchEnterpriseById = async (id: any, host?: string) => {
+	try {
+		const api = apiInstance(host);
+		const response = await api.get(`/enterprise/${id}`);
+		return response.data;
+	} catch (error: any) {
+		console.log(error.message);
+	}
 };
