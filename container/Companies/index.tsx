@@ -11,8 +11,6 @@ import {
 import { DefaultTemplate } from "../../container";
 import { BiSearch } from "react-icons/bi";
 import { CompaniesCard } from "../../components";
-import { useQuery } from "react-query";
-import { fetchEnterprise } from "../../services/fetchEnterprise";
 
 interface ICompanies {
 	data: any;

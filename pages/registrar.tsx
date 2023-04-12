@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { RegisterContainer } from "../container";
 import jwt_decode from "jwt-decode";
-import { fetchGetInvestorById } from "../services/fetchGetInvestorById";
 
 const Registrar: NextPage = props => <RegisterContainer {...props} />;
 
