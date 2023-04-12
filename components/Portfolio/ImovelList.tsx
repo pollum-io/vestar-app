@@ -3,6 +3,7 @@ import moment from "moment";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useUser } from "../../hooks/useUser";
 import { fetchImages } from "../../services";
+import { apiInstance } from "../../services/api";
 interface IImovelList {
 	isFinished: boolean;
 	investmentData?: any;
@@ -17,6 +18,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 	const { isInvestor } = useUser();
 
 	const [resultWithImages, setResultWithImages] = useState<any>([]);
+	const api = apiInstance();
 
 	const result = investmentData?.reduce((acc: any, investment: any) => {
 		const existingInvestment = acc.find(
@@ -40,8 +42,11 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 			const newResultWithImages = await Promise.all(
 				(result ? result : enterpriseData).map(async (item: any) => {
 					const image = item.pictures_enterprise[0];
-					const imageUrl = await fetchImages(image);
-					return { ...item, pictures_enterprise: imageUrl };
+					const imageUrl = await api.get(`/file/${image}`);
+					return {
+						...item,
+						pictures_enterprise: imageUrl.request.responseURL,
+					};
 				})
 			);
 			setResultWithImages(newResultWithImages);

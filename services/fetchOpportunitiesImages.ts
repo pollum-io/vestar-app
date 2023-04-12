@@ -1,7 +1,7 @@
-export async function fetchImages(url: string) {
-	const request = await fetch(`http://localhost:3000/api/file/${url}`, {
-		method: "GET",
-	});
+import { apiInstance } from "./api";
 
-	return request.url;
+export async function fetchImages(url: string) {
+	const api = apiInstance();
+	const response = await api.get(`/file/${url}`);
+	return response.data.url;
 }

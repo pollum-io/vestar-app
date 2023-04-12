@@ -1,18 +1,19 @@
 import qs from "qs";
+import { apiInstance } from "./api";
 
-export const fetchOpportunitiesByCompany = async (query?: object) => {
+export const fetchOpportunitiesByCompany = async (
+	query: object,
+	host?: string
+) => {
+	const api = apiInstance(host);
 	const params = query ? `?${qs.stringify(query)}` : "";
 
-	const request = await fetch(
-		`http://localhost:3000/api/opportunity${params}`,
-		{
-			method: "GET",
-			headers: {
-				"content-type": "application/json",
-				accept: "application/json",
-			},
-		}
-	).then(res => res.json());
+	const response = await api.get(`/opportunity${params}`, {
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+	});
 
-	return request;
+	return response.data;
 };

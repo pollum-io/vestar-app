@@ -18,6 +18,7 @@ export const OpportunitiesCard: FunctionComponent<
 	const currentTime = new Date().getTime();
 	const router = useRouter();
 	//TODO: move this request to a lower component level
+
 	const { data: cardsInfo } = query(
 		["oportunity", router.query],
 		() =>
@@ -61,7 +62,7 @@ export const OpportunitiesCard: FunctionComponent<
 						justifyContent="end"
 					>
 						<Img
-							src={`http://localhost:3000/api/file/${cards.pictures_enterprise[0]}`}
+							src={`/api/file/${cards.pictures_enterprise[0]}`}
 							borderRadius="0.75rem"
 							// filter={
 							// 	cards.token_minted === cards.token_supply ||
@@ -110,11 +111,7 @@ export const OpportunitiesCard: FunctionComponent<
 						<Flex gap="0.3125rem" flexDirection="column">
 							<Flex gap="0.5rem" alignItems="center" filter={"none"}>
 								{!cards.isPortfolio && (
-									<Img
-										w={4}
-										h={4}
-										src={`http://localhost:3000/api/file/${cards.enterprise_logo}`}
-									/>
+									<Img w={4} h={4} src={`/api/file/${cards.enterprise_logo}`} />
 								)}
 								<Text
 									fontFamily="Poppins"

@@ -1,10 +1,10 @@
-import { FunctionComponent } from "react";
-import { ICompanieContact } from "./dto";
 import { Flex, Link, Text } from "@chakra-ui/react";
-import { FaGlobe, FaTelegramPlane } from "react-icons/fa";
-import { BsWhatsapp, BsFillTelephoneFill, BsFacebook } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
+import { FunctionComponent } from "react";
 import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
+import { BsFacebook, BsFillTelephoneFill, BsWhatsapp } from "react-icons/bs";
+import { FaGlobe, FaTelegramPlane } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { ICompanieContact } from "./dto";
 
 export const CompanieContact: FunctionComponent<ICompanieContact> = ({
 	website,
@@ -20,28 +20,28 @@ export const CompanieContact: FunctionComponent<ICompanieContact> = ({
 		{
 			valid: website ? true : false,
 			content: website,
-			link: '',
+			link: "",
 			icon: <FaGlobe size={24} color="#007D99" />,
 			id: 1,
 		},
 		{
 			valid: whats ? true : false,
 			content: whats,
-			link: '',
+			link: "",
 			icon: <BsWhatsapp size={24} color="#007D99" />,
 			id: 2,
 		},
 		{
 			valid: phone ? true : false,
 			content: phone,
-			link: '',
+			link: "",
 			icon: <BsFillTelephoneFill size={23} color="#007D99" />,
 			id: 3,
 		},
 		{
 			valid: email ? true : false,
 			content: email,
-			link: '',
+			link: "",
 			icon: <MdEmail size={26} color="#007D99" />,
 			id: 4,
 		},
@@ -90,33 +90,34 @@ export const CompanieContact: FunctionComponent<ICompanieContact> = ({
 			position="sticky"
 			top="10%"
 		>
-			{infos.map(item => (
-				item.content && (
-					<Link
-						key={item.id}
-						href={item?.link}
-						target="_blank"
-						_hover={{ textDecoration: "none", bgColor: "transparent" }}
-						_active={{ bgColor: "transparent" }}
-					>
-						<Flex
-							display={item.valid === true ? "flex" : "none"}
-							gap="1rem"
-							alignItems="center"
+			{infos.map(
+				item =>
+					item.content && (
+						<Link
+							key={item.id}
+							href={item?.link}
+							target="_blank"
+							_hover={{ textDecoration: "none", bgColor: "transparent" }}
+							_active={{ bgColor: "transparent" }}
 						>
-							<Flex>{item.icon}</Flex>
-							<Text
-								fontFamily="Poppins"
-								fontSize="0.875rem"
-								lineHeight="1.25rem"
-								color="#171923"
+							<Flex
+								display={item.valid === true ? "flex" : "none"}
+								gap="1rem"
+								alignItems="center"
 							>
-								{item.content}
-							</Text>
-						</Flex>
-					</Link>
-				)
-			))}
+								<Flex>{item.icon}</Flex>
+								<Text
+									fontFamily="Poppins"
+									fontSize="0.875rem"
+									lineHeight="1.25rem"
+									color="#171923"
+								>
+									{item.content}
+								</Text>
+							</Flex>
+						</Link>
+					)
+			)}
 		</Flex>
 	);
 };

@@ -1,3 +1,3 @@
 export interface IPaymentMethods {
-  image?: string;
+	image?: string;
 }

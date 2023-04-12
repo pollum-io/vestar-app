@@ -1,27 +1,25 @@
-import { BsCheck } from "react-icons/bs";
 import {
+	Accordion,
+	AccordionButton,
+	AccordionIcon,
+	AccordionItem,
+	AccordionPanel,
+	Button,
 	Flex,
-	IconButton,
+	Icon,
 	Img,
 	Menu,
 	MenuButton,
 	MenuItem,
 	MenuList,
-	Icon,
 	Text,
-	Button,
-	Accordion,
-	AccordionItem,
-	AccordionButton,
-	AccordionIcon,
-	AccordionPanel,
 } from "@chakra-ui/react";
-import { FiMenu } from "react-icons/fi";
 import { useRouter } from "next/router";
-import { logout } from "../../services/fetchLogout";
+import { BsCheck } from "react-icons/bs";
+import { FiMenu } from "react-icons/fi";
 import { useUser } from "../../hooks/useUser";
-import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet";
+import { logout } from "../../services/fetchLogout";
 
 export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
