@@ -35,6 +35,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
 	const { shares } = useTransactions();
+
 	useEffect(() => {
 		const fetchData = async () => {
 			const cardsInfoCompany = await fetchImages(
@@ -44,6 +45,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		};
 		fetchData();
 	}, [imovelDetails?.enterprise_logo]);
+	console.log(imovelDetails?.sale_end_at, "imovelDetails?.sale_end_at");
+	console.log(new Date(Number(imovelDetails?.sale_end_at) * 1000), "como ta");
+	console.log(new Date(Number(imovelDetails?.sale_end_at)), "como ta 2");
 
 	const renderer = ({
 		days,
@@ -53,6 +57,11 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		props: { date },
 	}: CountdownRenderProps) => {
 		const dateFormated = moment(date).format("DD/MM/YYYY");
+		console.log(dateFormated, "dateFormated");
+		console.log(date, "date");
+
+		console.log(days, "days");
+		console.log(hours, "hours");
 
 		if (completed) {
 			setEnded(true);
@@ -84,7 +93,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		// eslint-disable-next-line
 		[imovelDetails.token_address, account]
 	);
-
 	return (
 		<>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -281,7 +289,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									h="max-content"
 								>
 									<Countdown
-										date={new Date(+imovelDetails?.sale_end_at * 1000)}
+										date={imovelDetails?.sale_end_at}
 										renderer={renderer}
 									/>
 									<Text

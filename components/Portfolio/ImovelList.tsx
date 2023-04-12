@@ -1,20 +1,21 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { FunctionComponent, useEffect, useState } from "react";
+import { useUser } from "../../hooks/useUser";
 import { fetchImages } from "../../services";
 interface IImovelList {
 	isFinished: boolean;
-	isInvest: boolean;
 	investmentData?: any;
 	enterpriseData?: any;
 }
 
 export const ImovelList: FunctionComponent<IImovelList> = ({
 	isFinished,
-	isInvest,
 	investmentData,
 	enterpriseData,
 }) => {
+	const { isInvestor } = useUser();
+
 	const [resultWithImages, setResultWithImages] = useState<any>([]);
 
 	const result = investmentData?.reduce((acc: any, investment: any) => {
@@ -116,7 +117,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 						</Flex>
 						<Flex w="70%" alignItems="center" justifyContent="space-between">
 							<Flex>
-								{isInvest ? (
+								{isInvestor ? (
 									<Flex flexDir={"column"} w="7rem">
 										<Text
 											cursor={isFinished ? "default" : "pointer"}
@@ -150,7 +151,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 								)}
 							</Flex>
 							<Flex>
-								{isInvest ? (
+								{isInvestor ? (
 									<Flex flexDir={"column"} w="7rem">
 										<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
 											R$ {investment?.amount}
@@ -170,20 +171,20 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 									</Text>
 								)}
 							</Flex>
-							<Flex display={isInvest ? "none" : "flex"} w="7rem">
+							<Flex display={isInvestor ? "none" : "flex"} w="7rem">
 								<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
 									{investment?.token_supply}
 								</Text>
 							</Flex>
-							<Flex w={isInvest ? "7rem" : "9rem"}>
+							<Flex w={isInvestor ? "7rem" : "9rem"}>
 								<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-									{isInvest
+									{isInvestor
 										? investment.expected_delivery_date &&
 										  moment(investment.expected_delivery_date).format("YYYY")
 										: investment?.token_supply - investment?.token_minted}
 								</Text>
 							</Flex>
-							{isInvest && (
+							{isInvestor && (
 								<>
 									<Flex w="7rem">
 										<Text fontSize={"md"} fontWeight="400" color={"#171923"}>

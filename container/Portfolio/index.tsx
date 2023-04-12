@@ -64,33 +64,33 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	const formattedDate = moment().format("DD/MMM/YY");
 	console.log(isInvestor, "isInvestor");
 	console.log(userInfos, "userInfos");
-
-	// const calcularPorcentagensDeTipos = (objetos: any) => {
-	// 	const contagemDeTipos: any = {};
-	// 	objetos?.forEach((objeto: any) => {
-	// 		const tipo = objeto.enterprise_type;
-	// 		if (!contagemDeTipos[tipo]) {
-	// 			contagemDeTipos[tipo] = 0;
-	// 		}
-	// 		contagemDeTipos[tipo]++;
-	// 	});
-
-	// 	const totalDeObjetos = objetos?.length;
-
-	// 	const porcentagensDeTipos: any = {};
-	// 	Object.entries(contagemDeTipos).forEach(([tipo, contagem]: any) => {
-	// 		const porcentagem = (contagem / totalDeObjetos) * 100;
-	// 		porcentagensDeTipos[tipo] = porcentagem.toFixed(2);
-	// 	});
-	// 	setYoursInvestments(porcentagensDeTipos);
-	// 	return porcentagensDeTipos;
-	// };
-
-	// useMemo(() => {
-	// 	calcularPorcentagensDeTipos(portfolioData);
-	// }, [portfolioData]);
-
 	console.log(portfolioData, "portfolioData");
+	console.log(enterpriseData, "enterpriseData");
+
+	const calcularPorcentagensDeTipos = (objetos: any) => {
+		const contagemDeTipos: any = {};
+		objetos?.forEach((objeto: any) => {
+			const tipo = objeto.enterprise_type;
+			if (!contagemDeTipos[tipo]) {
+				contagemDeTipos[tipo] = 0;
+			}
+			contagemDeTipos[tipo]++;
+		});
+
+		const totalDeObjetos = objetos?.length;
+
+		const porcentagensDeTipos: any = {};
+		Object.entries(contagemDeTipos).forEach(([tipo, contagem]: any) => {
+			const porcentagem = (contagem / totalDeObjetos) * 100;
+			porcentagensDeTipos[tipo] = porcentagem.toFixed(2);
+		});
+		setYoursInvestments(porcentagensDeTipos);
+		return porcentagensDeTipos;
+	};
+
+	useMemo(() => {
+		calcularPorcentagensDeTipos(portfolioData);
+	}, [portfolioData]);
 
 	return (
 		<DefaultTemplate>
@@ -126,12 +126,10 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							h="5.25rem"
 							justifyContent="end"
 						>
-							{hasInvest ? (
-								<YourDetailtCard
-									investor={portfolioData}
-									enterprise={enterpriseData}
-								/>
-							) : null}
+							<YourDetailtCard
+								investor={portfolioData}
+								enterprise={enterpriseData}
+							/>
 						</Flex>
 					</Flex>
 				</Flex>
@@ -198,7 +196,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 										</Text>
 									</Flex> */}
 								</Flex>
-								{/* <Examaple chartData={portfolioData} /> */}
+								<Examaple chartData={portfolioData} />
 							</Flex>
 						</Flex>
 						<Flex flexDir={"column"} mb="6.5625rem">
@@ -336,7 +334,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							</Flex>
 							{isInvestor ? (
 								<Flex alignItems={"center"} w="100%" h="15rem">
-									{/* <PieChartPortfolio data={portfolioData} /> */}
+									<PieChartPortfolio data={portfolioData} />
 									<Flex pl="5rem" gap="3.25rem">
 										{yoursInvestments?.Residencial && (
 											<Flex flexDir={"column"}>
@@ -498,7 +496,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									<ImovelList
 										investmentData={portfolioData}
 										enterpriseData={enterpriseData}
-										isInvest={false}
 										isFinished={false}
 									/>
 								</Flex>

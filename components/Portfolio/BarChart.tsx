@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
 	BarChart,
 	Bar,
@@ -29,29 +29,13 @@ export const BarCharts: React.FC<IExample> = props => {
 
 		return colorScale(value);
 	};
-	const tokenMintedValues = chartData?.map(value => value.token_minted);
 
-	const renderLabel = (props: any) => {
-		if (props.index === chartData.length - 1) {
-			return (
-				<text
-					x={props.x + props.width + 5}
-					y={props.y + props.height / 2}
-					fill="#8da108"
-					fontSize="14px"
-					dominantBaseline="middle"
-				>
-					{props.value}
-				</text>
-			);
+	const sortedChartData = useMemo(() => {
+		if (Array.isArray(chartData)) {
+			return [...chartData].sort((a, b) => b.token_minted - a.token_minted);
 		}
-
-		return null;
-	};
-
-	const sortedChartData = [...chartData].sort(
-		(a, b) => b.token_minted - a.token_minted
-	);
+		return;
+	}, [chartData]);
 	return (
 		<ResponsiveContainer width="100%" height="100%">
 			<BarChart
@@ -79,7 +63,7 @@ export const BarCharts: React.FC<IExample> = props => {
 					width="max-content"
 					label={{ position: "right", formatter: (value: any) => `${value}` }}
 				>
-					{sortedChartData.map((value, index) => (
+					{sortedChartData?.map((value, index) => (
 						<Cell key={value.id} fill={getCellColor(value.token_minted)} />
 					))}
 				</Bar>

@@ -44,7 +44,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 		let mintedTokensTotal = 0;
 		let totalSupplyTotal = 0;
 
-		for (let i = 0; i < enterprise.length; i++) {
+		for (let i = 0; i < enterprise?.length; i++) {
 			mintedTokensTotal += enterprise[i].token_minted;
 			totalSupplyTotal += enterprise[i].token_supply;
 		}
