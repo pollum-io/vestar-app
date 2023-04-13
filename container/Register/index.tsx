@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 export const RegisterContainer: FunctionComponent = (props: any) => {
 	const { token } = props;
+	const { t } = useTranslation();
 
 	return (
 		<Flex w="100vw" h="100vh" bgColor="#ffffff" justifyContent="center">

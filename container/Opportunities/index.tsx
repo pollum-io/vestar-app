@@ -78,7 +78,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 								zIndex="docked"
 								mt="2.5rem"
 							>
-								Investir é muito mais fácil com a LIVN
+								{t("opportunities.investingIs")}
 							</Text>
 						</Flex>
 						<Flex
@@ -97,7 +97,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="7.5625rem"
 									>
-										Abra uma oportunidade disponível para você
+										{t("opportunities.first")}
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
@@ -109,7 +109,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="7.5625rem"
 									>
-										Selecione a quantidade de cotas que você deseja
+										{t("opportunities.second")}
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
@@ -121,7 +121,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="7.5625rem"
 									>
-										Clique em Quero Investir e faça o pagamento
+										{t("opportunities.third")}
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem" pt="0.2rem">
@@ -133,8 +133,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="11.125rem"
 									>
-										Pronto! agora é só acompanhar os rendimentos na aba
-										Portfólio
+										{t("opportunities.fourth")}
 									</Text>
 								</Flex>
 							</Flex>
