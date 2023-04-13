@@ -11,6 +11,10 @@ const EnterpriseSchema = new mongoose.Schema(
 		enterprise_logo: {
 			type: String,
 		},
+		enterprise_banner: {
+			type: String,
+
+		},
 		cnpj: {
 			type: String,
 			required: true,
@@ -18,22 +22,18 @@ const EnterpriseSchema = new mongoose.Schema(
 		},
 		site_url: {
 			type: String,
-			required: true,
 			maxlength: 40,
 		},
 		email: {
 			type: String,
-			required: true,
 		},
 		contact_number: {
-			required: true,
 			type: String,
 		},
 		social_media: {
 			type: Object,
 		},
 		description: {
-			required: true,
 			type: String,
 		},
 		address: {
@@ -56,6 +56,14 @@ const EnterpriseSchema = new mongoose.Schema(
 		},
 		investments: {
 			type: Array,
+		},
+		invited_by: {
+			type: String,
+			required: true,
+		},
+		uf: {
+			type: String,
+			required: true,
 		},
 	},
 	{

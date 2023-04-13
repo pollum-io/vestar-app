@@ -69,25 +69,22 @@ const RegisterStep: FunctionComponent<IRegisterSteps> = ({
 
 export const RegisterSteps: FunctionComponent = () => {
 	const { firstStep, secondStep, isPhysical } = useRegister();
-	const { t } = useTranslation();
 
 	return (
 		<Flex gap="3.875rem">
 			<RegisterStep
 				step={1}
-				title={
-					isPhysical ? t("register.personalData") : t("register.companyData")
-				}
+				title={isPhysical ? "Dados PJ" : "Dados Pessoais"}
 				barPercentage={firstStep ? 50 : 100}
 			/>
 			<RegisterStep
 				step={2}
-				title={t("register.acceptTerms")}
+				title="Ler e Aceitar Termos"
 				barPercentage={secondStep ? 50 : firstStep ? 0 : 100}
 			/>
 			<RegisterStep
 				step={3}
-				title={t("register.submit")}
+				title="Enviar Cadastro"
 				barPercentage={!firstStep && !secondStep ? 50 : 0}
 			/>
 		</Flex>

@@ -1,18 +1,19 @@
-import React, { FunctionComponent } from "react";
 import { Button, Flex, Img, Text } from "@chakra-ui/react";
-import { ICompaniesCard } from "./dto";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { FunctionComponent } from "react";
+import { ICompaniesCard } from "./dto";
 
-const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
-	banner,
-	logo,
-	name,
-	opportunities,
-	closed,
+export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
+	_id,
+	enterprise_name,
+	enterprise_info,
+	enterprise_logo,
+	opportunities_closed,
+	opportunities_available,
+	enterprise_banner,
 }) => {
 	const { push } = useRouter();
-	const { t } = useTranslation();
 	return (
 		<Flex
 			w="100%"
@@ -27,7 +28,12 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				borderRadius="0.75rem"
 				h="9.3125rem"
 			>
-				{banner ? <Img src={banner} h="100%" w="100%" /> : <Flex />}
+				<Img
+					borderRadius="0.75rem"
+					w="100%"
+					h="100%"
+					src={`/api/file/${enterprise_banner}`}
+				/>
 			</Flex>
 			<Flex
 				gap="1.5rem"
@@ -38,14 +44,7 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				borderBottomRadius="0.75rem"
 			>
 				<Flex w="6rem" position="relative">
-					<Img
-						src={logo}
-						w="6rem"
-						h="6rem"
-						borderRadius="3.4375rem"
-						position="absolute"
-						bottom="0"
-					/>
+					<Img src={`/api/file/${enterprise_logo}`} />
 				</Flex>
 				<Flex gap="0.375rem" flexDirection="column">
 					<Text
@@ -56,24 +55,24 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 						color="#171923"
 						textTransform="uppercase"
 					>
-						{name}
+						{enterprise_name}
 					</Text>
 					<Flex justifyContent="space-between" alignItems="center" gap="4rem">
 						<Flex gap="2.8125rem">
 							<Flex gap="0.5rem" alignItems="baseline" fontFamily="Poppins">
 								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									{t("companies.card.opportunities")}
+									Oportunidades Disponíveis
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									{opportunities}
+									{opportunities_available}
 								</Text>
 							</Flex>
 							<Flex gap="0.5rem" alignItems="baseline">
 								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									{t("companies.card.closed")}
+									Encerradas
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									{closed}
+									{opportunities_closed}
 								</Text>
 							</Flex>
 						</Flex>
@@ -90,26 +89,18 @@ const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 							lineHeight="1rem"
 							color="#007D99"
 							_hover={{ bgColor: "#EDF2F7" }}
-							onClick={() => push("/companie")}
+							onClick={() =>
+								push({
+									pathname: `/empresa/`,
+									query: { enterprise_id: `${_id}` },
+								})
+							}
 						>
-							{t("companies.card.learnMore")}
+							Saiba mais
 						</Button>
 					</Flex>
 				</Flex>
 			</Flex>
-		</Flex>
-	);
-};
-
-export const CompaniesCards: FunctionComponent = () => {
-	return (
-		<Flex flexDirection="column" gap="1.5rem" w="100%">
-			<CompaniesCard
-				logo="images/companiesCardLogo.png"
-				name="capital city"
-				opportunities={26}
-				closed={187}
-			/>
 		</Flex>
 	);
 };

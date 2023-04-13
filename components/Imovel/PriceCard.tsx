@@ -1,17 +1,58 @@
 import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
-import { FiCopy } from "react-icons/fi";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRegister } from "../../hooks";
+import { FiCopy } from "react-icons/fi";
+import { useOpportunities } from "../../hooks/useOpportunities";
 interface IPriceCard {
-	axisY: string;
+	id: any;
+	price: number;
+	minted: number;
+	supply: number;
+	address: string;
+	oportunitiesAddress: string;
+	investor_id?: string;
+	enterprise_id?: string;
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
-	const { axisY } = props;
-	const [isInvestidor, setIsInvestidor] = useState(true);
-	const { ended, hasToken } = useRegister();
+	const {
+		id,
+		price,
+		minted,
+		supply,
+		address,
+		oportunitiesAddress,
+		investor_id,
+		enterprise_id,
+	} = props;
+	const [isInvestidor, setIsInvestidor] = useState(investor_id ? true : false);
+	const { ended, hasToken } = useOpportunities();
+	const { push } = useRouter();
+	const [cotas, setCotas] = useState<number>(0);
+	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
+
+	const handleClick = async (value: string) => {
+		try {
+			await navigator.clipboard.writeText(value);
+			setCopied(true);
+		} catch (error) {
+			console.error("Failed to copy text: ", error);
+		}
+	};
+	const avalible = useMemo(() => {
+		if (supply > minted) {
+			return supply - minted;
+		} else {
+			return minted - supply;
+		}
+	}, [minted, supply]);
+
+	const formatter = new Intl.NumberFormat("pt-br", {
+		style: "currency",
+		currency: "BRL",
+	});
 
 	return (
 		<Flex
@@ -46,13 +87,29 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								{t("opportunitieDetails.select")}
 							</Text>
 							<Text fontSize={"sm"} fontWeight="400">
-								1 {t("opportunitieDetails.quota")}
+								{cotas} cota
 							</Text>
 						</Flex>
 
 						<Flex gap="0.3125rem">
-							<Img _hover={{ cursor: "pointer" }} src={"icons/PlusIcon.png"} />
-							<Img _hover={{ cursor: "pointer" }} src={"icons/MinusIcon.png"} />
+							<Img
+								_hover={{
+									cursor: "pointer",
+									opacity: 0.5,
+									transition: "all 0.4s",
+								}}
+								src={"/icons/PlusIcon.png"}
+								onClick={() => setCotas(cotas === avalible ? cotas : cotas + 1)}
+							/>
+							<Img
+								_hover={{
+									cursor: "pointer",
+									opacity: 0.5,
+									transition: "all 0.4s",
+								}}
+								src={"/icons/MinusIcon.png"}
+								onClick={() => setCotas(cotas === 0 ? 0 : cotas - 1)}
+							/>
 						</Flex>
 					</Flex>
 					<Flex
@@ -71,7 +128,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									: t("opportunitieDetails.total")}
 							</Text>
 							<Text fontWeight={"500"} display={ended ? "none" : "flex"}>
-								{t("opportunities.card.sign")}150
+								{formatter.format(cotas * price)}
 							</Text>
 						</Flex>
 
@@ -90,6 +147,12 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									ended && !hasToken
 										? { opacity: "0.3" }
 										: { bgColor: "#F7FAFC" }
+								}
+								onClick={() =>
+									push({
+										pathname: "/investir",
+										query: { id, cotas, oportunitiesAddress },
+									})
 								}
 							>
 								{ended
@@ -122,8 +185,8 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					flexDirection="column"
 				>
 					<Flex justifyContent="space-between" w="100%">
-						<Text>{t("opportunitieDetails.unit")}</Text>
-						<Text>{t("opportunities.card.sign")}150</Text>
+						<Text>Preço unitário</Text>
+						<Text>{price}</Text>
 					</Flex>
 					<Flex w="100%" border="1px solid #4BA3B7" my="1rem" />
 				</Flex>
@@ -135,13 +198,14 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
-							0xe42c...e306
+							{`${address?.slice(0, 5)}...${address?.slice(38)}`}
 						</Text>
 						<Icon
 							color={"#4BA3B7"}
 							w={4}
 							h={4}
 							as={FiCopy}
+							onClick={() => handleClick(address)}
 							_hover={{ cursor: "pointer" }}
 						/>
 					</Flex>
@@ -154,7 +218,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.unit")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						{t("opportunities.card.sign")}150
+						R${price}
 					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
@@ -162,7 +226,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.shares")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						237
+						{minted}
 					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
@@ -170,7 +234,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.available")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						13
+						{avalible}
 					</Text>
 				</Flex>
 			</Flex>

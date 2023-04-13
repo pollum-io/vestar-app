@@ -5,6 +5,7 @@ import { HeaderLinks } from "./HeaderLinks";
 
 export const Header: React.FC = () => {
 	const { push } = useRouter();
+
 	return (
 		<Flex
 			w="100%"
@@ -20,7 +21,7 @@ export const Header: React.FC = () => {
 				onClick={() => push("/oportunidades")}
 				_hover={{ cursor: "pointer" }}
 			>
-				<Img src={"images/livnlogo.png"} w="5" h="7" />
+				<Img src={"/images/livnlogo.png"} w="5" h="7" alt="Livn logo" />
 			</Flex>
 			<Flex>
 				<HeaderLinks />

@@ -1,12 +1,31 @@
-import { Flex, Img, Text } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { Flex, Img, Text, useMediaQuery } from "@chakra-ui/react";
+import { FunctionComponent, useEffect } from "react";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
+import { useUser } from "../../hooks/useUser";
 import { useTranslation } from "react-i18next";
 
-export const OpportunitiesContainer: FunctionComponent = () => {
+export const OpportunitiesContainer: FunctionComponent = (props: any) => {
+	const { getInfosId, getInfos } = useUser();
+	const [bannerRes] = useMediaQuery("(max-width: 1110px)");
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		getInfosId(
+			props?.user?.investor_id === null
+				? props?.user?.enterprise_id
+				: props?.user?.investor_id
+		);
+		getInfos(props.token);
+	}, [
+		getInfos,
+		getInfosId,
+		props.token,
+		props?.user?.enterprise_id,
+		props?.user?.investor_id,
+	]);
+
 	return (
 		<DefaultTemplate>
 			<Flex
@@ -31,8 +50,13 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 						w="100%"
 						h="21.3125rem"
 						position="absolute"
-						gap="5%"
-						justifyContent="center"
+						gap={bannerRes ? "unset" : ["unset", "unset", "5%", "5%"]}
+						justifyContent={
+							bannerRes
+								? "space-between"
+								: ["unset", "unset", "center", "center"]
+						}
+						px={["", "", "", "1rem", "unset"]}
 					>
 						<Flex position="relative" alignItems="center">
 							<Img
@@ -57,7 +81,12 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 								Investir é muito mais fácil com a LIVN
 							</Text>
 						</Flex>
-						<Flex h="21.3125rem" alignItems="center" w="50%" maxWidth="47rem">
+						<Flex
+							h="21.3125rem"
+							alignItems="center"
+							w={["unset", "unset", "unset", "unset", "50%"]}
+							maxWidth="47rem"
+						>
 							<Flex justifyContent="space-between" w="100%" gap="1.5rem">
 								<Flex flexDirection="column" gap="0.625rem">
 									<Img src="images/firstIcon.png" w="2.2rem" h="2.8rem" />
@@ -158,9 +187,9 @@ export const OpportunitiesContainer: FunctionComponent = () => {
 							]}
 						>
 							<MenuInputs />
-							<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
-								147 {t("opportunities.result")}
-							</Text>
+							{/* <Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
+								1 resultados
+							</Text> */}
 						</Flex>
 					</Flex>
 					<Flex mt="2.9375rem" w="100%" justifyContent="center">
