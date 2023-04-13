@@ -20,7 +20,6 @@ const formatTokenAddress = (address: string) => {
 
 export const BarCharts: React.FC<IExample> = props => {
 	const { chartData } = props;
-	console.log(chartData);
 	const getCellColor = (value: number) => {
 		const colorScale = d3
 			.scaleLinear<string>()

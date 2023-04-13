@@ -52,7 +52,6 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 		return ((mintedTokensTotal / totalSupplyTotal) * 100).toFixed(2);
 	}, [enterprise]);
 
-	console.log(enterprise, "enterpriseenterpriseenterpriseenterprise");
 	return (
 		<Flex
 			w={hasInvest ? "34.4375rem" : "34.4375rem"}
