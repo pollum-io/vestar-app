@@ -1,13 +1,15 @@
-export const fetchCreateEnterprise = async (data: any, token: any) => {
-	const request = await fetch(`http://localhost:3000/api/enterprise`, {
-		method: "POST",
-		body: JSON.stringify(data),
-		headers: {
-			"content-type": "application/json",
-			accept: "application/json",
-			"Authorization": `Bearer ${token}`
-		}
-	}).then(res => res.json());
+import { apiInstance } from "./api";
 
-	return request;
-}
+export const fetchCreateEnterprise = async (data: any, token: any) => {
+	const api = apiInstance();
+	try {
+		const response = await api.post("/enterprise", data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error: any) {
+		console.log(error.message);
+	}
+};

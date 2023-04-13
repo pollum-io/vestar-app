@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 }) => {
 	const token = req.cookies["livn_auth"];
+	const host = req.headers.host;
 
 	if (!token) {
 		return {
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {},
 		};
 	}
-	const response = await fetchEnterpriseById(query.enterprise_id);
+	const response = await fetchEnterpriseById(query.enterprise_id, host);
 
 	return {
 		props: {

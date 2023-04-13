@@ -1,14 +1,11 @@
 import qs from "qs";
+import { apiInstance } from "./api";
 
-export async function fetchOpportunity(query?: object) {
+export const fetchOpportunity = async (query?: object, host?: string) => {
+	const api = apiInstance(host);
 	const params = query ? `?${qs.stringify(query)}` : "";
 
-	const request = await fetch(
-		`http://localhost:3000/api/opportunity${params}`,
-		{
-			method: "GET",
-		}
-	);
+	const response = await api.get(`/opportunity${params}`);
 
-	return request.json();
-}
+	return response.data;
+};

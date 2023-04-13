@@ -1,9 +1,8 @@
-import { Flex, Text, ButtonProps, Img, Input, Button } from "@chakra-ui/react";
-import React, { FunctionComponent, useState } from "react";
+import { Button, ButtonProps, Flex, Img, Input, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { authenticate } from "../../services/fetchLogin";
+import { FunctionComponent, useState } from "react";
 import { useUser } from "../../hooks/useUser";
-import PersistentFramework from "../../utils/persistent";
+import { apiInstance } from "../../services/api";
 import { useToasty } from "../../hooks/useToasty";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
@@ -12,15 +11,27 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const [password, setPassword] = useState<any>();
 	const { getInfosId } = useUser();
 	const { toast } = useToasty();
+	const api = apiInstance();
 
 	const handleLogin = async () => {
-		const data = await authenticate(email, password);
-		getInfosId(
-			data?.data?.user?.investor_id === null
-				? data?.data?.user?.enterprise_id
-				: data?.data?.user?.investor_id
-		);
-		if (data.error) {
+		try {
+			const data = await api.post("/user/authenticate", {
+				email: email,
+				password: password,
+			});
+			getInfosId(
+				data?.data?.user?.investor_id === null
+					? data?.data?.user?.enterprise_id
+					: data?.data?.user?.investor_id
+			);
+			toast({
+				id: "toast-login-suc",
+				position: "top-right",
+				status: "success",
+				title: "Seja bem-vindo!",
+			});
+			push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
+		} catch (error: any) {
 			toast({
 				id: "toast-login-error",
 				position: "top-right",
@@ -29,13 +40,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			});
 			return;
 		}
-		toast({
-			id: "toast-login-suc",
-			position: "top-right",
-			status: "success",
-			title: "Seja bem-vindo!",
-		});
-		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 
 	const handleKeyPress = (event: any) => {

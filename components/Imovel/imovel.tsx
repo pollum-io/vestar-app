@@ -1,23 +1,19 @@
-import { FunctionComponent, useCallback, useState } from "react";
-import { Flex, Img, Text, Icon, SimpleGrid } from "@chakra-ui/react";
-import { FiMapPin } from "react-icons/fi";
-import { Collections } from "./Collections";
-import { PriceCard } from "./PriceCard";
-import { Carousel } from "./Carousel";
-import { TbInfoSquare } from "react-icons/tb";
-import { Maps } from "../Map/Maps";
-import { formatDate } from "../../utils/formatDate";
-import { useEffect } from "react";
-import { useRegister } from "../../hooks";
-import { IOpportunitiesCard } from "../../dtos/Oportunities";
-import { useOpportunities } from "../../hooks/useOpportunities";
+import { Flex, Icon, Img, SimpleGrid, Text } from "@chakra-ui/react";
 import moment from "moment-timezone";
+import { FunctionComponent, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
+import { FiMapPin } from "react-icons/fi";
+import { TbInfoSquare } from "react-icons/tb";
+import { IOpportunitiesCard } from "../../dtos/Oportunities";
+import { useOpportunities } from "../../hooks/useOpportunities";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
-import { useQuery as query } from "react-query";
-import { fetchImages } from "../../services";
+import { formatDate } from "../../utils/formatDate";
+import { Maps } from "../Map/Maps";
+import { Carousel } from "./Carousel";
+import { Collections } from "./Collections";
+import { PriceCard } from "./PriceCard";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -31,20 +27,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	const { hasToken } = useOpportunities();
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
-	const [companyLogo, setCompanyLogo] = useState<any>();
 	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
 	const { shares } = useTransactions();
-	useEffect(() => {
-		const fetchData = async () => {
-			const cardsInfoCompany = await fetchImages(
-				imovelDetails?.enterprise_logo
-			);
-			setCompanyLogo(cardsInfoCompany);
-		};
-		fetchData();
-	}, [imovelDetails?.enterprise_logo]);
-
 	const renderer = ({
 		days,
 		hours,
@@ -92,7 +77,11 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
 						<Flex gap="0.5rem" pb="0.5rem">
-							<Img w="6" h="6" src={companyLogo} />
+							<Img
+								w="6"
+								h="6"
+								src={`/api/file/${imovelDetails?.enterprise_logo}`}
+							/>
 							<Text fontWeight={"400"} color="#171923">
 								Nome da Empresa Responsável
 							</Text>
@@ -335,7 +324,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit Square.png"} />
+							<Img src={"/images/icons/Edit-Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 								Auditorias
 							</Text>
@@ -395,8 +384,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 					<Flex>
 						<Carousel
 							extra_images={imovelDetails?.pictures_neighbor as any[]}
-							widthValue="70rem"
-							heightValue="18rem"
+							widthValue="30rem"
+							heightValue="15rem"
 						/>
 					</Flex>
 				</Flex>

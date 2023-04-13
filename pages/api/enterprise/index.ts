@@ -1,14 +1,14 @@
+import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import { z } from "zod";
-import mongoose from "mongoose";
 
-import dbConnect from "../../../lib/dbConnect";
-import Enterprise from "../../../models/enterprise";
 import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
+import dbConnect from "../../../lib/dbConnect";
 import { ApiResponse } from "../../../models/ApiResponse";
-import { getAvailableAndClosedOpportunities } from "./[id]";
+import Enterprise from "../../../models/enterprise";
 import User from "../../../models/user";
+import { getAvailableAndClosedOpportunities } from "./[id]";
 
 type ResponseData = ApiResponse<string>;
 
