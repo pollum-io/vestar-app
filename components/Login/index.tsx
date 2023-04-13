@@ -24,13 +24,25 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					? data?.data?.user?.enterprise_id
 					: data?.data?.user?.investor_id
 			);
-			toast({
-				id: "toast-login-suc",
-				position: "top-right",
-				status: "success",
-				title: "Seja bem-vindo!",
-			});
-			push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
+			if (data?.data?.user?.investor_id) {
+				toast({
+					id: "toast-login-suc",
+					position: "top-right",
+					status: "success",
+					title: "Login efetuado com sucesso!",
+				});
+				push("/oportunidades");
+				return;
+			} else {
+				toast({
+					id: "toast-login-suc",
+					position: "top-right",
+					status: "info",
+					title: "Crie o seu usuario!",
+				});
+				push("/registrar");
+				return;
+			}
 		} catch (error: any) {
 			toast({
 				id: "toast-login-error",
