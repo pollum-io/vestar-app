@@ -19,6 +19,34 @@ const router = nextConnect({
 	},
 });
 
+export async function getAvailableAndClosedOpportunities(ids: any) {
+	const dateNow = new Date();
+
+	const is_array = Array.isArray(ids);
+	const oppData = await Opportunity.aggregate([
+		{
+			$match: {
+				enterprise_id: is_array
+					? { $in: ids }
+					: new mongoose.Types.ObjectId(`${ids}`),
+			},
+		},
+		{
+			$group: {
+				_id: "$enterprise_id",
+				opportunities_closed: {
+					$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
+				},
+				opportunities_available: {
+					$sum: { $cond: [{ $gte: ["$end_date", dateNow] }, 1, 0] },
+				},
+			},
+		},
+	]);
+
+	return is_array ? oppData : oppData[0];
+}
+
 router.get(async (req, res) => {
 	try {
 		await dbConnect();
@@ -35,30 +63,17 @@ router.get(async (req, res) => {
 			return res.status(404).json({ error: "enterprise not found" });
 		}
 
-		const dateNow = new Date();
+		const opData = await getAvailableAndClosedOpportunities(id);
 
-		const [oppData] = await Opportunity.aggregate([
-			{ $match: { enterprise_id: new mongoose.Types.ObjectId(`${id}`) } },
-			{
-				$group: {
-					_id: "$enterprise_id",
-					closed_opportunities: {
-						$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
-					},
-					opportunities_available: {
-						$sum: { $cond: [{ $gte: ["$end_date", dateNow] }, 1, 0] },
-					},
-				},
-			},
-		]);
-
-		const { opportunities_available, closed_opportunities } = oppData;
+		const defaultOppData = {
+			opportunities_closed: 0,
+			opportunities_available: 0,
+		};
 
 		res.status(200).json({
 			data: {
 				...enterprise,
-				closed_opportunities,
-				opportunities_available,
+				...(opData || defaultOppData),
 			},
 		});
 	} catch (error: any) {
@@ -71,15 +86,23 @@ router.put(verifyUser, async (req, res) => {
 		await dbConnect();
 
 		const { id } = req.query;
+		const data = req?.body;
 
-		const enterprise = await Enterprise.findOneAndUpdate(
-			{ _id: id },
-			req.body,
-			{
-				new: true,
-				runValidators: true,
-			}
-		);
+		if (!data) {
+			return res.status(400).json({ error: "empty data" });
+		}
+
+		const enterprise = await Enterprise.findOneAndUpdate({ _id: id }, data, {
+			new: true,
+			runValidators: true,
+		});
+
+		if (data?.enterprise_logo) {
+			Opportunity.updateMany(
+				{ enterprise_id: id },
+				{ enterprise_logo: data.enterprise_logo }
+			);
+		}
 
 		if (!enterprise) {
 			return res.status(204).end("no enterprise data to update");

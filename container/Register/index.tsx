@@ -1,16 +1,11 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { RegisterSteps } from "../../components/Register/RegisterSteps";
 import { Flex, Img, Text } from "@chakra-ui/react";
-import { useRegister } from "../../hooks/useRegister";
 import { RegisterContent } from "../../components/Register/RegisterContent";
 import { useTranslation } from "react-i18next";
 
-export const RegisterContainer: FunctionComponent = () => {
-	const { isPhysical } = useRegister();
-	const { t } = useTranslation();
-	useEffect(() => {
-		console.log(isPhysical);
-	}, [isPhysical]);
+export const RegisterContainer: FunctionComponent = (props: any) => {
+	const { token } = props;
 
 	return (
 		<Flex w="100vw" h="100vh" bgColor="#ffffff" justifyContent="center">
@@ -46,14 +41,8 @@ export const RegisterContainer: FunctionComponent = () => {
 						<RegisterSteps />
 					</Flex>
 				</Flex>
-				<Flex
-					pl="27%"
-					w="100%"
-					h="100%"
-					alignItems="flex-start"
-					flexDirection="column"
-				>
-					<RegisterContent />
+				<Flex w="100%" h="100%" alignItems="center" flexDirection="column">
+					<RegisterContent token={token} />
 				</Flex>
 			</Flex>
 		</Flex>

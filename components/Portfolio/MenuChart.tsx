@@ -26,11 +26,11 @@ export const MenuChart: FunctionComponent<IMenuChart> = ({
 	defaultSelection,
 }) => {
 	return (
-		<Flex alignItems="center" mb="3rem" gap="0.75rem" ml="0.7rem" pr="2">
+		<Flex alignItems="center" gap="0.75rem" ml="0.7rem" pr="2">
 			<Text fontSize={"sm"} fontWeight="500" color={titleColor}>
 				{title}
 			</Text>
-			<Menu>
+			<Menu placement={"bottom-end"}>
 				<MenuButton
 					w="max"
 					h="max"

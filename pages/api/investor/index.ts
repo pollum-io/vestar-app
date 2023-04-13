@@ -5,7 +5,7 @@ import { z } from "zod";
 import dbConnect from "../../../lib/dbConnect";
 import Investor from "../../../models/investor";
 import User from "../../../models/user";
-import { verifyUser } from "../../../lib/auth";
+import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
 interface NextConnectApiRequest extends NextApiRequest {
@@ -35,27 +35,38 @@ const router = nextConnect({
 
 const insertSchema = z.object({
 	full_name: z.string(),
-	cpf: z.optional(z.string().min(11).max(11)),
+	mother_name: z.optional(z.string()),
+	cpf: z.string().min(11).max(11),
+	rg: z.optional(z.string()),
+	cnh: z.optional(z.string()),
+	profession: z.optional(z.string()),
+	// address: z.optional(z.object()),
+	wallet_address: z.optional(z.string()),
+	marital_status: z.optional(z.object({} as { [key: string]: any })),
+	phone_number: z.optional(z.string()),
+	birthday_date: z.string().datetime({ offset: true }),
+	city_of_birth: z.optional(z.string()),
+	// TODO: remove
 	cnpj: z.optional(z.string().min(14).max(14)),
-	invited_by: z.string(),
+	// TODO: remove
 	corporate_name: z.optional(z.string()),
+	// TODO: remove
 	uf: z.optional(z.string()),
+	// TODO: remove
 	is_legal_entity: z.optional(z.boolean()),
+	invited_by: z.string(),
 });
 
 router.post(verifyUser, async (req, res) => {
 	try {
 		await dbConnect();
 
-		const userData = req.body;
+		const investorData = req.body;
 		const user = req?.user;
 
-		insertSchema.parse(userData);
+		insertSchema.parse(investorData);
 
-		const investorExists = await Investor.findOne({
-			...((userData?.cpf && { cpf: userData.cpf }) ||
-				(userData?.cnpj && { cnpj: userData?.cnpj })),
-		});
+		const investorExists = await Investor.findOne({ cpf: investorData.cpf });
 
 		if (investorExists) {
 			return res.status(400).json({
@@ -63,8 +74,17 @@ router.post(verifyUser, async (req, res) => {
 			});
 		}
 
-		const investor = await Investor.create(req.body);
-		await User.updateOne({ _id: user?.id }, { investor_id: investor._id });
+		const investor = await Investor.create(investorData);
+
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: user?.id },
+			{ investor_id: investor._id },
+			{ new: true }
+		);
+
+		const token = generateToken(updatedUser);
+
+		setCookie(res, "livn_auth", token);
 
 		res.status(201).json({ data: investor });
 	} catch (error: any) {

@@ -1,6 +1,8 @@
 import { DefaultTFuncReturn } from "i18next";
 
 export interface IMenuInput {
-  placeholder?: string | DefaultTFuncReturn;
-  color?: string;
+	placeholder?: string;
+	color?: string;
+	fields: string[] | number[];
+	param: string;
 }

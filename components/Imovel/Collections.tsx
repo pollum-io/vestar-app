@@ -1,9 +1,12 @@
-import { Flex, Img, useDisclosure, SimpleGrid } from "@chakra-ui/react";
+import { Flex, Img, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { CollectionsModal } from "./CollectionsModal";
+interface ICollections {
+	images: any[];
+}
 
-export const Collections: React.FC = () => {
+export const Collections: React.FC<ICollections> = props => {
+	const { images } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
 	return (
 		<Flex
 			w="100%"
@@ -11,14 +14,15 @@ export const Collections: React.FC = () => {
 			gap="0.5rem"
 			pb="1.5rem"
 			pt="2rem"
+			onClick={onOpen}
 			justifyContent="center"
 		>
-			<CollectionsModal isOpen={isOpen} onClose={onClose} />
+			<CollectionsModal images={images} isOpen={isOpen} onClose={onClose} />
 			<Flex onClick={onOpen}>
 				<Img
 					width="34.75rem"
 					height="25rem"
-					src={"images/backgrounds/Image.png"}
+					src={`/api/file/${images[0]}`}
 					borderLeftRadius="0.75rem"
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -28,7 +32,7 @@ export const Collections: React.FC = () => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={"images/backgrounds/Image-1.png"}
+					src={`/api/file/${images[1]}`}
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -36,7 +40,7 @@ export const Collections: React.FC = () => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={"images/backgrounds/Image-2.png"}
+					src={`/api/file/${images[2]}`}
 					borderTopRightRadius="0.75rem"
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
@@ -45,7 +49,7 @@ export const Collections: React.FC = () => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={"images/backgrounds/Image-3.png"}
+					src={`/api/file/${images[3]}`}
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -53,7 +57,7 @@ export const Collections: React.FC = () => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={"images/backgrounds/Image-4.png"}
+					src={`/api/file/${images[4]}`}
 					borderBottomRightRadius="0.75rem"
 					onClick={onOpen}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
