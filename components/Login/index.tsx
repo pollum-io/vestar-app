@@ -15,7 +15,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 
 	const handleLogin = async () => {
 		try {
-			const data = await api.post("/user/authenticate", {
+			const data: any = await api.post("/user/authenticate", {
 				email: email,
 				password: password,
 			});
@@ -24,25 +24,13 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					? data?.data?.user?.enterprise_id
 					: data?.data?.user?.investor_id
 			);
-			if (data?.data?.user?.investor_id) {
-				toast({
-					id: "toast-login-suc",
-					position: "top-right",
-					status: "success",
-					title: "Login efetuado com sucesso!",
-				});
-				push("/oportunidades");
-				return;
-			} else {
-				toast({
-					id: "toast-login-suc",
-					position: "top-right",
-					status: "info",
-					title: "Crie o seu usuario!",
-				});
-				push("/registrar");
-				return;
-			}
+			toast({
+				id: "toast-login-suc",
+				position: "top-right",
+				status: "success",
+				title: "Seja bem-vindo!",
+			});
+			push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
 		} catch (error: any) {
 			toast({
 				id: "toast-login-error",
