@@ -75,7 +75,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							E-mail
 						</Text>
 						<Input
-							placeholder="Digite seu email"
+							placeholder={t("login.placeholderEmail") as any}
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -118,7 +118,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							</Text>
 						</Flex>
 						<Input
-							placeholder="Digite sua senha"
+							placeholder={t("login.placeholderSenha") as any}
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -185,7 +185,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							bg={"transparent"}
 							_hover={{ opacity: 0.8 }}
 						>
-							Cadastrar
+							{t("login.register")}
 						</Button>
 					</Flex>
 				</Flex>

@@ -15,6 +15,7 @@ import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
 import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 import { SelectComponent } from "../Select/SelectComponent";
 import { brasilStates } from "./states";
+import { useTranslation } from "react-i18next";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
@@ -36,6 +37,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	} = useForm();
 	const { push } = useRouter();
 	const { toast } = useToasty();
+	const { t } = useTranslation();
 
 	const onSubmitForm = async (data: any) => {
 		const request = isPhysical
