@@ -27,6 +27,7 @@ import { Maps } from "../../components/Map/Maps";
 interface IPortfolio {
 	portfolioData: any;
 	enterpriseData?: any;
+	enterpriseInvestment?: any;
 }
 
 const BarCharts = dynamic(
@@ -52,6 +53,7 @@ const PieChartPortfolio = dynamic(
 export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	portfolioData,
 	enterpriseData,
+	enterpriseInvestment,
 }) => {
 	const [value, setValue] = useState("1");
 	const [yoursInvestments, setYoursInvestments] = useState<any>();
@@ -62,10 +64,6 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 
 	const { username, isInvestor, userInfos } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
-	console.log(isInvestor, "isInvestor");
-	console.log(userInfos, "userInfos");
-	console.log(portfolioData, "portfolioData");
-	console.log(enterpriseData, "enterpriseData");
 
 	const calcularPorcentagensDeTipos = (objetos: any) => {
 		const contagemDeTipos: any = {};
@@ -196,10 +194,13 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 										</Text>
 									</Flex> */}
 								</Flex>
-								<Examaple chartData={portfolioData} />
+								<Examaple
+									chartData={portfolioData}
+									enterpriseInvestment={enterpriseInvestment?.investments}
+								/>
 							</Flex>
 						</Flex>
-						<Flex flexDir={"column"} mb="6.5625rem">
+						<Flex flexDir={"column"} mb="1.5625rem">
 							<Flex
 								mb={isInvestor ? "0" : "2rem"}
 								justifyContent={isInvestor ? "normal" : "space-between"}
