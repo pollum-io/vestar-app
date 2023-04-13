@@ -1,22 +1,11 @@
-import React, {
-	forwardRef,
-	ForwardRefRenderFunction,
-	useMemo,
-	useState,
-	useEffect,
-} from "react";
 import {
-	Text,
-	Input,
-	Select,
-	FormControl,
-	FormLabel,
-	HStack,
 	Input as ChakraInput,
 	InputProps as ChakraInputProps,
-	Textarea,
-	useColorModeValue,
+	FormControl,
+	FormLabel,
+	Text,
 } from "@chakra-ui/react";
+import React, { ForwardRefRenderFunction, forwardRef, useMemo } from "react";
 import InputMask from "react-input-mask";
 
 interface InputProps extends ChakraInputProps {

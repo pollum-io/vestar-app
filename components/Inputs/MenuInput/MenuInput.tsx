@@ -1,16 +1,15 @@
-import React, { FunctionComponent, useCallback, useState } from "react";
 import {
-	Flex,
 	Button,
+	Flex,
 	Menu,
 	MenuButton,
-	MenuList,
 	MenuItem,
-	Text,
+	MenuList,
 } from "@chakra-ui/react";
-import { IMenuInput } from "./dto";
-import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/router";
+import { FunctionComponent, useCallback, useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
+import { IMenuInput } from "./dto";
 
 export const MenuInput: FunctionComponent<IMenuInput> = ({
 	placeholder,

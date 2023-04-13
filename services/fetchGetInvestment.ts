@@ -1,15 +1,19 @@
-export const fetchGetInvestment = async (investor_id: any, token: any) => {
-	const request = await fetch(
-		`http://localhost:3000/api/investment/${investor_id}`,
-		{
-			method: "GET",
+import { apiInstance } from "./api";
+
+export const fetchGetInvestment = async (
+	investor_id: any,
+	token: any,
+	host?: string
+) => {
+	try {
+		const api = apiInstance(host);
+		const response = await api.get(`/investment/${investor_id}`, {
 			headers: {
-				"content-type": "application/json",
-				accept: "application/json",
 				Authorization: `Bearer ${token}`,
 			},
-		}
-	).then(res => res.json());
-
-	return request;
+		});
+		return response.data;
+	} catch (error: any) {
+		console.log(error.message);
+	}
 };
