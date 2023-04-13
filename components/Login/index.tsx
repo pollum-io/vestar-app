@@ -21,14 +21,20 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				: data?.data?.user?.investor_id
 		);
 		if (data.error) {
-			console.log("erro");
 			toast({
 				id: "toast-login-error",
 				position: "top-right",
 				status: "error",
 				title: "Email ou senha incorretos!",
 			});
+			return;
 		}
+		toast({
+			id: "toast-login-suc",
+			position: "top-right",
+			status: "success",
+			title: "Seja bem-vindo!",
+		});
 		push(!data.user?.investor_id ? "/registrar" : "/oportunidades");
 	};
 
