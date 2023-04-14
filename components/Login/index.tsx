@@ -38,7 +38,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			justifyContent="space-between"
 		>
 			<Flex
-				w="50%"
+				flex="1"
 				h="100vh"
 				justifyContent="center"
 				alignItems="center"
@@ -188,7 +188,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex h="100%" w="54rem">
+			<Flex h="100%" justifyContent="flex-end" flex="1">
 				<Img
 					src="images/backgrounds/LoginBackground.png"
 					h="100%"
