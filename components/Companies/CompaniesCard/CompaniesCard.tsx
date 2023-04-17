@@ -14,6 +14,8 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 	enterprise_banner,
 }) => {
 	const { push } = useRouter();
+	const { t } = useTranslation();
+
 	return (
 		<Flex
 			w="100%"
@@ -61,7 +63,7 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 						<Flex gap="2.8125rem">
 							<Flex gap="0.5rem" alignItems="baseline" fontFamily="Poppins">
 								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									Oportunidades Disponíveis
+									{t("companies.card.opportunities")}
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 									{opportunities_available}
@@ -69,14 +71,13 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 							</Flex>
 							<Flex gap="0.5rem" alignItems="baseline">
 								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									Encerradas
+									{t("companies.card.closed")}
 								</Text>
 								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 									{opportunities_closed}
 								</Text>
 							</Flex>
 						</Flex>
-
 						<Button
 							w="10.125rem"
 							h="1.5rem"
@@ -96,7 +97,7 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 								})
 							}
 						>
-							Saiba mais
+							{t("companies.card.learnMore")}
 						</Button>
 					</Flex>
 				</Flex>

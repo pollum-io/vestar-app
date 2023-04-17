@@ -161,13 +161,23 @@
 	"editProfile": {
 		"edit": "Edit Profile",
 		"editProf": "Edit profile",
+		"name": "Name",
 		"mother": "Mother's Name",
 		"city": "City of Birth",
 		"cnh": "CNH",
+		"rg": "Social number",
 		"civil": "civil state",
+		"regimePatrimonial": "Equity Regime",
+		"spousesName": "Spouse's Full Name",
+		"spouseSocialNumber": "Spouse's Social Security Number",
+		"spousesRG": "Spouse's Social Number",
 		"address": "Residential Address",
 		"occupation": "Professional Occupation",
-		"phone": "Phone"
+		"email": "Email",
+		"phone": "Phone",
+		"saved": "Save editions",
+		"toastTitle": "Successfully edited!",
+		"toastDescription": "Your details have been updated!"
 	},
 	"inputs": {
 		"noAbb": "No abbreviations",

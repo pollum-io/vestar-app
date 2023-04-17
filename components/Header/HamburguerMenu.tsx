@@ -48,7 +48,9 @@ export const HamburguerMenu: React.FC = () => {
 					rounded={"1rem"}
 				>
 					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						Olá, {username}
+						{t("portfolio.hello", {
+							Name: username,
+						})}
 					</Text>
 					<Icon color="black" as={FiMenu} />
 				</Flex>
