@@ -2,6 +2,7 @@ import React, { createContext, useMemo, useState } from "react";
 import { createPublicClient, custom, getAccount, http } from "viem";
 import { polygonMumbai } from "viem/chains";
 import { useWallet } from "../hooks/useWallet";
+import { fetchUserApproveData } from "../services/fetchUserApproveData";
 import ERC20Mod from "../utils/abi/ERC20Mod.json";
 import livnERC20 from "../utils/abi/livnERC20.json";
 import PersistentFramework from "../utils/persistent";
@@ -31,7 +32,12 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 	}
 
-	const approve = async (spender: any, amount: any, address: `0x${string}`) => {
+	const approve = async (
+		spender: any,
+		amount: any,
+		address: `0x${string}`,
+		token?: any
+	) => {
 		try {
 			const { request } = await publicClient.simulateContract({
 				address: "0xf1afd12a36f60663cd41b69d486432cc32e3a336" as `0x${string}`,
@@ -43,6 +49,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 			});
 
 			await wallet?.writeContract(request);
+			fetchUserApproveData(spender, address, String(amount), token);
 		} catch (err: any) {
 			console.log("Erro");
 		}
