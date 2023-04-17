@@ -55,8 +55,6 @@ export const Examaple: React.FC<IExample> = props => {
 		const sortedResult = Object.values(result).sort((a: any, b: any) =>
 			a?.date?.localeCompare(b?.date)
 		);
-		console.log(sortedResult);
-
 		return sortedResult;
 	};
 

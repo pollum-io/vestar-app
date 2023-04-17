@@ -48,11 +48,34 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 				account: getAccount(address) || signer,
 			});
 
-			await wallet?.writeContract(request);
-			fetchUserApproveData(spender, address, String(amount), token);
+			const txHash = await wallet?.writeContract(request);
+
+			await waitForApproval(txHash);
+			await fetchUserApproveData(spender, address, String(amount), token);
 		} catch (err: any) {
-			console.log("Erro");
+			console.log(err, "Erro");
 		}
+	};
+
+	const waitForApproval = async (txHash: string) => {
+		return new Promise((resolve, reject) => {
+			const intervalId = setInterval(async () => {
+				try {
+					const transaction = await publicClient
+						.getTransactionReceipt({
+							hash: txHash,
+						})
+						.catch(() => null);
+					if (transaction && transaction?.status) {
+						clearInterval(intervalId);
+						resolve(transaction);
+					}
+				} catch (err) {
+					clearInterval(intervalId);
+					reject(err);
+				}
+			}, 2000);
+		});
 	};
 
 	const shares = async (oportunityAddress: string, accountAddress: string) => {
