@@ -281,7 +281,12 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 								lineHeight="1.5rem"
 								fontWeight="400"
 							>
-								<Text>cota_name</Text>
+								<Text>
+									{`${oportunitiesAddress?.slice(
+										0,
+										5
+									)}...${oportunitiesAddress?.slice(38)}`}
+								</Text>
 								<Text>R${data.token_price}</Text>
 							</Flex>
 							<Flex
