@@ -167,7 +167,10 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 											lineHeight="1.5rem"
 											color="#007D99"
 										>
-											cota_name
+											{`${oportunitiesAddress?.slice(
+												0,
+												5
+											)}...${oportunitiesAddress?.slice(38)}`}
 										</Text>
 										<Text
 											fontWeight="400"
