@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 import {
 	ICompaniesDetails,
 	ICompaniesTeam,
@@ -16,6 +17,7 @@ interface ICompanie {
 export const CompaniePage: FunctionComponent<ICompanie> = ({
 	companieDetail,
 }) => {
+	const { t } = useTranslation();
 	return (
 		<Flex flexDirection="column" gap="2rem" mt="6.25rem" mb="4.5rem">
 			<Flex
@@ -69,7 +71,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 											lineHeight="1.25rem"
 											color="#007D99"
 										>
-											Empreendimentos LIVN
+											{t("companieDetails.livnProp")}
 										</Text>
 										<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 											{companieDetail?.enterprise_info?.enterprises_livn}
@@ -81,7 +83,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 											lineHeight="1.25rem"
 											color="#007D99"
 										>
-											Obras entregues
+											{t("companieDetails.delivered")}
 										</Text>
 										<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 											{companieDetail?.enterprise_info?.delivered_enterprises}
@@ -93,7 +95,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 											lineHeight="1.25rem"
 											color="#007D99"
 										>
-											Em andamento
+											{t("companieDetails.inProgress")}
 										</Text>
 										<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 											{companieDetail?.enterprise_info?.in_progress}
@@ -105,7 +107,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 											lineHeight="1.25rem"
 											color="#007D99"
 										>
-											VGV Total
+											{t("companieDetails.vgv")}
 										</Text>
 										<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 											{companieDetail?.enterprise_info?.total_vgv}
@@ -144,7 +146,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 									lineHeight="2rem"
 									color="#171923"
 								>
-									<Text>Quem constrói nossa história</Text>
+									<Text>{t("companieDetails.whoBuilds")}</Text>
 
 									{companieDetail?.team?.map((team: ICompaniesTeam) => (
 										// eslint-disable-next-line react/jsx-key
@@ -189,7 +191,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 						color="#171923"
 						w="100%"
 					>
-						Oportunidades
+						{t("companieDetails.opportunities")}
 					</Text>
 				</Flex>
 			</Flex>

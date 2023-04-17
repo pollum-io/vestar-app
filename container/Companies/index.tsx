@@ -81,7 +81,7 @@ export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 							alignItems="center"
 							color="#718096"
 						>
-							{data?.length} empresas
+							{data?.length} {t("header.companies")}
 						</Text>
 					</Flex>
 					<Flex flexDirection={"column"} gap="1.5rem" w="100%">

@@ -9,6 +9,7 @@ import { useToasty } from "../../hooks/useToasty";
 import { formatCPF } from "../../utils/formatCpf";
 import { formatPhoneNumber } from "../../utils/formatPhoneNumber";
 import { SelectComponent } from "../../components/Select/SelectComponent";
+import { useTranslation } from "react-i18next";
 
 const estadosCivis = [
 	{ id: 1, name: "Solteiro(a)" },
@@ -36,6 +37,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 	const [maritalStatus, setMaritalStatus] = useState<any>(
 		data?.marital_status?.status
 	);
+	const { t } = useTranslation();
 	const isMerried: boolean = maritalStatus === "Casado(a)" ? true : false;
 	const [equityRegime, setEquityRegime] = useState<any>("");
 	const {
@@ -82,8 +84,8 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 						id: "toast-edit",
 						position: "top-right",
 						status: "success",
-						title: "Dados editados!",
-						description: "Os seus dados foram atualizados!",
+						title: t("editProfile.toastTitle"),
+						description: t("editProfile.toastDescription"),
 					});
 				}
 			})
@@ -126,7 +128,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 							lineHeight="1.25rem"
 							onClick={() => setPagePath("personal")}
 						>
-							Dados Pessoais
+							{t("register.personalData")}
 						</Button>
 					</Flex>
 					<Flex w="100%" justifyContent="end">
@@ -146,7 +148,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 									alignItems="center"
 									color="#171923"
 								>
-									Editar Perfil
+									{t("editProfile.edit")}
 								</Text>
 							</Flex>
 
@@ -166,49 +168,49 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 										<Flex flexDirection="column" gap="0.25rem" mb="2.75rem">
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="Nome"
+												label={t("editProfile.name") as string}
 												type="text"
 												{...register("full_name")}
 												defaultValue={data?.full_name}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="Nome da Mãe"
+												label={t("editProfile.mother") as string}
 												type="text"
 												{...register("mother_name")}
 												defaultValue={data?.mother_name}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="Cidade de nascimento"
+												label={t("editProfile.city") as string}
 												type="text"
 												{...register("city_of_birth")}
 												defaultValue={data?.city_of_birth}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="Data de Nascimento "
+												label={t("register.birthDate") as string}
 												type="date"
 												{...register("birthday_date")}
 												defaultValue={dataFormatada}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="CPF"
+												label={t("register.socialNumber") as string}
 												type="text"
 												{...register("cpf")}
 												defaultValue={formatCPF(data?.cpf)}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="RG"
+												label={t("editProfile.rg") as string}
 												type="text"
 												{...register("rg")}
 												defaultValue={data?.rg}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="CNH"
+												label={t("editProfile.cnh") as string}
 												type="text"
 												{...register("cnh")}
 												defaultValue={data?.cnh}
@@ -227,7 +229,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 										<SelectComponent
 											defaultValue={data?.marital_status?.status}
 											setData={setMaritalStatus}
-											label="Estado Civil"
+											label={t("editProfile.civil") as string}
 											type="marital"
 											selectValue={estadosCivis}
 											{...register("status")}
@@ -236,21 +238,21 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 											<SelectComponent
 												defaultValue={data.marital_status?.equity_regime}
 												setData={setEquityRegime}
-												label="Regime Patrimonial"
+												label={t("editProfile.regimePatrimonial") as string}
 												type="regime_patrimonial"
 												selectValue={estadosRegimesPatrimoniais}
 												{...register("equity_regime")}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="Nome Completo do Cônjuge"
+												label={t("editProfile.spousesName") as string}
 												type="text"
 												{...register("spouse_name")}
 												defaultValue={data?.marital_status?.spouse_name}
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="CPF do Cônjuge"
+												label={t("editProfile.spouseSocialNumber") as string}
 												type="text"
 												{...register("spouse_cpf")}
 												defaultValue={formatCPF(
@@ -259,7 +261,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 											/>
 											<InputComponent
 												placeholderText="Insira aqui"
-												label="RG do Cônjuge"
+												label={t("editProfile.spousesRG") as string}
 												type="text"
 												{...register("spouse_rg")}
 												defaultValue={data?.marital_status?.spouse_rg}
@@ -267,28 +269,28 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 										</Collapse>
 										<InputComponent
 											placeholderText="Insira aqui"
-											label="Endereço Residencial"
+											label={t("editProfile.address") as string}
 											type="text"
 											{...register("address")}
 											defaultValue={data?.address}
 										/>
 										<InputComponent
 											placeholderText="Insira aqui"
-											label="Ocupação Profissional"
+											label={t("editProfile.occupation") as string}
 											type="text"
 											{...register("profession")}
 											defaultValue={data?.profession}
 										/>
 										<InputComponent
 											placeholderText="Insira aqui"
-											label="Email"
+											label={t("editProfile.email") as string}
 											type="email"
 											{...register("email")}
 											defaultValue={data?.email}
 										/>
 										<InputComponent
 											placeholderText="Insira aqui"
-											label="Telefone"
+											label={t("editProfile.phone") as string}
 											type="text"
 											{...register("phone_number")}
 											defaultValue={formatPhoneNumber(data?.phone_number)}
@@ -312,7 +314,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 										_active={{}}
 										type="submit"
 									>
-										Salvar Alterações
+										{t("editProfile.saved") as string}
 									</Button>
 								</Flex>
 							</form>
