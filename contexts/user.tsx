@@ -56,7 +56,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 			const investor = PersistentFramework.get("isInvestor") as {
 				[k: string]: any;
 			};
-			console.log(investor, "investorinvestor");
 			if (investor?.isInvestor === true) {
 				setIsInvestor(true);
 			} else {
