@@ -15,6 +15,7 @@ import { UserProvider } from "../contexts/user";
 import { TransactionsProvider } from "../contexts/transactions";
 import "../styles/tooltipChart.css";
 import "../styles/pieChart.css";
+import "../helpers/translation";
 
 const toasty = {
 	bg: "#FFFFFF",
