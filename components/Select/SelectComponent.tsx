@@ -1,4 +1,8 @@
-import React, { ForwardRefRenderFunction, FunctionComponent } from "react";
+import React, {
+	ForwardRefRenderFunction,
+	FunctionComponent,
+	useEffect,
+} from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -32,6 +36,8 @@ export const SelectComponent: ForwardRefRenderFunction<
 	},
 	ref
 ) => {
+	console.log(selectValue && type === "uf", "aaaaaaaaaaaaaaaa");
+
 	return (
 		<FormControl id={name}>
 			{label && (
