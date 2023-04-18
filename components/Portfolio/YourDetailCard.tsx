@@ -1,5 +1,6 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { FunctionComponent, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IYourDeital {
 	data: any;
@@ -8,6 +9,7 @@ interface IYourDeital {
 export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 	const [isInvestidor, setIsInvestidor] = useState(false);
 	const [hasInvest, setHasInvest] = useState(false);
+	const { t } = useTranslation();
 
 	const totalAmount = useMemo(() => {
 		const total = data.reduce((acc: any, item: any) => acc + item.amount, 0);

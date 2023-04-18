@@ -21,7 +21,9 @@
 		"mustContain": "Must contain at least X characters including numbers and letters",
 		"confirmPassword": "Confirm new password",
 		"confirm": "Confirm",
-		"password": "Password"
+		"password": "Password",
+		"typeHere": "Type here",
+		"continue": "Continuar"
 	},
 	"register": {
 		"hello": "Hello! We would like to know you better",
@@ -93,7 +95,15 @@
 		"invoices": "Invoices",
 		"extraDoc": "Extra Documents",
 		"stage": "This work is currently in the {{_____}} stage.",
-		"close": "Close"
+		"close": "Close",
+		"timer": "{{value1}} dias {{value2}} horas {{value3}} min",
+		"closeSales": "to close sales",
+		"responsibleCompanyName": "Responsible Company Name",
+		"youHave": "You have",
+		"yourShares": "shares",
+		"expected": "Expected Profitability: ",
+		"closedIn": "Closed in {{value}}",
+		"unitPrice": "Unit price in the next batch: $"
 	},
 	"wantToInvest": {
 		"summary": "Investment summary",

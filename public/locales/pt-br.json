@@ -21,7 +21,9 @@
 		"mustHave": "Deve conter no mínimo X caracteres incluindo números e letras",
 		"confirmPassword": "Confirmar nova senha",
 		"confirm": "Confirmar",
-		"password": "Senha"
+		"password": "Senha",
+		"typeHere": "Digite aqui",
+		"continue": "Continuar"
 	},
 	"register": {
 		"hello": "Olá! Antes de seguir, precisamos de alguns dados",
@@ -86,14 +88,22 @@
 		"available": "Cotas disponíveis",
 		"offers": "O que este empreendimento oferece",
 		"seeAll": "Ver {{37}} comodidades",
-		"perYear": "per year",
+		"perYear": "ao ano",
 		"soon": "Em breve você poderá acompanhar:",
 		"floorPlans": "Todas as plantas da obra",
 		"audits": "Auditorias",
 		"invoices": "Notas Fiscais",
 		"extraDoc": "Documentos Extras",
 		"stage": "Atualmente esta obra está em estágio de {{_____}}",
-		"close": "Fechar"
+		"close": "Fechar",
+		"timer": "{{value1}} dias {{value2}} horas {{value3}} min",
+		"closeSales": "para encerrar as vendas",
+		"responsibleCompanyName": "Nome da Empresa Responsável",
+		"youHave": "Você possui",
+		"yourShares": "cotas",
+		"expected": "Rentabilidade Esperada: ",
+		"closedIn": "Encerrado em {{value}}",
+		"unitPrice": "Preço unitário no próximo lote: R$"
 	},
 	"wantToInvest": {
 		"summary": "Resumo do investimento",
@@ -129,7 +139,7 @@
 	},
 	"portfolio": {
 		"hello": "Olá, {{Name}}!",
-		"thisIs": "Esse é o seu portfólio de {{28/nov/22}}",
+		"thisIs": "Esse é o seu portfólio de {{value}}",
 		"summary": "Resumo de Vendas",
 		"currentAssets": "Patrimônio Atual",
 		"result": "Resultado",
