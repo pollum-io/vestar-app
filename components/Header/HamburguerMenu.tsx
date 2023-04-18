@@ -25,7 +25,7 @@ export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
 	const { userInfos, username } = useUser();
 	const { disconnectWallet, isConnected, account, connectWallet } = useWallet();
-
+	console.log(userInfos, "userInfos");
 	return (
 		<Menu>
 			<MenuButton>
@@ -103,7 +103,7 @@ export const HamburguerMenu: React.FC = () => {
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
 					onClick={() =>
-						push({ pathname: `/usuario/${userInfos}`, query: userInfos })
+						push({ pathname: `/usuario`, query: { id: userInfos } })
 					}
 				>
 					Editar perfil
