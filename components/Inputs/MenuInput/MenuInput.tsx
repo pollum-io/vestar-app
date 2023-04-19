@@ -77,7 +77,7 @@ export const MenuInputs: FunctionComponent = () => {
 			<MenuInput
 				placeholder="Tipo de Imóvel"
 				color="#2D3748"
-				fields={["Comercial", "Residencial", "Loteamento"]}
+				fields={["Todos imóveis", "Comercial", "Residencial", "Loteamento"]}
 				param="enterprise_type"
 			/>
 			<MenuInput
