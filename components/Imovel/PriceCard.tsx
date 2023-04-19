@@ -68,7 +68,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			color="#ffffff"
 		>
 			<Text fontSize={"xl"} fontWeight="500">
-				Nome da Cota
+				{t("opportunitieDetails.priceCard.sharesName")}
 			</Text>
 			{isInvestidor ? (
 				<Flex flexDirection="column">
@@ -87,7 +87,9 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								{t("opportunitieDetails.select")}
 							</Text>
 							<Text fontSize={"sm"} fontWeight="400">
-								{cotas} cota
+								{t("opportunitieDetails.priceCard.shares", {
+									value: cotas,
+								})}
 							</Text>
 						</Flex>
 
@@ -185,7 +187,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					flexDirection="column"
 				>
 					<Flex justifyContent="space-between" w="100%">
-						<Text>Preço unitário</Text>
+						<Text>{t("opportunitieDetails.unit")}</Text>
 						<Text>{price}</Text>
 					</Flex>
 					<Flex w="100%" border="1px solid #4BA3B7" my="1rem" />
