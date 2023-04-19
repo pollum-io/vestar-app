@@ -15,6 +15,8 @@ import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
 import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 import { SelectComponent } from "../Select/SelectComponent";
 import { brasilStates } from "./states";
+import { useQuery as query } from "react-query";
+import { fetchEnterprise } from "../../services";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
@@ -33,30 +35,69 @@ export const RegisterContent: FunctionComponent<any> = props => {
 		control,
 		formState: { isSubmitSuccessful },
 		reset,
+		getValues,
 	} = useForm();
 	const { push } = useRouter();
 	const { toast } = useToasty();
+	const [inputValuesUf, setInputValuesUf] = useState<any>();
+
+	const handleValidateData = async () => {
+		const data: any = isPhysical
+			? getValues(["cpf"])
+			: getValues(["enterprise_name", "cnpj"]);
+		const req = await fetchEnterprise();
+		console.log(req.data, "done");
+		const cnpjExistentes = req.data.map((values: any) => values.cnpj);
+		const enterpriseNameExistentes = req.data.map(
+			(values: any) => values.enterprise_name
+		);
+
+		if (isPhysical) {
+			//TODO: Retornar lista completa de cpfs dos usuarios
+			console.log("Fisico");
+			return setSecondStep(true), setFirstStep(false);
+		} else {
+			if (enterpriseNameExistentes.includes(data?.[0])) {
+				toast({
+					id: "toast-nome-empresarial-error",
+					position: "top-right",
+					status: "error",
+					title: "Nome empresarial já existente!",
+					description: "Nome empresarial já existe na lista de empresas",
+				});
+			} else if (cnpjExistentes.includes(data?.[1]?.replace(/[-./]/g, ""))) {
+				toast({
+					id: "toast-cnpj-error",
+					position: "top-right",
+					status: "error",
+					title: "CNPJ já existente!",
+					description: "CNPJ já existe na lista de empresas",
+				});
+			} else {
+				return setSecondStep(true), setFirstStep(false);
+			}
+		}
+	};
 
 	const onSubmitForm = async (data: any) => {
 		const request = isPhysical
 			? {
-					enterprise_name: String(data.enterprise_name),
-					cnpj: data.cnpj.replace(/[-./]/g, ""),
-					uf: data.uf,
+					full_name: String(data?.full_name),
+					cpf: data?.cpf?.replace(/[.-]/g, ""),
+					birthday_date: new Date(data?.birthday_date),
 					is_legal_entity: isPhysical,
-					invited_by: String(data.invited_by),
+					invited_by: String(data?.invited_by),
 			  }
 			: {
-					full_name: String(data.full_name),
-					cpf: data.cpf.replace(/[.-]/g, ""),
-					birthday_date: new Date(data.birthday_date),
+					enterprise_name: String(data?.enterprise_name),
+					cnpj: data?.cnpj.replace(/[-./]/g, ""),
+					uf: Object?.values(inputValuesUf)[0],
 					is_legal_entity: isPhysical,
-					invited_by: String(data.invited_by),
+					invited_by: String(data?.invited_by),
 			  };
-
 		await (isPhysical
-			? fetchCreateEnterprise(request, token)
-			: fetchCreateInvestor(request, token)
+			? fetchCreateInvestor(request, token)
+			: fetchCreateEnterprise(request, token)
 		)
 			.then(res => {
 				if (res) {
@@ -98,20 +139,20 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								<Flex gap="0.75rem">
 									<Checkbox
 										spacing="0.75rem"
-										isChecked={isPhysical === false ? true : false}
+										isChecked={isPhysical}
 										variant="circular"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										borderColor="#E2E8F0"
 										onChange={() => {
-											setIsPhysical(false);
+											setIsPhysical(true);
 											handleClearInputs();
 										}}
 									/>
 									<Text
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
-										color={isPhysical ? "#718096" : "#2D3748"}
-										fontWeight={isPhysical ? "400" : "500"}
+										color={isPhysical ? "#2D3748" : "#718096"}
+										fontWeight={isPhysical ? "500" : "400"}
 									>
 										Sou Pessoa Física
 									</Text>
@@ -119,21 +160,21 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								<Flex gap="0.75rem">
 									<Checkbox
 										spacing="0.75rem"
-										isChecked={isPhysical === false ? false : true}
+										isChecked={isPhysical === true ? false : true}
 										fontStyle="normal"
 										icon={<BsCircleFill color="#ffffff" size={7} />}
 										variant="circular"
 										borderColor="#E2E8F0"
 										onChange={() => {
-											setIsPhysical(true);
+											setIsPhysical(false);
 											handleClearInputs();
 										}}
 									>
 										<Text
 											fontSize="0.875rem"
 											lineHeight="1.25rem"
-											color={isPhysical ? "#2D3748" : "#718096"}
-											fontWeight={isPhysical ? "500" : "400"}
+											color={isPhysical ? "#718096" : "#2D3748"}
+											fontWeight={isPhysical ? "400" : "500"}
 										>
 											Sou Pessoa Jurídica
 										</Text>
@@ -142,33 +183,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 							</Flex>
 							<Flex flexDirection="column" gap="0rem">
 								{isPhysical ? (
-									<>
-										<InputComponent
-											placeholderText="Insira aqui"
-											label="Razão Social"
-											type="text"
-											{...register("enterprise_name")}
-										/>
-										<InputComponent
-											placeholderText="00.000.000/0000-00"
-											label="CNPJ"
-											type="text"
-											{...register("cnpj")}
-										/>
-										<SelectComponent
-											label="Uf"
-											type="uf"
-											selectValue={brasilStates}
-											{...register("uf")}
-										/>
-										<InputComponent
-											label="Quem convidou você para a LIVN?"
-											type="text"
-											placeholderText="Insira aqui"
-											{...register("invited_by")}
-										/>
-									</>
-								) : (
 									<>
 										<InputComponent
 											label="Sem abreviações"
@@ -195,6 +209,34 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											{...register("invited_by")}
 										/>
 									</>
+								) : (
+									<>
+										<InputComponent
+											placeholderText="Insira aqui"
+											label="Razão Social"
+											type="text"
+											{...register("enterprise_name")}
+										/>
+										<InputComponent
+											placeholderText="00.000.000/0000-00"
+											label="CNPJ"
+											type="text"
+											{...register("cnpj")}
+										/>
+										<SelectComponent
+											label="Uf"
+											type="uf"
+											selectValue={brasilStates}
+											{...register("uf")}
+											setInputValues={setInputValuesUf}
+										/>
+										<InputComponent
+											label="Quem convidou você para a LIVN?"
+											type="text"
+											placeholderText="Insira aqui"
+											{...register("invited_by")}
+										/>
+									</>
 								)}
 								<Button
 									mt="2rem"
@@ -213,9 +255,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 									lineHeight="1.25rem"
 									borderRadius="0.5rem"
 									color="#ffffff"
-									onClick={() => {
-										setSecondStep(true), setFirstStep(false);
-									}}
+									onClick={() => handleValidateData()}
 								>
 									Prosseguir {<BsArrowRightShort size={22} />}
 								</Button>
