@@ -50,23 +50,28 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
-		if (!userInfos || !username || !isInvestor) {
+		if (!userInfos) {
 			const id = PersistentFramework.get("id");
+			PersistentFramework.add("id", String(id));
+			setUserInfos(id);
+			return;
+		} else if (!username) {
 			const name = PersistentFramework.get("name");
+			PersistentFramework.add("name", String(name));
+			setUsername(name);
+			return;
+		} else if (!isInvestor) {
 			const investor = PersistentFramework.get("isInvestor") as {
 				[k: string]: any;
 			};
-			console.log(investor, "investorinvestor");
 			if (investor?.isInvestor === true) {
 				setIsInvestor(true);
 			} else {
 				setIsInvestor(false);
 			}
-
-			setUsername(name);
-			setUserInfos(id);
-			PersistentFramework.add("name", String(name));
-			PersistentFramework.add("id", String(id));
+			return;
+		} else {
+			return;
 		}
 	}, [userInfos, username, isInvestor]);
 
