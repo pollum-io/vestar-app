@@ -17,11 +17,6 @@ const links = [
 		name: "Empresas",
 		url: "/empresas",
 	},
-	{
-		id: 4,
-		name: "Saiba mais",
-		url: "/saibamais",
-	},
 ];
 
 export const HeaderLinks: React.FC = () => {
