@@ -520,7 +520,11 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 					</Flex>
 					{!isInvestor && (
 						<Flex mb="10rem">
-							<OpportunitiesCards enterpriseId={userInfos} />
+							<OpportunitiesCards
+								enterpriseId={userInfos}
+								enterpriseData={enterpriseData}
+								isPortfolio={true}
+							/>
 						</Flex>
 					)}
 				</Flex>
