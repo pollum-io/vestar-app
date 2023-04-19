@@ -44,7 +44,8 @@
 		"termsAnd": "Termos e Condições de Uso",
 		"iAgree": "Declaro que li e aceito os termos acima.",
 		"send": "Enviar Cadastro",
-		"back": "Voltar"
+		"back": "Voltar",
+		"noAbbreviations": "Sem abreviações"
 	},
 	"opportunities": {
 		"investingIs": "Investir é muito mais fácil com a LIVN",
@@ -103,7 +104,11 @@
 		"yourShares": "cotas",
 		"expected": "Rentabilidade Esperada: ",
 		"closedIn": "Encerrado em {{value}}",
-		"unitPrice": "Preço unitário no próximo lote: R$"
+		"unitPrice": "Preço unitário no próximo lote: R$",
+		"priceCard": {
+			"sharesName": "Nome da Cota",
+			"shares": "{{value}} cota"
+		}
 	},
 	"wantToInvest": {
 		"summary": "Resumo do investimento",
@@ -166,7 +171,13 @@
 		"month": "Mês",
 		"year": "Ano",
 		"units": "Unidades",
-		"percentage": "Porcentagem"
+		"percentage": "Porcentagem",
+		"portfolioDateOf": "Esse é o portfólio de {{value}}",
+		"portfolioEmpty": "Seu portfólio esta vazio ainda",
+		"notInvested": "Você ainda não fez nenhum investimento.",
+		"textNotInvested": "Assim que realizar a compra de cotas, você poderá ver todos os dados, gráficos e resumos de investimentos com filtros inteligentes nesta página.",
+		"buttonNotInvested": "Ir para a página de Oportunidades",
+		"percentageOfPortfolio": "% do portfólio"
 	},
 	"editProfile": {
 		"edit": "Editar Perfil",

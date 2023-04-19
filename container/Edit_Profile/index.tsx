@@ -167,49 +167,49 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 									>
 										<Flex flexDirection="column" gap="0.25rem" mb="2.75rem">
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.name") as string}
 												type="text"
 												{...register("full_name")}
 												defaultValue={data?.full_name}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.mother") as string}
 												type="text"
 												{...register("mother_name")}
 												defaultValue={data?.mother_name}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.city") as string}
 												type="text"
 												{...register("city_of_birth")}
 												defaultValue={data?.city_of_birth}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("register.birthDate") as string}
 												type="date"
 												{...register("birthday_date")}
 												defaultValue={dataFormatada}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("register.socialNumber") as string}
 												type="text"
 												{...register("cpf")}
 												defaultValue={formatCPF(data?.cpf)}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.rg") as string}
 												type="text"
 												{...register("rg")}
 												defaultValue={data?.rg}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.cnh") as string}
 												type="text"
 												{...register("cnh")}
@@ -244,14 +244,14 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 												{...register("equity_regime")}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.spousesName") as string}
 												type="text"
 												{...register("spouse_name")}
 												defaultValue={data?.marital_status?.spouse_name}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.spouseSocialNumber") as string}
 												type="text"
 												{...register("spouse_cpf")}
@@ -260,7 +260,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 												)}
 											/>
 											<InputComponent
-												placeholderText="Insira aqui"
+												placeholderText={t("inputs.insertHere") as any}
 												label={t("editProfile.spousesRG") as string}
 												type="text"
 												{...register("spouse_rg")}
@@ -268,28 +268,28 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 											/>
 										</Collapse>
 										<InputComponent
-											placeholderText="Insira aqui"
+											placeholderText={t("inputs.insertHere") as any}
 											label={t("editProfile.address") as string}
 											type="text"
 											{...register("address")}
 											defaultValue={data?.address}
 										/>
 										<InputComponent
-											placeholderText="Insira aqui"
+											placeholderText={t("inputs.insertHere") as any}
 											label={t("editProfile.occupation") as string}
 											type="text"
 											{...register("profession")}
 											defaultValue={data?.profession}
 										/>
 										<InputComponent
-											placeholderText="Insira aqui"
+											placeholderText={t("inputs.insertHere") as any}
 											label={t("editProfile.email") as string}
 											type="email"
 											{...register("email")}
 											defaultValue={data?.email}
 										/>
 										<InputComponent
-											placeholderText="Insira aqui"
+											placeholderText={t("inputs.insertHere") as any}
 											label={t("editProfile.phone") as string}
 											type="text"
 											{...register("phone_number")}
