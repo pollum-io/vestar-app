@@ -8,10 +8,16 @@ interface IInvest {
 	data: IOpportunitiesCard;
 	cotas: number;
 	address: string;
+	token: string;
 }
 
-const Investir: NextPage<IInvest> = ({ data, cotas, address }) => (
-	<InvestContainer data={data} cotas={cotas} oportunitiesAddress={address} />
+const Investir: NextPage<IInvest> = ({ data, cotas, address, token }) => (
+	<InvestContainer
+		data={data}
+		cotas={cotas}
+		oportunitiesAddress={address}
+		token={token}
+	/>
 );
 
 export default Investir;

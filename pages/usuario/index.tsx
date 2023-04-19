@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	const response = await fetchGetInvestorById(query.id, token, host);
 
-	if (!user?.investor_id) {
+	if (!user?.investor_id && !user?.enterprise_id) {
 		return {
 			redirect: {
 				permanent: false,
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		props: {
 			user,
 			token,
-			data: response.data,
+			data: response?.data,
 		},
 	};
 };
