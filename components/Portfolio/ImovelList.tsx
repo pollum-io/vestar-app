@@ -1,23 +1,26 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { FunctionComponent, useEffect, useState } from "react";
+import { useUser } from "../../hooks/useUser";
 import { fetchImages } from "../../services";
 import { apiInstance } from "../../services/api";
 interface IImovelList {
 	isFinished: boolean;
-	isInvest: boolean;
 	investmentData?: any;
+	enterpriseData?: any;
 }
 
 export const ImovelList: FunctionComponent<IImovelList> = ({
 	isFinished,
-	isInvest,
 	investmentData,
+	enterpriseData,
 }) => {
+	const { isInvestor } = useUser();
+
 	const [resultWithImages, setResultWithImages] = useState<any>([]);
 	const api = apiInstance();
 
-	const result = investmentData.reduce((acc: any, investment: any) => {
+	const result = investmentData?.reduce((acc: any, investment: any) => {
 		const existingInvestment = acc.find(
 			(item: any) => item.investment_address === investment.investment_address
 		);
@@ -30,14 +33,14 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 		return acc;
 	}, []);
 
-	const totalAmount = result.reduce((accumulator: any, investment: any) => {
+	const totalAmount = result?.reduce((accumulator: any, investment: any) => {
 		return accumulator + investment.amount;
 	}, 0);
 
 	useEffect(() => {
 		const getImage = async () => {
 			const newResultWithImages = await Promise.all(
-				result.map(async (item: any) => {
+				(result ? result : enterpriseData).map(async (item: any) => {
 					const image = item.pictures_enterprise[0];
 					const imageUrl = await api.get(`/file/${image}`);
 					return {
@@ -119,7 +122,7 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 						</Flex>
 						<Flex w="70%" alignItems="center" justifyContent="space-between">
 							<Flex>
-								{isInvest ? (
+								{isInvestor ? (
 									<Flex flexDir={"column"} w="7rem">
 										<Text
 											cursor={isFinished ? "default" : "pointer"}
@@ -144,13 +147,16 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 											fontWeight="500"
 											color={"#007D99"}
 										>
-											cota_nome
+											{`${investment?.token_address?.slice(
+												0,
+												5
+											)}...${investment?.token_address?.slice(38)}`}
 										</Text>
 									</Flex>
 								)}
 							</Flex>
 							<Flex>
-								{isInvest ? (
+								{isInvestor ? (
 									<Flex flexDir={"column"} w="7rem">
 										<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
 											R$ {investment?.amount}
@@ -166,24 +172,24 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 										color={"#171923"}
 										w="7rem"
 									>
-										R$ 450
+										R$ {investment?.token_minted * investment?.token_price}
 									</Text>
 								)}
 							</Flex>
-							<Flex display={isInvest ? "none" : "flex"} w="7rem">
+							<Flex display={isInvestor ? "none" : "flex"} w="7rem">
 								<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-									150
+									{investment?.token_supply}
 								</Text>
 							</Flex>
-							<Flex w={isInvest ? "7rem" : "9rem"}>
+							<Flex w={isInvestor ? "7rem" : "9rem"}>
 								<Text fontSize={"md"} fontWeight="400" color={"#171923"}>
-									{isInvest
+									{isInvestor
 										? investment.expected_delivery_date &&
 										  moment(investment.expected_delivery_date).format("YYYY")
-										: "47"}
+										: investment?.token_supply - investment?.token_minted}
 								</Text>
 							</Flex>
-							{isInvest && (
+							{isInvestor && (
 								<>
 									<Flex w="7rem">
 										<Text fontSize={"md"} fontWeight="400" color={"#171923"}>

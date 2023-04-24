@@ -47,11 +47,17 @@ export const HamburguerMenu: React.FC = () => {
 					border="0.0625rem solid #E2E8F0"
 					rounded={"1rem"}
 				>
-					<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
-						{t("portfolio.hello", {
-							Name: username,
-						})}
-					</Text>
+					{username ? (
+						<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
+							{t("portfolio.hello", {
+								Name: username,
+							})}
+						</Text>
+					) : (
+						<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
+							Menu
+						</Text>
+					)}
 					<Icon color="black" as={FiMenu} />
 				</Flex>
 			</MenuButton>
@@ -107,7 +113,7 @@ export const HamburguerMenu: React.FC = () => {
 					_focus={{}}
 					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
 					onClick={() =>
-						push({ pathname: `/usuario/${userInfos}`, query: userInfos })
+						push({ pathname: `/usuario`, query: { id: userInfos } })
 					}
 				>
 					Editar perfil

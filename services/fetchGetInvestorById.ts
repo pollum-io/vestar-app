@@ -6,7 +6,7 @@ export const fetchGetInvestorById = async (
 	host?: string
 ) => {
 	try {
-		const api = apiInstance();
+		const api = apiInstance(host);
 		const response = await api.get(`/investor/${investor_id}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,

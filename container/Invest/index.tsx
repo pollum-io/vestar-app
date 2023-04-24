@@ -14,17 +14,20 @@ import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 import { useTranslation } from "react-i18next";
+import { fetchUserApproveData } from "../../services/fetchUserApproveData";
 
 interface IInvest {
 	data: IOpportunitiesCard;
 	cotas: number;
 	oportunitiesAddress: string;
+	token: string;
 }
 
 export const InvestContainer: FunctionComponent<IInvest> = ({
 	data,
 	cotas,
 	oportunitiesAddress,
+	token,
 }) => {
 	const [counter, setCounter] = useState<number>(Number(cotas));
 	const { approve } = useTransactions();
@@ -46,12 +49,12 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 		style: "currency",
 		currency: "BRL",
 	});
-
-	const approveTransfer = async (spender: any, amount: any) => {
+	const approveTransfer = async (oportunitiesAddress: any, amount: any) => {
 		if (!isConnected || !signer) {
 			return await connectWallet();
 		} else {
-			return await approve(spender, amount, account);
+			await approve(oportunitiesAddress, amount, account, token);
+			return;
 		}
 	};
 
@@ -166,7 +169,10 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 											lineHeight="1.5rem"
 											color="#007D99"
 										>
-											cota_name
+											{`${oportunitiesAddress?.slice(
+												0,
+												5
+											)}...${oportunitiesAddress?.slice(38)}`}
 										</Text>
 										<Text
 											fontWeight="400"
@@ -277,7 +283,12 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 								lineHeight="1.5rem"
 								fontWeight="400"
 							>
-								<Text>cota_name</Text>
+								<Text>
+									{`${oportunitiesAddress?.slice(
+										0,
+										5
+									)}...${oportunitiesAddress?.slice(38)}`}
+								</Text>
 								<Text>R${data.token_price}</Text>
 							</Flex>
 							<Flex

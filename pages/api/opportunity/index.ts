@@ -96,7 +96,7 @@ router.get(async (req, res) => {
 
 		const querySort = {
 			fields: ["expected_delivery_date", "min_investment"],
-			values: { min: 1, max: -1, crescente: 1, decrescente: -1 },
+			values: { Mínimo: 1, Máximo: -1, Crescente: 1, Decrescente: -1 },
 		};
 
 		const filter = queryParser(req.query, queryFilter);

@@ -31,7 +31,6 @@ export const Carousel: React.FC<ICarousel> = props => {
 	const api = apiInstance();
 
 	const [imagesCarousel, setImagesCarousel] = useState<string[]>([]);
-	console.log(modal_images, "modal_images");
 
 	useEffect(() => {
 		if (extra_images) {
@@ -54,7 +53,6 @@ export const Carousel: React.FC<ICarousel> = props => {
 			});
 		}
 	}, [extra_images, modal_images]);
-	console.log(imagesCarousel, "imagesCarousel");
 	return (
 		<Box
 			position={"relative"}

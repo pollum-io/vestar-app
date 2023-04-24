@@ -5,6 +5,7 @@ import nextConnect from "next-connect";
 import dbConnect from "../../../lib/dbConnect";
 import Enterprise from "../../../models/enterprise";
 import Opportunity from "../../../models/oportunity";
+import Investment from "../../../models/Investment";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 
@@ -47,6 +48,36 @@ export async function getAvailableAndClosedOpportunities(ids: any) {
 	return is_array ? oppData : oppData[0];
 }
 
+export async function getEnterpriseInvestments(id: any) {
+	let enterpriseInvestments: any = [];
+
+	const oppData2 = await Opportunity.aggregate([
+		{
+			$match: {
+				enterprise_id: new mongoose.Types.ObjectId(`${id}`),
+			},
+		},
+		{
+			$project: {
+				token_address: 1,
+			},
+		},
+	]);
+
+	await Promise.all(
+		oppData2.map(async ({ token_address }) => {
+			let investments = await Investment.find({
+				investment_address: token_address,
+			}).lean();
+			if (investments.length > 0) {
+				enterpriseInvestments = enterpriseInvestments.concat(investments);
+			}
+		})
+	);
+
+	return enterpriseInvestments;
+}
+
 router.get(async (req, res) => {
 	try {
 		await dbConnect();
@@ -69,6 +100,8 @@ router.get(async (req, res) => {
 			opportunities_closed: 0,
 			opportunities_available: 0,
 		};
+
+		enterprise.investments = await getEnterpriseInvestments(id);
 
 		res.status(200).json({
 			data: {
