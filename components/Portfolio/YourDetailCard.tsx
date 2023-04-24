@@ -1,30 +1,62 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { FunctionComponent, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useUser } from "../../hooks/useUser";
 
 interface IYourDeital {
-	data: any;
+	investor?: any;
+	enterprise?: any;
 }
 
-export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
-	const [isInvestidor, setIsInvestidor] = useState(false);
+export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
+	investor,
+	enterprise,
+}) => {
 	const [hasInvest, setHasInvest] = useState(false);
 	const { t } = useTranslation();
+	const { isInvestor } = useUser();
 
-	const totalAmount = useMemo(() => {
-		const total = data.reduce((acc: any, item: any) => acc + item.amount, 0);
+	const investorTotalAmount = useMemo(() => {
+		const total = investor?.reduce(
+			(acc: any, item: any) => acc + item.amount,
+			0
+		);
 
-		const formattedTotal = total.toLocaleString("pt-BR", {
+		const formattedTotal = total?.toLocaleString("pt-BR", {
 			style: "currency",
 			currency: "BRL",
 		});
 
 		return formattedTotal;
-	}, [data]);
+	}, [investor]);
+
+	const enterpriseTotalAmount = useMemo(() => {
+		const total = enterprise?.reduce(
+			(acc: any, item: any) => acc + item.token_minted * item.token_price,
+			0
+		);
+		const formattedTotal = total?.toLocaleString("pt-BR", {
+			style: "currency",
+			currency: "BRL",
+		});
+		return formattedTotal;
+	}, [enterprise]);
+
+	const soldPercentage = useMemo(() => {
+		let mintedTokensTotal = 0;
+		let totalSupplyTotal = 0;
+
+		for (let i = 0; i < enterprise?.length; i++) {
+			mintedTokensTotal += enterprise[i].token_minted;
+			totalSupplyTotal += enterprise[i].token_supply;
+		}
+
+		return ((mintedTokensTotal / totalSupplyTotal) * 100).toFixed(2);
+	}, [enterprise]);
 
 	return (
 		<Flex
-			w={hasInvest ? "34.4375rem" : "29.5625rem"}
+			w={hasInvest ? "34.4375rem" : "34.4375rem"}
 			zIndex="9"
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
@@ -38,61 +70,51 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({ data }) => {
 			border="1px solid #E5E7EB"
 		>
 			<Flex
-				w={isInvestidor ? "8.1875rem" : "max"}
+				w={!isInvestor ? "8.1875rem" : "max"}
 				flexDir={"column"}
 				alignItems="flex-start"
 				opacity={1}
 			>
 				<Flex alignItems="center" gap="3">
 					<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-						{isInvestidor
+						{!isInvestor
 							? t("portfolio.registered")
 							: t("portfolio.currentAssets")}
 					</Text>
 					<Img
-						display={isInvestidor ? "none" : "flex"}
+						display={!isInvestor ? "none" : "flex"}
 						w="3"
 						h="3"
 						src={"images/icons/info-square.png"}
 					/>
 				</Flex>
 				<Text fontSize={"xl"} fontWeight="600" color="#171923">
-					{isInvestidor ? "42" : totalAmount}
+					{!isInvestor ? enterprise?.length : investorTotalAmount}
 				</Text>
 			</Flex>
-			<Flex
-				w="max"
-				flexDir={"column"}
-				alignItems="flex-start"
-				opacity={hasInvest ? 1 : 0.5}
-			>
+			<Flex w="max" flexDir={"column"} alignItems="flex-start" opacity={1}>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{isInvestidor ? "Arrecadação" : ""}
+					{!isInvestor ? "Arrecadação" : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
+					color={!isInvestor || !hasInvest ? "#171923" : "#38A169"}
 					textAlign={"left"}
 				>
-					{isInvestidor ? "R$ 2.584.256" : ""}
+					{!isInvestor ? enterpriseTotalAmount : ""}
 				</Text>
 			</Flex>
-			<Flex
-				w="max"
-				flexDir={"column"}
-				alignItems="flex-start"
-				opacity={hasInvest ? 1 : 0.5}
-			>
+			<Flex w="max" flexDir={"column"} alignItems="flex-start" opacity={1}>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{isInvestidor ? "Contas Negociadas" : ""}
+					{!isInvestor ? "Cotas Negociadas" : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={isInvestidor || !hasInvest ? "#171923" : "#38A169"}
+					color={!isInvestor ? "#171923" : "#38A169"}
 				>
-					{isInvestidor ? "37%" : ""}
+					{!isInvestor ? `${soldPercentage}%` : ""}
 				</Text>
 			</Flex>
 		</Flex>

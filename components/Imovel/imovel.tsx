@@ -41,7 +41,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		props: { date },
 	}: CountdownRenderProps) => {
 		const dateFormated = moment(date).format("DD/MM/YYYY");
-
 		if (completed) {
 			setEnded(true);
 			setDateEnded(dateFormated);
@@ -76,7 +75,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		// eslint-disable-next-line
 		[imovelDetails.token_address, account]
 	);
-
 	return (
 		<>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -282,7 +280,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									h="max-content"
 								>
 									<Countdown
-										date={new Date(+imovelDetails?.sale_end_at * 1000)}
+										date={imovelDetails?.sale_end_at}
 										renderer={renderer}
 									/>
 									<Text

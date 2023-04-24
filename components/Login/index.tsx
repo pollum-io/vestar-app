@@ -4,25 +4,43 @@ import { FunctionComponent, useState } from "react";
 import { useUser } from "../../hooks/useUser";
 import { apiInstance } from "../../services/api";
 import { useTranslation } from "react-i18next";
+import { useToasty } from "../../hooks/useToasty";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
 	const [email, setEmail] = useState<any>();
 	const [password, setPassword] = useState<any>();
 	const { getInfosId } = useUser();
+	const { toast } = useToasty();
 	const api = apiInstance();
 
 	const handleLogin = async () => {
-		const data = await api.post("/user/authenticate", {
-			email: email,
-			password: password,
-		});
-		getInfosId(
-			data?.data?.user?.investor_id === null
-				? data?.data?.user?.enterprise_id
-				: data?.data?.user?.investor_id
-		);
-		push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
+		try {
+			const data: any = await api.post("/user/authenticate", {
+				email: email,
+				password: password,
+			});
+			getInfosId(
+				data?.data?.user?.investor_id === null
+					? data?.data?.user?.enterprise_id
+					: data?.data?.user?.investor_id
+			);
+			toast({
+				id: "toast-login-suc",
+				position: "top-right",
+				status: "success",
+				title: "Seja bem-vindo!",
+			});
+			push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
+		} catch (error: any) {
+			toast({
+				id: "toast-login-error",
+				position: "top-right",
+				status: "error",
+				title: "Email ou senha incorretos!",
+			});
+			return;
+		}
 	};
 
 	const handleKeyPress = (event: any) => {
@@ -40,7 +58,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			justifyContent="space-between"
 		>
 			<Flex
-				w="50%"
+				flex="1"
 				h="100vh"
 				justifyContent="center"
 				alignItems="center"
@@ -190,7 +208,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex h="100%" w="54rem">
+			<Flex h="100%" justifyContent="flex-end" flex="1">
 				<Img
 					src="images/backgrounds/LoginBackground.png"
 					h="100%"

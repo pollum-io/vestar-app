@@ -1,6 +1,7 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { FooterLinks } from "./FooterLinks";
 import { useTranslation } from "react-i18next";
+
 export const Footer: React.FC = () => {
 	const { t } = useTranslation();
 	return (
