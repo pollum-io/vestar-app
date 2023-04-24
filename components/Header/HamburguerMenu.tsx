@@ -25,7 +25,7 @@ export const HamburguerMenu: React.FC = () => {
 	const { push } = useRouter();
 	const { userInfos, username } = useUser();
 	const { disconnectWallet, isConnected, account, connectWallet } = useWallet();
-	console.log(userInfos, "userInfos");
+
 	return (
 		<Menu>
 			<MenuButton>

@@ -95,6 +95,10 @@ const OpportunitySchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
+		enterprise_name: {
+			type: String,
+			required: true,
+		},
 	},
 	{
 		timestamps: true,
