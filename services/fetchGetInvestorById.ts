@@ -2,7 +2,7 @@ import { apiInstance } from "./api";
 
 export const fetchGetInvestorById = async (
 	investor_id: any,
-	token: any,
+	token?: any,
 	host?: string
 ) => {
 	try {
