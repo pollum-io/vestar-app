@@ -175,7 +175,11 @@ export const OpportunitiesCard: FunctionComponent<
 						</Flex>
 						<Flex mt="1rem" px="1rem" flexDirection="column" pb="0.9375rem">
 							<Flex gap="0.3125rem" flexDirection="column">
-								<Flex gap="0.5rem" alignItems="center" filter={"none"}>
+								<Flex
+									gap="0.5rem"
+									alignItems="center"
+									filter={!cards?.isAvailable ? "blur(3px)" : "none"}
+								>
 									{!cards.isPortfolio && (
 										<Img
 											w={4}
@@ -242,7 +246,7 @@ export const OpportunitiesCard: FunctionComponent<
 										alignItems="center"
 										justifyContent="space-between"
 										w="100%"
-										filter={"none"}
+										filter={!cards?.isAvailable ? "blur(3px)" : "none"}
 									>
 										<Flex flexDirection="column" alignItems="left">
 											<Text
