@@ -55,6 +55,10 @@ const InvestorSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		opportunities_avaliable: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		},
 	},
 	{
 		timestamps: true,

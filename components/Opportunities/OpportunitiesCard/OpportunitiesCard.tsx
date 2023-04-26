@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { Button, Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { useRouter } from "next/router";
@@ -7,20 +7,26 @@ import { fetchOpportunity } from "../../../services/fetchOpportunity";
 import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
-
+import { fetchGetInvestorById } from "../../../services";
+import Countdown from "react-countdown";
+import { CountdownRenderProps } from "react-countdown/dist/Countdown";
+import moment from "moment-timezone";
 interface IOpportunitiesCompaniesCard {
 	enterpriseId?: any;
+	investorId?: any;
 	enterpriseData?: any;
+	token?: any;
 	isPortfolio?: boolean;
 }
 
 export const OpportunitiesCard: FunctionComponent<
 	IOpportunitiesCompaniesCard
-> = ({ enterpriseId, enterpriseData, isPortfolio }) => {
-	const currentTime = new Date().getTime();
+> = ({ enterpriseId, investorId, enterpriseData, isPortfolio, token }) => {
+	const [ended, setEnded] = useState<any>();
+
+	const currentTime = new Date();
 	const router = useRouter();
 	//TODO: move this request to a lower component level
-
 	const { data: cardsInfo } = query(
 		["oportunity", router.query],
 		() =>
@@ -32,9 +38,57 @@ export const OpportunitiesCard: FunctionComponent<
 			refetchInterval: false,
 		}
 	);
+
+	const { data: user } = query(
+		["user"],
+		() => fetchGetInvestorById(investorId, token),
+		{
+			refetchOnWindowFocus: false,
+			refetchInterval: false,
+		}
+	);
+
+	const renderer = ({
+		days,
+		hours,
+		minutes,
+		completed,
+		props: { date },
+	}: CountdownRenderProps) => {
+		if (completed) {
+			setEnded(true);
+			return "Encerrado";
+		} else {
+			setEnded(false);
+			return (
+				<Text
+					fontFamily="Poppins"
+					fontWeight="500"
+					fontSize="0.75rem"
+					lineHeight="1rem"
+					color="#FFFFFF"
+					id="timer"
+				>
+					{days} dias {hours} horas {minutes} min
+				</Text>
+			);
+		}
+	};
+
+	const imoveisDisponiveis = useMemo(() => {
+		const userOpportunties = user?.data?.opportunities_avaliable;
+
+		const imoveisDisponiveis = cardsInfo?.data?.map((imovel: any) => {
+			const isDisponivel = userOpportunties?.includes(imovel._id);
+			return { ...imovel, isAvailable: isDisponivel };
+		});
+		return imoveisDisponiveis;
+	}, [cardsInfo?.data, user?.data?.opportunities_avaliable]);
+
+	console.log(imoveisDisponiveis);
 	return (
 		<>
-			{(isPortfolio ? enterpriseData : cardsInfo?.data)?.map(
+			{(isPortfolio ? enterpriseData : imoveisDisponiveis)?.map(
 				(cards: IOpportunitiesCard) => (
 					<Flex
 						key={cards._id}
@@ -45,16 +99,18 @@ export const OpportunitiesCard: FunctionComponent<
 						borderRadius="0.75rem"
 						flexDirection="column"
 						_hover={{
-							cursor: "pointer",
+							cursor: cards?.isAvailable ? "pointer" : "default",
 							boxShadow:
 								"0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
 						}}
 						transition="150ms"
 						onClick={() =>
-							router.push({
-								pathname: `/oportunidades/${cards._id}`,
-								query: { id: cards._id },
-							})
+							cards?.isAvailable
+								? router.push({
+										pathname: `/oportunidades/${cards._id}`,
+										query: { id: cards._id },
+								  })
+								: null
 						}
 					>
 						<Flex
@@ -66,12 +122,13 @@ export const OpportunitiesCard: FunctionComponent<
 							<Img
 								src={`/api/file/${cards.pictures_enterprise[0]}`}
 								borderRadius="0.75rem"
-								// filter={
-								// 	cards.token_minted === cards.token_supply ||
-								// 	currentTime > cards?.sale_end_at * 1000
-								// 		? "blur(3px)"
-								// 		: "none"
-								// }
+								filter={
+									cards.token_minted === cards.token_supply ||
+									currentTime >= new Date(cards?.sale_end_at) ||
+									!cards?.isAvailable
+										? "blur(3px)"
+										: "none"
+								}
 							/>
 							<Flex position="absolute" pt="0.625rem" pr="0.75rem">
 								<Flex
@@ -85,7 +142,7 @@ export const OpportunitiesCard: FunctionComponent<
 									py="0.125rem"
 								>
 									{cards.token_minted === cards.token_supply ||
-									currentTime > cards?.sale_end_at * 1000 ? (
+									currentTime >= new Date(cards?.sale_end_at) ? (
 										<Text
 											fontFamily="Poppins"
 											fontWeight="500"
@@ -103,7 +160,14 @@ export const OpportunitiesCard: FunctionComponent<
 											lineHeight="1rem"
 											color="#FFFFFF"
 										>
-											Disponivel
+											{cards?.isAvailable ? (
+												"Disponivel"
+											) : (
+												<Countdown
+													date={cards?.sale_end_at}
+													renderer={renderer}
+												/>
+											)}
 										</Text>
 									)}
 								</Flex>
@@ -223,7 +287,28 @@ export const OpportunitiesCard: FunctionComponent<
 											</Text>
 										</Flex>
 									</Flex>
-									{!cards.blocked ? (
+									{!cards?.isAvailable ? (
+										<Button
+											justifyContent="center"
+											alignItems="center"
+											w="16.125rem"
+											h="max"
+											py="0.125rem"
+											border="0.0625rem solid #007D99"
+											borderRadius="0.375rem"
+											fontFamily="Poppins"
+											fontWeight="500"
+											fontSize="0.75rem"
+											lineHeight="1rem"
+											color="#007D99"
+											bgColor="#ffffff"
+											_hover={{ bgColor: "#EDF2F7" }}
+										>
+											{currentTime >= new Date(cards?.sale_end_at)
+												? "Solicitar Acesso"
+												: "Solicitar Acesso a essa Oferta"}
+										</Button>
+									) : (
 										<Flex
 											justifyContent="center"
 											alignItems="center"
@@ -242,26 +327,6 @@ export const OpportunitiesCard: FunctionComponent<
 												{`Rentabilidade Esperada: ${cards.profitability}% a.a (máx)`}
 											</Text>
 										</Flex>
-									) : (
-										<Button
-											justifyContent="center"
-											alignItems="center"
-											w="16.125rem"
-											h="1.5rem"
-											border="0.0625rem solid #007D99"
-											borderRadius="0.375rem"
-											fontFamily="Poppins"
-											fontWeight="500"
-											fontSize="0.75rem"
-											lineHeight="1rem"
-											color="#007D99"
-											bgColor="#ffffff"
-											_hover={{ bgColor: "#EDF2F7" }}
-										>
-											{cards.finished
-												? "Solicitar Acesso"
-												: "Solicitar Acesso a essa Oferta"}
-										</Button>
 									)}
 								</Flex>
 							)}
@@ -275,8 +340,10 @@ export const OpportunitiesCard: FunctionComponent<
 
 export const OpportunitiesCards: FunctionComponent<any> = ({
 	enterpriseId,
+	investorId,
 	enterpriseData,
 	isPortfolio,
+	token,
 }) => {
 	return (
 		<SimpleGrid
@@ -287,8 +354,10 @@ export const OpportunitiesCards: FunctionComponent<any> = ({
 		>
 			<OpportunitiesCard
 				enterpriseId={enterpriseId}
+				investorId={investorId}
 				enterpriseData={enterpriseData}
 				isPortfolio={isPortfolio}
+				token={token}
 			/>
 		</SimpleGrid>
 	);
