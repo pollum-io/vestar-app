@@ -45,6 +45,7 @@ const OpportunitySchema = z.object({
 	enterprise_type: z.string(),
 	description_extra: z.optional(z.string()),
 	picture_extra: z.optional(z.array(z.string())),
+	enterprise_name: z.optional(z.string().max(60)),
 });
 
 const fetchSchema = z.object({
