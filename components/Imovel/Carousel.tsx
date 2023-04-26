@@ -53,6 +53,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 			});
 		}
 	}, [extra_images, modal_images]);
+
 	return (
 		<Box
 			position={"relative"}

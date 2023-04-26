@@ -36,8 +36,6 @@ export const SelectComponent: ForwardRefRenderFunction<
 	},
 	ref
 ) => {
-	console.log(selectValue && type === "uf", "aaaaaaaaaaaaaaaa");
-
 	return (
 		<FormControl id={name}>
 			{label && (

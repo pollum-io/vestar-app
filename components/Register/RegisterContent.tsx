@@ -48,7 +48,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 			? getValues(["cpf"])
 			: getValues(["enterprise_name", "cnpj"]);
 		const req = await fetchEnterprise();
-		console.log(req.data, "done");
 		const cnpjExistentes = req.data.map((values: any) => values.cnpj);
 		const enterpriseNameExistentes = req.data.map(
 			(values: any) => values.enterprise_name
@@ -56,7 +55,6 @@ export const RegisterContent: FunctionComponent<any> = props => {
 
 		if (isPhysical) {
 			//TODO: Retornar lista completa de cpfs dos usuarios
-			console.log("Fisico");
 			return setSecondStep(true), setFirstStep(false);
 		} else {
 			if (enterpriseNameExistentes.includes(data?.[0])) {

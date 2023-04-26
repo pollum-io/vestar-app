@@ -1,6 +1,6 @@
 import { Flex, Icon, Img, SimpleGrid, Text } from "@chakra-ui/react";
 import moment from "moment-timezone";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,7 @@ import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
+import { fetchEnterpriseById } from "../../services";
 import { formatDate } from "../../utils/formatDate";
 import { Maps } from "../Map/Maps";
 import { Carousel } from "./Carousel";
@@ -75,6 +76,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		// eslint-disable-next-line
 		[imovelDetails.token_address, account]
 	);
+
 	return (
 		<>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -88,13 +90,15 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								src={`/api/file/${imovelDetails?.enterprise_logo}`}
 							/>
 							<Text fontWeight={"400"} color="#171923">
-								{t("opportunitieDetails.responsibleCompanyName")}
+								{imovelDetails?.enterprise_name}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="1.5rem" pb="1rem">
-							<Text fontSize="4xl" fontWeight={"600"} color="#171923">
-								{imovelDetails?.name}
-							</Text>
+							{imovelDetails?.name && (
+								<Text fontSize="4xl" fontWeight={"600"} color="#171923">
+									{imovelDetails?.name}
+								</Text>
+							)}
 							<Text
 								fontSize={"sm"}
 								fontWeight="400"
