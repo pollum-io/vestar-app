@@ -20,6 +20,8 @@ export const OpportunitiesCard: FunctionComponent<
 > = ({ enterpriseId, enterpriseData, isPortfolio }) => {
 	const currentTime = new Date().getTime();
 	const router = useRouter();
+	const { t, i18n } = useTranslation();
+	const { language } = i18n;
 	//TODO: move this request to a lower component level
 
 	const { data: cardsInfo } = query(
@@ -33,8 +35,7 @@ export const OpportunitiesCard: FunctionComponent<
 			refetchInterval: false,
 		}
 	);
-	const { t } = useTranslation();
-
+	console.log(language);
 	return (
 		<>
 			{(isPortfolio ? enterpriseData : cardsInfo?.data)?.map(
@@ -234,6 +235,7 @@ export const OpportunitiesCard: FunctionComponent<
 											background="#E4F2F3"
 											borderRadius="2.6875rem"
 											py="0.125rem"
+											px={language === "pt-br" ? "1" : "3"}
 										>
 											<Text
 												fontFamily="Poppins"
@@ -243,7 +245,7 @@ export const OpportunitiesCard: FunctionComponent<
 												color="#00576B"
 											>
 												{t("opportunities.card.expectedp/y", {
-													text: cards?.profitability,
+													symbol1: cards?.profitability,
 												})}
 											</Text>
 										</Flex>
