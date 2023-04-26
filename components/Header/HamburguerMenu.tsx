@@ -31,9 +31,7 @@ export const HamburguerMenu: React.FC = () => {
 
 	const { t, i18n } = useTranslation();
 	const { language } = i18n;
-	useEffect(() => {
-		console.log(language);
-	});
+
 	return (
 		<Menu>
 			<MenuButton>

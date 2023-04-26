@@ -65,7 +65,7 @@
 			"office": "Escritórios",
 			"minInvest": "Investimento Mín.",
 			"estConc": "Prev. Conclusão",
-			"expectedp/y": "Rentabilidade Esperada: {{ text }}% a/a (máx)",
+			"expectedp/y": "Rentabilidade Esperada: {{ symbol1 }}% a/a (máx)",
 			"accessTo": "Solicitar Acesso a essa Oferta",
 			"access": "Solicitar Acesso",
 			"sign": "R$",
