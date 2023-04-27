@@ -54,7 +54,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 				{value ? value : placeholder}
 			</MenuButton>
 			<MenuList bgColor="#ffffff" border="0.0625rem solid #E2E8F0">
-				{fields?.map(field => (
+				{fields?.map((field: any) => (
 					<MenuItem
 						key={field}
 						bgColor="#ffffff"
@@ -77,19 +77,19 @@ export const MenuInputs: FunctionComponent = () => {
 	return (
 		<Flex gap="1.5rem" alignItems={"center"}>
 			<MenuInput
-				placeholder="Tipo de Imóvel"
+				placeholder={t("inputs.propertyType") as any}
 				color="#2D3748"
 				fields={["Todos imóveis", "Comercial", "Residencial", "Loteamento"]}
 				param="enterprise_type"
 			/>
 			<MenuInput
-				placeholder="Previsão de Conclusão"
+				placeholder={t("inputs.completionForecast") as any}
 				color="#2D3748"
 				fields={["Crescente", "Decrescente"]}
 				param="expected_delivery_date"
 			/>
 			<MenuInput
-				placeholder="Investimento Mínimo"
+				placeholder={t("inputs.minimumInvestment") as any}
 				color="#2D3748"
 				fields={["Mínimo", "Máximo"]}
 				param="min_investment"

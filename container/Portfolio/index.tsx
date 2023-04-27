@@ -388,7 +388,12 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								alignItems="center"
 								gap="1rem"
 							>
-								<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
+								<Text
+									pt="5rem"
+									fontSize={"2xl"}
+									fontWeight={"600"}
+									color={"#171923"}
+								>
 									{isInvestor
 										? t("portfolio.yourInvestments")
 										: t("opportunitieDetails.yourShares")}
@@ -471,7 +476,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 												w="70%"
 												alignItems="end"
 											>
-												<Text w="7rem">{t("opportunitieDetails.quota")}</Text>
+												<Text w="7rem">{t("wantToInvest.quota")}</Text>
 												<Text w="7rem">{t("portfolio.totalInvested")}</Text>
 												<Flex gap="0.375rem" alignItems="center" w="7rem">
 													<Text>{t("portfolio.maturity")}</Text>
