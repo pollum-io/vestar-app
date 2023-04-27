@@ -205,13 +205,19 @@
 		"date": "dd/mm/aaaa",
 		"insertHere": "Insira aqui",
 		"findCompanie": "Procurar empresa",
-		"emailExample": "exemplo@exemplo.com"
+		"emailExample": "exemplo@exemplo.com",
+		"propertyType": "Tipo do Imóvel",
+		"completionForecast": "Previsão de Conclusão",
+		"minimumInvestment": "Investimento Mínimo",
+		"crescent": "Crescente",
+		"decrescent": "Decrescente"
 	},
 	"header": {
 		"hello": "Olá, Fulano",
 		"logOut": "Sair",
 		"lang": "Idioma",
 		"connect": "Conectar Carteira",
+		"profile": "Editar perfil",
 		"pt": "Português",
 		"en": "Inglês",
 		"portfolio": "Portfólio",

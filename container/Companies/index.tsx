@@ -58,7 +58,7 @@ export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 									w="14.5625rem"
 									border="0.0625rem solid #CBD5E0"
 									borderRadius="4.1875rem"
-									placeholder="Procurar empresa"
+									placeholder={t("inputs.findCompanie") as String}
 									color="#171923"
 									_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 									fontFamily="Poppins"

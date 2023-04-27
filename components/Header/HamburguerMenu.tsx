@@ -94,7 +94,7 @@ export const HamburguerMenu: React.FC = () => {
 								</Text>
 							</Flex>
 						) : (
-							<Text onClick={() => connectWallet()}>Conectar Carteira</Text>
+							<Text onClick={() => connectWallet()}>{t("header.connect")}</Text>
 						)}
 					</Button>
 				</Flex>
@@ -114,7 +114,7 @@ export const HamburguerMenu: React.FC = () => {
 						push({ pathname: `/usuario`, query: { id: userInfos } })
 					}
 				>
-					Editar perfil
+					{t("header.profile")}
 				</MenuItem>
 				<Accordion allowMultiple>
 					<AccordionItem border="none">
