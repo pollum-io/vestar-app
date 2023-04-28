@@ -9,6 +9,7 @@ interface IRegister {
 	userInfos: any;
 	username: string;
 	isInvestor: boolean;
+	setIsInvestor: any;
 }
 
 export const UserContext = createContext({} as IRegister);
@@ -54,12 +55,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 			PersistentFramework.add("id", String(id));
 			setUserInfos(id);
 			return;
-		} else if (!username) {
+		}
+		if (!username) {
 			const name = PersistentFramework.get("name");
 			PersistentFramework.add("name", String(name));
 			setUsername(name);
 			return;
-		} else if (!isInvestor) {
+		}
+		if (!isInvestor) {
 			const investor = PersistentFramework.get("isInvestor") as {
 				[k: string]: any;
 			};
@@ -72,7 +75,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 		} else {
 			return;
 		}
-	}, [userInfos, username, isInvestor]);
+	}, []);
 
 	const providerValue = useMemo(
 		() => ({
@@ -84,6 +87,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 			setUserInfos,
 			getInfosId,
 			isInvestor,
+			setIsInvestor,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[isUserLogged, userInfos, username]

@@ -28,6 +28,7 @@ interface IPortfolio {
 	portfolioData: any;
 	enterpriseData?: any;
 	enterpriseInvestment?: any;
+	user?: any;
 }
 
 const BarCharts = dynamic(
@@ -54,6 +55,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	portfolioData,
 	enterpriseData,
 	enterpriseInvestment,
+	user,
 }) => {
 	const [value, setValue] = useState("1");
 	const [yoursInvestments, setYoursInvestments] = useState<any>();
@@ -61,8 +63,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	const [quotaTimeFilter, setQuotaTimeFilter] = useState("year");
 	const [quotaFilter, setQuotaFilter] = useState("percentage");
 	const [imvestmentFilter, setInvestmentFilter] = useState("processed");
-
-	const { username, isInvestor, userInfos } = useUser();
+	const { username, isInvestor, userInfos, setIsInvestor } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
 
 	const calcularPorcentagensDeTipos = (objetos: any) => {
@@ -88,6 +89,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 
 	useMemo(() => {
 		calcularPorcentagensDeTipos(portfolioData);
+		setIsInvestor(user?.investor_id ? true : false);
 	}, [portfolioData]);
 
 	return (
