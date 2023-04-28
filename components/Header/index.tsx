@@ -1,10 +1,13 @@
 import { Flex, Img } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { Oval } from "react-loader-spinner";
+import { useUser } from "../../hooks/useUser";
 import { HamburguerMenu } from "./HamburguerMenu";
 import { HeaderLinks } from "./HeaderLinks";
 
 export const Header: React.FC = () => {
 	const { push } = useRouter();
+	const { username } = useUser();
 
 	return (
 		<Flex
@@ -26,16 +29,43 @@ export const Header: React.FC = () => {
 			<Flex>
 				<HeaderLinks />
 			</Flex>
-			<Flex
-				gap="0.75rem"
-				fontFamily="Poppins"
-				fontWeight="500"
-				fontSize="0.875rem"
-				lineHeight="1.25rem"
-				alignItems="center"
-			>
-				<HamburguerMenu />
-			</Flex>
+			{username === undefined ? (
+				<Flex
+					gap="0.75rem"
+					fontFamily="Poppins"
+					fontWeight="500"
+					fontSize="0.875rem"
+					lineHeight="1.25rem"
+					alignItems="center"
+					w={"12rem"}
+					justifyContent="center"
+				>
+					<Oval
+						height={15}
+						width={15}
+						color="#1789A3"
+						wrapperStyle={{}}
+						wrapperClass=""
+						visible={true}
+						ariaLabel="oval-loading"
+						secondaryColor="#bdbdbd"
+						strokeWidth={2}
+						strokeWidthSecondary={2}
+					/>
+				</Flex>
+			) : (
+				<Flex
+					gap="0.75rem"
+					fontFamily="Poppins"
+					fontWeight="500"
+					fontSize="0.875rem"
+					lineHeight="1.25rem"
+					alignItems="center"
+					w={"12rem"}
+				>
+					<HamburguerMenu />
+				</Flex>
+			)}
 		</Flex>
 	);
 };
