@@ -153,7 +153,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								fontSize="2xl"
 								mb="1.5rem"
 							>
-								{t("portfolio.summary")}
+								{t("portfolio.prof")}
 							</Text>
 							<Flex
 								borderRadius={"0.75rem"}
@@ -526,7 +526,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							pb={isInvestor ? "none" : "2rem"}
 						>
 							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
-								{isInvestor ? "Onde você tem investido" : "Imóveis cadastrados"}
+								{isInvestor ? t("portfolio.where") : "Imóveis cadastrados"}
 							</Text>
 							{isInvestor ? (
 								<Flex gap="1.5rem" mb={"10rem"}>
