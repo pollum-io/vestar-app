@@ -62,6 +62,8 @@
 		"card": {
 			"commercial": "Commercial",
 			"residential": "Residential",
+			"subdivision": "Subdivision",
+			"allProperties": "All properties",
 			"office": "Offices",
 			"minInvest": "Min. investment",
 			"estConc": "Est. Conclusion",
@@ -211,7 +213,10 @@
 		"completionForecast": "Completion Forecast",
 		"minimumInvestment": "Minimum Investment",
 		"crescent": "Crescent",
-		"decrescent": "Decrescent"
+		"decrescent": "Decrescent",
+		"minimum": "Mínimo",
+		"maximum": "Máximo",
+		"clear": "clear"
 	},
 	"header": {
 		"hello": "Hi, Fulano",
