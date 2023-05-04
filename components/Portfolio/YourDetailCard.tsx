@@ -94,7 +94,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 			</Flex>
 			<Flex w="max" flexDir={"column"} alignItems="flex-start" opacity={1}>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{!isInvestor ? "Arrecadação" : ""}
+					{!isInvestor ? t("portfolio.revenue") : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
@@ -107,7 +107,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 			</Flex>
 			<Flex w="max" flexDir={"column"} alignItems="flex-start" opacity={1}>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{!isInvestor ? "Cotas Negociadas" : ""}
+					{!isInvestor ? t("portfolio.sharesTraded") : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
