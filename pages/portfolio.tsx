@@ -9,17 +9,20 @@ interface IPortfolio {
 	data?: any;
 	enterpriseData?: any;
 	enterpriseInvestment?: any;
+	host?: any;
 }
 
 const Portfolio: NextPage<IPortfolio> = ({
 	data,
 	enterpriseData,
 	enterpriseInvestment,
+	host,
 }) => (
 	<PortfolioContainer
 		portfolioData={data}
-		enterpriseData={enterpriseData}
+		enterpriseData={enterpriseData?.data}
 		enterpriseInvestment={enterpriseInvestment}
+		host={host}
 	/>
 );
 
@@ -51,9 +54,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
-	if (user?.enterprise_id) {
+	if (user?.enterprise_id && host) {
 		const response = await fetchOpportunitiesByCompanyPortfolio(
-			user.enterprise_id
+			user.enterprise_id,
+			host
 		);
 
 		const investment = await fetchEnterpriseInvestment(
@@ -65,6 +69,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 			props: {
 				user,
 				token,
+				host,
 				enterpriseData: response?.data,
 				enterpriseInvestment: investment?.data,
 			},
@@ -77,6 +82,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		props: {
 			user,
 			token,
+			host,
 			data: response.data,
 		},
 	};

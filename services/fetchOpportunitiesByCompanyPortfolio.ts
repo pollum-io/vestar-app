@@ -1,16 +1,12 @@
+import qs from "qs";
+import { apiInstance } from "./api";
+
 export const fetchOpportunitiesByCompanyPortfolio = async (
-	enterpriseId: string
+	enterpriseId: string,
+	host?: string
 ) => {
-	const request = await fetch(
-		`http://localhost:3000/api/opportunity?enterprise_id=${enterpriseId}`,
-		{
-			method: "GET",
-			headers: {
-				"content-type": "application/json",
-				accept: "application/json",
-			},
-		}
-	).then(res => res.json());
+	const api = apiInstance(host);
+	const request = await api.get(`/opportunity?enterprise_id=${enterpriseId}`);
 
 	return request;
 };
