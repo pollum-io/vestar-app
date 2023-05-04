@@ -5,6 +5,7 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FunctionComponent, useCallback, useState } from "react";
@@ -20,6 +21,9 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 }) => {
 	const router = useRouter();
 	const [value, setValue] = useState<any>("");
+
+	const { t } = useTranslation();
+
 	const setParams = useCallback(
 		(param: string, value: any) => {
 			router.query[param] = value;
@@ -28,6 +32,17 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[router.query]
 	);
+
+	const labels = {
+		["Comercial"]: `${t("opportunities.card.commercial")}`,
+		["Residencial"]: `${t("opportunities.card.residential")}`,
+		["Loteamento"]: `${t("opportunities.card.subdivision")}`,
+		["Todos imóveis"]: `${t("opportunities.card.allProperties")}`,
+		["Crescente"]: `${t("inputs.crescent")}`,
+		["Decrescente"]: `${t("inputs.decrescent")}`,
+		["Mínimo"]: `${t("inputs.minimum")}`,
+		["Máximo"]: `${t("inputs.maximum")}`,
+	} as { [k: string]: string };
 
 	return (
 		<Menu>
@@ -51,7 +66,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 				_expanded={{ bgColor: "#ffffff" }}
 				_focus={{ boxShadow: "none", bgColor: "#ffffff" }}
 			>
-				{value ? value : placeholder}
+				{value ? labels[value] : placeholder}
 			</MenuButton>
 			<MenuList bgColor="#ffffff" border="0.0625rem solid #E2E8F0">
 				{fields?.map((field: any) => (
@@ -64,7 +79,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 							setValue(field);
 						}}
 					>
-						{field}
+						{labels[field]}
 					</MenuItem>
 				))}
 			</MenuList>
@@ -74,6 +89,8 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 
 export const MenuInputs: FunctionComponent = () => {
 	const { t } = useTranslation();
+	const router = useRouter();
+
 	return (
 		<Flex gap="1.5rem" alignItems={"center"}>
 			<MenuInput
@@ -94,7 +111,18 @@ export const MenuInputs: FunctionComponent = () => {
 				fields={["Mínimo", "Máximo"]}
 				param="min_investment"
 			/>
-			{/* <MenuInput placeholder="Localização" color="#A0AEC0"/> */}
+			<Button
+				placeholder="Localização"
+				color="#7b8080"
+				onClick={() => router.push("/oportunidades")}
+				cursor={"pointer"}
+				fontSize="xs"
+				h={"max"}
+				py="2"
+				fontWeight={"500"}
+			>
+				Clear
+			</Button>
 		</Flex>
 	);
 };
