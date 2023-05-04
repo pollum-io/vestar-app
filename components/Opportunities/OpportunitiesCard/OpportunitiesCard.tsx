@@ -26,7 +26,9 @@ export const OpportunitiesCard: FunctionComponent<
 
 	const currentTime = new Date();
 	const router = useRouter();
-	//TODO: move this request to a lower component level
+	const isEnterprise = investorId ? false : true;
+	console.log(isEnterprise);
+
 	const { data: cardsInfo } = query(
 		["oportunity", router.query],
 		() =>
@@ -99,13 +101,14 @@ export const OpportunitiesCard: FunctionComponent<
 						borderRadius="0.75rem"
 						flexDirection="column"
 						_hover={{
-							cursor: cards?.isAvailable ? "pointer" : "default",
+							cursor:
+								cards?.isAvailable || isEnterprise ? "pointer" : "default",
 							boxShadow:
 								"0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
 						}}
 						transition="150ms"
 						onClick={() =>
-							cards?.isAvailable
+							cards?.isAvailable || isEnterprise
 								? router.push({
 										pathname: `/oportunidades/${cards._id}`,
 										query: { id: cards._id },
@@ -123,9 +126,10 @@ export const OpportunitiesCard: FunctionComponent<
 								src={`/api/file/${cards.pictures_enterprise[0]}`}
 								borderRadius="0.75rem"
 								filter={
-									cards.token_minted === cards.token_supply ||
-									currentTime >= new Date(cards?.sale_end_at) ||
-									!cards?.isAvailable
+									(cards.token_minted === cards.token_supply ||
+										currentTime >= new Date(cards?.sale_end_at) ||
+										!cards?.isAvailable) &&
+									!isEnterprise
 										? "blur(3px)"
 										: "none"
 								}
@@ -178,7 +182,9 @@ export const OpportunitiesCard: FunctionComponent<
 								<Flex
 									gap="0.5rem"
 									alignItems="center"
-									filter={!cards?.isAvailable ? "blur(3px)" : "none"}
+									filter={
+										!cards?.isAvailable && !isEnterprise ? "blur(3px)" : "none"
+									}
 								>
 									{!cards.isPortfolio && (
 										<Img
@@ -246,7 +252,11 @@ export const OpportunitiesCard: FunctionComponent<
 										alignItems="center"
 										justifyContent="space-between"
 										w="100%"
-										filter={!cards?.isAvailable ? "blur(3px)" : "none"}
+										filter={
+											!cards?.isAvailable && !isEnterprise
+												? "blur(3px)"
+												: "none"
+										}
 									>
 										<Flex flexDirection="column" alignItems="left">
 											<Text
