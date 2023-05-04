@@ -12,11 +12,12 @@ interface IOpportunitiesCompaniesCard {
 	enterpriseId?: any;
 	enterpriseData?: any;
 	isPortfolio?: boolean;
+	host?: any;
 }
 
 export const OpportunitiesCard: FunctionComponent<
 	IOpportunitiesCompaniesCard
-> = ({ enterpriseId, enterpriseData, isPortfolio }) => {
+> = ({ enterpriseId, enterpriseData, isPortfolio, host }) => {
 	const currentTime = new Date().getTime();
 	const router = useRouter();
 	//TODO: move this request to a lower component level
@@ -32,6 +33,9 @@ export const OpportunitiesCard: FunctionComponent<
 			refetchInterval: false,
 		}
 	);
+	console.log(enterpriseData, "enterpriseData");
+	console.log(cardsInfo?.data, "cardsInfo?.data");
+
 	return (
 		<>
 			{(isPortfolio ? enterpriseData : cardsInfo?.data)?.map(
@@ -277,6 +281,7 @@ export const OpportunitiesCards: FunctionComponent<any> = ({
 	enterpriseId,
 	enterpriseData,
 	isPortfolio,
+	host,
 }) => {
 	return (
 		<SimpleGrid
@@ -289,6 +294,7 @@ export const OpportunitiesCards: FunctionComponent<any> = ({
 				enterpriseId={enterpriseId}
 				enterpriseData={enterpriseData}
 				isPortfolio={isPortfolio}
+				host={host}
 			/>
 		</SimpleGrid>
 	);

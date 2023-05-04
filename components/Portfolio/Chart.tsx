@@ -1,6 +1,5 @@
 import { format } from "date-fns";
-import moment from "moment";
-import React, { PureComponent } from "react";
+import React from "react";
 import {
 	LineChart,
 	Line,
