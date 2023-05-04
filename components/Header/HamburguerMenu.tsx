@@ -60,6 +60,7 @@ export const HamburguerMenu: React.FC = () => {
 				</Flex>
 			</MenuButton>
 			<MenuList
+				zIndex={"999"}
 				bgColor="#FFFFFF"
 				border="0.0625rem solid #E2E8F0"
 				borderRadius="1rem"

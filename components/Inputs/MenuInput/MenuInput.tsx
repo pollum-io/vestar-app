@@ -113,15 +113,16 @@ export const MenuInputs: FunctionComponent = () => {
 			/>
 			<Button
 				placeholder="Localização"
-				color="#7b8080"
+				color="#2D3748"
 				onClick={() => router.push("/oportunidades")}
 				cursor={"pointer"}
-				fontSize="xs"
+				fontSize="sm"
 				h={"max"}
+				bg={"transparent"}
 				py="2"
 				fontWeight={"500"}
 			>
-				Clear
+				{t("inputs.clear") as any}
 			</Button>
 		</Flex>
 	);
