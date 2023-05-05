@@ -1,3 +1,5 @@
+import { DefaultTFuncReturn } from "i18next";
+
 export interface IOpportunitiesCard {
 	__v: number;
 	_id: string;
@@ -28,6 +30,7 @@ export interface IOpportunitiesCard {
 	blocked?: boolean;
 	finished?: boolean;
 	sale_end_at?: any;
+	isAvailable?: boolean;
 }
 
 export interface IOpportunitieAddress {

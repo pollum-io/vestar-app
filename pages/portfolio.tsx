@@ -10,6 +10,7 @@ interface IPortfolio {
 	enterpriseData?: any;
 	enterpriseInvestment?: any;
 	host?: any;
+	user?: any;
 }
 
 const Portfolio: NextPage<IPortfolio> = ({
@@ -17,12 +18,14 @@ const Portfolio: NextPage<IPortfolio> = ({
 	enterpriseData,
 	enterpriseInvestment,
 	host,
+	user,
 }) => (
 	<PortfolioContainer
 		portfolioData={data}
 		enterpriseData={enterpriseData?.data}
 		enterpriseInvestment={enterpriseInvestment}
 		host={host}
+		user={user}
 	/>
 );
 
@@ -83,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 			user,
 			token,
 			host,
-			data: response.data,
+			data: response?.data,
 		},
 	};
 };
