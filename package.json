@@ -53,6 +53,7 @@
 		"react-i18next": "^12.2.0",
 		"react-icons": "^4.7.1",
 		"react-input-mask": "3.0.0-alpha.2",
+		"react-loader-spinner": "^5.3.4",
 		"react-password-strength-bar": "^0.4.1",
 		"react-query": "^3.39.3",
 		"react-responsive-carousel": "^3.2.23",

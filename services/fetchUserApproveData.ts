@@ -21,7 +21,6 @@ export const fetchUserApproveData = async (
 				},
 			}
 		);
-		console.log(response);
 		return response.data;
 	} catch (error: any) {
 		console.log(error.message);
