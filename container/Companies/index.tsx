@@ -11,6 +11,7 @@ import {
 import { DefaultTemplate } from "../../container";
 import { BiSearch } from "react-icons/bi";
 import { CompaniesCard } from "../../components";
+import { useTranslation } from "react-i18next";
 
 interface ICompanies {
 	data: any;
@@ -18,7 +19,7 @@ interface ICompanies {
 
 export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 	const [searchTerm, setSearchTerm] = useState("");
-
+	const { t } = useTranslation();
 	const filteredImoveis = data.filter((imovel: any) =>
 		imovel.enterprise_name.toLowerCase().includes(searchTerm.toLowerCase())
 	);
@@ -42,7 +43,7 @@ export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 								lineHeight="2.25rem"
 								color="#171923"
 							>
-								Empresas parceiras LIVN
+								{t("companies.partners")}
 							</Text>
 							<InputGroup w="max-content">
 								<InputLeftElement
@@ -57,7 +58,7 @@ export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 									w="14.5625rem"
 									border="0.0625rem solid #CBD5E0"
 									borderRadius="4.1875rem"
-									placeholder="Procurar empresa"
+									placeholder={t("inputs.findCompanie") as any}
 									color="#171923"
 									_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 									fontFamily="Poppins"
@@ -80,7 +81,7 @@ export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 							alignItems="center"
 							color="#718096"
 						>
-							{data?.length} empresas
+							{data?.length} {t("header.companies")}
 						</Text>
 					</Flex>
 					<Flex flexDirection={"column"} gap="1.5rem" w="100%">

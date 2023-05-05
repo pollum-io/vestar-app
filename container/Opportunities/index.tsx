@@ -4,10 +4,12 @@ import { DefaultTemplate } from "../DefaultTemplate";
 import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
 import { useUser } from "../../hooks/useUser";
+import { useTranslation } from "react-i18next";
 
 export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 	const { getInfosId, getInfos } = useUser();
 	const [bannerRes] = useMediaQuery("(max-width: 1110px)");
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		getInfosId(
@@ -76,7 +78,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 								zIndex="docked"
 								mt="2.5rem"
 							>
-								Investir é muito mais fácil com a LIVN
+								{t("opportunities.investingIs")}
 							</Text>
 						</Flex>
 						<Flex
@@ -95,7 +97,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="7.5625rem"
 									>
-										Abra uma oportunidade disponível para você
+										{t("opportunities.first")}
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
@@ -107,7 +109,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="7.5625rem"
 									>
-										Selecione a quantidade de cotas que você deseja
+										{t("opportunities.second")}
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
@@ -119,7 +121,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="7.5625rem"
 									>
-										Clique em Quero Investir e faça o pagamento
+										{t("opportunities.third")}
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem" pt="0.2rem">
@@ -131,8 +133,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 										color="#FFFFFF"
 										w="11.125rem"
 									>
-										Pronto! agora é só acompanhar os rendimentos na aba
-										Portfólio
+										{t("opportunities.fourth")}
 									</Text>
 								</Flex>
 							</Flex>
@@ -161,7 +162,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 						fontFamily="Poppins"
 					>
 						<Text fontSize="0.875rem" lineHeight="1.25rem" color="#2D3748">
-							Ordenar por
+							{t("opportunities.orderBy")}
 						</Text>
 
 						<Flex
@@ -191,7 +192,10 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 						</Flex>
 					</Flex>
 					<Flex mt="2.9375rem" w="100%" justifyContent="center">
-						<OpportunitiesCards />
+						<OpportunitiesCards
+							investorId={props?.user?.investor_id}
+							token={props.token}
+						/>
 					</Flex>
 				</Flex>
 			</Flex>

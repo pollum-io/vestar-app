@@ -1,9 +1,11 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 export const NotInvestWarn: FunctionComponent = () => {
 	const { push } = useRouter();
+	const { t } = useTranslation();
 
 	return (
 		<Flex
@@ -15,7 +17,7 @@ export const NotInvestWarn: FunctionComponent = () => {
 			mt="6.1875rem"
 		>
 			<Text mb="1rem" color="#171923" fontSize={"2xl"} fontWeight={600}>
-				Você ainda não fez nenhum investimento.
+				{t("portfolio.notInvested")}
 			</Text>
 			<Text
 				mb="2rem"
@@ -26,9 +28,7 @@ export const NotInvestWarn: FunctionComponent = () => {
 				alignItems="center"
 				textAlign="center"
 			>
-				Assim que realizar a compra de cotas, você poderá ver todos os dados,
-				gráficos e resumos de investimentos com filtros inteligentes nesta
-				página.{" "}
+				{t("portfolio.textNotInvested")}
 			</Text>
 			<Button
 				fontWeight={500}
@@ -37,7 +37,7 @@ export const NotInvestWarn: FunctionComponent = () => {
 				_hover={{ opacity: 0.9 }}
 				color="#ffffff"
 			>
-				Ir para a página de Oportunidades
+				{t("portfolio.buttonNotInvested")}
 			</Button>
 		</Flex>
 	);

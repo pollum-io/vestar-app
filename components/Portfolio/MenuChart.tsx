@@ -8,11 +8,12 @@ import {
 	MenuList,
 	Text,
 } from "@chakra-ui/react";
+import { DefaultTFuncReturn } from "i18next";
 import { FunctionComponent } from "react";
 import { MdExpandMore } from "react-icons/md";
 
 interface IMenuChart {
-	title?: string;
+	title?: string | DefaultTFuncReturn;
 	titleColor?: string;
 	defaultSelection: string;
 }
