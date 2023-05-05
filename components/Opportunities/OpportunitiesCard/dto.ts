@@ -1,3 +1,5 @@
+import { DefaultTFuncReturn } from "i18next";
+
 export interface IOpportunitiesCard {
 	__v: number;
 	_id: string;

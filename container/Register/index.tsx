@@ -2,9 +2,11 @@ import React, { FunctionComponent } from "react";
 import { RegisterSteps } from "../../components/Register/RegisterSteps";
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { RegisterContent } from "../../components/Register/RegisterContent";
+import { useTranslation } from "react-i18next";
 
 export const RegisterContainer: FunctionComponent = (props: any) => {
 	const { token } = props;
+	const { t } = useTranslation();
 
 	return (
 		<Flex w="100vw" h="100vh" bgColor="#ffffff" justifyContent="center">
@@ -28,7 +30,7 @@ export const RegisterContainer: FunctionComponent = (props: any) => {
 							lineHeight="2.25rem"
 							mb="2.6875rem"
 						>
-							Olá! Antes de seguir, precisamos de alguns dados
+							{t("register.hello")}
 						</Text>
 						<Img
 							w="max-content"

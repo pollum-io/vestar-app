@@ -1,6 +1,7 @@
 import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiCopy } from "react-icons/fi";
 import { useOpportunities } from "../../hooks/useOpportunities";
 interface IPriceCard {
@@ -30,6 +31,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const { push } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
+	const { t } = useTranslation();
 
 	const handleClick = async (value: string) => {
 		try {
@@ -66,7 +68,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			color="#ffffff"
 		>
 			<Text fontSize={"xl"} fontWeight="500">
-				Nome da Cota
+				{t("opportunitieDetails.priceCard.sharesName")}
 			</Text>
 			{isInvestidor ? (
 				<Flex flexDirection="column">
@@ -82,10 +84,12 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					>
 						<Flex flexDir={"column"}>
 							<Text fontSize={"xs"} fontWeight="500">
-								Selecione a Quantidade
+								{t("opportunitieDetails.select")}
 							</Text>
 							<Text fontSize={"sm"} fontWeight="400">
-								{cotas} cota
+								{t("opportunitieDetails.priceCard.shares", {
+									value: cotas,
+								})}
 							</Text>
 						</Flex>
 
@@ -123,7 +127,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									? hasToken
 										? "Você investiu em 12 tokens desta oportunidade. Acompanhe seus rendimentos no portfólio."
 										: "Você não comprou cotas desta oportunidade. "
-									: "Total"}
+									: t("opportunitieDetails.total")}
 							</Text>
 							<Text fontWeight={"500"} display={ended ? "none" : "flex"}>
 								{formatter.format(cotas * price)}
@@ -164,7 +168,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								fontSize={"xs"}
 								display={ended ? "none" : "flex"}
 							>
-								Você ainda não será cobrado.
+								{t("opportunitieDetails.wontBe")}
 							</Text>
 						</Flex>
 					</Flex>
@@ -183,7 +187,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					flexDirection="column"
 				>
 					<Flex justifyContent="space-between" w="100%">
-						<Text>Preço unitário</Text>
+						<Text>{t("opportunitieDetails.unit")}</Text>
 						<Text>{price}</Text>
 					</Flex>
 					<Flex w="100%" border="1px solid #4BA3B7" my="1rem" />
@@ -192,7 +196,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			<Flex flexDir={"column"} gap="0.5rem">
 				<Flex justifyContent={"space-between"}>
 					<Text fontSize={"md"} fontWeight="400">
-						Endereço da cota
+						{t("opportunitieDetails.quotaAddress")}
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
@@ -213,7 +217,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					display={isInvestidor ? "flex" : "none"}
 				>
 					<Text fontSize={"md"} fontWeight="400">
-						Preço unitário
+						{t("opportunitieDetails.unit")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
 						R${price}
@@ -221,7 +225,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 				</Flex>
 				<Flex justifyContent={"space-between"}>
 					<Text fontSize={"md"} fontWeight="400">
-						Cotas emitidas
+						{t("opportunitieDetails.shares")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
 						{minted}
@@ -229,7 +233,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 				</Flex>
 				<Flex justifyContent={"space-between"}>
 					<Text fontSize={"md"} fontWeight="400">
-						Cotas disponíveis
+						{t("opportunitieDetails.available")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
 						{avalible}

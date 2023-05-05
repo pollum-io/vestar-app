@@ -7,6 +7,7 @@ import { fetchOpportunity } from "../../../services/fetchOpportunity";
 import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
+import { useTranslation } from "react-i18next";
 
 interface IOpportunitiesCompaniesCard {
 	enterpriseId?: any;
@@ -19,6 +20,8 @@ export const OpportunitiesCard: FunctionComponent<
 > = ({ enterpriseId, enterpriseData, isPortfolio }) => {
 	const currentTime = new Date().getTime();
 	const router = useRouter();
+	const { t, i18n } = useTranslation();
+	const { language } = i18n;
 	//TODO: move this request to a lower component level
 
 	const { data: cardsInfo } = query(
@@ -32,6 +35,7 @@ export const OpportunitiesCard: FunctionComponent<
 			refetchInterval: false,
 		}
 	);
+	console.log(language);
 	return (
 		<>
 			{(isPortfolio ? enterpriseData : cardsInfo?.data)?.map(
@@ -93,7 +97,7 @@ export const OpportunitiesCard: FunctionComponent<
 											lineHeight="1rem"
 											color="#FFFFFF"
 										>
-											Encerrado
+											{t("opportunities.card.closed")}
 										</Text>
 									) : (
 										<Text
@@ -103,7 +107,7 @@ export const OpportunitiesCard: FunctionComponent<
 											lineHeight="1rem"
 											color="#FFFFFF"
 										>
-											Disponivel
+											{t("opportunities.card.available")}
 										</Text>
 									)}
 								</Flex>
@@ -170,7 +174,7 @@ export const OpportunitiesCard: FunctionComponent<
 									opacity={"1"}
 									cursor={"pointer"}
 								>
-									Atualizar andamento da obra
+									{t("opportunities.card.workProgress")}
 								</Button>
 							) : (
 								<Flex flexDirection="column" gap="1rem" mt="1.5rem">
@@ -186,7 +190,7 @@ export const OpportunitiesCard: FunctionComponent<
 												lineHeight="1rem"
 												color="#718096"
 											>
-												Investimento Mín.
+												{t("opportunities.card.minInvest")}
 											</Text>
 											<Flex gap="0.25rem" fontFamily="Poppins">
 												<Text
@@ -216,7 +220,7 @@ export const OpportunitiesCard: FunctionComponent<
 												lineHeight="1rem"
 												color="#718096"
 											>
-												Prev. Conclusão
+												{t("opportunities.card.estConc")}
 											</Text>
 											<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 												{formatDate(cards.expected_delivery_date)}
@@ -227,10 +231,11 @@ export const OpportunitiesCard: FunctionComponent<
 										<Flex
 											justifyContent="center"
 											alignItems="center"
-											w="100%"
+											w="max"
 											background="#E4F2F3"
 											borderRadius="2.6875rem"
 											py="0.125rem"
+											px={language === "pt-br" ? "1" : "3"}
 										>
 											<Text
 												fontFamily="Poppins"
@@ -239,7 +244,9 @@ export const OpportunitiesCard: FunctionComponent<
 												lineHeight="1rem"
 												color="#00576B"
 											>
-												{`Rentabilidade Esperada: ${cards.profitability}% a.a (máx)`}
+												{t("opportunities.card.expectedp/y", {
+													symbol1: cards?.profitability,
+												})}
 											</Text>
 										</Flex>
 									) : (
@@ -259,8 +266,8 @@ export const OpportunitiesCard: FunctionComponent<
 											_hover={{ bgColor: "#EDF2F7" }}
 										>
 											{cards.finished
-												? "Solicitar Acesso"
-												: "Solicitar Acesso a essa Oferta"}
+												? t("opportunities.card.accessTo")
+												: t("opportunities.card.access")}
 										</Button>
 									)}
 								</Flex>

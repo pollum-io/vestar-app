@@ -4,12 +4,12 @@ import Document, {
 	DocumentInitialProps,
 } from 'next/document'
 class MyDocument extends Document {
-	static async getInitialProps(
-		ctx: DocumentContext
-	): Promise<DocumentInitialProps> {
-		const initialProps = await Document.getInitialProps(ctx);
-		return { ...initialProps };
-	}
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
 
 	render() {
 		return (
@@ -28,4 +28,4 @@ class MyDocument extends Document {
 		)
 	}
 }
-export default MyDocument
+export default MyDocument;

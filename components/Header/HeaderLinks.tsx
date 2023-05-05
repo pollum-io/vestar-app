@@ -1,25 +1,33 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-
-const links = [
-	{
-		id: 1,
-		name: "Oportunidades",
-		url: "/oportunidades",
-	},
-	{
-		id: 2,
-		name: "Portfólio",
-		url: "/portfolio",
-	},
-	{
-		id: 3,
-		name: "Empresas",
-		url: "/empresas",
-	},
-];
+import { useTranslation } from "react-i18next";
 
 export const HeaderLinks: React.FC = () => {
+	const { t } = useTranslation();
+
+	const links = [
+		{
+			id: 1,
+			name: t("companieDetails.opportunities"),
+			url: "/oportunidades",
+		},
+		{
+			id: 2,
+			name: t("header.portfolio"),
+			url: "/portfolio",
+		},
+		{
+			id: 3,
+			name: t("header.companies"),
+			url: "/empresas",
+		},
+		// {
+		// 	id: 4,
+		// 	name: t("companies.card.learnMore"),
+		// 	url: "/saibamais",
+		// },
+	];
+
 	const { pathname, push } = useRouter();
 	return (
 		<Flex gap="1">
