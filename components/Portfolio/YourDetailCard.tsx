@@ -1,5 +1,6 @@
 import { Flex, Img, Text } from "@chakra-ui/react";
 import { FunctionComponent, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useUser } from "../../hooks/useUser";
 
 interface IYourDeital {
@@ -12,6 +13,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 	enterprise,
 }) => {
 	const [hasInvest, setHasInvest] = useState(false);
+	const { t } = useTranslation();
 	const { isInvestor } = useUser();
 
 	const investorTotalAmount = useMemo(() => {
@@ -75,7 +77,9 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 			>
 				<Flex alignItems="center" gap="3">
 					<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-						{!isInvestor ? "Empreendimentos Cadastrados" : "Patrimônio Atual"}
+						{!isInvestor
+							? t("portfolio.registered")
+							: t("portfolio.currentAssets")}
 					</Text>
 					<Img
 						display={!isInvestor ? "none" : "flex"}
@@ -90,7 +94,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 			</Flex>
 			<Flex w="max" flexDir={"column"} alignItems="flex-start" opacity={1}>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{!isInvestor ? "Arrecadação" : ""}
+					{!isInvestor ? t("portfolio.revenue") : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
@@ -103,7 +107,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 			</Flex>
 			<Flex w="max" flexDir={"column"} alignItems="flex-start" opacity={1}>
 				<Text fontWeight={"500"} fontSize="sm" color="#007D99">
-					{!isInvestor ? "Cotas Negociadas" : ""}
+					{!isInvestor ? t("portfolio.sharesTraded") : ""}
 				</Text>
 				<Text
 					fontSize={"xl"}
