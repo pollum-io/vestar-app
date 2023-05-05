@@ -9,17 +9,20 @@ interface IPortfolio {
 	data?: any;
 	enterpriseData?: any;
 	enterpriseInvestment?: any;
+	user?: any;
 }
 
 const Portfolio: NextPage<IPortfolio> = ({
 	data,
 	enterpriseData,
 	enterpriseInvestment,
+	user,
 }) => (
 	<PortfolioContainer
 		portfolioData={data}
 		enterpriseData={enterpriseData}
 		enterpriseInvestment={enterpriseInvestment}
+		user={user}
 	/>
 );
 
