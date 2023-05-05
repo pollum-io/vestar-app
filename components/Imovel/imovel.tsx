@@ -3,6 +3,7 @@ import moment from "moment-timezone";
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
+import { useTranslation } from "react-i18next";
 import { FiMapPin } from "react-icons/fi";
 import { TbInfoSquare } from "react-icons/tb";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
@@ -31,6 +32,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
 	const { shares } = useTransactions();
+	const { t } = useTranslation();
 
 	const renderer = ({
 		days,
@@ -48,7 +50,11 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 			setEnded(false);
 			return (
 				<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem" id="timer">
-					{days} dias {hours} horas {minutes} min
+					{t("opportunitieDetails.timer", {
+						value1: days,
+						value2: hours,
+						value3: minutes,
+					})}
 				</Text>
 			);
 		}
@@ -117,10 +123,10 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									w="max"
 								>
 									<Text w="max" fontWeight="400">
-										Você possui
+										{t("opportunitieDetails.youHave")}
 									</Text>
 									<Text w="max" fontWeight="600">
-										{cota} cotas
+										{cota} {t("opportunitieDetails.yourShares")}
 									</Text>
 								</Flex>
 							)}
@@ -140,7 +146,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 							>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										Investimento Mín.
+										{t("opportunities.card.minInvest")}
 									</Text>
 									<Flex gap="0.25rem">
 										<Text fontSize={"xs"} color="#718096">
@@ -151,7 +157,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										Início da Obra
+										{t("opportunitieDetails.start")}
 									</Text>
 									<Flex gap="0.25rem">
 										<Text color="#000000">
@@ -161,7 +167,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										Prev. Conclusão
+										{t("opportunities.card.estConc")}
 									</Text>
 									<Flex gap="0.25rem">
 										<Text color="#000000">
@@ -176,11 +182,12 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									order={["unset", "unset", "unset", "1", "unset"]}
 								>
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										Rentabilidade Esperada
+										{t("opportunitieDetails.expected")}
 									</Text>
 									<Flex gap="0.25rem" alignItems="center" w="7rem">
 										<Text color="#000000">
-											{imovelDetails?.profitability}% ao ano
+											{imovelDetails?.profitability}%{" "}
+											{t("opportunitieDetails.perYear")}
 										</Text>
 										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
@@ -188,7 +195,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										Preço Inicial m²
+										{t("opportunitieDetails.initial")}
 									</Text>
 									<Flex gap="0.25rem">
 										<Text fontSize={"xs"} color="#718096">
@@ -199,7 +206,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										Preço Final m²
+										{t("opportunitieDetails.final")}
 									</Text>
 									<Flex gap="0.25rem">
 										<Text fontSize={"xs"} color="#718096">
@@ -221,7 +228,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								fontSize="2xl"
 								color={"#171923"}
 							>
-								O que este empreendimento oferece
+								{t("opportunitieDetails.offers")}
 							</Text>
 							<Flex gap="8rem">
 								<Flex flexDir={"column"} color={"#171923"}>
@@ -240,7 +247,7 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								_hover={{ cursor: "pointer" }}
 								w="max-content"
 							>
-								Ver 37 comodidades
+								{t("opportunitieDetails.seeAll")}
 							</Text>
 						</Flex>
 					</Flex>
@@ -258,7 +265,11 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									gap="0.25rem"
 									justifyContent="center"
 								>
-									<Text fontWeight="400">Encerrado em {dateEndend}</Text>
+									<Text fontWeight="400">
+										{t("opportunitieDetails.closedIn", {
+											value: dateEndend,
+										})}
+									</Text>
 								</Flex>
 							) : (
 								<Flex
@@ -282,14 +293,14 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 										lineHeight="2rem"
 										id="timer"
 									>
-										para encerrar as vendas
+										{t("opportunitieDetails.closeSales")}
 									</Text>
 									<Text
 										fontWeight="400"
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
 									>
-										Preço unitário no próximo lote: R${" "}
+										{t("opportunitieDetails.unitPrice")}{" "}
 										{imovelDetails.token_price * 2}
 									</Text>
 								</Flex>

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { FunctionComponent, useState } from "react";
 import { useUser } from "../../hooks/useUser";
 import { apiInstance } from "../../services/api";
+import { useTranslation } from "react-i18next";
 import { useToasty } from "../../hooks/useToasty";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
@@ -47,6 +48,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			handleLogin();
 		}
 	};
+	const { t } = useTranslation();
 
 	return (
 		<Flex
@@ -76,7 +78,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							lineHeight="150%"
 							fontStyle="normal"
 						>
-							Viva Investindo
+							{t("login.liveInvesting")}
 						</Text>
 					</Flex>
 					<Flex flexDirection="column" mt="1rem" gap="12px">
@@ -91,7 +93,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							E-mail
 						</Text>
 						<Input
-							placeholder="Digite seu email"
+							placeholder={t("login.placeholderEmail") as any}
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -118,7 +120,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 								lineHeight="1.25rem"
 								color="#2D3748"
 							>
-								Senha
+								{t("login.password")}
 							</Text>
 							<Text
 								flexDirection="column"
@@ -130,11 +132,11 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 								_hover={{ cursor: "pointer" }}
 								onClick={() => push("/esqueceu_senha")}
 							>
-								Esqueceu a senha?
+								{t("login.forgot")}
 							</Text>
 						</Flex>
 						<Input
-							placeholder="Digite sua senha"
+							placeholder={t("login.placeholderSenha") as any}
 							_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
 							border="0.0938rem solid #E2E8F0"
 							_hover={{}}
@@ -189,7 +191,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							lineHeight="150%"
 							color="#2D3748"
 						>
-							Ainda não possui uma conta?
+							{t("login.noAccount")}
 						</Text>
 						<Button
 							type="submit"
@@ -201,7 +203,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							bg={"transparent"}
 							_hover={{ opacity: 0.8 }}
 						>
-							Cadastrar
+							{t("login.register")}
 						</Button>
 					</Flex>
 				</Flex>

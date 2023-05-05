@@ -11,6 +11,8 @@ import { fetchGetInvestorById } from "../../../services";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import moment from "moment-timezone";
+import { useTranslation } from "react-i18next";
+
 interface IOpportunitiesCompaniesCard {
 	enterpriseId?: any;
 	investorId?: any;
@@ -26,6 +28,8 @@ export const OpportunitiesCard: FunctionComponent<
 
 	const currentTime = new Date();
 	const router = useRouter();
+	const { t, i18n } = useTranslation();
+	const { language } = i18n;
 	const isEnterprise = investorId ? false : true;
 	console.log(isEnterprise);
 
@@ -88,6 +92,7 @@ export const OpportunitiesCard: FunctionComponent<
 	}, [cardsInfo?.data, user?.data?.opportunities_avaliable]);
 
 	console.log(imoveisDisponiveis);
+	console.log(language);
 	return (
 		<>
 			{(isPortfolio ? enterpriseData : imoveisDisponiveis)?.map(
@@ -154,7 +159,7 @@ export const OpportunitiesCard: FunctionComponent<
 											lineHeight="1rem"
 											color="#FFFFFF"
 										>
-											Encerrado
+											{t("opportunities.card.closed")}
 										</Text>
 									) : (
 										<Text
@@ -165,7 +170,7 @@ export const OpportunitiesCard: FunctionComponent<
 											color="#FFFFFF"
 										>
 											{cards?.isAvailable ? (
-												"Disponivel"
+												t("opportunities.card.available")
 											) : (
 												<Countdown
 													date={cards?.sale_end_at}
@@ -244,7 +249,7 @@ export const OpportunitiesCard: FunctionComponent<
 									opacity={"1"}
 									cursor={"pointer"}
 								>
-									Atualizar andamento da obra
+									{t("opportunities.card.workProgress")}
 								</Button>
 							) : (
 								<Flex flexDirection="column" gap="1rem" mt="1.5rem">
@@ -264,7 +269,7 @@ export const OpportunitiesCard: FunctionComponent<
 												lineHeight="1rem"
 												color="#718096"
 											>
-												Investimento Mín.
+												{t("opportunities.card.minInvest")}
 											</Text>
 											<Flex gap="0.25rem" fontFamily="Poppins">
 												<Text
@@ -294,7 +299,7 @@ export const OpportunitiesCard: FunctionComponent<
 												lineHeight="1rem"
 												color="#718096"
 											>
-												Prev. Conclusão
+												{t("opportunities.card.estConc")}
 											</Text>
 											<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 												{formatDate(cards.expected_delivery_date)}
@@ -319,17 +324,18 @@ export const OpportunitiesCard: FunctionComponent<
 											_hover={{ bgColor: "#EDF2F7" }}
 										>
 											{currentTime >= new Date(cards?.sale_end_at)
-												? "Solicitar Acesso"
-												: "Solicitar Acesso a essa Oferta"}
+												? t("opportunities.card.access")
+												: t("opportunities.card.accessTo")}
 										</Button>
 									) : (
 										<Flex
 											justifyContent="center"
 											alignItems="center"
-											w="100%"
+											w="max"
 											background="#E4F2F3"
 											borderRadius="2.6875rem"
 											py="0.125rem"
+											px={language === "pt-br" ? "1" : "3"}
 										>
 											<Text
 												fontFamily="Poppins"
@@ -338,7 +344,9 @@ export const OpportunitiesCard: FunctionComponent<
 												lineHeight="1rem"
 												color="#00576B"
 											>
-												{`Rentabilidade Esperada: ${cards.profitability}% a.a (máx)`}
+												{t("opportunities.card.expectedp/y", {
+													symbol1: cards?.profitability,
+												})}
 											</Text>
 										</Flex>
 									)}
