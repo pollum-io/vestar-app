@@ -23,6 +23,7 @@ import { Examaple } from "../../components/Portfolio/Chart";
 import { useUser } from "../../hooks/useUser";
 import moment from "moment";
 import { Maps } from "../../components/Map/Maps";
+import { useTranslation } from "react-i18next";
 
 interface IPortfolio {
 	portfolioData: any;
@@ -65,6 +66,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	const [imvestmentFilter, setInvestmentFilter] = useState("processed");
 	const { username, isInvestor, userInfos, setIsInvestor } = useUser();
 	const formattedDate = moment().format("DD/MMM/YY");
+	const { t } = useTranslation();
 
 	const calcularPorcentagensDeTipos = (objetos: any) => {
 		const contagemDeTipos: any = {};
@@ -108,15 +110,19 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 					<Flex w="100%" justifyContent="space-between" maxWidth="70rem">
 						<Flex flexDir={"column"} color="white" justifyContent="center">
 							<Text fontWeight={"600"} fontSize="3xl">
-								Olá, {username}!
+								{t("portfolio.hello", {
+									Name: username,
+								})}
 							</Text>
 							{hasInvest ? (
 								<Text fontSize={"sm"} fontWeight="400">
-									Esse é o portfólio de {formattedDate}
+									{t("portfolio.portfolioDateOf", {
+										value: formattedDate,
+									})}
 								</Text>
 							) : (
 								<Text fontSize={"sm"} fontWeight="400">
-									Seu portfólio esta vazio ainda
+									{t("portfolio.portfolioEmpty")}
 								</Text>
 							)}
 						</Flex>
@@ -149,7 +155,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								fontSize="2xl"
 								mb="1.5rem"
 							>
-								Resumo de Vendas
+								{t("portfolio.prof")}
 							</Text>
 							<Flex
 								borderRadius={"0.75rem"}
@@ -178,7 +184,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									</Flex>
 									<Flex alignItems="center" gap="4">
 										<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
-											Mês
+											{t("portfolio.month")}
 										</Text>
 										<Text
 											px="3"
@@ -189,10 +195,10 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 											fontWeight={"500"}
 											fontSize="sm"
 										>
-											Ano
+											{t("portfolio.year")}
 										</Text>
 										<Text fontWeight={"500"} fontSize="sm" color="#FFFFFF">
-											Máximo
+											{t("portfolio.max")}
 										</Text>
 									</Flex> */}
 								</Flex>
@@ -217,8 +223,8 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 										color={"#171923"}
 									>
 										{isInvestor
-											? "Distribuição total de investimentos"
-											: "Cotas mais vendidas"}
+											? t("portfolio.total")
+											: t("portfolio.bestSelling")}
 									</Text>
 								</Flex>
 								{/* <Flex display={isInvestor ? "flex" : "none"}>
@@ -345,7 +351,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 													{yoursInvestments?.Residencial}%
 												</Text>
 												<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-													Residencial
+													{t("opportunities.card.residential")}
 												</Text>
 											</Flex>
 										)}
@@ -355,7 +361,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 													{yoursInvestments?.Comercial}%
 												</Text>
 												<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-													Comercial
+													{t("opportunities.card.commercial")}
 												</Text>
 											</Flex>
 										)}
@@ -365,7 +371,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 													{yoursInvestments?.Escritorio}%
 												</Text>
 												<Text fontWeight={"400"} fontSize="xs" color="#2D3748">
-													Escritorios
+													{t("opportunities.card.office")}
 												</Text>
 											</Flex>
 										)}
@@ -384,8 +390,15 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								alignItems="center"
 								gap="1rem"
 							>
-								<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
-									{isInvestor ? "Seus investimentos" : "Cotas"}
+								<Text
+									pt="5rem"
+									fontSize={"2xl"}
+									fontWeight={"600"}
+									color={"#171923"}
+								>
+									{isInvestor
+										? t("portfolio.yourInvestments")
+										: t("opportunitieDetails.yourShares")}
 								</Text>
 								<Flex alignItems={"center"} justifyContent="center" gap="4rem">
 									{/* <Flex
@@ -458,21 +471,23 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									{isInvestor ? (
 										<Flex w="100%" justifyContent="space-between">
 											<Flex w="18rem" alignItems="end">
-												<Text>Imóvel</Text>
+												<Text>{t("wantToInvest.property")}</Text>
 											</Flex>
 											<Flex
 												justifyContent="space-between"
 												w="70%"
 												alignItems="end"
 											>
-												<Text w="7rem">Cota</Text>
-												<Text w="7rem">Total investido</Text>
+												<Text w="7rem">{t("wantToInvest.quota")}</Text>
+												<Text w="7rem">{t("portfolio.totalInvested")}</Text>
 												<Flex gap="0.375rem" alignItems="center" w="7rem">
-													<Text>Vencimento</Text>
+													<Text>{t("portfolio.maturity")}</Text>
 													<Img src="icons/InfoSquare.png" />
 												</Flex>
 												<Flex gap="0.375rem" alignItems="center" w="7rem">
-													<Text w="6.375rem">Rentabilidade Esperada</Text>
+													<Text w="6.375rem">
+														{t("opportunitieDetails.expected")}
+													</Text>
 													<Img src="icons/InfoSquare.png" />
 												</Flex>
 											</Flex>
@@ -480,17 +495,19 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 									) : (
 										<Flex w="100%" justifyContent="space-between">
 											<Flex w="18rem" alignItems="end">
-												<Text>Imóvel</Text>
+												<Text>{t("wantToInvest.property")}</Text>
 											</Flex>
 											<Flex
 												w="70%"
 												justifyContent="space-between"
 												alignItems="end"
 											>
-												<Text w="7rem">Cota</Text>
-												<Text w="7rem">Arrecadação</Text>
-												<Text w="7rem">Cotas Emitidas</Text>
-												<Text w="9rem">Cotas Disponiveis</Text>
+												<Text w="7rem">{t("wantToInvest.quota")}</Text>
+												<Text w="7rem">{t("portfolio.revenue")}</Text>
+												<Text w="7rem">{t("opportunitieDetails.shares")}</Text>
+												<Text w="9rem">
+													{t("opportunitieDetails.available")}
+												</Text>
 											</Flex>
 										</Flex>
 									)}
@@ -511,7 +528,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							pb={isInvestor ? "none" : "2rem"}
 						>
 							<Text fontSize={"2xl"} fontWeight={"600"} color={"#171923"}>
-								{isInvestor ? "Onde você tem investido" : "Imóveis cadastrados"}
+								{isInvestor ? t("portfolio.where") : "Imóveis cadastrados"}
 							</Text>
 							{isInvestor ? (
 								<Flex gap="1.5rem" mb={"10rem"}>

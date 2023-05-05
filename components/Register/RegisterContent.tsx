@@ -15,6 +15,7 @@ import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
 import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 import { SelectComponent } from "../Select/SelectComponent";
 import { brasilStates } from "./states";
+import { useTranslation } from "react-i18next";
 import { useQuery as query } from "react-query";
 import { fetchEnterprise } from "../../services";
 
@@ -39,6 +40,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	} = useForm();
 	const { push } = useRouter();
 	const { toast } = useToasty();
+	const { t } = useTranslation();
 	const [inputValuesUf, setInputValuesUf] = useState<any>();
 
 	const handleValidateData = async () => {
@@ -152,7 +154,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										color={isPhysical ? "#2D3748" : "#718096"}
 										fontWeight={isPhysical ? "500" : "400"}
 									>
-										Sou Pessoa Física
+										{t("register.naturalPerson")}
 									</Text>
 								</Flex>
 								<Flex gap="0.75rem">
@@ -174,7 +176,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											color={isPhysical ? "#718096" : "#2D3748"}
 											fontWeight={isPhysical ? "400" : "500"}
 										>
-											Sou Pessoa Jurídica
+											{t("register.legalPerson")}
 										</Text>
 									</Checkbox>
 								</Flex>
@@ -183,55 +185,54 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								{isPhysical ? (
 									<>
 										<InputComponent
-											label="Sem abreviações"
+											placeholderText={t("inputs.insertHere") as any}
+											label={t("register.corporateName") as any}
 											type="text"
-											placeholderText="Insira aqui"
-											{...register("full_name")}
+											{...register("enterprise_name")}
 										/>
 										<InputComponent
-											label="Data de Nascimento"
-											type="date"
-											placeholderText="dd/mm/aaaa"
-											{...register("birthday_date")}
+											placeholderText="00.000.000/0000-00"
+											label={t("register.nationalRegister") as any}
+											type="text"
+											{...register("cnpj")}
+										/>
+										<SelectComponent
+											label={t("register.federal") as any}
+											type="uf"
+											selectValue={brasilStates}
+											{...register("uf")}
 										/>
 										<InputComponent
-											label="CPF"
+											label={t("register.whoInvited") as any}
 											type="text"
-											placeholderText="000.000.000-00"
-											{...register("cpf")}
-										/>
-										<InputComponent
-											label="Quem convidou você para a LIVN?"
-											type="text"
-											placeholderText="Insira aqui"
+											placeholderText={t("inputs.insertHere") as any}
 											{...register("invited_by")}
 										/>
 									</>
 								) : (
 									<>
 										<InputComponent
-											placeholderText="Insira aqui"
-											label="Razão Social"
+											label={t("register.noAbbreviations") as any}
 											type="text"
-											{...register("enterprise_name")}
+											placeholderText={t("inputs.insertHere") as any}
+											{...register("full_name")}
 										/>
 										<InputComponent
-											placeholderText="00.000.000/0000-00"
-											label="CNPJ"
-											type="text"
-											{...register("cnpj")}
-										/>
-										<SelectComponent
-											label="Uf"
-											type="uf"
-											selectValue={brasilStates}
-											{...register("uf")}
-											setInputValues={setInputValuesUf}
+											label={t("register.birthDate") as any}
+											type="date"
+											placeholderText="dd/mm/aaaa"
+											{...register("birthday_date")}
 										/>
 										<InputComponent
-											label="Quem convidou você para a LIVN?"
+											label={t("register.socialNumber") as any}
 											type="text"
-											placeholderText="Insira aqui"
+											placeholderText="000.000.000-00"
+											{...register("cpf")}
+										/>
+										<InputComponent
+											label={t("register.whoInvited") as any}
+											type="text"
+											placeholderText={t("inputs.insertHere") as any}
 											{...register("invited_by")}
 										/>
 									</>
@@ -255,7 +256,8 @@ export const RegisterContent: FunctionComponent<any> = props => {
 									color="#ffffff"
 									onClick={() => handleValidateData()}
 								>
-									Prosseguir {<BsArrowRightShort size={22} />}
+									{t("register.nextStep") as any}{" "}
+									{<BsArrowRightShort size={22} />}
 								</Button>
 							</Flex>
 						</Flex>
@@ -273,7 +275,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										lineHeight="1.25rem"
 										color="#2D3748"
 									>
-										Termos e Condições de Uso
+										{t("register.termsAnd") as any}
 									</Text>
 								</Flex>
 								<Flex
@@ -363,7 +365,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										lineHeight="1.25rem"
 										color="#2D3748"
 									>
-										Declaro que li e aceito os termos acima.
+										{t("register.iAgree") as any}
 									</Text>
 								</Flex>
 								<Flex gap="1.5rem">
@@ -392,7 +394,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										}}
 									>
 										<BsArrowLeftShort size={22} />
-										Voltar
+										{t("register.back") as any}
 									</Button>
 									<Button
 										mt="0.375rem"
@@ -416,7 +418,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										color="#ffffff"
 										type="submit"
 									>
-										Enviar Cadastro
+										{t("register.send") as any}
 									</Button>
 								</Flex>
 							</Flex>

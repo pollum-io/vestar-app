@@ -80,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		props: {
 			user,
 			token,
-			data: response.data,
+			data: response?.data,
 		},
 	};
 };

@@ -13,6 +13,7 @@ import { DefaultTemplate } from "../DefaultTemplate";
 import { IOpportunitiesCard } from "../../dtos/Oportunities";
 import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
+import { useTranslation } from "react-i18next";
 import { fetchUserApproveData } from "../../services/fetchUserApproveData";
 
 interface IInvest {
@@ -34,6 +35,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 	const BRZ_DECIMALS = 10 ** 4;
 	const amount = totalValue * BRZ_DECIMALS;
 	const { connectWallet, isConnected, signer, account } = useWallet();
+	const { t } = useTranslation();
 
 	const available = useMemo(() => {
 		if (data.token_supply > data.token_minted) {
@@ -86,7 +88,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 									lineHeight="2rem"
 									color="#171923"
 								>
-									Resumo do investimento
+									{t("wantToInvest.summary")}
 								</Text>
 								<Flex
 									fontFamily="Poppins"
@@ -98,10 +100,10 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 									maxWidth="41.875rem"
 									pr="1rem"
 								>
-									<Text>Imóvel</Text>
+									<Text>{t("wantToInvest.property")}</Text>
 									<Flex justifyContent="space-between" w="49%" pr="3.1rem">
-										<Text>Cota</Text>
-										<Text>Quantidade</Text>
+										<Text>{t("wantToInvest.quota")}</Text>
+										<Text>{t("wantToInvest.amount")}</Text>
 									</Flex>
 								</Flex>
 							</Flex>
@@ -273,7 +275,7 @@ export const InvestContainer: FunctionComponent<IInvest> = ({
 							color="#FFFFFF"
 						>
 							<Text fontWeight="500" fontSize="1.25rem" lineHeight="2rem">
-								Confirmar dados
+								{t("wantToInvest.confirmData")}
 							</Text>
 							<Flex
 								justifyContent="space-between"
