@@ -192,7 +192,10 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 						</Flex>
 					</Flex>
 					<Flex mt="2.9375rem" w="100%" justifyContent="center">
-						<OpportunitiesCards />
+						<OpportunitiesCards
+							investorId={props?.user?.investor_id}
+							token={props.token}
+						/>
 					</Flex>
 				</Flex>
 			</Flex>

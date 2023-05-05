@@ -30,6 +30,7 @@ export interface IOpportunitiesCard {
 	blocked?: boolean;
 	finished?: boolean;
 	sale_end_at?: any;
+	isAvailable?: boolean;
 }
 
 export interface IOpportunitieAddress {
