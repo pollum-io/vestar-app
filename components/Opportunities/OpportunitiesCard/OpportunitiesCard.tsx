@@ -20,11 +20,19 @@ interface IOpportunitiesCompaniesCard {
 	enterpriseData?: any;
 	token?: any;
 	isPortfolio?: boolean;
+	host?: any;
 }
 
 export const OpportunitiesCard: FunctionComponent<
 	IOpportunitiesCompaniesCard
-> = ({ enterpriseId, investorId, enterpriseData, isPortfolio, token }) => {
+> = ({
+	enterpriseId,
+	investorId,
+	enterpriseData,
+	isPortfolio,
+	host,
+	token,
+}) => {
 	const [ended, setEnded] = useState<any>();
 
 	const currentTime = new Date();
@@ -392,6 +400,7 @@ export const OpportunitiesCards: FunctionComponent<any> = ({
 	investorId,
 	enterpriseData,
 	isPortfolio,
+	host,
 	token,
 }) => {
 	return (
@@ -406,6 +415,7 @@ export const OpportunitiesCards: FunctionComponent<any> = ({
 				investorId={investorId}
 				enterpriseData={enterpriseData}
 				isPortfolio={isPortfolio}
+				host={host}
 				token={token}
 			/>
 		</SimpleGrid>

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
-import { BsCircleFill } from "react-icons/bs";
+import { BsCheckLg, BsCircleFill } from "react-icons/bs";
 import { OpportunitiesCard, OpportunitiesCards } from "../../components";
 import { ImovelList } from "../../components/Portfolio/ImovelList";
 import { MenuChart } from "../../components/Portfolio/MenuChart";
@@ -29,6 +29,7 @@ interface IPortfolio {
 	portfolioData: any;
 	enterpriseData?: any;
 	enterpriseInvestment?: any;
+	host?: any;
 	user?: any;
 }
 
@@ -56,6 +57,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 	portfolioData,
 	enterpriseData,
 	enterpriseInvestment,
+	host,
 	user,
 }) => {
 	const [value, setValue] = useState("1");
@@ -132,10 +134,10 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							h="5.25rem"
 							justifyContent="end"
 						>
-							<YourDetailtCard
+							{/* <YourDetailtCard
 								investor={portfolioData}
 								enterprise={enterpriseData}
-							/>
+							/> */}
 						</Flex>
 					</Flex>
 				</Flex>
@@ -543,6 +545,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								enterpriseId={userInfos}
 								enterpriseData={enterpriseData}
 								isPortfolio={true}
+								host={host}
 							/>
 						</Flex>
 					)}
