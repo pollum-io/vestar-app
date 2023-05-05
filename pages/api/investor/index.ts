@@ -55,6 +55,7 @@ const insertSchema = z.object({
 	// TODO: remove
 	is_legal_entity: z.optional(z.boolean()),
 	invited_by: z.string(),
+	opportunities_avaliable: z.optional(z.array(z.string())),
 });
 
 router.post(verifyUser, async (req, res) => {

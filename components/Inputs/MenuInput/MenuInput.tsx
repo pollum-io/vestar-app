@@ -5,11 +5,13 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FunctionComponent, useCallback, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IMenuInput } from "./dto";
+import { useTranslation } from "react-i18next";
 
 export const MenuInput: FunctionComponent<IMenuInput> = ({
 	placeholder,
@@ -19,6 +21,9 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 }) => {
 	const router = useRouter();
 	const [value, setValue] = useState<any>("");
+
+	const { t } = useTranslation();
+
 	const setParams = useCallback(
 		(param: string, value: any) => {
 			router.query[param] = value;
@@ -27,6 +32,17 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[router.query]
 	);
+
+	const labels = {
+		["Comercial"]: `${t("opportunities.card.commercial")}`,
+		["Residencial"]: `${t("opportunities.card.residential")}`,
+		["Loteamento"]: `${t("opportunities.card.subdivision")}`,
+		["Todos imóveis"]: `${t("opportunities.card.allProperties")}`,
+		["Crescente"]: `${t("inputs.crescent")}`,
+		["Decrescente"]: `${t("inputs.decrescent")}`,
+		["Mínimo"]: `${t("inputs.minimum")}`,
+		["Máximo"]: `${t("inputs.maximum")}`,
+	} as { [k: string]: string };
 
 	return (
 		<Menu>
@@ -50,10 +66,10 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 				_expanded={{ bgColor: "#ffffff" }}
 				_focus={{ boxShadow: "none", bgColor: "#ffffff" }}
 			>
-				{value ? value : placeholder}
+				{value ? labels[value] : placeholder}
 			</MenuButton>
 			<MenuList bgColor="#ffffff" border="0.0625rem solid #E2E8F0">
-				{fields?.map(field => (
+				{fields?.map((field: any) => (
 					<MenuItem
 						key={field}
 						bgColor="#ffffff"
@@ -63,7 +79,7 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 							setValue(field);
 						}}
 					>
-						{field}
+						{labels[field]}
 					</MenuItem>
 				))}
 			</MenuList>
@@ -72,27 +88,42 @@ export const MenuInput: FunctionComponent<IMenuInput> = ({
 };
 
 export const MenuInputs: FunctionComponent = () => {
+	const { t } = useTranslation();
+	const router = useRouter();
+
 	return (
 		<Flex gap="1.5rem" alignItems={"center"}>
 			<MenuInput
-				placeholder="Tipo de Imóvel"
+				placeholder={t("inputs.propertyType") as any}
 				color="#2D3748"
 				fields={["Todos imóveis", "Comercial", "Residencial", "Loteamento"]}
 				param="enterprise_type"
 			/>
 			<MenuInput
-				placeholder="Previsão de Conclusão"
+				placeholder={t("inputs.completionForecast") as any}
 				color="#2D3748"
 				fields={["Crescente", "Decrescente"]}
 				param="expected_delivery_date"
 			/>
 			<MenuInput
-				placeholder="Investimento Mínimo"
+				placeholder={t("inputs.minimumInvestment") as any}
 				color="#2D3748"
 				fields={["Mínimo", "Máximo"]}
 				param="min_investment"
 			/>
-			{/* <MenuInput placeholder="Localização" color="#A0AEC0"/> */}
+			<Button
+				placeholder="Localização"
+				color="#2D3748"
+				onClick={() => router.push("/oportunidades")}
+				cursor={"pointer"}
+				fontSize="sm"
+				h={"max"}
+				bg={"transparent"}
+				py="2"
+				fontWeight={"500"}
+			>
+				{t("inputs.clear") as any}
+			</Button>
 		</Flex>
 	);
 };
