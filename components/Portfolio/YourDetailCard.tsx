@@ -12,7 +12,6 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 	investor,
 	enterprise,
 }) => {
-	const [hasInvest, setHasInvest] = useState(false);
 	const { t } = useTranslation();
 	const { isInvestor } = useUser();
 
@@ -56,7 +55,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 
 	return (
 		<Flex
-			w={hasInvest ? "34.4375rem" : "34.4375rem"}
+			w={"34.4375rem"}
 			zIndex="9"
 			boxShadow="0px 20px 25px rgba(31, 41, 55, 0.1)"
 			position={"absolute"}
@@ -99,7 +98,7 @@ export const YourDetailtCard: FunctionComponent<IYourDeital> = ({
 				<Text
 					fontSize={"xl"}
 					fontWeight="600"
-					color={!isInvestor || !hasInvest ? "#171923" : "#38A169"}
+					color={!isInvestor ? "#171923" : "#38A169"}
 					textAlign={"left"}
 				>
 					{!isInvestor ? enterpriseTotalAmount : ""}

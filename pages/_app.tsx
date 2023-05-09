@@ -14,6 +14,7 @@ import "../styles/mapsLabel.css";
 import "../styles/tooltipChart.css";
 import "../styles/pieChart.css";
 import "../helpers/i18";
+import { useEffect, useState } from "react";
 
 const toasty = {
 	bg: "#FFFFFF",
@@ -22,6 +23,15 @@ const toasty = {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const queryClient = new QueryClient({});
+	const [isSSR, setIsSSR] = useState(true);
+
+	useEffect(() => {
+		return () => {
+			setIsSSR(false);
+		};
+	}, []);
+
+	if (isSSR) return null;
 
 	return (
 		<WalletProvider>

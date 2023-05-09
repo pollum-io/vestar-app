@@ -91,7 +91,7 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 		return porcentagensDeTipos;
 	};
 
-	useMemo(() => {
+	useEffect(() => {
 		calcularPorcentagensDeTipos(portfolioData);
 		setIsInvestor(user?.investor_id ? true : false);
 	}, [portfolioData]);
@@ -117,11 +117,12 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 								})}
 							</Text>
 							{hasInvest ? (
-								<Text fontSize={"sm"} fontWeight="400">
-									{t("portfolio.portfolioDateOf", {
-										value: formattedDate,
-									})}
-								</Text>
+								<Flex alignItems="center" gap="1">
+									<Text fontSize={"sm"} fontWeight="400">
+										{t("portfolio.portfolioDateOf")}
+									</Text>
+									<Text>{formattedDate}</Text>
+								</Flex>
 							) : (
 								<Text fontSize={"sm"} fontWeight="400">
 									{t("portfolio.portfolioEmpty")}
@@ -134,10 +135,10 @@ export const PortfolioContainer: FunctionComponent<IPortfolio> = ({
 							h="5.25rem"
 							justifyContent="end"
 						>
-							{/* <YourDetailtCard
+							<YourDetailtCard
 								investor={portfolioData}
 								enterprise={enterpriseData}
-							/> */}
+							/>
 						</Flex>
 					</Flex>
 				</Flex>
