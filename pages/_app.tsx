@@ -23,15 +23,6 @@ const toasty = {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const queryClient = new QueryClient({});
-	const [isSSR, setIsSSR] = useState(true);
-
-	useEffect(() => {
-		return () => {
-			setIsSSR(false);
-		};
-	}, []);
-
-	if (isSSR) return null;
 
 	return (
 		<WalletProvider>
