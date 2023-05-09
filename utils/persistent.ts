@@ -1,16 +1,31 @@
 export class PersistentFramework {
 	static add(name: string, value: { [k: string]: any } | any[] | string) {
-		localStorage.setItem(name, JSON.stringify(value));
+		if (
+			typeof localStorage !== "undefined" &&
+			localStorage instanceof Storage
+		) {
+			localStorage.setItem(name, JSON.stringify(value));
+		}
 	}
 
 	static remove(name: string) {
-		localStorage.removeItem(name);
+		if (
+			typeof localStorage !== "undefined" &&
+			localStorage instanceof Storage
+		) {
+			localStorage.removeItem(name);
+		}
 	}
 
 	static get(name: string): { [k: string]: any } | any[] | undefined {
-		const value = localStorage.getItem(name);
+		if (
+			typeof localStorage !== "undefined" &&
+			localStorage instanceof Storage
+		) {
+			const value = localStorage.getItem(name);
 
-		return value ? JSON.parse(value) : undefined;
+			return value ? JSON.parse(value) : undefined;
+		}
 	}
 }
 

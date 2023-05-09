@@ -2,7 +2,6 @@ import jwt_decode from "jwt-decode";
 import { GetServerSideProps, NextPage } from "next";
 import { InvestContainer } from "../container";
 import { IOpportunitiesCard } from "../dtos/Oportunities";
-import { fetchEnterpriseById } from "../services";
 import { fetchImovelDetail } from "../services/fetchImovelDetail";
 
 interface IInvest {
