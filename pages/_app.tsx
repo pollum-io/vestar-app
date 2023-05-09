@@ -13,7 +13,7 @@ import "../styles/termsScrollbar.css";
 import "../styles/mapsLabel.css";
 import "../styles/tooltipChart.css";
 import "../styles/pieChart.css";
-import "../helpers/i18n";
+import "../helpers/i18";
 
 const toasty = {
 	bg: "#FFFFFF",
