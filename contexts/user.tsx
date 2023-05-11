@@ -62,7 +62,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 			setUsername(name);
 			return;
 		}
-		if (!isInvestor) {
+		if (isInvestor) {
 			const investor = PersistentFramework.get("isInvestor") as {
 				[k: string]: any;
 			};
@@ -75,7 +75,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 		} else {
 			return;
 		}
-	}, []);
+	}, [isInvestor, userInfos, username]);
 
 	const providerValue = useMemo(
 		() => ({

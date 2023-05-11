@@ -33,8 +33,6 @@ export const OpportunitiesCard: FunctionComponent<
 	host,
 	token,
 }) => {
-	const [ended, setEnded] = useState<any>();
-
 	const currentTime = new Date();
 	const router = useRouter();
 	const { t, i18n } = useTranslation();
@@ -70,10 +68,8 @@ export const OpportunitiesCard: FunctionComponent<
 		props: { date },
 	}: CountdownRenderProps) => {
 		if (completed) {
-			setEnded(true);
 			return "Encerrado";
 		} else {
-			setEnded(false);
 			return (
 				<Text
 					fontFamily="Poppins"
