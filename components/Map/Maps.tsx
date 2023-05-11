@@ -73,9 +73,10 @@ export const Maps: FunctionComponent<IMaps> = ({
 						center={convertPlace?.length ? convertPlace : convertPlaces}
 						mapContainerClassName="map-container"
 					>
-						{getLocalizations.map((places: any) => (
+						{getLocalizations.map((places: any, index: any) => (
 							// eslint-disable-next-line react/jsx-key
 							<MarkerF
+								key={index}
 								icon={{
 									url: "/images/icons/Home-Maps.svg",
 									scaledSize: new google.maps.Size(57, 57),

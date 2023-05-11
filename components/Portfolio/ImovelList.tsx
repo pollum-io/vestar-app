@@ -57,10 +57,11 @@ export const ImovelList: FunctionComponent<IImovelList> = ({
 
 	return (
 		<>
-			{resultWithImages?.map((investment: any) => {
+			{resultWithImages?.map((investment: any, index: any) => {
 				return (
 					// eslint-disable-next-line react/jsx-key
 					<Flex
+						key={index}
 						id="body-table-container"
 						borderRadius="0.75rem"
 						opacity={isFinished ? "0.5" : "1"}
