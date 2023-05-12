@@ -15,7 +15,7 @@
 		"backTo": "Voltar ao Login",
 		"enterCode": "Digite o código de 4 dígitos que você recebeu em seu e-mail.",
 		"verify": "Verificar",
-		"noCode": "Não recebeu o código?",
+		"noCode": "Não recebeu o link?",
 		"resend": "Reenviar Código",
 		"newPassword": "Nova senha",
 		"mustHave": "Deve conter no mínimo X caracteres incluindo números e letras",
