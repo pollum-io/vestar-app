@@ -6,7 +6,6 @@ export const fetchEmailVerify = async (email?: any, host?: string) => {
 
 		const api = apiInstance(host);
 		const response = await api.post(`/recoverPassword/`, { email });
-		console.log(response, "response");
 		return response;
 	} catch (error: any) {
 		console.log("Erro", error.message);
