@@ -51,41 +51,36 @@ router.post(async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
 			});
 
 			await recoverPassword.save();
+			const link = `http://localhost:3000/change_password?code=${code}`;
 
-			// const link = `https://livin.app/recoverPassword?code=${code}`;
+			// Configurar o transporte do nodemailer
+			const transporter = nodemailer.createTransport({
+				service: "hotmail",
+				// port: 587,
+				// secure: false, // true for 465, false for other ports
+				auth: {
+					user: "pred-pat-node@outlook.com", // generated ethereal user
+					pass: "#99#@7#1##0abc", // generated ethereal password
+				},
+			});
+			// Configurar o email a ser enviado
+			const mailOptions = {
+				from: "pred-pat-node@outlook.com",
+				to: investor.email,
+				subject: "Recuperação de senha",
+				text: `Olá! Clique no link a seguir para redefinir sua senha: ${link}`,
+			};
 
-			// // Configurar o transporte do nodemailer
-			// const transporter = nodemailer.createTransport({
-			// 	// Configurações do seu provedor de email
-			// 	//
-			// 	// host: "smtp.ethereal.email",
-			// 	// port: 587,
-			// 	// secure: false, // true for 465, false for other ports
-			// 	// auth: {
-			// 	// 	user: testAccount.user, // generated ethereal user
-			// 	// 	pass: testAccount.pass, // generated ethereal password
-			// 	// },
-			// 	//
-			// });
+			// Enviar o email
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					console.log("Error sending email:", error);
+				} else {
+					console.log("Email sent:", info.response);
+				}
+			});
 
-			// // Configurar o email a ser enviado
-			// const mailOptions = {
-			// 	from: "your-email@example.com",
-			// 	to: investorEmail,
-			// 	subject: "Recuperação de senha",
-			// 	text: `Olá! Clique no link a seguir para redefinir sua senha: ${link}`,
-			// };
-
-			// // Enviar o email
-			// transporter.sendMail(mailOptions, (error, info) => {
-			// 	if (error) {
-			// 		console.log("Error sending email:", error);
-			// 	} else {
-			// 		console.log("Email sent:", info.response);
-			// 	}
-			// });
-
-			return res.status(200);
+			return res.status(200).end();
 		}
 
 		const enterprise = await Enterprise.findOne({
@@ -105,35 +100,39 @@ router.post(async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
 
 			await recoverPassword.save();
 
-			// const link = `https://livin.app/recoverPassword?code=${code}`;
+			const link = `http://localhost:3000/change_password?code=${code}`;
 
-			// // Configurar o transporte do nodemailer
-			// const transporter = nodemailer.createTransport({
-			// 	// Configurações do seu provedor de email
-			// 	// ...
-			// });
+			// Configurar o transporte do nodemailer
+			const transporter = nodemailer.createTransport({
+				service: "hotmail",
+				// port: 587,
+				// secure: false, // true for 465, false for other ports
+				auth: {
+					user: "pred-pat-node@outlook.com", // generated ethereal user
+					pass: "#99#@7#1##0abc", // generated ethereal password
+				},
+			});
+			// Configurar o email a ser enviado
+			const mailOptions = {
+				from: "your-email@example.com",
+				to: enterprise.email,
+				subject: "Recuperação de senha",
+				text: `Olá! Clique no link a seguir para redefinir sua senha: ${link}`,
+			};
 
-			// // Configurar o email a ser enviado
-			// const mailOptions = {
-			// 	from: "your-email@example.com",
-			// 	to: investorEmail,
-			// 	subject: "Recuperação de senha",
-			// 	text: `Olá! Clique no link a seguir para redefinir sua senha: ${link}`,
-			// };
+			// Enviar o email
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					console.log("Error sending email:", error);
+				} else {
+					console.log("Email sent:", info.response);
+				}
+			});
 
-			// // Enviar o email
-			// transporter.sendMail(mailOptions, (error, info) => {
-			// 	if (error) {
-			// 		console.log("Error sending email:", error);
-			// 	} else {
-			// 		console.log("Email sent:", info.response);
-			// 	}
-			// });
-
-			return res.status(200);
+			return res.status(200).end();
 		}
 
-		return res.status(200).end();
+		return res.status(200);
 	} catch (error) {
 		return res.status(501).json({ error: `Something went wrong! ${error}` });
 	}
