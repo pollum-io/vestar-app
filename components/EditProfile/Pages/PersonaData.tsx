@@ -157,6 +157,7 @@ export const PersonalData: React.FC<IChangePassword> = props => {
 									placeholderText={t("inputs.insertHere") as any}
 									label={t("register.socialNumber") as string}
 									type="text"
+									maskType={"CPF"}
 									{...register("cpf")}
 									defaultValue={formatCPF(data?.cpf)}
 								/>
@@ -213,6 +214,7 @@ export const PersonalData: React.FC<IChangePassword> = props => {
 									placeholderText={t("inputs.insertHere") as any}
 									label={t("editProfile.spouseSocialNumber") as string}
 									type="text"
+									maskType={"CPF"}
 									{...register("spouse_cpf")}
 									defaultValue={formatCPF(data?.marital_status?.spouse_cpf)}
 								/>
@@ -249,6 +251,7 @@ export const PersonalData: React.FC<IChangePassword> = props => {
 								placeholderText={t("inputs.insertHere") as any}
 								label={t("editProfile.phone") as string}
 								type="text"
+								maskType={"Telefone"}
 								{...register("phone_number")}
 								defaultValue={formatPhoneNumber(data?.phone_number)}
 							/>
