@@ -200,7 +200,11 @@
 		"phone": "Telefone",
 		"saved": "Salvar Alterações",
 		"toastTitle": "Dados editados!",
-		"toastDescription": "Os seus dados foram atualizados!"
+		"toastDescription": "Os seus dados foram atualizados!",
+		"toastTitlePasswordSuc": "Senha alterada!",
+		"toastDescriptionPasswordSuc": "A sua senha foi alterada com sucesso!",
+		"toastTitlePasswordErr": "Algo deu errado!",
+		"toastDescriptionPasswordErr": "Sua senha atual esta incorreta."
 	},
 	"inputs": {
 		"noAbb": "Sem abreviações",

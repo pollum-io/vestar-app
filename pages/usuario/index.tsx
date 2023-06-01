@@ -5,6 +5,7 @@ import { fetchGetInvestorById } from "../../services/fetchGetInvestorById";
 
 interface IEditProfile {
 	data: any;
+	token: any;
 }
 
 const Editar_Perfil: NextPage<IEditProfile> = props => (
