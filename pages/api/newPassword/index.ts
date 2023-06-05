@@ -5,7 +5,7 @@ import crypto from "crypto";
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/user";
 import { ApiResponse } from "../../../models/ApiResponse";
-import RecoverPassword from "../../../models/recoverPassword";
+import { verifyUser } from "../../../lib/auth";
 
 type ResponseData = ApiResponse<boolean | string>;
 
@@ -18,42 +18,41 @@ const router = nextConnect({
 	},
 });
 
-const ChangePasswordSchema = z.object({
-	code: z.string().max(60),
-	password: z.string().min(6),
+const NewPasswordSchema = z.object({
+	oldPassword: z.string().min(6),
+	newPassword: z.string().min(6),
 });
 
-router.put(async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
+router.put(verifyUser, async (req: any, res: NextApiResponse<ResponseData>) => {
 	try {
 		await dbConnect();
 
-		const { code, password } = req.body;
+		const { oldPassword, newPassword } = req.body;
 
-		const validatedData = ChangePasswordSchema.parse({
-			code: code as string,
-			password,
+		const { id } = req.user;
+
+		NewPasswordSchema.parse({
+			oldPassword,
+			newPassword,
 		});
 
-		const recoverPassword = await RecoverPassword.findOne({
-			code: validatedData.code,
-		});
+		const user = await User.findById({ _id: id });
 
 		const hash = Buffer.from(
-			crypto.hkdfSync("sha512", password, "livnapp", "", 64)
+			crypto.hkdfSync("sha512", oldPassword, "livnapp", "", 64)
 		).toString("base64");
 
-		if (
-			recoverPassword &&
-			Date.now() < new Date(recoverPassword.expirationDate).getTime()
-		) {
-			await User.updateOne(
-				{ email: recoverPassword.email },
-				{ password: hash }
-			);
-			return res.status(200).end();
+		if (!user || user.password !== hash) {
+			return res.status(400).json({ error: "Senha atual incorreta" });
 		}
 
-		return res.status(401).end();
+		const hashNewPassword = Buffer.from(
+			crypto.hkdfSync("sha512", newPassword, "livnapp", "", 64)
+		).toString("base64");
+
+		await User.updateOne({ _id: id }, { password: hashNewPassword });
+
+		return res.status(200).end();
 	} catch (error) {
 		return res.status(501).json({ error: `Something went wrong! ${error}` });
 	}

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useMemo, useState } from "react";
 import { Flex, Checkbox, Button, Text, SlideFade } from "@chakra-ui/react";
 import { useRegister } from "../../hooks/useRegister";
 import { useToasty } from "../../hooks/useToasty";
@@ -182,7 +182,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 								</Flex>
 							</Flex>
 							<Flex flexDirection="column" gap="0rem">
-								{isPhysical ? (
+								{!isPhysical ? (
 									<>
 										<InputComponent
 											placeholderText={t("inputs.insertHere") as any}
@@ -193,6 +193,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										<InputComponent
 											placeholderText="00.000.000/0000-00"
 											label={t("register.nationalRegister") as any}
+											maskType={"CNPJ"}
 											type="text"
 											{...register("cnpj")}
 										/>
@@ -200,6 +201,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											label={t("register.federal") as any}
 											type="uf"
 											selectValue={brasilStates}
+											setInputValues={setInputValuesUf}
 											{...register("uf")}
 										/>
 										<InputComponent
@@ -226,6 +228,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										<InputComponent
 											label={t("register.socialNumber") as any}
 											type="text"
+											maskType={"CPF"}
 											placeholderText="000.000.000-00"
 											{...register("cpf")}
 										/>

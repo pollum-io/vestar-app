@@ -11,6 +11,7 @@ import InputMask from "react-input-mask";
 interface InputProps extends ChakraInputProps {
 	name: string;
 	label?: string;
+	maskType?: string;
 	type?: string;
 	defaultValue?: string;
 	maxLength?: number;
@@ -25,6 +26,7 @@ export const InputBase: ForwardRefRenderFunction<
 	{
 		name,
 		label,
+		maskType,
 		defaultValue,
 		type,
 		maxLength,
@@ -35,15 +37,15 @@ export const InputBase: ForwardRefRenderFunction<
 	ref
 ) => {
 	const maskValidation = useMemo(() => {
-		if (label === "CPF" || label === "CPF do Cônjuge") {
+		if (maskType === "CPF" || maskType === "CPF do Cônjuge") {
 			return "999.999.999-99";
-		} else if (label === "CNPJ") {
+		} else if (maskType === "CNPJ") {
 			return "99.999.999/9999-99";
-		} else if (label === "Telefone") {
+		} else if (maskType === "Telefone") {
 			return "(99) 9 9999-9999";
 		}
 		return "";
-	}, [label]);
+	}, [maskType]);
 
 	return (
 		<FormControl id={name}>
