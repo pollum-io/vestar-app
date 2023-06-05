@@ -59,8 +59,8 @@ router.post(async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
 				// port: 587,
 				// secure: false, // true for 465, false for other ports
 				auth: {
-					user: "pred-pat-node@outlook.com", // generated ethereal user
-					pass: "#99#@7#1##0abc", // generated ethereal password
+					user: process.env.EMAIL_PROVIDER as any, // generated ethereal user
+					pass: process.env.PASSWORD_PROVIDER as any, // generated ethereal password
 				},
 			});
 			// Configurar o email a ser enviado
