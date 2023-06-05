@@ -23,7 +23,8 @@
 		"confirm": "Confirm",
 		"password": "Password",
 		"typeHere": "Type here",
-		"continue": "Continuar"
+		"continue": "Continuar",
+		"currentPassword": "Current Password"
 	},
 	"register": {
 		"hello": "Hello! We would like to know you better",
