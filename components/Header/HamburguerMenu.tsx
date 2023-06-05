@@ -48,7 +48,7 @@ export const HamburguerMenu: React.FC = () => {
 					{username ? (
 						<Text fontSize={"sm"} fontFamily="Poppins" color={"#4A5568"}>
 							{t("portfolio.hello", {
-								Name: username,
+								Name: username.slice(0, 8),
 							})}
 						</Text>
 					) : (
