@@ -15,7 +15,7 @@
 		"backTo": "Voltar ao Login",
 		"enterCode": "Digite o código de 4 dígitos que você recebeu em seu e-mail.",
 		"verify": "Verificar",
-		"noCode": "Não recebeu o código?",
+		"noCode": "Não recebeu o link?",
 		"resend": "Reenviar Código",
 		"newPassword": "Nova senha",
 		"mustHave": "Deve conter no mínimo X caracteres incluindo números e letras",
@@ -23,7 +23,8 @@
 		"confirm": "Confirmar",
 		"password": "Senha",
 		"typeHere": "Digite aqui",
-		"continue": "Continuar"
+		"continue": "Continuar",
+		"currentPassword": "Senha atual"
 	},
 	"register": {
 		"hello": "Olá! Antes de seguir, precisamos de alguns dados",
@@ -200,7 +201,11 @@
 		"phone": "Telefone",
 		"saved": "Salvar Alterações",
 		"toastTitle": "Dados editados!",
-		"toastDescription": "Os seus dados foram atualizados!"
+		"toastDescription": "Os seus dados foram atualizados!",
+		"toastTitlePasswordSuc": "Senha alterada!",
+		"toastDescriptionPasswordSuc": "A sua senha foi alterada com sucesso!",
+		"toastTitlePasswordErr": "Algo deu errado!",
+		"toastDescriptionPasswordErr": "Sua senha atual esta incorreta."
 	},
 	"inputs": {
 		"noAbb": "Sem abreviações",

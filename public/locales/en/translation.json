@@ -15,7 +15,7 @@
 		"backTo": "Return to Login",
 		"enterCode": "Enter the 4-digit code that you received in your e-mail.",
 		"verify": "Verify",
-		"noCode": "Didn't receive the code?",
+		"noCode": "Didn't receive the link?",
 		"resend": "Resend Code",
 		"newPassword": "New password",
 		"mustContain": "Must contain at least X characters including numbers and letters",
@@ -23,7 +23,8 @@
 		"confirm": "Confirm",
 		"password": "Password",
 		"typeHere": "Type here",
-		"continue": "Continuar"
+		"continue": "Continuar",
+		"currentPassword": "Current Password"
 	},
 	"register": {
 		"hello": "Hello! We would like to know you better",
@@ -200,7 +201,11 @@
 		"phone": "Phone",
 		"saved": "Save editions",
 		"toastTitle": "Successfully edited!",
-		"toastDescription": "Your details have been updated!"
+		"toastDescription": "Your details have been updated!",
+		"toastTitlePasswordSuc": "Password changed!",
+		"toastDescriptionPasswordSuc": "Your password has been successfully changed!",
+		"toastTitlePasswordErr": "Something went wrong!",
+		"toastDescriptionPasswordErr": "Your current password is incorrect."
 	},
 	"inputs": {
 		"noAbb": "No abbreviations",

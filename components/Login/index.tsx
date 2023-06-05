@@ -130,7 +130,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 								lineHeight="1rem"
 								color="#007D99"
 								_hover={{ cursor: "pointer" }}
-								onClick={() => push("/esqueceu_senha")}
+								onClick={() => push("/recover_password")}
 							>
 								{t("login.forgot")}
 							</Text>
