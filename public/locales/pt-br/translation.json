@@ -23,7 +23,8 @@
 		"confirm": "Confirmar",
 		"password": "Senha",
 		"typeHere": "Digite aqui",
-		"continue": "Continuar"
+		"continue": "Continuar",
+		"currentPassword": "Senha atual"
 	},
 	"register": {
 		"hello": "Olá! Antes de seguir, precisamos de alguns dados",

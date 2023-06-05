@@ -8,7 +8,7 @@ import {
 	InputRightElement,
 	Text,
 } from "@chakra-ui/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -22,6 +22,7 @@ interface IChangePassword {
 
 export const ChangePassword: React.FC<IChangePassword> = props => {
 	const { token } = props;
+	const [showOldPassword, setShowOldPassword] = useState<boolean>(true);
 	const [showPasswordInputOne, setShowPasswordInputOne] =
 		useState<boolean>(true);
 	const [showPasswordInputTwo, setShowPasswordInputTwo] =
@@ -36,6 +37,7 @@ export const ChangePassword: React.FC<IChangePassword> = props => {
 		register,
 		handleSubmit,
 		formState: { isSubmitSuccessful },
+		reset,
 	} = useForm();
 	const { toast } = useToasty();
 
@@ -47,30 +49,24 @@ export const ChangePassword: React.FC<IChangePassword> = props => {
 			newPassword: data.newPassword,
 		};
 
-		await fetchNewPassword(token, request)
-			.then(res => {
-				if (res) {
-					toast({
-						id: "toast-edit",
-						position: "top-right",
-						status: "success",
-						title: t("editProfile.toastTitlePasswordSuc"),
-						description: t("editProfile.toastDescriptionPasswordSuc"),
-					});
-				}
-			})
-			.catch(err => {
-				console.log("11111111");
-				if (err) {
-					toast({
-						id: "toast-edit",
-						position: "top-right",
-						status: "error",
-						title: t("editProfile.toastTitlePasswordErr"),
-						description: t("editProfile.toastDescriptionPasswordErr"),
-					});
-				}
+		await fetchNewPassword(token, request);
+		if (isSubmitSuccessful) {
+			toast({
+				id: "toast-edit",
+				position: "top-right",
+				status: "success",
+				title: t("editProfile.toastTitlePasswordSuc"),
+				description: t("editProfile.toastDescriptionPasswordSuc"),
 			});
+		} else {
+			toast({
+				id: "toast-edit",
+				position: "top-right",
+				status: "error",
+				title: t("editProfile.toastTitlePasswordErr"),
+				description: t("editProfile.toastDescriptionPasswordErr"),
+			});
+		}
 	};
 
 	useMemo(() => {
@@ -107,24 +103,40 @@ export const ChangePassword: React.FC<IChangePassword> = props => {
 										lineHeight="1.25rem"
 										color={"#2D3748"}
 									>
-										Nova Senha
+										{t("forgotPassword.currentPassword")}
 									</Text>
 								</Flex>
-								<Input
-									placeholder={"Digite aqui"}
-									_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
-									border="0.0938rem solid #E2E8F0"
-									_hover={{}}
-									fontStyle="normal"
-									fontWeight="400"
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
-									borderRadius="0.375rem"
-									h="2rem"
-									pl="0.7rem"
-									color="#2D3748"
-									{...register("oldPassword")}
-								/>
+								<InputGroup size="md">
+									<Input
+										placeholder={"Digite aqui"}
+										_placeholder={{ color: "rgba(0, 0, 0, 0.36)" }}
+										border="0.0938rem solid #E2E8F0"
+										_hover={{}}
+										fontStyle="normal"
+										fontWeight="400"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										borderRadius="0.375rem"
+										h="2rem"
+										pl="0.7rem"
+										color="#2D3748"
+										type={showOldPassword ? "password" : "text"}
+										{...register("oldPassword")}
+									/>
+									<InputRightElement
+										display={"flex"}
+										onClick={() => setShowOldPassword(!showOldPassword)}
+										alignItems="center"
+										_hover={{ cursor: "pointer" }}
+										pb="0.55rem"
+									>
+										{showOldPassword ? (
+											<AiOutlineEyeInvisible size={25} color="#2D3748" />
+										) : (
+											<AiOutlineEye size={25} color="#2D3748" />
+										)}
+									</InputRightElement>
+								</InputGroup>
 								<Flex fontWeight="semibold" mb="0.5rem" mt="1.5rem">
 									<Text
 										as="span"
@@ -134,7 +146,7 @@ export const ChangePassword: React.FC<IChangePassword> = props => {
 										lineHeight="1.25rem"
 										color={"#2D3748"}
 									>
-										Nova Senha
+										{t("forgotPassword.newPassword")}
 									</Text>
 								</Flex>
 								<InputGroup size="md">
@@ -179,7 +191,7 @@ export const ChangePassword: React.FC<IChangePassword> = props => {
 										lineHeight="1.25rem"
 										color={"#2D3748"}
 									>
-										Confirme Senha
+										{t("forgotPassword.confirmPassword")}
 									</Text>
 								</Flex>
 								<InputGroup size="md">
