@@ -6,16 +6,22 @@ const InvestorSchema = new mongoose.Schema(
 		full_name: {
 			type: String,
 		},
-		mother_name: {
+		birthday_date: {
 			type: String,
 		},
 		cpf: {
 			type: String,
 		},
-		rg: {
+		email: {
 			type: String,
 		},
-		cnh: {
+		phone_number: {
+			type: String,
+		},
+		city_of_birth: {
+			type: String,
+		},
+		rg: {
 			type: String,
 		},
 		profession: {
@@ -24,41 +30,33 @@ const InvestorSchema = new mongoose.Schema(
 		address: {
 			type: Object,
 		},
-		wallet_address: {
-			type: String,
-		},
 		marital_status: {
 			type: Object,
-		},
-		phone_number: {
-			type: String,
-		},
-		cnpj: {
-			type: String,
-		},
-		email: {
-			type: String,
-		},
-		birthday_date: {
-			type: String,
-		},
-		city_of_birth: {
-			type: String,
-		},
-		uf: {
-			type: String,
 		},
 		is_legal_entity: {
 			type: Boolean,
 		},
 		invited_by: {
 			type: String,
-			required: true,
 		},
+
+		// comentar depois, por hora vai estar todas oportunidades disponiveis
 		opportunities_avaliable: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: true,
 		},
+		// mother_name: {
+		// 	type: String,
+		// },
+		// cnh: {
+		// 	type: String,
+		// },
+
+		// cnpj: {
+		// 	type: String,
+		// },
+		// uf: {
+		// 	type: String,
+		// },
 	},
 	{
 		timestamps: true,
