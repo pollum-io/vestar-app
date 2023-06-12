@@ -23,7 +23,7 @@ const router = nextConnect({
 const OpportunitySchema = z.object({
 	name: z.string().max(60),
 	address: z.optional(z.object({} as { [key: string]: any })),
-	enterprise_id: z.string(),
+	investor_pj: z.string(),
 	min_investment: z.number(),
 	init_date: z.string().datetime({ offset: true }),
 	expected_delivery_date: z.string().datetime({ offset: true }),
@@ -52,7 +52,7 @@ const fetchSchema = z.object({
 	page: z.optional(z.preprocess(Number, z.number())),
 	limit: z.optional(z.preprocess(Number, z.number())),
 	min_investment: z.optional(z.string()),
-	enterprise_id: z.optional(z.string()),
+	investor_pj: z.optional(z.string()),
 	enterprise_type: z.optional(z.string()),
 	expected_delivery_date: z.optional(z.string()),
 });
@@ -64,7 +64,7 @@ router.post(verifyUser, async (req, res) => {
 		const opportunitiyData = req.body;
 
 		const enterprise = await Enterprise.findById(
-			opportunitiyData.enterprise_id
+			opportunitiyData.investor_pj
 		).lean();
 
 		OpportunitySchema.parse(opportunitiyData);
@@ -91,7 +91,7 @@ router.get(async (req, res) => {
 		fetchSchema.parse(req.query);
 
 		const queryFilter = {
-			fields: ["enterprise_type", "enterprise_id"],
+			fields: ["enterprise_type", "investor_pj"],
 			values: {},
 		};
 

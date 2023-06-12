@@ -12,18 +12,19 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
+		console.log(props);
 		getInfosId(
-			props?.user?.investor_id === null
-				? props?.user?.enterprise_id
-				: props?.user?.investor_id
+			props?.user?.investor_pf === null
+				? props?.user?.investor_pj
+				: props?.user?.investor_pf
 		);
 		getInfos(props.token);
 	}, [
 		getInfos,
 		getInfosId,
 		props.token,
-		props?.user?.enterprise_id,
-		props?.user?.investor_id,
+		props?.user?.investor_pj,
+		props?.user?.investor_pf,
 	]);
 
 	return (
@@ -193,7 +194,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 					</Flex>
 					<Flex mt="2.9375rem" w="100%" justifyContent="center">
 						<OpportunitiesCards
-							investorId={props?.user?.investor_id}
+							investorId={props?.user?.investor_pf}
 							token={props.token}
 						/>
 					</Flex>

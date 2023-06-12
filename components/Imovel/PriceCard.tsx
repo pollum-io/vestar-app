@@ -11,8 +11,8 @@ interface IPriceCard {
 	supply: number;
 	address: string;
 	oportunitiesAddress: string;
-	investor_id?: string;
-	enterprise_id?: string;
+	investor_pf?: string;
+	investor_pj?: string;
 }
 
 export const PriceCard: React.FC<IPriceCard> = props => {
@@ -23,10 +23,10 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		supply,
 		address,
 		oportunitiesAddress,
-		investor_id,
-		enterprise_id,
+		investor_pf,
+		investor_pj,
 	} = props;
-	const [isInvestidor, setIsInvestidor] = useState(investor_id ? true : false);
+	const [isInvestidor, setIsInvestidor] = useState(investor_pf ? true : false);
 	const { ended, hasToken } = useOpportunities();
 	const { push } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);

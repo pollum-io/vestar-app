@@ -1,13 +1,9 @@
 import { apiInstance } from "./api";
 
-export const fetchEditInvestor = async (
-	investor_id: any,
-	data: any,
-	token: any
-) => {
+export const fetchCreateInvestorPJ = async (data: any, token: any) => {
+	const api = apiInstance();
 	try {
-		const api = apiInstance();
-		const response = await api.put(`/investor/${investor_id}`, data, {
+		const response = await api.post("/investorPJ", data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},

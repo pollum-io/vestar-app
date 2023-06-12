@@ -13,7 +13,7 @@ export interface IOpportunitiesCard {
 	cub_expected: number;
 	description: string;
 	end_date: string; // ou data
-	enterprise_id: string;
+	investor_pj: string;
 	general_info: string[];
 	init_date: string; // ou data
 	neighbor_description: string;

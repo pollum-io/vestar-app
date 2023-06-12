@@ -1,6 +1,6 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
-import { fetchEnterpriseById } from "../services";
-import { fetchGetInvestorById } from "../services/fetchGetInvestorById";
+import { fetchGetInvestorPFById } from "../services/fetchGetInvestorPFById";
+import { fetchGetInvestorPJById } from "../services/fetchGetInvestorPJById";
 import PersistentFramework from "../utils/persistent";
 interface IRegister {
 	setUserInfos: any;
@@ -31,8 +31,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getInfos = async (id: any) => {
 		let name: string = "";
-		const response = await fetchGetInvestorById(userInfos, id);
-		const enterprise = await fetchEnterpriseById(userInfos);
+		const response = await fetchGetInvestorPFById(userInfos, id);
+		const enterprise = await fetchGetInvestorPJById(userInfos, id);
 
 		if (response?.data?.full_name) {
 			name = response?.data?.full_name;
@@ -41,7 +41,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 			PersistentFramework.add("name", String(name));
 			PersistentFramework.add("isInvestor", { isInvestor: true });
 		} else {
-			name = enterprise?.data?.enterprise_name;
+			name = enterprise?.data?.full_name;
 			setUsername(name);
 			setIsInvestor(false);
 			PersistentFramework.add("name", String(name));
