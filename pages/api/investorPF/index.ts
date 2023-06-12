@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 import { z } from "zod";
 
 import dbConnect from "../../../lib/dbConnect";
-import Investor from "../../../models/investor";
+import InvestorPF from "../../../models/investorPF";
 import User from "../../../models/user";
 import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
@@ -11,7 +11,7 @@ import { ApiResponse } from "../../../models/ApiResponse";
 interface NextConnectApiRequest extends NextApiRequest {
 	user?: {
 		id: string;
-		investor_id: string;
+		investor_pf: string;
 		email: string;
 		iat: number;
 		exp: number;
@@ -35,26 +35,18 @@ const router = nextConnect({
 
 const insertSchema = z.object({
 	full_name: z.string(),
-	mother_name: z.optional(z.string()),
-	cpf: z.string().min(11).max(11),
-	rg: z.optional(z.string()),
-	cnh: z.optional(z.string()),
-	profession: z.optional(z.string()),
-	// address: z.optional(z.object()),
-	wallet_address: z.optional(z.string()),
-	marital_status: z.optional(z.object({} as { [key: string]: any })),
-	phone_number: z.optional(z.string()),
 	birthday_date: z.string().datetime({ offset: true }),
+	cpf: z.string().min(11).max(11),
+	email: z.optional(z.string()),
+	phone_number: z.optional(z.string()),
 	city_of_birth: z.optional(z.string()),
-	// TODO: remove
-	cnpj: z.optional(z.string().min(14).max(14)),
-	// TODO: remove
-	corporate_name: z.optional(z.string()),
-	// TODO: remove
-	uf: z.optional(z.string()),
-	// TODO: remove
+	rg: z.optional(z.string()),
+	profession: z.optional(z.string()),
+	address: z.optional(z.object({} as { [key: string]: any })),
+	marital_status: z.optional(z.object({} as { [key: string]: any })),
 	is_legal_entity: z.optional(z.boolean()),
 	invited_by: z.string(),
+	cnh: z.optional(z.string()),
 	opportunities_avaliable: z.optional(z.array(z.string())),
 });
 
@@ -67,19 +59,19 @@ router.post(verifyUser, async (req, res) => {
 
 		insertSchema.parse(investorData);
 
-		const investorExists = await Investor.findOne({ cpf: investorData.cpf });
+		const investorExists = await InvestorPF.findOne({ cpf: investorData.cpf });
 
 		if (investorExists) {
 			return res.status(400).json({
-				error: "CPF/CNPJ already registered",
+				error: "CPF already registered",
 			});
 		}
 
-		const investor = await Investor.create(investorData);
+		const investor = await InvestorPF.create(investorData);
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: user?.id },
-			{ investor_id: investor._id },
+			{ investor_pf: investor._id },
 			{ new: true }
 		);
 

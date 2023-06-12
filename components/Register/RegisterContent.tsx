@@ -11,13 +11,12 @@ import {
 } from "react-icons/bs";
 import { RiCheckFill } from "react-icons/ri";
 import { useRouter } from "next/router";
-import { fetchCreateInvestor } from "../../services/fetchCreateInvestor";
-import { fetchCreateEnterprise } from "../../services/fetchCreateEnterprise";
 import { SelectComponent } from "../Select/SelectComponent";
 import { brasilStates } from "./states";
 import { useTranslation } from "react-i18next";
 import { useQuery as query } from "react-query";
-import { fetchEnterprise } from "../../services";
+import { fetchCreateInvestorPF, fetchEnterprise } from "../../services";
+import { fetchCreateInvestorPJ } from "../../services/fetchCreateInvestorPJ";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
@@ -89,15 +88,15 @@ export const RegisterContent: FunctionComponent<any> = props => {
 					invited_by: String(data?.invited_by),
 			  }
 			: {
-					enterprise_name: String(data?.enterprise_name),
+					full_name: String(data?.enterprise_name),
 					cnpj: data?.cnpj.replace(/[-./]/g, ""),
 					uf: Object?.values(inputValuesUf)[0],
 					is_legal_entity: isPhysical,
 					invited_by: String(data?.invited_by),
 			  };
 		await (isPhysical
-			? fetchCreateInvestor(request, token)
-			: fetchCreateEnterprise(request, token)
+			? fetchCreateInvestorPF(request, token)
+			: fetchCreateInvestorPJ(request, token)
 		)
 			.then(res => {
 				if (res) {

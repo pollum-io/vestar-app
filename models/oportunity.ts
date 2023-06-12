@@ -91,7 +91,7 @@ const OpportunitySchema = new mongoose.Schema(
 		enterprise_logo: {
 			type: String,
 		},
-		enterprise_id: {
+		investor_pj: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},

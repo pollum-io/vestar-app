@@ -312,8 +312,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								price={imovelDetails?.token_price}
 								supply={imovelDetails?.token_supply}
 								oportunitiesAddress={imovelDetails?.token_address}
-								investor_id={usersId?.investor_id}
-								enterprise_id={usersId?.enterprise_id}
+								investor_pf={usersId?.investor_pf}
+								investor_pj={usersId?.investor_pj}
 							/>{" "}
 						</Flex>
 					</Flex>

@@ -6,7 +6,7 @@ import dbConnect from "../../../lib/dbConnect";
 import Investment from "../../../models/Investment";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
-import Investor from "../../../models/investor";
+import Investor from "../../../models/investorPF";
 import Opportunity from "../../../models/oportunity";
 
 type ResponseData = ApiResponse<string>;
@@ -35,7 +35,7 @@ router.get(verifyUser, async (req, res) => {
 
 		const investor = await Investor.findById(investorId).lean();
 
-		if (!investor || user?.investor_id !== `${investor._id}`) {
+		if (!investor || user?.investor_pf !== `${investor._id}`) {
 			return res.status(200).json({ data: [], message: "investor not found" });
 		}
 

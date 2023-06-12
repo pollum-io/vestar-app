@@ -27,14 +27,14 @@ export async function getAvailableAndClosedOpportunities(ids: any) {
 	const oppData = await Opportunity.aggregate([
 		{
 			$match: {
-				enterprise_id: is_array
+				investor_pj: is_array
 					? { $in: ids }
 					: new mongoose.Types.ObjectId(`${ids}`),
 			},
 		},
 		{
 			$group: {
-				_id: "$enterprise_id",
+				_id: "$investor_pj",
 				opportunities_closed: {
 					$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
 				},
@@ -54,7 +54,7 @@ export async function getEnterpriseInvestments(id: any) {
 	const oppData2 = await Opportunity.aggregate([
 		{
 			$match: {
-				enterprise_id: new mongoose.Types.ObjectId(`${id}`),
+				investor_pj: new mongoose.Types.ObjectId(`${id}`),
 			},
 		},
 		{
@@ -132,7 +132,7 @@ router.put(verifyUser, async (req, res) => {
 
 		if (data?.enterprise_logo) {
 			Opportunity.updateMany(
-				{ enterprise_id: id },
+				{ investor_pj: id },
 				{ enterprise_logo: data.enterprise_logo }
 			);
 		}

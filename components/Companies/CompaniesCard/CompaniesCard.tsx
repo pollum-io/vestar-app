@@ -93,7 +93,7 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 							onClick={() =>
 								push({
 									pathname: `/empresa/`,
-									query: { enterprise_id: `${_id}` },
+									query: { investor_pj: `${_id}` },
 								})
 							}
 						>

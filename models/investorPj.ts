@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 /* InvestorSchema will correspond to a collection in your MongoDB database. */
-const InvestorSchema = new mongoose.Schema(
+const InvestorPJSchema = new mongoose.Schema(
 	{
 		full_name: {
 			type: String,
@@ -42,5 +42,5 @@ const InvestorSchema = new mongoose.Schema(
 	}
 );
 
-export default mongoose.models.Investor ||
-	mongoose.model("Investor", InvestorSchema);
+export default mongoose.models.InvestorPJ ||
+	mongoose.model("InvestorPJ", InvestorPJSchema);

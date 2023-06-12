@@ -8,7 +8,7 @@ import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
 import { Oval } from "react-loader-spinner";
-import { fetchGetInvestorById } from "../../../services";
+import { fetchGetInvestorPFById } from "../../../services";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import moment from "moment-timezone";
@@ -53,7 +53,7 @@ export const OpportunitiesCard: FunctionComponent<
 
 	const { data: user } = query(
 		["user"],
-		() => fetchGetInvestorById(investorId, token),
+		() => fetchGetInvestorPFById(investorId, token),
 		{
 			refetchOnWindowFocus: false,
 			refetchInterval: false,

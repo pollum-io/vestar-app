@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next/types";
 
 import dbConnect from "../../../lib/dbConnect";
-import InvestorSchema from "../../../models/investor";
+import InvestorSchema from "../../../models/investorPJ";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 import nextConnect from "next-connect";
@@ -26,7 +26,7 @@ router.get(verifyUser, async (req, res) => {
 
 		const investor = await InvestorSchema.findById(id);
 
-		if (!investor || user?.investor_id !== `${investor._id}`) {
+		if (!investor || user?.investor_pj !== `${investor._id}`) {
 			return res
 				.status(200)
 				.json({ data: null, message: "investor not found" });

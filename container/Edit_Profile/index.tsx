@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { DefaultTemplate } from "../DefaultTemplate";
 import { useTranslation } from "react-i18next";
 import { ChangePassword } from "../../components/EditProfile/Pages/ChangePassword";
-import { PersonalData } from "../../components/EditProfile/Pages/PersonaData";
+import { PersonalDataComponent } from "../../components/EditProfile/Pages/PersonalDataComponent";
 
 export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 	const { data, token } = props;
@@ -69,7 +69,7 @@ export const Edit_ProfileContainer: FunctionComponent<any> = props => {
 						</Button>
 					</Flex>
 					{pagePath === "personal" && (
-						<PersonalData token={token} data={data} />
+						<PersonalDataComponent token={token} data={data} />
 					)}
 					{pagePath === "change-password" && <ChangePassword token={token} />}
 				</Flex>
