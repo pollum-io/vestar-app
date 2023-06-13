@@ -199,7 +199,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 				</Flex>
 			</Flex>
 			<Flex px="1.5rem" w="100%" justifyContent="center">
-				<OpportunitiesCards enterpriseId={companieDetail?._id} />
+				<OpportunitiesCards id={companieDetail?._id} />
 			</Flex>
 		</Flex>
 	);
