@@ -12,7 +12,6 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		console.log(props);
 		getInfosId(
 			props?.user?.investor_pf === null
 				? props?.user?.investor_pj

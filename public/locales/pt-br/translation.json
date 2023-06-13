@@ -106,7 +106,7 @@
 		"youHave": "Você possui",
 		"yourShares": "cotas",
 		"expected": "Rentabilidade Esperada: ",
-		"closedIn": "Encerrado em {{value}}",
+		"closedIn": "Encerrado em ",
 		"unitPrice": "Preço unitário no próximo lote: R$",
 		"priceCard": {
 			"sharesName": "Nome da Cota",
