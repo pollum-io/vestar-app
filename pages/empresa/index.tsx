@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {},
 		};
 	}
-	const response = await fetchEnterpriseById(query.investor_pj, host);
+	const response = await fetchEnterpriseById(query.enterprise_id, host);
 
 	return {
 		props: {

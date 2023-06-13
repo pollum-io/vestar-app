@@ -70,7 +70,7 @@ router.post(verifyUser, async (req, res) => {
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: user?.id },
-			{ investor_pj: enterprise._id },
+			{ enterprise_id: enterprise._id },
 			{ new: true }
 		);
 
