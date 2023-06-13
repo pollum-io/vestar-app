@@ -22,19 +22,18 @@ const router = nextConnect({
 
 export async function getAvailableAndClosedOpportunities(ids: any) {
 	const dateNow = new Date();
-
 	const is_array = Array.isArray(ids);
 	const oppData = await Opportunity.aggregate([
 		{
 			$match: {
-				investor_pj: is_array
+				enterprise_id: is_array
 					? { $in: ids }
 					: new mongoose.Types.ObjectId(`${ids}`),
 			},
 		},
 		{
 			$group: {
-				_id: "$investor_pj",
+				_id: "$enterprise_id",
 				opportunities_closed: {
 					$sum: { $cond: [{ $lte: ["$end_date", dateNow] }, 1, 0] },
 				},
@@ -54,7 +53,7 @@ export async function getEnterpriseInvestments(id: any) {
 	const oppData2 = await Opportunity.aggregate([
 		{
 			$match: {
-				investor_pj: new mongoose.Types.ObjectId(`${id}`),
+				enterprise_id: new mongoose.Types.ObjectId(`${id}`),
 			},
 		},
 		{
@@ -89,7 +88,7 @@ router.get(async (req, res) => {
 		}
 
 		const enterprise = await Enterprise.findById(id).lean();
-
+		console.log(enterprise, "enterprise");
 		if (!enterprise) {
 			return res.status(404).json({ error: "enterprise not found" });
 		}
@@ -132,7 +131,7 @@ router.put(verifyUser, async (req, res) => {
 
 		if (data?.enterprise_logo) {
 			Opportunity.updateMany(
-				{ investor_pj: id },
+				{ enterprise_id: id },
 				{ enterprise_logo: data.enterprise_logo }
 			);
 		}
