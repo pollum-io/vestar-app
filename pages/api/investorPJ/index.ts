@@ -6,7 +6,7 @@ import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/user";
 import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
-import investorPJ from "../../../models/investorPJ";
+import investorPJ from "../../../models/investorPj";
 
 interface NextConnectApiRequest extends NextApiRequest {
 	user?: {
