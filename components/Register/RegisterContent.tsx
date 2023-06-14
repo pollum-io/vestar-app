@@ -22,6 +22,7 @@ import { useWallet } from "../../hooks/useWallet";
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
 	const [canSend, setCanSend] = useState(false);
+	const [buttonDisabled, setButtonDisabled] = useState("");
 	const [inputValuesUf, setInputValuesUf] = useState<any>();
 	const {
 		firstStep,
@@ -238,6 +239,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											type="text"
 											placeholderText={t("inputs.insertHere") as any}
 											{...register("invited_by")}
+											onChange={e => setButtonDisabled(e.target.value)}
 										/>
 									</>
 								)}
@@ -288,6 +290,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 										borderRadius="0.5rem"
 										color="#ffffff"
 										onClick={() => handleValidateData()}
+										isDisabled={buttonDisabled.length === 0}
 									>
 										{t("register.nextStep") as any}{" "}
 										{<BsArrowRightShort size={22} />}
