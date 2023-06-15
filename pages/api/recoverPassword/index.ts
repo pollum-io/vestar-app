@@ -5,7 +5,7 @@ import { z } from "zod";
 import dbConnect from "../../../lib/dbConnect";
 import RecoverPassword from "../../../models/recoverPassword";
 import { ApiResponse } from "../../../models/ApiResponse";
-import Investor from "../../../models/investorPF";
+import Investor from "../../../models/investor-pf";
 import Enterprise from "../../../models/enterprise";
 import { v4 as uuidv4 } from "uuid";
 import nodemailer from "nodemailer";

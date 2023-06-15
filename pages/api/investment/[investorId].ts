@@ -6,7 +6,7 @@ import dbConnect from "../../../lib/dbConnect";
 import Investment from "../../../models/Investment";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
-import Investor from "../../../models/investorPF";
+import Investor from "../../../models/investor-pf";
 import Opportunity from "../../../models/oportunity";
 
 type ResponseData = ApiResponse<string>;

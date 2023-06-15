@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next/types";
 
 import dbConnect from "../../../lib/dbConnect";
-import InvestorSchema from "../../../models/investorPF";
+import InvestorSchema from "../../../models/investor-pf";
 import { verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 import nextConnect from "next-connect";
