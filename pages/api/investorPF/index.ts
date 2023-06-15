@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 import { z } from "zod";
 
 import dbConnect from "../../../lib/dbConnect";
-import InvestorPF from "../../../models/investorPF";
+import InvestorPF from "../../../models/investor-pf";
 import User from "../../../models/user";
 import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
