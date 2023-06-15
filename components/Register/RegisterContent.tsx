@@ -15,12 +15,15 @@ import { SelectComponent } from "../Select/SelectComponent";
 import { brasilStates } from "./states";
 import { useTranslation } from "react-i18next";
 import { useQuery as query } from "react-query";
-import { fetchCreateInvestorPF, fetchEnterprise } from "../../services";
+import { fetchCreateInvestorPF, fetchEnterprise, logout } from "../../services";
 import { fetchCreateInvestorPJ } from "../../services/fetchCreateInvestorPJ";
+import { useWallet } from "../../hooks/useWallet";
 
 export const RegisterContent: FunctionComponent<any> = props => {
 	const { token } = props;
 	const [canSend, setCanSend] = useState(false);
+	const [buttonDisabled, setButtonDisabled] = useState("");
+	const [inputValuesUf, setInputValuesUf] = useState<any>();
 	const {
 		firstStep,
 		secondStep,
@@ -40,7 +43,7 @@ export const RegisterContent: FunctionComponent<any> = props => {
 	const { push } = useRouter();
 	const { toast } = useToasty();
 	const { t } = useTranslation();
-	const [inputValuesUf, setInputValuesUf] = useState<any>();
+	const { disconnectWallet } = useWallet();
 
 	const handleValidateData = async () => {
 		const data: any = isPhysical
@@ -236,31 +239,63 @@ export const RegisterContent: FunctionComponent<any> = props => {
 											type="text"
 											placeholderText={t("inputs.insertHere") as any}
 											{...register("invited_by")}
+											onChange={e => setButtonDisabled(e.target.value)}
 										/>
 									</>
 								)}
-								<Button
-									mt="2rem"
-									w="9.25rem"
-									h="2rem"
-									justifyContent="center"
-									padding="0.2188rem 1.25rem"
-									alignItems="center"
-									gap="0.5rem"
-									bgColor="#2D3748"
-									_hover={{ bgColor: "#171923" }}
-									fontFamily="Poppins"
-									fontStyle="normal"
-									fontWeight="500"
-									fontSize="0.875rem"
-									lineHeight="1.25rem"
-									borderRadius="0.5rem"
-									color="#ffffff"
-									onClick={() => handleValidateData()}
-								>
-									{t("register.nextStep") as any}{" "}
-									{<BsArrowRightShort size={22} />}
-								</Button>
+								<Flex gap="6">
+									<Button
+										mt="2rem"
+										w="9.25rem"
+										h="2rem"
+										justifyContent="center"
+										padding="0.2188rem 1.25rem"
+										alignItems="center"
+										gap="0.5rem"
+										bgColor="transparent"
+										_hover={{ bgColor: "#a8a8a842" }}
+										fontFamily="Poppins"
+										fontStyle="normal"
+										fontWeight="500"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										borderRadius="0.5rem"
+										border="1px solid #171923"
+										color="#171923"
+										transition="0.5s"
+										onClick={() => {
+											logout(push);
+											disconnectWallet();
+										}}
+									>
+										{<BsArrowLeftShort size={22} />}
+										{t("register.back") as any}
+									</Button>
+									<Button
+										transition="0.5s"
+										mt="2rem"
+										w="9.25rem"
+										h="2rem"
+										justifyContent="center"
+										padding="0.2188rem 1.25rem"
+										alignItems="center"
+										gap="0.5rem"
+										bgColor="#2D3748"
+										_hover={{ bgColor: "#171923" }}
+										fontFamily="Poppins"
+										fontStyle="normal"
+										fontWeight="500"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+										borderRadius="0.5rem"
+										color="#ffffff"
+										onClick={() => handleValidateData()}
+										isDisabled={buttonDisabled.length === 0}
+									>
+										{t("register.nextStep") as any}{" "}
+										{<BsArrowRightShort size={22} />}
+									</Button>
+								</Flex>
 							</Flex>
 						</Flex>
 					</SlideFade>
