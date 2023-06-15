@@ -21,9 +21,9 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				password: password,
 			});
 			getInfosId(
-				data?.data?.user?.investor_id === null
-					? data?.data?.user?.enterprise_id
-					: data?.data?.user?.investor_id
+				data?.data?.user?.investor_pf === null
+					? data?.data?.user?.investor_pj
+					: data?.data?.user?.investor_pf
 			);
 			toast({
 				id: "toast-login-suc",
@@ -31,7 +31,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				status: "success",
 				title: "Seja bem-vindo!",
 			});
-			push(!data?.data?.user?.investor_id ? "/registrar" : "/oportunidades");
+			push(!data?.data?.user?.investor_pf ? "/registrar" : "/oportunidades");
 		} catch (error: any) {
 			toast({
 				id: "toast-login-error",

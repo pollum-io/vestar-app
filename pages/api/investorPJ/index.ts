@@ -3,15 +3,15 @@ import nextConnect from "next-connect";
 import { z } from "zod";
 
 import dbConnect from "../../../lib/dbConnect";
-import Investor from "../../../models/investor";
 import User from "../../../models/user";
 import { generateToken, setCookie, verifyUser } from "../../../lib/auth";
 import { ApiResponse } from "../../../models/ApiResponse";
+import investorPJ from "../../../models/investor.pj";
 
 interface NextConnectApiRequest extends NextApiRequest {
 	user?: {
 		id: string;
-		investor_id: string;
+		investor_pj: string;
 		email: string;
 		iat: number;
 		exp: number;
@@ -34,28 +34,17 @@ const router = nextConnect({
 });
 
 const insertSchema = z.object({
-	full_name: z.string(),
-	mother_name: z.optional(z.string()),
-	cpf: z.string().min(11).max(11),
-	rg: z.optional(z.string()),
-	cnh: z.optional(z.string()),
-	profession: z.optional(z.string()),
-	// address: z.optional(z.object()),
-	wallet_address: z.optional(z.string()),
-	marital_status: z.optional(z.object({} as { [key: string]: any })),
-	phone_number: z.optional(z.string()),
-	birthday_date: z.string().datetime({ offset: true }),
-	city_of_birth: z.optional(z.string()),
-	// TODO: remove
-	cnpj: z.optional(z.string().min(14).max(14)),
-	// TODO: remove
-	corporate_name: z.optional(z.string()),
-	// TODO: remove
-	uf: z.optional(z.string()),
-	// TODO: remove
-	is_legal_entity: z.optional(z.boolean()),
+	full_name: z.string().max(60),
+	cnpj: z.string().max(14),
+	uf: z.string(),
+	email: z.optional(z.string()),
+	contact_number: z.optional(z.string()),
+	address: z.optional(z.object({} as { [key: string]: any })),
+	legal_representatives: z.optional(
+		z.array(z.object({} as { [key: string]: any }))
+	),
+	partners: z.optional(z.array(z.object({} as { [key: string]: any }))),
 	invited_by: z.string(),
-	opportunities_avaliable: z.optional(z.array(z.string())),
 });
 
 router.post(verifyUser, async (req, res) => {
@@ -63,23 +52,28 @@ router.post(verifyUser, async (req, res) => {
 		await dbConnect();
 
 		const investorData = req.body;
+		console.log(investorData, "investorData");
+
 		const user = req?.user;
+		console.log(user, "user");
 
 		insertSchema.parse(investorData);
 
-		const investorExists = await Investor.findOne({ cpf: investorData.cpf });
-
+		const investorExists = await investorPJ.findOne({
+			cnpj: investorData.cnpj,
+		});
+		console.log(investorExists, "investorExists");
 		if (investorExists) {
 			return res.status(400).json({
-				error: "CPF/CNPJ already registered",
+				error: "CNPJ already registered",
 			});
 		}
 
-		const investor = await Investor.create(investorData);
+		const investor = await investorPJ.create(investorData);
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: user?.id },
-			{ investor_id: investor._id },
+			{ investor_pj: investor._id },
 			{ new: true }
 		);
 

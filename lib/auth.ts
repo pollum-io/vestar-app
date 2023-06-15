@@ -11,8 +11,8 @@ interface Request extends NextApiRequest {
 type DecodedUser = {
 	id: string;
 	email: string;
-	investor_id?: string | null;
-	enterprise_id?: string | null;
+	investor_pf?: string | null;
+	investor_pj?: string | null;
 	iat: number;
 	exp: number;
 };
@@ -48,8 +48,8 @@ export function generateToken(user: any) {
 		{
 			id: user._id,
 			email: user.email,
-			investor_id: user?.investor_id || null,
-			enterprise_id: user?.enterprise_id || null,
+			investor_pf: user?.investor_pf || null,
+			investor_pj: user?.investor_pj || null,
 		},
 		JWT_SECRET,
 		{ expiresIn: "7d" }

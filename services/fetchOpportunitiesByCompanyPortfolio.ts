@@ -6,7 +6,7 @@ export const fetchOpportunitiesByCompanyPortfolio = async (
 	host?: string
 ) => {
 	const api = apiInstance(host);
-	const request = await api.get(`/opportunity?enterprise_id=${enterpriseId}`);
+	const request = await api.get(`/opportunity?investor_pj=${enterpriseId}`);
 
 	return request;
 };

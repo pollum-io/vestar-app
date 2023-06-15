@@ -76,7 +76,7 @@ export const RegisterSteps: FunctionComponent = () => {
 			<RegisterStep
 				step={1}
 				title={
-					isPhysical ? t("register.companyData") : t("register.personalData")
+					isPhysical ? t("register.personalData") : t("register.companyData")
 				}
 				barPercentage={firstStep ? 50 : 100}
 			/>

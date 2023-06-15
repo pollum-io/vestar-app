@@ -13,7 +13,6 @@ const EnterpriseSchema = new mongoose.Schema(
 		},
 		enterprise_banner: {
 			type: String,
-
 		},
 		cnpj: {
 			type: String,

@@ -16,25 +16,27 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import { useRouter } from "next/router";
 import { useUser } from "../../../hooks/useUser";
 import { useToasty } from "../../../hooks/useToasty";
-import { fetchEditInvestor } from "../../../services";
+import { fetchEditInvestorPF } from "../../../services";
 import { InputComponent } from "../../Inputs/DeafultInput/InputComponent";
 import { SelectComponent } from "../../Select/SelectComponent";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 import { formatCPF } from "../../../utils/formatCpf";
 import { estadosCivis } from "../mockedData/estadosCivis";
 import { estadosRegimesPatrimoniais } from "../mockedData/estadosRegimesPatrimoniais";
+import { brasilStates } from "../../Register/states";
 
 interface IChangePassword {
 	data?: any;
 	token?: any;
 }
 
-export const PersonalData: React.FC<IChangePassword> = props => {
+export const PersonalDataPJ: React.FC<IChangePassword> = props => {
 	const { data, token } = props;
 	const [isDisabled, setIsDisabled] = useState(true);
 	const [maritalStatus, setMaritalStatus] = useState<any>(
 		data?.marital_status?.status
 	);
+	const [inputValuesUf, setInputValuesUf] = useState<any>();
 	const { t } = useTranslation();
 	const isMerried: boolean = maritalStatus === "Casado(a)" ? true : false;
 	const [equityRegime, setEquityRegime] = useState<any>("");
@@ -47,37 +49,36 @@ export const PersonalData: React.FC<IChangePassword> = props => {
 	} = useForm();
 	const { userInfos } = useUser();
 	const { toast } = useToasty();
-	const dataFormatada = new Date(data?.birthday_date)
-		.toISOString()
-		.split("T")[0];
 
 	const onSubmitForm = async (data: any) => {
 		let request: any;
 
 		request = {
 			full_name: data.full_name,
-			mother_name: data.mother_name,
-			city_of_birth: data.city_of_birth,
-			birthday_date: new Date(data.birthday_date),
-			cpf: data.cpf.replace(/[^\w]/gi, "").replace(/\s+/g, ""),
-			rg: data.rg,
-			cnh: data.cnh,
-			marital_status: {
+			cnpj: data?.cnpj.replace(/[-./]/g, ""),
+			uf: Object?.values(inputValuesUf)[0],
+			email: data.email,
+			contact_number: data.contact_number
+				.replace(/[^\w]/gi, "")
+				.replace(/\s+/g, ""),
+			address: data.address,
+			legal_representatives: {
 				status: maritalStatus,
 				equity_regime: isMerried ? equityRegime : null,
 				spouse_name: isMerried ? data.spouse_name : null,
 				spouse_cpf: isMerried ? data.spouse_cpf : null,
 				spouse_rg: isMerried ? data.spouse_rg : null,
 			},
-			address: data.address,
-			profession: data.profession,
-			email: data.email,
-			phone_number: data.phone_number
-				.replace(/[^\w]/gi, "")
-				.replace(/\s+/g, ""),
+			partners: {
+				status: maritalStatus,
+				equity_regime: isMerried ? equityRegime : null,
+				spouse_name: isMerried ? data.spouse_name : null,
+				spouse_cpf: isMerried ? data.spouse_cpf : null,
+				spouse_rg: isMerried ? data.spouse_rg : null,
+			},
 		};
 
-		await fetchEditInvestor(userInfos, request, token)
+		await fetchEditInvestorPF(userInfos, request, token)
 			.then(res => {
 				if (res) {
 					toast({
@@ -133,47 +134,33 @@ export const PersonalData: React.FC<IChangePassword> = props => {
 									defaultValue={data?.full_name}
 								/>
 								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.mother") as string}
+									placeholderText="00.000.000/0000-00"
+									label={t("register.nationalRegister") as any}
+									maskType={"CNPJ"}
 									type="text"
-									{...register("mother_name")}
-									defaultValue={data?.mother_name}
+									{...register("cnpj")}
+								/>
+								<SelectComponent
+									label={t("register.federal") as any}
+									type="uf"
+									selectValue={brasilStates}
+									setInputValues={setInputValuesUf}
+									{...register("uf")}
 								/>
 								<InputComponent
 									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.city") as string}
-									type="text"
-									{...register("city_of_birth")}
-									defaultValue={data?.city_of_birth}
+									label={t("editProfile.email") as string}
+									type="email"
+									{...register("email")}
+									defaultValue={data?.email}
 								/>
 								<InputComponent
 									placeholderText={t("inputs.insertHere") as any}
-									label={t("register.birthDate") as string}
-									type="date"
-									{...register("birthday_date")}
-									defaultValue={dataFormatada}
-								/>
-								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("register.socialNumber") as string}
+									label={t("editProfile.phone") as string}
 									type="text"
-									maskType={"CPF"}
-									{...register("cpf")}
-									defaultValue={formatCPF(data?.cpf)}
-								/>
-								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.rg") as string}
-									type="text"
-									{...register("rg")}
-									defaultValue={data?.rg}
-								/>
-								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.cnh") as string}
-									type="text"
-									{...register("cnh")}
-									defaultValue={data?.cnh}
+									maskType={"Telefone"}
+									{...register("phone_number")}
+									defaultValue={formatPhoneNumber(data?.phone_number)}
 								/>
 							</Flex>
 						</Flex>
@@ -186,74 +173,12 @@ export const PersonalData: React.FC<IChangePassword> = props => {
 							lineHeight="1.25rem"
 							w="20rem"
 						>
-							<SelectComponent
-								defaultValue={data?.marital_status?.status}
-								setData={setMaritalStatus}
-								label={t("editProfile.civil") as string}
-								type="marital"
-								selectValue={estadosCivis}
-								{...register("status")}
-							/>
-							<Collapse in={maritalStatus === "Casado(a)" && isMerried}>
-								<SelectComponent
-									defaultValue={data.marital_status?.equity_regime}
-									setData={setEquityRegime}
-									label={t("editProfile.regimePatrimonial") as string}
-									type="regime_patrimonial"
-									selectValue={estadosRegimesPatrimoniais}
-									{...register("equity_regime")}
-								/>
-								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.spousesName") as string}
-									type="text"
-									{...register("spouse_name")}
-									defaultValue={data?.marital_status?.spouse_name}
-								/>
-								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.spouseSocialNumber") as string}
-									type="text"
-									maskType={"CPF"}
-									{...register("spouse_cpf")}
-									defaultValue={formatCPF(data?.marital_status?.spouse_cpf)}
-								/>
-								<InputComponent
-									placeholderText={t("inputs.insertHere") as any}
-									label={t("editProfile.spousesRG") as string}
-									type="text"
-									{...register("spouse_rg")}
-									defaultValue={data?.marital_status?.spouse_rg}
-								/>
-							</Collapse>
 							<InputComponent
 								placeholderText={t("inputs.insertHere") as any}
 								label={t("editProfile.address") as string}
 								type="text"
 								{...register("address")}
 								defaultValue={data?.address}
-							/>
-							<InputComponent
-								placeholderText={t("inputs.insertHere") as any}
-								label={t("editProfile.occupation") as string}
-								type="text"
-								{...register("profession")}
-								defaultValue={data?.profession}
-							/>
-							<InputComponent
-								placeholderText={t("inputs.insertHere") as any}
-								label={t("editProfile.email") as string}
-								type="email"
-								{...register("email")}
-								defaultValue={data?.email}
-							/>
-							<InputComponent
-								placeholderText={t("inputs.insertHere") as any}
-								label={t("editProfile.phone") as string}
-								type="text"
-								maskType={"Telefone"}
-								{...register("phone_number")}
-								defaultValue={formatPhoneNumber(data?.phone_number)}
 							/>
 						</Flex>
 					</Flex>

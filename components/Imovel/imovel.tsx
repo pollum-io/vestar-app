@@ -74,9 +74,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 			getCotas();
 		},
 		// eslint-disable-next-line
-		[imovelDetails.token_address, account]
+		[imovelDetails.token_address, account, dateEndend]
 	);
-
 	return (
 		<>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
@@ -266,10 +265,9 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 									justifyContent="center"
 								>
 									<Text fontWeight="400">
-										{t("opportunitieDetails.closedIn", {
-											value: dateEndend,
-										})}
+										{t("opportunitieDetails.closedIn")}
 									</Text>
+									<Text fontWeight="400">{dateEndend}</Text>
 								</Flex>
 							) : (
 								<Flex
@@ -312,8 +310,8 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 								price={imovelDetails?.token_price}
 								supply={imovelDetails?.token_supply}
 								oportunitiesAddress={imovelDetails?.token_address}
-								investor_id={usersId?.investor_id}
-								enterprise_id={usersId?.enterprise_id}
+								investor_pf={usersId?.investor_pf}
+								investor_pj={usersId?.investor_pj}
 							/>{" "}
 						</Flex>
 					</Flex>

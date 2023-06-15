@@ -23,6 +23,7 @@ export const CompaniesContainer: FunctionComponent<ICompanies> = ({ data }) => {
 	const filteredImoveis = data.filter((imovel: any) =>
 		imovel.enterprise_name.toLowerCase().includes(searchTerm.toLowerCase())
 	);
+	console.log(data, "data");
 
 	return (
 		<DefaultTemplate>
