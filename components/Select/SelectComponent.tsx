@@ -36,7 +36,6 @@ export const SelectComponent: ForwardRefRenderFunction<
 	},
 	ref
 ) => {
-	console.log(setInputValues, "setInputValues");
 	return (
 		<FormControl id={name}>
 			{label && (

@@ -48,7 +48,7 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 				<Flex w="6rem" position="relative">
 					<Img src={`/api/file/${enterprise_logo}`} />
 				</Flex>
-				<Flex gap="0.375rem" flexDirection="column">
+				<Flex gap="0.375rem" flexDirection="column" w={"100%"}>
 					<Text
 						fontFamily="Poppins"
 						fontWeight="600"
@@ -59,24 +59,33 @@ export const CompaniesCard: FunctionComponent<ICompaniesCard> = ({
 					>
 						{enterprise_name}
 					</Text>
-					<Flex justifyContent="space-between" alignItems="center" gap="4rem">
+					<Flex
+						justifyContent="space-between"
+						alignItems="center"
+						gap="4rem"
+						w={"100%"}
+					>
 						<Flex gap="2.8125rem">
-							<Flex gap="0.5rem" alignItems="baseline" fontFamily="Poppins">
-								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									{t("companies.card.opportunities")}
-								</Text>
-								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									{opportunities_available}
-								</Text>
-							</Flex>
-							<Flex gap="0.5rem" alignItems="baseline">
-								<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
-									{t("companies.card.closed")}
-								</Text>
-								<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-									{opportunities_closed}
-								</Text>
-							</Flex>
+							{opportunities_available !== 0 && (
+								<Flex gap="0.5rem" alignItems="baseline" fontFamily="Poppins">
+									<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
+										{t("companies.card.opportunities")}
+									</Text>
+									<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
+										{opportunities_available}
+									</Text>
+								</Flex>
+							)}
+							{opportunities_closed !== 0 && (
+								<Flex gap="0.5rem" alignItems="baseline">
+									<Text fontSize="0.75rem" lineHeight="1rem" color="#718096">
+										{t("companies.card.closed")}
+									</Text>
+									<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
+										{opportunities_closed}
+									</Text>
+								</Flex>
+							)}
 						</Flex>
 						<Button
 							w="10.125rem"

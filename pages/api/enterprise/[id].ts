@@ -22,7 +22,6 @@ const router = nextConnect({
 
 export async function getAvailableAndClosedOpportunities(ids: any) {
 	const dateNow = new Date();
-
 	const is_array = Array.isArray(ids);
 	const oppData = await Opportunity.aggregate([
 		{
@@ -89,7 +88,7 @@ router.get(async (req, res) => {
 		}
 
 		const enterprise = await Enterprise.findById(id).lean();
-
+		console.log(enterprise, "enterprise");
 		if (!enterprise) {
 			return res.status(404).json({ error: "enterprise not found" });
 		}

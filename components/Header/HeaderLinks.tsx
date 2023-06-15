@@ -13,11 +13,6 @@ export const HeaderLinks: React.FC = () => {
 		},
 		{
 			id: 2,
-			name: t("header.portfolio"),
-			url: "/portfolio",
-		},
-		{
-			id: 3,
 			name: t("header.companies"),
 			url: "/empresas",
 		},

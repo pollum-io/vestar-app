@@ -11,16 +11,16 @@ const UserSchema = new mongoose.Schema(
 		password: {
 			type: String,
 		},
-		uf: {
-			type: String,
-		},
-		is_legal_entity: {
-			type: Boolean,
-		},
-		investor_id: {
+		// uf: {
+		// 	type: String,
+		// },
+		// is_legal_entity: {
+		// 	type: Boolean,
+		// },
+		investor_pf: {
 			type: mongoose.Schema.Types.ObjectId,
 		},
-		enterprise_id: {
+		investor_pj: {
 			type: mongoose.Schema.Types.ObjectId,
 		},
 	},

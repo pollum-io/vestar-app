@@ -50,8 +50,12 @@ router.post(async (req, res) => {
 
 		setCookie(res, "livn_auth", token);
 
-		if (!user?.investor_id) {
-			data.user.investor_id = null;
+		if (!user?.investor_pf) {
+			data.user.investor_pf = null;
+		}
+
+		if (!user?.investor_pj) {
+			data.user.investor_pj = null;
 		}
 
 		res.status(200).json({ data });
