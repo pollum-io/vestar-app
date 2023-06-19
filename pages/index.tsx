@@ -1,6 +1,35 @@
-import { HomeContainer } from "../container";
-import type { NextPage } from "next";
+import jwt_decode from "jwt-decode";
+import { LoginContainer } from "../container";
+import type { GetServerSideProps, NextPage } from "next";
 
-const Home: NextPage = () => <HomeContainer />;
+const Login: NextPage = () => <LoginContainer />;
 
-export default Home;
+export default Login;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	const token = req.cookies["livn_auth"];
+	let user: any;
+
+	if (!token) {
+		return { props: {} };
+	}
+
+	try {
+		user = jwt_decode(token);
+	} catch (error) {
+		user = null;
+	}
+
+	return !user
+		? { props: {} }
+		: {
+				redirect: {
+					permanent: false,
+					destination:
+						!user?.investor_pf && !user?.investor_pj
+							? "/registrar"
+							: "/oportunidades",
+				},
+				props: { user, token },
+		  };
+};
