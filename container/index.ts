@@ -1,4 +1,13 @@
-export * from "./Home";
+export * from "./AppWrapper";
+export * from "./Change_Password";
+export * from "./Companie";
+export * from "./Companies";
+export * from "./DefaultTemplate";
+export * from "./Edit_Profile";
 export * from "./Forgot_Password";
+export * from "./Imovel";
+export * from "./Invest";
+export * from "./Login";
+export * from "./Opportunities";
+export * from "./Portfolio";
 export * from "./Register";
-export { default as AppWrapper } from "./AppWrapper";

@@ -1,5 +1,5 @@
 export interface IRegisterSteps {
-  step?: number | JSX.Element;
-  title?: string;
-  barPercentage?: number;
+	step?: number | JSX.Element;
+	title?: any;
+	barPercentage?: number;
 }
