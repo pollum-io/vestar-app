@@ -110,7 +110,8 @@
 		"unitPrice": "Unit price in the next batch: $",
 		"priceCard": {
 			"sharesName": "Shares name",
-			"shares": "{{value}} share"
+			"shares": "{{value}} share",
+			"endedSales": "Sales closed"
 		}
 	},
 	"wantToInvest": {

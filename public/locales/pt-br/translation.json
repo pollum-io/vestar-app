@@ -110,7 +110,8 @@
 		"unitPrice": "Preço unitário no próximo lote: R$",
 		"priceCard": {
 			"sharesName": "Nome da Cota",
-			"shares": "{{value}} cota"
+			"shares": "{{value}} cota",
+			"endedSales": "Vendas encerradas"
 		}
 	},
 	"wantToInvest": {
