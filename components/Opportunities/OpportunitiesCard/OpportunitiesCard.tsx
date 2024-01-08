@@ -110,12 +110,10 @@ export const OpportunitiesCard: FunctionComponent<
 						}}
 						transition="150ms"
 						onClick={() =>
-							cards?.isAvailable || isEnterprise
-								? router.push({
+							 router.push({
 										pathname: `/oportunidades/${cards._id}`,
 										query: { id: cards._id },
 								  })
-								: null
 						}
 					>
 						<Flex
