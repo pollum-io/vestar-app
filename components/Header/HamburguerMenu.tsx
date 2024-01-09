@@ -100,23 +100,6 @@ export const HamburguerMenu: React.FC = () => {
 					</Button>
 				</Flex>
 
-				<MenuItem
-					fontFamily="Poppins"
-					fontSize="0.875rem"
-					lineHeight="1.25rem"
-					pr="1.1875rem"
-					color="#4A5568"
-					pl="0.9375rem"
-					mt="0.3rem"
-					h="1.8rem"
-					_focus={{}}
-					_hover={{ bgColor: "#F7FAFC", opacity: 0.8 }}
-					onClick={() =>
-						push({ pathname: `/usuario`, query: { id: userInfos } })
-					}
-				>
-					{t("header.profile")}
-				</MenuItem>
 				<Accordion allowMultiple>
 					<AccordionItem border="none">
 						<AccordionButton
@@ -129,6 +112,7 @@ export const HamburguerMenu: React.FC = () => {
 							pr="1.1875rem"
 							pl="1rem"
 							h="1.8rem"
+							mt="0.5rem"
 						>
 							<Flex justifyContent="space-between" alignItems="center" w="100%">
 								<Text
