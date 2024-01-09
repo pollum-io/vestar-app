@@ -60,6 +60,7 @@
 		"completion": "Estimated Conclusion",
 		"location": "Location",
 		"result": "result",
+		"estimatedTimeline": "Estimated timeline",
 		"card": {
 			"commercial": "Commercial",
 			"residential": "Residential",
