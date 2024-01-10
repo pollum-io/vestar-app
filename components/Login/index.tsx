@@ -81,11 +81,14 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					p={"3rem"}
 				>
 					<Flex flexDirection="column" gap="2">
-						<Img
-							w="max-content"
-							h="max-content"
-							src="images/backgrounds/LivnLogo.png"
-						/>
+						<Text
+							bgGradient="linear(to-l, #1789A3, #9ccbd6)"
+							bgClip="text"
+							fontSize="2rem"
+							fontWeight="extrabold"
+						>
+							REP
+						</Text>
 						<Text
 							color="#1789A3"
 							fontSize="0.875rem"
