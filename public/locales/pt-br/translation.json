@@ -60,6 +60,7 @@
 		"completion": "Previsão de Conclusão",
 		"location": "Localização",
 		"result": "resultado",
+		"estimatedTimeline": "Cronograma estimado",
 		"card": {
 			"commercial": "Comercial",
 			"residential": "Residencial",
