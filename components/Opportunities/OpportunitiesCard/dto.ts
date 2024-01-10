@@ -34,6 +34,7 @@ export interface IOpportunitiesCard {
 export interface IOpportunitieAddress {
 	state: string;
 	neighborhood: string;
+	number?: string | number;
 	street: string;
 	address: number;
 	state_alias?: string;
