@@ -20,18 +20,15 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				email: email,
 				password: password,
 			});
-			getInfosId(
-				data?.data?.user?.investor_pf === null
-					? data?.data?.user?.investor_pj
-					: data?.data?.user?.investor_pf
-			);
+			console.log(email);
+			getInfosId(email);
 			toast({
 				id: "toast-login-suc",
 				position: "top-right",
 				status: "success",
 				title: "Seja bem-vindo!",
 			});
-			push(!data?.data?.user?.investor_pf ? "/registrar" : "/oportunidades");
+			push(!data?.data ? "/" : "/oportunidades");
 		} catch (error: any) {
 			toast({
 				id: "toast-login-error",

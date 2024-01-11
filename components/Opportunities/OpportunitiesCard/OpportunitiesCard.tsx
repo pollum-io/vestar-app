@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Button, Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { useRouter } from "next/router";
@@ -8,10 +8,8 @@ import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
 import { Oval } from "react-loader-spinner";
-import { fetchGetInvestorPFById } from "../../../services";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
-import moment from "moment-timezone";
 import { useTranslation } from "react-i18next";
 
 interface IOpportunitiesCompaniesCard {
@@ -44,15 +42,6 @@ export const OpportunitiesCard: FunctionComponent<
 		}
 	);
 
-	const { data: user } = query(
-		["user"],
-		() => fetchGetInvestorPFById(investorId, token),
-		{
-			refetchOnWindowFocus: false,
-			refetchInterval: false,
-		}
-	);
-
 	const renderer = ({
 		days,
 		hours,
@@ -78,20 +67,10 @@ export const OpportunitiesCard: FunctionComponent<
 		}
 	};
 
-	const imoveisDisponiveis = useMemo(() => {
-		const userOpportunties = user?.data?.opportunities_avaliable;
-
-		const imoveisDisponiveis = cardsInfo?.data?.map((imovel: any) => {
-			const isDisponivel = userOpportunties?.includes(imovel._id);
-			return { ...imovel, isAvailable: isDisponivel };
-		});
-		return imoveisDisponiveis;
-	}, [cardsInfo?.data, user?.data?.opportunities_avaliable]);
-
 	return (
 		<>
 			{cardsInfo !== undefined ? (
-				imoveisDisponiveis?.map((cards: IOpportunitiesCard) => (
+				cardsInfo?.data?.map((cards: IOpportunitiesCard) => (
 					<Flex
 						key={cards._id}
 						w="18.125rem"

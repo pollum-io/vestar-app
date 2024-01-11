@@ -7,24 +7,13 @@ import { useUser } from "../../hooks/useUser";
 import { useTranslation } from "react-i18next";
 
 export const OpportunitiesContainer: FunctionComponent = (props: any) => {
-	const { getInfosId, getInfos } = useUser();
+	const { getInfosId } = useUser();
 	const [bannerRes] = useMediaQuery("(max-width: 1110px)");
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		getInfosId(
-			props?.user?.investor_pf === null
-				? props?.user?.investor_pj
-				: props?.user?.investor_pf
-		);
-		getInfos(props.token);
-	}, [
-		getInfos,
-		getInfosId,
-		props.token,
-		props?.user?.investor_pj,
-		props?.user?.investor_pf,
-	]);
+		getInfosId(props?.user?.email);
+	}, [getInfosId, props?.user?.email]);
 
 	return (
 		<DefaultTemplate>
