@@ -74,7 +74,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			getCotas();
 		},
 		// eslint-disable-next-line
-		[imovelDetails.token_address, account, dateEndend]
+		[imovelDetails?.token_address, account, dateEndend]
 	);
 
 	return (
