@@ -54,6 +54,10 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		currency: "BRL",
 	});
 
+	const earnTokens = () => {
+		//TODO
+	};
+
 	return (
 		<Flex
 			w="23.125rem"
@@ -134,42 +138,55 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 							</Text>
 						</Flex>
 
-						<Flex flexDir={"column"} alignItems="center" mt="1rem">
-							<Button
-								fontWeight={"500"}
-								fontSize={"md"}
-								bgColor="#FFFFFF"
-								color="#007088"
-								w="100%"
-								px="0.625rem"
-								py="1rem"
-								mb={ended ? "none" : "1rem"}
-								isDisabled={ended && !hasToken}
-								_hover={
-									ended && !hasToken
-										? { opacity: "0.3" }
-										: { bgColor: "#F7FAFC" }
-								}
-								onClick={() =>
-									push({
-										pathname: "/investir",
-										query: { id, cotas, oportunitiesAddress },
-									})
-								}
-							>
-								{ended
-									? hasToken
-										? "Ver tokens adquiridos"
-										: "Vendas encerradas"
-									: "Quero investir"}
-							</Button>
-							<Text
-								fontWeight={"400"}
-								fontSize={"xs"}
-								display={ended ? "none" : "flex"}
-							>
-								{t("opportunitieDetails.wontBe")}
-							</Text>
+						<Flex alignItems="center" mt="1rem" gap={"1"}>
+							{hasToken ? (
+								<Button
+									fontWeight={"500"}
+									fontSize={"md"}
+									bgColor="#FFFFFF"
+									color="#007088"
+									w="100%"
+									px="0.625rem"
+									py="1rem"
+									mb={ended ? "none" : "1rem"}
+									isDisabled={ended && !hasToken}
+									_hover={
+										ended && !hasToken
+											? { opacity: "0.3" }
+											: { bgColor: "#F7FAFC" }
+									}
+									onClick={() =>
+										push({
+											pathname: "/investir",
+											query: { id, cotas, oportunitiesAddress },
+										})
+									}
+								>
+									{ended
+										? t("opportunitieDetails.endedSales")
+										: t("opportunitieDetails.wantTo")}
+								</Button>
+							) : (
+								<Button
+									fontWeight={"500"}
+									fontSize={"md"}
+									bgColor="#FFFFFF"
+									color="#007088"
+									w="100%"
+									px="0.625rem"
+									py="1rem"
+									mb={ended ? "none" : "1rem"}
+									isDisabled={ended && !hasToken}
+									_hover={
+										ended && !hasToken
+											? { opacity: "0.3" }
+											: { bgColor: "#F7FAFC" }
+									}
+									onClick={earnTokens}
+								>
+									Earn tokens
+								</Button>
+							)}
 						</Flex>
 					</Flex>
 				</Flex>
