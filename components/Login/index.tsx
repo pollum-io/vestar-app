@@ -201,6 +201,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							lineHeight="1rem"
 							color="#007D99"
 							bg={"transparent"}
+							onClick={() => push("/criar_conta")}
 							_hover={{ opacity: 0.8 }}
 						>
 							{t("login.register")}
