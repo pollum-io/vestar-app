@@ -5,6 +5,7 @@ import { useUser } from "../../hooks/useUser";
 import { apiInstance } from "../../services/api";
 import { useTranslation } from "react-i18next";
 import { useToasty } from "../../hooks/useToasty";
+import bgImage from "/public/images/backgrounds/loginBg.jpg";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
@@ -57,20 +58,37 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			height="100vh"
 			justifyContent="space-between"
 		>
+			<Img
+				position={"absolute"}
+				zIndex={"1"}
+				w="100vw"
+				h="100vh"
+				src="/images/backgrounds/loginBg.jpg"
+			/>
 			<Flex
 				flex="1"
 				h="100vh"
 				justifyContent="center"
 				alignItems="center"
 				fontFamily="Poppins"
+				zIndex={"99"}
 			>
-				<Flex flexDirection="column" w="22rem" justifyContent="center">
+				<Flex
+					flexDirection="column"
+					justifyContent="center"
+					w={"24%"}
+					boxShadow="0rem 1.25rem 1.5625rem rgba(31, 41, 55, 0.1), 0rem 0.625rem 0.625rem rgba(31, 41, 55, 0.04)"
+					p={"3rem"}
+				>
 					<Flex flexDirection="column" gap="2">
-						<Img
-							w="max-content"
-							h="max-content"
-							src="images/backgrounds/LivnLogo.png"
-						/>
+						<Text
+							bgGradient="linear(to-l, #1789A3, #9ccbd6)"
+							bgClip="text"
+							fontSize="2rem"
+							fontWeight="extrabold"
+						>
+							REP
+						</Text>
 						<Text
 							color="#1789A3"
 							fontSize="0.875rem"
@@ -207,13 +225,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 						</Button>
 					</Flex>
 				</Flex>
-			</Flex>
-			<Flex h="100%" justifyContent="flex-end" flex="1">
-				<Img
-					src="images/backgrounds/LoginBackground.png"
-					h="100%"
-					w="max-content"
-				/>
 			</Flex>
 		</Flex>
 	);
