@@ -78,8 +78,6 @@ export const ImovelDetail: FunctionComponent<IImovelProps> = ({
 		[imovelDetails.token_address, account, dateEndend]
 	);
 
-	console.log(imovelDetails);
-
 	return (
 		<>
 			<Flex px="5rem" flexDir={"column"} alignItems="center">
