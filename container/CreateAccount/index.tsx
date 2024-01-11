@@ -21,6 +21,8 @@ import { RegisterSteps } from "../../components/Register/RegisterSteps";
 import { useRegister } from "../../hooks";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { RiCheckFill } from "react-icons/ri";
+import { apiInstance } from "../../services/api";
+import { useUser } from "../../hooks/useUser";
 
 type ComponentProps = {};
 
@@ -28,6 +30,8 @@ export const CreateAccountContainer: React.FC<ComponentProps> = props => {
 	const { toast } = useToasty();
 	const { t } = useTranslation();
 	const { push } = useRouter();
+	const api = apiInstance();
+	const { getInfosId } = useUser();
 
 	const [firstStep, setFirstStep] = useState<boolean>(true);
 	const [secondStep, setSecondStep] = useState<boolean>(false);
@@ -53,9 +57,15 @@ export const CreateAccountContainer: React.FC<ComponentProps> = props => {
 	}, [buttonScore, firstPassword, secondPassword]);
 
 	const handleVerifyPasswordChange = async () => {
-		const data = { email, password };
+		const emailAndPassword = { email, password };
 		try {
-			await fetchCreateUser(data);
+			await fetchCreateUser(emailAndPassword);
+			const data: any = await api.post("/user/authenticate", {
+				email: emailAndPassword.email,
+				password: emailAndPassword.password,
+			});
+			getInfosId(data?.data?.user?.email);
+
 			toast({
 				id: "toast-login-suc",
 				position: "top-right",
@@ -63,7 +73,7 @@ export const CreateAccountContainer: React.FC<ComponentProps> = props => {
 				title: t("toast.accountCreated"),
 				description: t("toast.accountCreatedDesc"),
 			});
-			push("/oportunidades");
+			push(!data?.data ? "/" : "/oportunidades");
 		} catch (err) {
 			toast({
 				id: "toast-login-suc",
