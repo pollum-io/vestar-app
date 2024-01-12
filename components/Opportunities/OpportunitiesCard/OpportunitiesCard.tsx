@@ -86,10 +86,10 @@ export const OpportunitiesCard: FunctionComponent<
 						}}
 						transition="150ms"
 						onClick={() => {
-							 router.push({
-										pathname: `/oportunidades/${cards._id}`,
-										query: { id: cards._id },
-								  });
+							router.push({
+								pathname: `/oportunidades/${cards._id}`,
+								query: { id: cards._id },
+							});
 						}}
 					>
 						<Flex
@@ -352,14 +352,9 @@ export const OpportunitiesCard: FunctionComponent<
 	);
 };
 
-export const OpportunitiesCards: FunctionComponent<any> = ({
-	id,
-	investorId,
-	enterpriseData,
-	isPortfolio,
-	host,
-	token,
-}) => {
+export const OpportunitiesCards: FunctionComponent<
+	IOpportunitiesCompaniesCard
+> = ({ id, investorId, enterpriseData, isPortfolio, host, token }) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
