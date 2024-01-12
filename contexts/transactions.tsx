@@ -187,11 +187,12 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return drexRaised;
 	};
 
-	const calculateTokenAmount = async (crowdSaleAddress: string) => {
+	const calculateTokenAmount = async (crowdSaleAddress: number, amount: number) => {
 		const tokenAmount = await publicClient?.readContract({
 			address: crowdSaleAddress,
 			abi: crowdSaleABI,
 			functionName: "calculateTokenAmount",
+			args:[amount]
 		});
 
 		return tokenAmount;
@@ -227,10 +228,19 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return tokenSold;
 	};
 
+	const getTotalSupply = async (crowdSaleAddress: string) => {
+		const totalSupply = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "totalSupply",
+		});
+
+		return totalSupply;
+	};
+
 
 	const providerValue = useMemo(
-		() => ({
-			getIsWhitelisted,
+		() => ({ getIsWhitelisted,getTokenSold, getAvailableTokens,calculateTokenAmount
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]

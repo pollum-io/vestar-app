@@ -30,8 +30,15 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
 	const [cota, setCota] = useState<number>(0);
+	const [availableTokens, setAvailableTokens] = useState<number>(-1);
+	const [tokenSold, setTokenSold] = useState<number>(-1);
+	const [unitPrice, setUnitPrice] = useState<number>(-1);
+	const [maxBuyAllowed, setMaxBuyAllowed] = useState<number>(-1);
+	const [drexRaised, setDrexRaised] = useState<number>(-1);
+	const [toClaim, setToClaim] = useState<number>(-1);
+	const [forRefund, setForRefund] = useState<number>(-1);
 	const { account } = useWallet();
-	const { getIsWhitelisted } = useTransactions();
+	const { getAvailableTokens, getTokenSold, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund } = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -63,25 +70,49 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				if (account) {
-					const valorDeCotas = await getIsWhitelisted('0x8F0d3718689CdbA2b309d33a9a03eB81cE2c17F2', '0xFC6e0F952B2603669E5D39A9CA2DD7BD1c89184a');
-					// setCota(Number(valorDeCotas));
-					console.log('account', valorDeCotas)
-				} else {
-					console.log('no')
+				// No wallet connect needed
+				if (imovelDetails.sale_address) {
+					const tokenSold = await getTokenSold(
+						imovelDetails.sale_address,
+					);
+					const availableTokens = await getAvailableTokens(
+						imovelDetails.sale_address,
+					);
+					const maxBuyAllowed = await getMaxBuyAllowed(
+						imovelDetails.sale_address
+					);
+					const drexRaised = await getDrexRaised(
+						imovelDetails.sale_address
+					);
+					const unitPrice = await calculateTokenAmount(
+						imovelDetails.sale_address, 100000
+					);
+
+					setTokenSold(Number(tokenSold));
+					setAvailableTokens(Number(availableTokens));
+					setUnitPrice(Number(unitPrice));
+					setMaxBuyAllowed(Number(maxBuyAllowed));
+					setDrexRaised(Number(drexRaised));
 				}
-				// if (imovelDetails.token_address && account) {
-				// 	const valorDeCotas = await shares(
-				// 		imovelDetails.token_address,
-				// 		account
-				// 	);
-				// 	setCota(Number(valorDeCotas));
-				// }
+
+				// Wallet connected needed
+				if (imovelDetails.sale_address && account) {
+					const toClaim = await getAvailableTokensToClaim(
+						imovelDetails.sale_address, account
+					);
+					const forRefund = await getDrexAvailableForRefund(
+						imovelDetails.sale_address, account
+					);
+
+					setToClaim(Number(toClaim));
+					setForRefund(Number(forRefund));
+
+				}
 			};
 			getCotas();
 		},
 		// eslint-disable-next-line
-		[imovelDetails?.token_address, account, dateEndend]
+		[imovelDetails?.sale_address, account, dateEndend]
 	);
 
 	return (
@@ -159,7 +190,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										<Text fontSize={"xs"} color="#718096">
 											R$
 										</Text>
-										<Text color="#000000">{`${imovelDetails?.min_investment}$`}</Text>
+										<Text color="#000000">{`${"???"}$`}</Text> {/* TODO */}
 									</Flex>
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
@@ -168,7 +199,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									</Text>
 									<Flex gap="0.25rem">
 										<Text color="#000000">
-											{formatDate(imovelDetails?.init_date)}
+											{formatDate(imovelDetails?.init_date)} {/* TODO */}
 										</Text>
 									</Flex>
 								</Flex>
@@ -283,6 +314,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									color="#FFFFFF"
 									h="max-content"
 								>
+									{/* TODO */}
 									<Countdown
 										date={imovelDetails?.sale_end_at}
 										renderer={renderer}
@@ -305,13 +337,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									</Text>
 								</Flex>
 							)}
+							{/* TODO */}
 							<PriceCard
 								id={imovelDetails?._id}
-								address={imovelDetails?.token_address}
-								minted={imovelDetails?.token_minted}
-								price={imovelDetails?.token_price}
-								supply={imovelDetails?.token_supply}
-								oportunitiesAddress={imovelDetails?.token_address}
+								address={imovelDetails?.sale_address}
+								minted={tokenSold}
+								price={unitPrice}
+								supply={availableTokens}
+								oportunitiesAddress={imovelDetails?.sale_address}
 								investor_pf={usersId?.investor_pf}
 								investor_pj={usersId?.investor_pj}
 							/>{" "}
