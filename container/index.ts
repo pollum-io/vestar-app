@@ -2,6 +2,7 @@ export * from "./AppWrapper";
 export * from "./Change_Password";
 export * from "./Companie";
 export * from "./Companies";
+export * from "./CreateAccount";
 export * from "./DefaultTemplate";
 export * from "./Edit_Profile";
 export * from "./Forgot_Password";

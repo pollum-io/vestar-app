@@ -18,7 +18,7 @@
 		"noCode": "Didn't receive the link?",
 		"resend": "Resend Code",
 		"newPassword": "New password",
-		"mustContain": "Must contain at least X characters including numbers and letters",
+		"mustContain": "Must contain at least 8 characters including numbers and letters",
 		"confirmPassword": "Confirm new password",
 		"confirm": "Confirm",
 		"password": "Password",
@@ -147,7 +147,7 @@
 		"opportunities": "Opportunities"
 	},
 	"portfolio": {
-		"hello": "Hello, {{Name}}!",
+		"hello": "Hello, {{Name}} !",
 		"thisIs": "This is your portfolio from {{28/nov/22}}",
 		"summary": "Sales Summary",
 		"currentAssets": "Current Assets",
@@ -239,5 +239,9 @@
 		"en": "English",
 		"portfolio": "Portfolio",
 		"companies": "Companies"
+	},
+	"toast": {
+		"accountCreated": "Account created successfully!",
+		"accountCreatedDesc": "Now login to the home page."
 	}
 }
