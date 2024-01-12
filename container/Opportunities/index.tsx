@@ -48,14 +48,6 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 						px={["", "", "", "1rem", "unset"]}
 					>
 						<Flex position="relative" alignItems="center">
-							<Img
-								w="max-content"
-								h="100%"
-								src="images/backgrounds/woman.png"
-								position="absolute"
-								zIndex="base"
-								left="6rem"
-							/>
 							<Text
 								w="18rem"
 								fontFamily="Poppins"
