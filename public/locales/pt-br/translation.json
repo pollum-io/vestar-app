@@ -18,7 +18,7 @@
 		"noCode": "Não recebeu o link?",
 		"resend": "Reenviar Código",
 		"newPassword": "Nova senha",
-		"mustHave": "Deve conter no mínimo X caracteres incluindo números e letras",
+		"mustHave": "Deve conter no mínimo 8 caracteres incluindo números e letras",
 		"confirmPassword": "Confirmar nova senha",
 		"confirm": "Confirmar",
 		"password": "Senha",
@@ -147,7 +147,7 @@
 		"opportunities": "Oportunidades"
 	},
 	"portfolio": {
-		"hello": "Olá, {{Name}}!",
+		"hello": "Olá, {{Name}} !",
 		"thisIs": "Esse é o seu portfólio de {{value}}",
 		"summary": "Resumo de Vendas",
 		"currentAssets": "Patrimônio Atual",
@@ -237,5 +237,9 @@
 		"en": "Inglês",
 		"portfolio": "Portfólio",
 		"companies": "Empresas"
+	},
+	"toast": {
+		"accountCreated": "Conta criada com sucesso!",
+		"accountCreatedDesc": "Agora efetue o login na pagina inicial."
 	}
 }

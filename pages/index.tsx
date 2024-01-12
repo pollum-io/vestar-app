@@ -25,10 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		: {
 				redirect: {
 					permanent: false,
-					destination:
-						!user?.investor_pf && !user?.investor_pj
-							? "/registrar"
-							: "/oportunidades",
+					destination: !token ? "/" : "/oportunidades",
 				},
 				props: { user, token },
 		  };
