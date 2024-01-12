@@ -18,14 +18,13 @@ export const Footer: React.FC = () => {
 		>
 			<Flex flexDir={"column"} gap="0.4375rem">
 				<Flex gap={"0.5rem"} alignItems={"center"}>
-					<Flex
-						border={"1px solid #fff"}
-						w="1rem"
-						h={"1rem"}
-						borderRadius="1rem"
-					/>
-					<Text fontSize={"sm"} fontWeight="400">
-						LOGO NAME
+					<Text
+						bgGradient="linear(to-l, #8ac3cf, #6dbdcf)"
+						bgClip="text"
+						fontSize="lg"
+						fontWeight="extrabold"
+					>
+						REP
 					</Text>
 				</Flex>
 				<Text fontSize={"sm"} fontWeight="400">
