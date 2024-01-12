@@ -53,7 +53,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 			await waitForApproval(txHash);
 			await fetchUserApproveData(spender, address, String(amount), token);
 		} catch (err: any) {
-			console.log(err, "Erro");
+			console.error(err, "Erro");
 		}
 	};
 
