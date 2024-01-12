@@ -35,16 +35,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	const response = await fetchGetInvestorPFById(query.id, token, host);
 
-	if (!user?.investor_pf && !user?.investor_pj) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: "/registrar",
-			},
-			props: {},
-		};
-	}
-
 	return {
 		props: {
 			user,
