@@ -1,4 +1,4 @@
-import { Flex, Img } from "@chakra-ui/react";
+import { Flex, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Oval } from "react-loader-spinner";
 import { useUser } from "../../hooks/useUser";
@@ -24,7 +24,14 @@ export const Header: React.FC = () => {
 				onClick={() => push("/oportunidades")}
 				_hover={{ cursor: "pointer" }}
 			>
-				<Img src={"/images/livnlogo.png"} w="5" h="7" alt="Livn logo" />
+				<Text
+					bgGradient="linear(to-l, #1789A3, #9ccbd6)"
+					bgClip="text"
+					fontSize="2rem"
+					fontWeight="extrabold"
+				>
+					REP
+				</Text>{" "}
 			</Flex>
 			<Flex>
 				<HeaderLinks />
