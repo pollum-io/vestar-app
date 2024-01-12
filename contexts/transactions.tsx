@@ -1,10 +1,9 @@
 import React, { createContext, useMemo, useState } from "react";
-import { createPublicClient, custom, getAccount, http } from "viem";
-import { polygonMumbai } from "viem/chains";
+import { createPublicClient, custom, Account, http, defineChain } from "viem";
 import { useWallet } from "../hooks/useWallet";
 import { fetchUserApproveData } from "../services/fetchUserApproveData";
-import ERC20Mod from "../utils/abi/ERC20Mod.json";
-import livnERC20 from "../utils/abi/livnERC20.json";
+import { abi as compliantTokenABI} from "../utils/abi/compliantToken.json";
+import { abi as crowdSaleABI} from "../utils/abi/crowdSale.json";
 import PersistentFramework from "../utils/persistent";
 
 declare let window: any;
@@ -13,6 +12,37 @@ interface ITransactions {
 	shares: any;
 	approve: any;
 }
+
+export const ripple = defineChain({
+  id: 1440002,
+  name: 'XRPL EVM Sidechain',
+  network: 'xrpl',
+  nativeCurrency: {
+    decimals: 6,
+    name: 'XRP',
+    symbol: 'XRP',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc-evm-sidechain.xrpl.org'],
+      // webSocket: ['wss://rpc.zora.energy'],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'Explorer', url: 'https://evm-sidechain.xrpl.org' },
+  },
+  contracts: {
+    compliantToken: {
+      address: '0x8F0d3718689CdbA2b309d33a9a03eB81cE2c17F2',
+      blockCreated: 5443218,
+    },
+    crowdSale: {
+      address: '0x9F8c217Fa1D510D7B2bE75C088Cc28A0F87b440b',
+      blockCreated: 5443220,
+    },
+  },
+})
+
 
 export const TransactionsContext = createContext({} as ITransactions);
 
@@ -27,7 +57,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		typeof window?.ethereum !== "undefined"
 	) {
 		publicClient = createPublicClient({
-			chain: polygonMumbai,
+			chain: ripple,
 			transport: http(),
 		});
 	}
@@ -78,15 +108,103 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 	};
 
-	const shares = async (oportunityAddress: string, accountAddress: string) => {
-		const sharesValue = await publicClient?.readContract({
-			address: oportunityAddress,
-			abi: livnERC20,
-			functionName: "balanceOf",
+	//////////////////////////////////
+	// Compliant Token
+	//////////////////////////////////
+
+
+	//////////////////////////////////
+	// Crowd Sale
+	//////////////////////////////////
+	const getBoughtTokens = async (crowdSaleAddress: string, accountAddress: string) => {
+		const boughtTokens = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "getBoughtTokens",
 			args: [accountAddress],
 		});
-		return sharesValue;
+		return boughtTokens;
 	};
+
+	const getDrexAvailableForRefund = async (crowdSaleAddress: string, accountAddress: string) => {
+		const drexAvailable = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "getDrexAvailableForRefund",
+			args: [accountAddress],
+		});
+		return drexAvailable;
+	};
+
+	const getAvailableTokensToClaim = async (crowdSaleAddress: string, accountAddress: string) => {
+		const tokensToClaim = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "getAvailableTokensToClaim",
+			args: [accountAddress],
+		});
+		return tokensToClaim;
+	};
+
+	const getAvailableTokens = async (crowdSaleAddress: string) => {
+		const availableTokens = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "getAvailableTokens",
+		});
+
+		return availableTokens;
+	};
+
+	const getDrexRaised = async (crowdSaleAddress: string) => {
+		const drexRaised = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "drexRaised",
+		});
+		return drexRaised;
+	};
+
+	const calculateTokenAmount = async (crowdSaleAddress: string) => {
+		const tokenAmount = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "calculateTokenAmount",
+		});
+
+		return tokenAmount;
+	};
+
+	const getCloseTime = async (crowdSaleAddress: string) => {
+		const closeTime = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "closeTime",
+		});
+
+		return closeTime;
+	};
+
+	const getMaxBuyAllowed = async (crowdSaleAddress: string) => {
+		const maxBuyAllowed = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "maxBuyAllowed",
+		});
+
+		return maxBuyAllowed;
+	};
+
+	const getTokenSold = async (crowdSaleAddress: string) => {
+		const tokenSold = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: "tokenSold",
+		});
+
+		return tokenSold;
+	};
+
 
 	const providerValue = useMemo(
 		() => ({
