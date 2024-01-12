@@ -107,14 +107,10 @@ export const OpportunitiesCard: FunctionComponent<
 						}}
 						transition="150ms"
 						onClick={() => {
-							cards.token_minted === cards.token_supply ||
-							currentTime >= new Date(cards?.sale_end_at) ||
-							!cards?.isAvailable
-								? null
-								: router.push({
-										pathname: `/oportunidades/${cards._id}`,
-										query: { id: cards._id },
-								  });
+							router.push({
+								pathname: `/oportunidades/${cards._id}`,
+								query: { id: cards._id },
+							});
 						}}
 					>
 						<Flex
@@ -298,7 +294,7 @@ export const OpportunitiesCard: FunctionComponent<
 												{t("opportunities.card.estConc")}
 											</Text>
 											<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
-												{formatDate(cards.expected_delivery_date)}
+												{formatDate(cards?.expected_delivery_date)}
 											</Text>
 										</Flex>
 									</Flex>
