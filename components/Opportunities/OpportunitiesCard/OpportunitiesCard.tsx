@@ -86,10 +86,14 @@ export const OpportunitiesCard: FunctionComponent<
 						}}
 						transition="150ms"
 						onClick={() => {
-							router.push({
-								pathname: `/oportunidades/${cards._id}`,
-								query: { id: cards._id },
-							});
+							cards.token_minted === cards.token_supply ||
+							currentTime >= new Date(cards?.sale_end_at) ||
+							!cards?.isAvailable
+								? null
+								: router.push({
+										pathname: `/oportunidades/${cards._id}`,
+										query: { id: cards._id },
+								  });
 						}}
 					>
 						<Flex
