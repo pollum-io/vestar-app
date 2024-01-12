@@ -25,7 +25,6 @@ export const ripple = defineChain({
   rpcUrls: {
     default: {
       http: ['https://rpc-evm-sidechain.xrpl.org'],
-      // webSocket: ['wss://rpc.zora.energy'],
     },
   },
   blockExplorers: {
@@ -41,7 +40,7 @@ export const ripple = defineChain({
       blockCreated: 5443220,
     },
   },
-})
+});
 
 
 export const TransactionsContext = createContext({} as ITransactions);
@@ -62,30 +61,30 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 	}
 
-	const approve = async (
-		spender: any,
-		amount: any,
-		address: `0x${string}`,
-		token?: any
-	) => {
-		try {
-			const { request } = await publicClient.simulateContract({
-				address: "0xf1afd12a36f60663cd41b69d486432cc32e3a336" as `0x${string}`,
-				abi: ERC20Mod,
-				functionName: "approve",
-				args: [spender, amount],
-				chain: polygonMumbai,
-				account: getAccount(address) || signer,
-			});
+	// const approve = async (
+	// 	spender: any,
+	// 	amount: any,
+	// 	address: `0x${string}`,
+	// 	token?: any
+	// ) => {
+	// 	try {
+	// 		const { request } = await publicClient.simulateContract({
+	// 			address: "0xf1afd12a36f60663cd41b69d486432cc32e3a336" as `0x${string}`,
+	// 			abi: ERC20Mod,
+	// 			functionName: "approve",
+	// 			args: [spender, amount],
+	// 			chain: polygonMumbai,
+	// 			account: getAccount(address) || signer,
+	// 		});
 
-			const txHash = await wallet?.writeContract(request);
+	// 		const txHash = await wallet?.writeContract(request);
 
-			await waitForApproval(txHash);
-			await fetchUserApproveData(spender, address, String(amount), token);
-		} catch (err: any) {
-			console.log(err, "Erro");
-		}
-	};
+	// 		await waitForApproval(txHash);
+	// 		await fetchUserApproveData(spender, address, String(amount), token);
+	// 	} catch (err: any) {
+	// 		console.log(err, "Erro");
+	// 	}
+	// };
 
 	const waitForApproval = async (txHash: string) => {
 		return new Promise((resolve, reject) => {
@@ -111,6 +110,29 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	//////////////////////////////////
 	// Compliant Token
 	//////////////////////////////////
+
+	const getIsWhitelisted = async (compliantTokenAddress: string, accountAddress: string) => {
+		// TODO: do it return something?
+		const isWhitelisted = await publicClient?.readContract({
+			address: compliantTokenAddress,
+			abi: compliantTokenABI,
+			functionName: "isWhitelisted",
+			args: [accountAddress],
+		});
+
+		return isWhitelisted;
+	};
+
+	const callAddToWhitelist = async (compliantTokenAddress: string, accountAddress: string) => {
+		// TODO: do it return something?
+		await publicClient?.writeContract({
+			address: compliantTokenAddress,
+			abi: compliantTokenABI,
+			functionName: "addToWhitelist",
+			args: [accountAddress],
+		});
+	};
+
 
 
 	//////////////////////////////////
@@ -208,8 +230,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const providerValue = useMemo(
 		() => ({
-			approve,
-			shares,
+			getIsWhitelisted,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]

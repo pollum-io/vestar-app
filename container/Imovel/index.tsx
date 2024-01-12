@@ -31,7 +31,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [ended, setEnded] = useState<any>();
 	const [cota, setCota] = useState<number>(0);
 	const { account } = useWallet();
-	const { shares } = useTransactions();
+	const { getIsWhitelisted } = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -63,13 +63,20 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				if (imovelDetails.token_address && account) {
-					const valorDeCotas = await shares(
-						imovelDetails.token_address,
-						account
-					);
-					setCota(Number(valorDeCotas));
+				if (account) {
+					const valorDeCotas = await getIsWhitelisted('0x8F0d3718689CdbA2b309d33a9a03eB81cE2c17F2', '0xFC6e0F952B2603669E5D39A9CA2DD7BD1c89184a');
+					// setCota(Number(valorDeCotas));
+					console.log('account', valorDeCotas)
+				} else {
+					console.log('no')
 				}
+				// if (imovelDetails.token_address && account) {
+				// 	const valorDeCotas = await shares(
+				// 		imovelDetails.token_address,
+				// 		account
+				// 	);
+				// 	setCota(Number(valorDeCotas));
+				// }
 			};
 			getCotas();
 		},
