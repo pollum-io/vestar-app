@@ -10,7 +10,7 @@ interface IImovelProps {
 }
 
 const Imovel: NextPage<IImovelProps> = ({ data, users }) => {
-	return <ImovelContainer imovel={data} usersId={users} />;
+	return <ImovelContainer imovelDetails={data} usersId={users} />;
 };
 export const getServerSideProps: GetServerSideProps = async ({
 	req,

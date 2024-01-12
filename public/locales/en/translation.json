@@ -147,7 +147,7 @@
 		"opportunities": "Opportunities"
 	},
 	"portfolio": {
-		"hello": "Hello, {{Name}}!",
+		"hello": "Hello, {{Name}} !",
 		"thisIs": "This is your portfolio from {{28/nov/22}}",
 		"summary": "Sales Summary",
 		"currentAssets": "Current Assets",

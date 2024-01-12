@@ -21,19 +21,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const user: any = jwt_decode(token);
 
-	if (!user?.investor_pf && !user?.investor_pj) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: "/registrar",
-			},
-			props: {
-				user,
-				token,
-			},
-		};
-	}
-
 	return {
 		props: {
 			user,
