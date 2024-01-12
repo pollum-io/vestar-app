@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { Button, Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { useRouter } from "next/router";
@@ -86,10 +86,10 @@ export const OpportunitiesCard: FunctionComponent<
 						}}
 						transition="150ms"
 						onClick={() => {
-							 router.push({
-										pathname: `/oportunidades/${cards._id}`,
-										query: { id: cards._id },
-								  });
+							router.push({
+								pathname: `/oportunidades/${cards._id}`,
+								query: { id: cards._id },
+							});
 						}}
 					>
 						<Flex
