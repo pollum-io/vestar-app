@@ -82,6 +82,8 @@
 		"start": "Início da Obra",
 		"initial": "Preço Inicial m²",
 		"final": "Preço Final m²",
+		"description": "Experimente uma vida de luxo como nunca antes no XR-Plaza, um novo sonho imobiliário que irá agraciar o local mais prestigiado e procurado de Florianópolis. Eleve seu estilo de vida com elegância incomparável e design moderno. Aproveite esta oportunidade exclusiva de investimento e faça parte do extraordinário legado que o XR-Plaza está preparado para criar no coração de Florianópolis.",
+		"neighbor_description": "A Beira Mar Norte em Florianópolis, Santa Catarina, é uma joia à beira-mar que cativa com sua paisagem deslumbrante e atmosfera vibrante. Com um calçadão pitoresco à margem da Baía Norte, oferece uma variedade de opções gastronômicas, espaços de lazer e uma vista panorâmica da Ponte Hercílio Luz. Esta região encantadora combina o charme histórico com uma vida moderna dinâmica, proporcionando uma experiência única que captura a essência acolhedora e sofisticada de Florianópolis.",
 		"select": "Selecione a Quantidade",
 		"quota": "token",
 		"total": "Total",
@@ -134,11 +136,11 @@
 		"card": {
 			"opportunities": "Oportunidades Disponíveis",
 			"closed": "Encerradas",
-			"learnMore": "Saiba mais"
+			"learnMore": "Veja perfil completo"
 		}
 	},
 	"companieDetails": {
-		"REPProp": "Empreendimentos REP",
+		"REPProp": "Empreendimentos VEstar",
 		"delivered": "Obras entregues",
 		"inProgress": "Em andamento",
 		"vgv": "VGV Total",
