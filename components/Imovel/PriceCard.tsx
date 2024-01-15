@@ -41,7 +41,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			console.error("Failed to copy text: ", error);
 		}
 	};
-	const avalible = useMemo(() => {
+	const available = useMemo(() => {
 		if (supply > minted) {
 			return supply - minted;
 		} else {
@@ -105,7 +105,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									transition: "all 0.4s",
 								}}
 								src={"/icons/PlusIcon.png"}
-								onClick={() => setCotas(cotas === avalible ? cotas : cotas + 1)}
+								onClick={() => setCotas(cotas === available ? cotas : cotas + 1)}
 							/>
 							<Img
 								_hover={{
@@ -229,17 +229,6 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						/>
 					</Flex>
 				</Flex>
-				<Flex
-					justifyContent={"space-between"}
-					display={isInvestidor ? "flex" : "none"}
-				>
-					<Text fontSize={"md"} fontWeight="400">
-						{t("opportunitieDetails.unit")}
-					</Text>
-					<Text fontSize={"md"} fontWeight="400">
-						R${price}
-					</Text>
-				</Flex>
 				<Flex justifyContent={"space-between"}>
 					<Text fontSize={"md"} fontWeight="400">
 						{t("opportunitieDetails.shares")}
@@ -253,7 +242,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.available")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						{avalible}
+						{supply}
 					</Text>
 				</Flex>
 			</Flex>
