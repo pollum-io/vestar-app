@@ -108,11 +108,12 @@
 		"yourShares": "tokens",
 		"expected": "Expected Profitability: ",
 		"closedIn": "Closed in ",
-		"unitPrice": "Unit price in the next batch: $",
+		"unitPrice": "Unit price",
 		"priceCard": {
 			"sharesName": "Token name",
 			"shares": "{{value}} tokens"
-		}
+		},
+		"maxAllowed": "Max. buy allowed"
 	},
 	"wantToInvest": {
 		"summary": "Investment summary",
