@@ -231,8 +231,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									</Text>
 									<Flex gap="0.25rem" alignItems="center" w="7rem">
 										<Text color="#000000">
-											{imovelDetails?.profitability}%{" "}
-											{t("opportunitieDetails.perYear")}
+											{60}%{" "}
 										</Text>
 										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
@@ -260,7 +259,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
-							<Text color={"#171923"}>{imovelDetails?.description}</Text>
+							<Text color={"#171923"}>{t("opportunitieDetails.description")}</Text>
 						</Flex>
 
 						<Flex mt="4rem" flexDir={"column"}>
@@ -363,25 +362,25 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Home.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
-								Todas as plantas da obra
+							{t("opportunitieDetails.floorPlans")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Edit-Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
-								Auditorias
+							{t("opportunitieDetails.audits")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Document.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
-								Notas Fiscais
+							{t("opportunitieDetails.invoices")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Folder.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="75%">
-								Documentos Extras
+							{t("opportunitieDetails.extraDoc")}
 							</Text>
 						</Flex>
 					</Flex>
@@ -416,7 +415,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							{imovelDetails?.address?.state}
 						</Text>
 						<Text fontSize={"sm"} color={"#171923"}>
-							{imovelDetails?.neighbor_description}
+							{t("opportunitieDetails.neighbor_description")}
 						</Text>
 					</Flex>
 					<Flex>

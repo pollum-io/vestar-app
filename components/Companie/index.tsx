@@ -71,7 +71,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 											lineHeight="1.25rem"
 											color="#007D99"
 										>
-											{t("companieDetails.livnProp")}
+											{t("companieDetails.REPProp")}
 										</Text>
 										<Text fontSize="1rem" lineHeight="1.5rem" color="#171923">
 											{companieDetail?.enterprise_info?.enterprises_livn}
