@@ -76,14 +76,12 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					p={"3rem"}
 				>
 					<Flex flexDirection="column" gap="2">
-						<Text
-							bgGradient="linear(to-l, #1789A3, #9ccbd6)"
-							bgClip="text"
-							fontSize="2rem"
-							fontWeight="extrabold"
-						>
-							REP
-						</Text>
+						<Img
+							w={"7rem"}
+							src="/images/vestar-assets/Asset5.svg"
+							transition={"0.8s"}
+							_hover={{ opacity: 0.6 }}
+						/>
 						<Text
 							color="#1789A3"
 							fontSize="0.875rem"
