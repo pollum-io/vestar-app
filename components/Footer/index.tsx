@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
 			<Flex flexDir={"column"} gap="0.4375rem">
 				<Flex gap={"0.5rem"} alignItems={"center"}>
 					<Img
-						w={"5rem"}
+						w={"6rem"}
 						src="/images/vestar-assets/Asset8.svg"
 						transition={"0.8s"}
 						_hover={{ opacity: 0.6 }}
