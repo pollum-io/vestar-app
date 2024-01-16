@@ -4,12 +4,15 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCopy } from "react-icons/fi";
 import { useOpportunities } from "../../hooks/useOpportunities";
+import { useTransactions } from "../../hooks/useTransactions";
+import { useWallet } from "../../hooks/useWallet";
 interface IPriceCard {
 	id: any;
+	drex_address: string;
+	isWhitelisted: bool;
 	price: number;
 	minted: number;
 	supply: number;
-	address: string;
 	oportunitiesAddress: string;
 	investor_pf?: string;
 	investor_pj?: string;
@@ -18,10 +21,11 @@ interface IPriceCard {
 export const PriceCard: React.FC<IPriceCard> = props => {
 	const {
 		id,
+		drex_address,
+		isWhitelisted,
 		price,
 		minted,
 		supply,
-		address,
 		oportunitiesAddress,
 		investor_pf,
 		investor_pj,
@@ -32,7 +36,10 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
+	const { callAddToWhitelist  } = useTransactions();
+	const { connectWallet, isConnected, signer, account } = useWallet();
 
+	console.log('is? ', isWhitelisted);
 	const handleClick = async (value: string) => {
 		try {
 			await navigator.clipboard.writeText(value);
@@ -49,13 +56,22 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		}
 	}, [minted, supply]);
 
+
 	const formatter = new Intl.NumberFormat("pt-br", {
 		style: "currency",
 		currency: "BRL",
 	});
 
-	const earnTokens = () => {
+	const earnTokens = async (drex_address) => {
 		//TODO
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			await await callAddToWhitelist(
+				drex_address, "0xFC6e0F952B2603669E5D39A9CA2DD7BD1c89184a"
+			);
+			return;
+		}
 	};
 
 	return (
@@ -139,7 +155,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						</Flex>
 
 						<Flex alignItems="center" mt="1rem" gap={"1"}>
-							{hasToken ? (
+							{isWhitelisted ? (
 								<Button
 									fontWeight={"500"}
 									fontSize={"md"}
@@ -182,7 +198,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-									onClick={earnTokens}
+								onClick={() => earnTokens(drex_address)}
 								>
 									Earn tokens
 								</Button>
@@ -217,14 +233,14 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
-							{`${address?.slice(0, 5)}...${address?.slice(38)}`}
+							{`${drex_address?.slice(0, 5)}...${drex_address?.slice(38)}`}
 						</Text>
 						<Icon
 							color={"#4BA3B7"}
 							w={4}
 							h={4}
 							as={FiCopy}
-							onClick={() => handleClick(address)}
+							onClick={() => handleClick(drex_address)}
 							_hover={{ cursor: "pointer" }}
 						/>
 					</Flex>

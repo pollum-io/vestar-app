@@ -38,8 +38,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [drexRaised, setDrexRaised] = useState<number>(-1);
 	const [toClaim, setToClaim] = useState<number>(-1);
 	const [forRefund, setForRefund] = useState<number>(-1);
+	const [isWhitelisted, setIsWhitelisted] = useState<bool>(false);
 	const { account } = useWallet();
-	const { getAvailableTokens, getTokenSold, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getDrexRaised,getTotalSupply } = useTransactions();
+	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getDrexRaised,getTotalSupply } = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -109,8 +110,17 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						imovelDetails.sale_address, account
 					);
 
+					// DREX
+					// const whitelist = await callAddToWhitelist(
+					// 	imovelDetails.drex_address, account
+					// );
+					const isWhitelisted = await getIsWhitelisted(
+						imovelDetails.drex_address, account
+					);
+
 					setToClaim(Number(toClaim));
 					setForRefund(Number(forRefund));
+					setIsWhitelisted(isWhitelisted);
 
 				}
 			};
@@ -335,7 +345,8 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							{/* TODO */}
 							<PriceCard
 								id={imovelDetails?._id}
-								address={imovelDetails?.sale_address}
+								address={imovelDetails?.drex_address}
+								isWhitelisted={isWhitelisted}
 								minted={tokenSold}
 								price={unitPrice}
 								supply={availableTokens}
