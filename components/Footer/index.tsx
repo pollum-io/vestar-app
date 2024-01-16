@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
 			w="100%"
 			h="max"
 			borderTopRadius="2xl"
-			bgColor={"#1789A3"}
+			bgColor={"#003243"}
 			px="2.8125rem"
 			py="1rem"
 			gap="10rem"
