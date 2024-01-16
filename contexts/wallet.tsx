@@ -3,7 +3,6 @@ import {
 	Account,
 	createWalletClient,
 	custom,
-	getAccount,
 	WalletClient,
 	defineChain
 } from "viem";
@@ -38,11 +37,11 @@ const ripple = defineChain({
   },
   contracts: {
     compliantToken: {
-      address: '0x8F0d3718689CdbA2b309d33a9a03eB81cE2c17F2',
+      address: '0x8AA894614874a22c74dCa03c6421655bc590a072',
       blockCreated: 5443218,
     },
     crowdSale: {
-      address: '0x9F8c217Fa1D510D7B2bE75C088Cc28A0F87b440b',
+      address: '0x43146a4a32E44Bd1e166b1F8062b99C38aA19072',
       blockCreated: 5443220,
     },
   },
@@ -63,6 +62,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 		typeof window?.ethereum !== "undefined"
 	) {
 		wallet = createWalletClient({
+			chain: ripple,
 			transport: custom(window.ethereum),
 		});
 	}
@@ -85,7 +85,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 					const [address] = await wallet.requestAddresses();
 					setAccount(address);
 					setIsConnected(true);
-					setSigner(getAccount(address));
+					setSigner(address);
 					PersistentFramework.add("connected", { isConnected: true });
 					PersistentFramework.add("address", address);
 				}
