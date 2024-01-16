@@ -18,14 +18,12 @@ export const Footer: React.FC = () => {
 		>
 			<Flex flexDir={"column"} gap="0.4375rem">
 				<Flex gap={"0.5rem"} alignItems={"center"}>
-					<Text
-						bgGradient="linear(to-l, #8ac3cf, #6dbdcf)"
-						bgClip="text"
-						fontSize="lg"
-						fontWeight="extrabold"
-					>
-						REP
-					</Text>
+					<Img
+						w={"5rem"}
+						src="/images/vestar-assets/Asset8.svg"
+						transition={"0.8s"}
+						_hover={{ opacity: 0.6 }}
+					/>
 				</Flex>
 				<Text fontSize={"sm"} fontWeight="400">
 					{t("login.liveInvesting")}
