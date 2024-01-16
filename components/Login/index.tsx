@@ -5,7 +5,6 @@ import { useUser } from "../../hooks/useUser";
 import { apiInstance } from "../../services/api";
 import { useTranslation } from "react-i18next";
 import { useToasty } from "../../hooks/useToasty";
-import bgImage from "/public/images/backgrounds/loginBg.jpg";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
 	const { push } = useRouter();
@@ -21,7 +20,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				email: email,
 				password: password,
 			});
-			console.log(email);
 			getInfosId(email);
 			toast({
 				id: "toast-login-suc",
