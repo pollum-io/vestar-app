@@ -283,7 +283,32 @@ export const CreateAccountContainer: React.FC<ComponentProps> = props => {
 									password={firstPassword}
 								/>
 							</Flex>
-							<Flex mt={"10"}>
+							<Flex mt={"10"} gap="2">
+								<Button
+									fontStyle="normal"
+									fontWeight="500"
+									fontSize="0.875rem"
+									lineHeight="1.25rem"
+									color="#FFFFFF"
+									border="none"
+									borderRadius="0.5rem"
+									w="100%"
+									h="2.2rem"
+									bgColor="#003243"
+									_hover={{
+										cursor: "pointer",
+										bgColor: "#003243",
+										boxShadow:
+											"0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+									}}
+									onClick={() => {
+										setFirstStep(true);
+										setSecondStep(false);
+										push("/");
+									}}
+								>
+									{t("register.back")}
+								</Button>
 								<Button
 									fontStyle="normal"
 									fontWeight="500"
