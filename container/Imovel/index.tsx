@@ -35,12 +35,11 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [tokenSold, setTokenSold] = useState<number>(-1);
 	const [unitPrice, setUnitPrice] = useState<number>(-1);
 	const [maxBuyAllowed, setMaxBuyAllowed] = useState<number>(-1);
-	const [drexRaised, setDrexRaised] = useState<number>(-1);
 	const [toClaim, setToClaim] = useState<number>(-1);
 	const [forRefund, setForRefund] = useState<number>(-1);
 	const [isWhitelisted, setIsWhitelisted] = useState<bool>(false);
 	const { account } = useWallet();
-	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getDrexRaised,getTotalSupply } = useTransactions();
+	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getTotalSupply } = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -86,9 +85,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					const maxBuyAllowed = await getMaxBuyAllowed(
 						imovelDetails.sale_address
 					);
-					const drexRaised = await getDrexRaised(
-						imovelDetails.sale_address
-					);
 					const unitPrice = await calculateTokenAmount(
 						imovelDetails.sale_address, 1000000
 					);
@@ -98,7 +94,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					setTokenSold(Number(tokenSold));
 					setUnitPrice(Number(unitPrice) / Number(1e18));
 					setMaxBuyAllowed(Number(maxBuyAllowed));
-					setDrexRaised(Number(drexRaised));
 				}
 
 				// Wallet connected needed

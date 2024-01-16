@@ -8,7 +8,7 @@ import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 interface IPriceCard {
 	id: any;
-	drex_address: string;
+	compliantToken: string;
 	isWhitelisted: bool;
 	price: number;
 	minted: number;
@@ -21,7 +21,7 @@ interface IPriceCard {
 export const PriceCard: React.FC<IPriceCard> = props => {
 	const {
 		id,
-		drex_address,
+		compliantToken,
 		isWhitelisted,
 		price,
 		minted,
@@ -36,8 +36,8 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
-	const { callAddToWhitelist  } = useTransactions();
-	const { connectWallet, isConnected, signer, account } = useWallet();
+	const { callAddToWhitelist, callBuyToken, approve  } = useTransactions();
+	const { connectWallet, isConnected, signer } = useWallet();
 
 	console.log('is? ', isWhitelisted);
 	const handleClick = async (value: string) => {
@@ -62,17 +62,33 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		currency: "BRL",
 	});
 
-	const earnTokens = async (drex_address) => {
-		//TODO
+	const earnTokens = async (compliantToken: string, address: string) => {
 		if (!isConnected || !signer) {
 			return await connectWallet();
 		} else {
 			await await callAddToWhitelist(
-				drex_address, "0xFC6e0F952B2603669E5D39A9CA2DD7BD1c89184a"
+				compliantToken, address
 			);
 			return;
 		}
 	};
+
+	const buyTokens = async (saleAddress: string, amount: number, accountAddress: string) => {
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			/// APPROVE
+			await approve(
+				saleAddress, amount, accountAddress
+			);
+
+			/// BUY
+			await callBuyToken(
+				amount, accountAddress
+			);
+			return;
+		}
+	}
 
 	return (
 		<Flex
@@ -171,12 +187,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-									onClick={() =>
-										push({
-											pathname: "/investir",
-											query: { id, cotas, oportunitiesAddress },
-										})
-									}
+									onClick={() => buyTokens(oportunitiesAddress, 1000000000, signer)}
 								>
 									{ended
 										? t("opportunitieDetails.endedSales")
@@ -198,7 +209,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-								onClick={() => earnTokens(drex_address)}
+								onClick={() => earnTokens(compliantToken, signer)}
 								>
 									Earn tokens
 								</Button>
@@ -233,14 +244,14 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
-							{`${drex_address?.slice(0, 5)}...${drex_address?.slice(38)}`}
+							{`${compliantToken?.slice(0, 5)}...${compliantToken?.slice(38)}`}
 						</Text>
 						<Icon
 							color={"#4BA3B7"}
 							w={4}
 							h={4}
 							as={FiCopy}
-							onClick={() => handleClick(drex_address)}
+							onClick={() => handleClick(compliantToken)}
 							_hover={{ cursor: "pointer" }}
 						/>
 					</Flex>
