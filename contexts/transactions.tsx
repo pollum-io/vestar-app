@@ -112,7 +112,6 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	//////////////////////////////////
 
 	const getIsWhitelisted = async (compliantTokenAddress: string, accountAddress: string) => {
-		// TODO: do it return something?
 		const isWhitelisted = await publicClient?.readContract({
 			address: compliantTokenAddress,
 			abi: compliantTokenABI,
@@ -125,12 +124,21 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const callAddToWhitelist = async (compliantTokenAddress: string, accountAddress: string) => {
 		// TODO: do it return something?
-		await publicClient?.writeContract({
+		console.log("here");
+
+		const request = await publicClient?.simulateContract({
 			address: compliantTokenAddress,
 			abi: compliantTokenABI,
 			functionName: "addToWhitelist",
 			args: [accountAddress],
 		});
+
+		console.log("here2");
+		const txHash = await wallet?.writeContract(request);
+
+		console.log("here3");
+		await waitForApproval(txHash);
+		console.log("here4");
 	};
 
 
@@ -240,7 +248,9 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 
 	const providerValue = useMemo(
-		() => ({ getIsWhitelisted,getTokenSold, getAvailableTokens,calculateTokenAmount, getMaxBuyAllowed, getDrexRaised
+		() => ({ getIsWhitelisted,getTokenSold, getAvailableTokens,
+			getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted,
+			calculateTokenAmount, getMaxBuyAllowed, getDrexRaised, callAddToWhitelist
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]
