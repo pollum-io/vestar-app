@@ -1,6 +1,6 @@
 import { Button, Flex, Icon, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCopy } from "react-icons/fi";
 import { useOpportunities } from "../../hooks/useOpportunities";
@@ -28,7 +28,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	} = props;
 	const [isInvestidor, setIsInvestidor] = useState(investor_pf ? true : false);
 	const { ended, hasToken } = useOpportunities();
-	const { push } = useRouter();
+	const { push, prefetch } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
@@ -57,6 +57,12 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const earnTokens = () => {
 		//TODO
 	};
+
+	useEffect(() => {
+		prefetch(
+			`/investir?id=${id}&cotas=${cotas}&oportunitiesAddress=${oportunitiesAddress}`
+		);
+	}, [cotas, id, oportunitiesAddress, prefetch]);
 
 	return (
 		<Flex

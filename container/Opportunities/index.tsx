@@ -5,15 +5,21 @@ import { MenuInputs } from "../../components";
 import { OpportunitiesCards } from "../../components";
 import { useUser } from "../../hooks/useUser";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 	const { getInfosId } = useUser();
 	const [bannerRes] = useMediaQuery("(max-width: 1110px)");
 	const { t } = useTranslation();
+	const { prefetch } = useRouter();
 
 	useEffect(() => {
 		getInfosId(props?.user?.email);
 	}, [getInfosId, props?.user?.email]);
+
+	useEffect(() => {
+		prefetch("/empresas");
+	}, [prefetch]);
 
 	return (
 		<DefaultTemplate>

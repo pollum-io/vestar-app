@@ -12,7 +12,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const { toast } = useToasty();
 	const api = apiInstance();
 	const { t } = useTranslation();
-
 	const [email, setEmail] = useState<any>();
 	const [password, setPassword] = useState<any>();
 
@@ -46,6 +45,10 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			handleLogin();
 		}
 	};
+
+	useEffect(() => {
+		prefetch("/oportunidades");
+	}, [prefetch]);
 
 	return (
 		<Flex width="100vw" height="100vh" justifyContent="space-between">
