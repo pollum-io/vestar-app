@@ -79,7 +79,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 
 	return (
 		<DefaultTemplate>
-			<Flex px="5rem" flexDir={"column"} alignItems="center">
+			<Flex
+				w={"100%"}
+				maxW={"70rem"}
+				margin={"0 auto"}
+				justifyContent={"center"}
+				flexDir={"column"}
+				alignItems="center"
+			>
 				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
@@ -184,7 +191,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										{t("opportunitieDetails.expected")}
 									</Text>
-									<Flex gap="0.25rem" alignItems="center" w="7rem">
+									<Flex gap="0.25rem" alignItems="center" w="100%">
 										<Text color="#000000">
 											{imovelDetails?.profitability}%{" "}
 											{t("opportunitieDetails.perYear")}
@@ -218,7 +225,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
-							<Text color={"#171923"}>{imovelDetails?.description}</Text>
+							<Text w={"95%"} color={"#171923"}>
+								{imovelDetails?.description}
+							</Text>
 						</Flex>
 
 						<Flex mt="4rem" flexDir={"column"}>
@@ -246,7 +255,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						</Flex>
 					</Flex>
 
-					<Flex flexDirection="column" position="relative">
+					<Flex flexDirection="column" position="relative" right={"3rem"}>
 						<Flex h="100%" flexDirection="column" gap="1.5rem">
 							{ended ? (
 								<Flex
