@@ -68,7 +68,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		<Flex
 			w="23.125rem"
 			h={"max"}
-			bgColor={"#007D99"}
+			bgColor={"#003243"}
 			p="1.5rem"
 			flexDir={"column"}
 			borderRadius="0.75rem"
@@ -84,7 +84,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 				<Flex flexDirection="column">
 					<Flex
 						my="1rem"
-						bgColor={"#1789A3"}
+						bgColor={"#29525f"}
 						py="0.5rem"
 						px="1rem"
 						borderRadius="0.5rem"
@@ -129,7 +129,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						pb="1rem"
 						mb="1rem"
 						mt={ended ? "1rem" : "none"}
-						borderBottom="1px solid #4BA3B7"
+						borderBottom="1px solid #29525f"
 					>
 						<Flex justifyContent={"space-between"} w="100%">
 							<Text fontWeight={ended ? "400" : "500"}>
@@ -213,7 +213,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						<Text>{t("opportunitieDetails.unit")}</Text>
 						<Text>{price}</Text>
 					</Flex>
-					<Flex w="100%" border="1px solid #4BA3B7" my="1rem" />
+					<Flex w="100%" border="1px solid #29525f" my="1rem" />
 				</Flex>
 			)}
 			<Flex flexDir={"column"} gap="0.5rem">

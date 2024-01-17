@@ -101,14 +101,6 @@ export const OpportunitiesCard: FunctionComponent<
 							<Img
 								src={`/api/file/${cards.pictures_enterprise[0]}`}
 								borderRadius="0.75rem"
-								filter={
-									(cards.token_minted === cards.token_supply ||
-										currentTime >= new Date(cards?.sale_end_at) ||
-										!cards?.isAvailable) &&
-									!isEnterprise
-										? "blur(3px)"
-										: "none"
-								}
 							/>
 							<Flex position="absolute" pt="0.625rem" pr="0.75rem">
 								<Flex
@@ -155,13 +147,7 @@ export const OpportunitiesCard: FunctionComponent<
 						</Flex>
 						<Flex mt="1rem" px="1rem" flexDirection="column" pb="0.9375rem">
 							<Flex gap="0.3125rem" flexDirection="column">
-								<Flex
-									gap="0.5rem"
-									alignItems="center"
-									filter={
-										!cards?.isAvailable && !isEnterprise ? "blur(3px)" : "none"
-									}
-								>
+								<Flex gap="0.5rem" alignItems="center">
 									{!cards.isPortfolio && (
 										<Img
 											w={4}
@@ -228,11 +214,6 @@ export const OpportunitiesCard: FunctionComponent<
 										alignItems="center"
 										justifyContent="space-between"
 										w="100%"
-										filter={
-											!cards?.isAvailable && !isEnterprise
-												? "blur(3px)"
-												: "none"
-										}
 									>
 										<Flex flexDirection="column" alignItems="left">
 											<Text
@@ -284,13 +265,13 @@ export const OpportunitiesCard: FunctionComponent<
 											w="16.125rem"
 											h="max"
 											py="0.125rem"
-											border="0.0625rem solid #007D99"
+											border="0.0625rem solid #29525f"
 											borderRadius="0.375rem"
 											fontFamily="Poppins"
 											fontWeight="500"
 											fontSize="0.75rem"
 											lineHeight="1rem"
-											color="#007D99"
+											color="#29525f"
 											bgColor="#ffffff"
 											_hover={{ bgColor: "#EDF2F7" }}
 										>
@@ -352,14 +333,9 @@ export const OpportunitiesCard: FunctionComponent<
 	);
 };
 
-export const OpportunitiesCards: FunctionComponent<any> = ({
-	id,
-	investorId,
-	enterpriseData,
-	isPortfolio,
-	host,
-	token,
-}) => {
+export const OpportunitiesCards: FunctionComponent<
+	IOpportunitiesCompaniesCard
+> = ({ id, investorId, enterpriseData, isPortfolio, host, token }) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
