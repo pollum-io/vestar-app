@@ -333,14 +333,9 @@ export const OpportunitiesCard: FunctionComponent<
 	);
 };
 
-export const OpportunitiesCards: FunctionComponent<any> = ({
-	id,
-	investorId,
-	enterpriseData,
-	isPortfolio,
-	host,
-	token,
-}) => {
+export const OpportunitiesCards: FunctionComponent<
+	IOpportunitiesCompaniesCard
+> = ({ id, investorId, enterpriseData, isPortfolio, host, token }) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
