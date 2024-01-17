@@ -87,7 +87,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 				flexDir={"column"}
 				alignItems="center"
 			>
-				{/* <Collections images={imovelDetails?.pictures_enterprise as any[]} /> */}
+				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
 						<Flex gap="0.5rem" pb="0.5rem">
