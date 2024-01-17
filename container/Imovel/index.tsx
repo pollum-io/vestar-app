@@ -398,11 +398,11 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						</Text>
 					</Flex>
 					<Flex>
-						<Carousel
+						{/* <Carousel
 							extra_images={imovelDetails?.pictures_neighbor as any[]}
 							widthValue="30rem"
 							heightValue="15rem"
-						/>
+						/> */}
 					</Flex>
 				</Flex>
 			</Flex>
