@@ -67,7 +67,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 			}
 
 			Promise.all(
-				orderedImages.map((picture?: string) => api.get(`/api/file/${picture}`))
+				orderedImages.map((picture?: string) => api.get(`/file/${picture}`))
 			).then(responses => {
 				const imageUrls = responses.map(
 					response => response.request?.responseURL
@@ -78,7 +78,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 			const extraImagePromises: Promise<any>[] | undefined = extra_images?.map(
 				(picture: string) =>
 					api
-						.get(`/api/file/${picture}`)
+						.get(`/file/${picture}`)
 						.then(response => response.request?.responseURL)
 			);
 
