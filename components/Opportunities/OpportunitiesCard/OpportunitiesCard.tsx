@@ -86,10 +86,10 @@ export const OpportunitiesCard: FunctionComponent<
 						}}
 						transition="150ms"
 						onClick={() => {
-							 router.push({
-										pathname: `/oportunidades/${cards._id}`,
-										query: { id: cards._id },
-								  });
+							router.push({
+								pathname: `/oportunidades/${cards._id}`,
+								query: { id: cards._id },
+							});
 						}}
 					>
 						<Flex
@@ -101,14 +101,6 @@ export const OpportunitiesCard: FunctionComponent<
 							<Img
 								src={`/api/file/${cards.pictures_enterprise[0]}`}
 								borderRadius="0.75rem"
-								filter={
-									(cards.token_minted === cards.token_supply ||
-										currentTime >= new Date(cards?.sale_end_at) ||
-										!cards?.isAvailable) &&
-									!isEnterprise
-										? "blur(3px)"
-										: "none"
-								}
 							/>
 							<Flex position="absolute" pt="0.625rem" pr="0.75rem">
 								<Flex
@@ -155,13 +147,7 @@ export const OpportunitiesCard: FunctionComponent<
 						</Flex>
 						<Flex mt="1rem" px="1rem" flexDirection="column" pb="0.9375rem">
 							<Flex gap="0.3125rem" flexDirection="column">
-								<Flex
-									gap="0.5rem"
-									alignItems="center"
-									filter={
-										!cards?.isAvailable && !isEnterprise ? "blur(3px)" : "none"
-									}
-								>
+								<Flex gap="0.5rem" alignItems="center">
 									{!cards.isPortfolio && (
 										<Img
 											w={4}
@@ -228,11 +214,6 @@ export const OpportunitiesCard: FunctionComponent<
 										alignItems="center"
 										justifyContent="space-between"
 										w="100%"
-										filter={
-											!cards?.isAvailable && !isEnterprise
-												? "blur(3px)"
-												: "none"
-										}
 									>
 										<Flex flexDirection="column" alignItems="left">
 											<Text
