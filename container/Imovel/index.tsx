@@ -77,11 +77,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		[imovelDetails?.token_address, account, dateEndend]
 	);
 
-	console.log(
-		imovelDetails?.pictures_neighbor,
-		"imovelDetails?.pictures_neighbor"
-	);
-
 	return (
 		<DefaultTemplate>
 			<Flex

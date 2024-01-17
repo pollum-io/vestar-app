@@ -13,13 +13,13 @@ import { Carousel } from "./Carousel";
 interface ICollectionsModal {
 	isOpen: boolean;
 	onClose: () => void;
-	images: string[];
+	allImages: string[];
 	selectedImage: string;
 	setSelectedImage: any;
 }
 
 export const CollectionsModal: React.FC<ICollectionsModal> = props => {
-	const { isOpen, onClose, images, selectedImage, setSelectedImage } = props;
+	const { isOpen, onClose, allImages, selectedImage, setSelectedImage } = props;
 	const [currentIndex, setCurrentIndex] = useState(1);
 
 	const handleClose = () => {
@@ -59,7 +59,7 @@ export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 										fontSize="1rem"
 										lineHeight="1.5rem"
 									>
-										{currentIndex} de {images?.length}
+										{currentIndex} de {allImages?.length}
 									</Text>
 								</Flex>
 								<Flex
@@ -80,7 +80,7 @@ export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 								</Flex>
 							</Flex>
 							<Carousel
-								modal_images={images}
+								modal_images={allImages}
 								selectedImage={selectedImage}
 								widthValue="85.8125rem"
 								heightValue="50rem"

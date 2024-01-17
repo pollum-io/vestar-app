@@ -1,5 +1,5 @@
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
 import { apiInstance } from "../../services/api";
@@ -46,6 +46,7 @@ export const Carousel: React.FC<ICarousel> = props => {
 	const side = useBreakpointValue(
 		isOpen ? { base: "30%", md: "10px" } : { base: "30%", md: "22%" }
 	);
+
 	useMemo(() => {
 		if (modal_images) {
 			const allImages = modal_images || [];
@@ -92,13 +93,11 @@ export const Carousel: React.FC<ICarousel> = props => {
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedImage]);
+	}, [selectedImage, modal_images]);
 
 	const handleIndex = (index: number) => {
 		if (!setCurrentIndex === undefined) setCurrentIndex(index);
 	};
-
-	console.log(imagesCarousel, "asdassdsa");
 
 	return (
 		<>

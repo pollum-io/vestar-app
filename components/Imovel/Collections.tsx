@@ -9,7 +9,6 @@ export const Collections: React.FC<ICollections> = props => {
 	const { images } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [selectedImage, setSelectedImage] = useState<any>();
-
 	return (
 		<Flex
 			w="100%"
@@ -21,7 +20,7 @@ export const Collections: React.FC<ICollections> = props => {
 			justifyContent="center"
 		>
 			<CollectionsModal
-				images={images}
+				allImages={images}
 				isOpen={isOpen}
 				onClose={onClose}
 				selectedImage={selectedImage}
