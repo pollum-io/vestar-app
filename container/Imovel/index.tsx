@@ -87,7 +87,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 				flexDir={"column"}
 				alignItems="center"
 			>
-				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
 						<Flex gap="0.5rem" pb="0.5rem">
@@ -397,13 +396,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							{imovelDetails?.neighbor_description}
 						</Text>
 					</Flex>
-					<Flex>
-						{/* <Carousel
-							extra_images={imovelDetails?.pictures_neighbor as any[]}
-							widthValue="30rem"
-							heightValue="15rem"
-						/> */}
-					</Flex>
+					<Flex></Flex>
 				</Flex>
 			</Flex>
 		</DefaultTemplate>
