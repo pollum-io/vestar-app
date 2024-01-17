@@ -94,7 +94,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							<Img
 								w="6"
 								h="6"
-								src={`/api/file/${imovelDetails?.enterprise_logo}`}
+								src={`/api/file/${imovelDetails?.enterprise_logo ?? null}`}
 							/>
 							<Text fontWeight={"400"} color="#171923">
 								{imovelDetails?.enterprise_name}

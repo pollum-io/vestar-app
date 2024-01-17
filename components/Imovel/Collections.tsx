@@ -29,13 +29,13 @@ export const Collections: React.FC<ICollections> = props => {
 			<Flex
 				onClick={() => {
 					onOpen();
-					setSelectedImage(images[0]);
+					setSelectedImage(images[0] ?? null);
 				}}
 			>
 				<Img
 					width="34.75rem"
 					height="25rem"
-					src={`/api/file/${images[0]}`}
+					src={`/api/file/${images[0] ?? null}`}
 					borderLeftRadius="0.75rem"
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -45,22 +45,22 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={`/api/file/${images[1]}`}
+					src={`/api/file/${images[1] ?? null}`}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
 					onClick={() => {
 						onOpen();
-						setSelectedImage(images[1]);
+						setSelectedImage(images[1] ?? null);
 					}}
 				/>
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={`/api/file/${images[2]}`}
+					src={`/api/file/${images[2] ?? null}`}
 					borderTopRightRadius="0.75rem"
 					onClick={() => {
 						onOpen();
-						setSelectedImage(images[2]);
+						setSelectedImage(images[2] ?? null);
 					}}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -68,10 +68,10 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={`/api/file/${images[3]}`}
+					src={`/api/file/${images[3] ?? null}`}
 					onClick={() => {
 						onOpen();
-						setSelectedImage(images[3]);
+						setSelectedImage(images[3] ?? null);
 					}}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
@@ -79,11 +79,11 @@ export const Collections: React.FC<ICollections> = props => {
 				<Img
 					w="17.125rem"
 					h="12.25rem"
-					src={`/api/file/${images[4]}`}
+					src={`/api/file/${images[4] ?? null}`}
 					borderBottomRightRadius="0.75rem"
 					onClick={() => {
 						onOpen();
-						setSelectedImage(images[4]);
+						setSelectedImage(images[4] ?? null);
 					}}
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
