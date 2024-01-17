@@ -7,6 +7,7 @@ export interface IOpportunitiesCard {
 	profitability: number;
 	pictures_enterprise: string[];
 	name: string;
+	enterprise_id: string;
 	enterprise_logo: string;
 	enterprise_name: string;
 	enterprise_type: string;
