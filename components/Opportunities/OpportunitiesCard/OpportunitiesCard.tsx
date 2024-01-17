@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { Button, Flex, Img, Text, SimpleGrid } from "@chakra-ui/react";
 import { IOpportunitiesCard } from "./dto";
 import { useRouter } from "next/router";
