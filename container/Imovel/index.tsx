@@ -63,9 +63,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				if (imovelDetails.token_address && account) {
+				if (imovelDetails?.token_address && account) {
 					const valorDeCotas = await shares(
-						imovelDetails.token_address,
+						imovelDetails?.token_address,
 						account
 					);
 					setCota(Number(valorDeCotas));
