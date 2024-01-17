@@ -47,19 +47,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 	const { t } = useTranslation();
 
 	return (
-		<Flex
-			bgColor="#ffffff"
-			width="100vw"
-			height="100vh"
-			justifyContent="space-between"
-		>
-			<Img
-				position={"absolute"}
-				zIndex={"1"}
-				w="100vw"
-				h="100vh"
-				src="/images/backgrounds/loginBg.jpg"
-			/>
+		<Flex width="100vw" height="100vh" justifyContent="space-between">
 			<Flex
 				flex="1"
 				h="100vh"
@@ -67,11 +55,14 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 				alignItems="center"
 				fontFamily="Poppins"
 				zIndex={"99"}
+				bgGradient="linear(to-b, #001a29, #003243)"
 			>
 				<Flex
+					bgColor="#ffffff"
 					flexDirection="column"
 					justifyContent="center"
 					w={"24%"}
+					borderRadius="10px"
 					boxShadow="0rem 1.25rem 1.5625rem rgba(31, 41, 55, 0.1), 0rem 0.625rem 0.625rem rgba(31, 41, 55, 0.04)"
 					p={"3rem"}
 				>
@@ -83,7 +74,7 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							_hover={{ opacity: 0.6 }}
 						/>
 						<Text
-							color="#1789A3"
+							color="#003243"
 							fontSize="0.875rem"
 							fontWeight="normal"
 							lineHeight="150%"
@@ -139,8 +130,9 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 								fontWeight="500"
 								fontSize="0.75rem"
 								lineHeight="1rem"
-								color="#007D99"
-								_hover={{ cursor: "pointer" }}
+								color="#003243"
+								transition="0.7s"
+								_hover={{ opacity: 0.8, cursor: "pointer" }}
 								onClick={() => push("/recover_password")}
 							>
 								{t("login.forgot")}
@@ -176,14 +168,10 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							borderRadius="0.5rem"
 							w="100%"
 							h="2.2rem"
-							bgColor="#1789A3"
+							bgColor="#003243"
 							onClick={handleLogin}
-							_hover={{
-								cursor: "pointer",
-								bgColor: "#007D99",
-								boxShadow:
-									"0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
-							}}
+							transition="0.7s"
+							_hover={{ opacity: 0.8, cursor: "pointer" }}
 						>
 							Login
 						</Button>
@@ -210,10 +198,11 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 							fontWeight="500"
 							fontSize="0.75rem"
 							lineHeight="1rem"
-							color="#007D99"
+							color="#003243"
 							bg={"transparent"}
 							onClick={() => push("/criar_conta")}
-							_hover={{ opacity: 0.8 }}
+							transition="0.7s"
+							_hover={{ opacity: 0.6 }}
 						>
 							{t("login.register")}
 						</Button>
