@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	const user: any = jwt_decode(token);
 	const host = req.headers.host;
-
+	console.log(host);
 	const response = await fetchImovelDetail(query.id, host);
 
 	return {
