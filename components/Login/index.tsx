@@ -1,18 +1,20 @@
 import { Button, ButtonProps, Flex, Img, Input, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useUser } from "../../hooks/useUser";
 import { apiInstance } from "../../services/api";
 import { useTranslation } from "react-i18next";
 import { useToasty } from "../../hooks/useToasty";
 
 export const Login: FunctionComponent<ButtonProps> = () => {
-	const { push } = useRouter();
-	const [email, setEmail] = useState<any>();
-	const [password, setPassword] = useState<any>();
+	const { push, prefetch } = useRouter();
 	const { getInfosId } = useUser();
 	const { toast } = useToasty();
 	const api = apiInstance();
+	const { t } = useTranslation();
+
+	const [email, setEmail] = useState<any>();
+	const [password, setPassword] = useState<any>();
 
 	const handleLogin = async () => {
 		try {
@@ -44,7 +46,6 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 			handleLogin();
 		}
 	};
-	const { t } = useTranslation();
 
 	return (
 		<Flex width="100vw" height="100vh" justifyContent="space-between">
