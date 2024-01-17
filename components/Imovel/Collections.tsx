@@ -19,7 +19,7 @@ export const Collections: React.FC<ICollections> = props => {
 			onClick={onOpen}
 			justifyContent="center"
 		>
-			{/* <CollectionsModal
+			<CollectionsModal
 				allImages={images}
 				isOpen={isOpen}
 				onClose={onClose}
@@ -88,7 +88,7 @@ export const Collections: React.FC<ICollections> = props => {
 					_hover={{ cursor: "pointer", filter: "brightness(90%)" }}
 					transition="200ms"
 				/>
-			</SimpleGrid> */}
+			</SimpleGrid>
 		</Flex>
 	);
 };
