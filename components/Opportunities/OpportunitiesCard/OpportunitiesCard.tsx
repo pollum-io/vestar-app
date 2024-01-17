@@ -67,6 +67,18 @@ export const OpportunitiesCard: FunctionComponent<
 		}
 	};
 
+	const tokenMinted =
+		cardsInfo?.data && cardsInfo.data.length > 0
+			? cardsInfo.data[0].token_minted
+			: undefined;
+
+	console.log(tokenMinted);
+
+	console.log(cardsInfo?.data[0]);
+	console.log(cardsInfo?.data[0]?.token_supply);
+	console.log(currentTime);
+	console.log(cardsInfo?.data[0]?.sale_end_at);
+
 	return (
 		<>
 			{cardsInfo !== undefined ? (
@@ -80,7 +92,10 @@ export const OpportunitiesCard: FunctionComponent<
 						borderRadius="0.75rem"
 						flexDirection="column"
 						_hover={{
-							cursor: cards?.isAvailable ? "pointer" : "default",
+							cursor:
+								currentTime >= new Date(cards?.sale_end_at)
+									? "default"
+									: "pointer",
 							boxShadow:
 								"0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
 						}}
@@ -113,8 +128,7 @@ export const OpportunitiesCard: FunctionComponent<
 									px="0.5rem"
 									py="0.125rem"
 								>
-									{cards.token_minted === cards.token_supply ||
-									currentTime >= new Date(cards?.sale_end_at) ? (
+									{currentTime >= new Date(cards?.sale_end_at) ? (
 										<Text
 											fontFamily="Poppins"
 											fontWeight="500"
@@ -258,7 +272,7 @@ export const OpportunitiesCard: FunctionComponent<
 											</Text>
 										</Flex>
 									</Flex>
-									{!cards?.isAvailable ? (
+									{cards?.isAvailable ? (
 										<Button
 											justifyContent="center"
 											alignItems="center"
