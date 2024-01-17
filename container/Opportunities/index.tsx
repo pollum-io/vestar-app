@@ -70,7 +70,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 						>
 							<Flex justifyContent="space-between" w="100%" gap="1.5rem">
 								<Flex flexDirection="column" gap="0.625rem">
-									<Img src="images/firstIcon.png" w="2.2rem" h="2.8rem" />
+									<Img src="icons/firstIcon.png" w="2.2rem" h="2.8rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"
@@ -82,7 +82,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
-									<Img src="images/secondIcon.png" w="2.2rem" h="2.8rem" />
+									<Img src="icons/secondIcon.png" w="2.2rem" h="2.8rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"
@@ -94,7 +94,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem">
-									<Img src="images/thirdIcon.png" w="2.2rem" h="2.8rem" />
+									<Img src="icons/thirdIcon.png" w="2.2rem" h="2.8rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"
@@ -106,7 +106,7 @@ export const OpportunitiesContainer: FunctionComponent = (props: any) => {
 									</Text>
 								</Flex>
 								<Flex flexDirection="column" gap="0.625rem" pt="0.2rem">
-									<Img src="images/checkIcon.png" w="2.8rem" h="2.6rem" />
+									<Img src="icons/checkIcon.png" w="2.8rem" h="2.6rem" />
 									<Text
 										fontFamily="Poppins"
 										fontSize="1rem"

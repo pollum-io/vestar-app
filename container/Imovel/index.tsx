@@ -325,25 +325,25 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Home.png"} />
+							<Img src={"/icons/Home.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
 								Todas as plantas da obra
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit-Square.png"} />
+							<Img src={"/icons/Edit-Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 								Auditorias
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Document.png"} />
+							<Img src={"/icons/Document.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 								Notas Fiscais
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Folder.png"} />
+							<Img src={"/icons/Folder.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="75%">
 								Documentos Extras
 							</Text>
