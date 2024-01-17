@@ -76,6 +76,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		// eslint-disable-next-line
 		[imovelDetails?.token_address, account, dateEndend]
 	);
+	console.log(imovelDetails?.pictures_enterprise);
 
 	return (
 		<DefaultTemplate>

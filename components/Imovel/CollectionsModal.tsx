@@ -79,6 +79,14 @@ export const CollectionsModal: React.FC<ICollectionsModal> = props => {
 									</Flex>
 								</Flex>
 							</Flex>
+							<Carousel
+								modal_images={allImages}
+								selectedImage={selectedImage}
+								widthValue="85.8125rem"
+								heightValue="50rem"
+								isOpen={isOpen}
+								setCurrentIndex={setCurrentIndex}
+							/>
 						</Flex>
 					</ModalBody>
 				</ModalContent>
