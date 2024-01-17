@@ -67,18 +67,6 @@ export const OpportunitiesCard: FunctionComponent<
 		}
 	};
 
-	const tokenMinted =
-		cardsInfo?.data && cardsInfo.data.length > 0
-			? cardsInfo.data[0].token_minted
-			: undefined;
-
-	console.log(tokenMinted);
-
-	console.log(cardsInfo?.data[0]);
-	console.log(cardsInfo?.data[0]?.token_supply);
-	console.log(currentTime);
-	console.log(cardsInfo?.data[0]?.sale_end_at);
-
 	return (
 		<>
 			{cardsInfo !== undefined ? (
