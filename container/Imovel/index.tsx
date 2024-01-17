@@ -250,7 +250,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						<Flex h="100%" flexDirection="column" gap="1.5rem">
 							{ended ? (
 								<Flex
-									bgColor="#E2E8F0"
+									bgColor="#29525f"
 									py="0.25rem"
 									px="1rem"
 									borderRadius={"4.875rem"}
@@ -270,7 +270,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									padding="1.5rem"
 									gap="0.25rem"
 									w="23.125rem"
-									background="#4BA3B7"
+									background="#29525f"
 									borderRadius="0.75rem"
 									fontFamily="Poppins"
 									color="#FFFFFF"
@@ -315,42 +315,42 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			<Flex
 				mt="4.375rem"
 				px="5rem"
-				bgColor={"#E4F2F3"}
+				bgColor={"#29525f"}
 				py="2rem"
 				justifyContent="center"
 			>
 				<Flex flexDir={"column"} w="70rem">
-					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#171923"}>
+					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#f1f1f1"}>
 						Em breve você poderá acompanhar:
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Home.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
+							<Img src={"/icons/home.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="8.5rem">
 								Todas as plantas da obra
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit-Square.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="100%">
+							<Img src={"/icons/edit-square.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
 								Auditorias
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Document.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="100%">
+							<Img src={"/icons/document.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
 								Notas Fiscais
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Folder.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="75%">
+							<Img src={"/icons/folder.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="75%">
 								Documentos Extras
 							</Text>
 						</Flex>
 					</Flex>
 					<Flex mt="2rem">
-						<Text color={"#171923"}>
+						<Text color={"#f1f1f1"}>
 							Atualmente esta obra está em estágio de
 						</Text>
 					</Flex>
