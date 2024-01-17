@@ -27,7 +27,7 @@
 		"currentPassword": "Current Password"
 	},
 	"register": {
-		"hello": "Hello! We would like to know you better",
+		"hello": "Hello! Before proceeding, we need some information",
 		"personalData": "Personal Data",
 		"companyData": "Company Data",
 		"acceptTerms": "Read and Accept Terms",
