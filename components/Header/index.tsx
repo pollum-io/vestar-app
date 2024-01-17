@@ -24,14 +24,12 @@ export const Header: React.FC = () => {
 				onClick={() => push("/oportunidades")}
 				_hover={{ cursor: "pointer" }}
 			>
-				<Text
-					bgGradient="linear(to-l, #1789A3, #9ccbd6)"
-					bgClip="text"
-					fontSize="2rem"
-					fontWeight="extrabold"
-				>
-					REP
-				</Text>{" "}
+				<Img
+					w={"7rem"}
+					src="/images/vestar-assets/Asset 5.png"
+					transition={"0.8s"}
+					_hover={{ opacity: 0.6 }}
+				/>
 			</Flex>
 			<Flex>
 				<HeaderLinks />

@@ -265,13 +265,13 @@ export const OpportunitiesCard: FunctionComponent<
 											w="16.125rem"
 											h="max"
 											py="0.125rem"
-											border="0.0625rem solid #007D99"
+											border="0.0625rem solid #29525f"
 											borderRadius="0.375rem"
 											fontFamily="Poppins"
 											fontWeight="500"
 											fontSize="0.75rem"
 											lineHeight="1rem"
-											color="#007D99"
+											color="#29525f"
 											bgColor="#ffffff"
 											_hover={{ bgColor: "#EDF2F7" }}
 										>
