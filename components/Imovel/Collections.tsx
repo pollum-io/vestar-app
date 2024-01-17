@@ -26,7 +26,12 @@ export const Collections: React.FC<ICollections> = props => {
 				selectedImage={selectedImage}
 				setSelectedImage={setSelectedImage}
 			/>
-			<Flex>
+			<Flex
+				onClick={() => {
+					onOpen();
+					setSelectedImage(images[0]);
+				}}
+			>
 				<Img
 					width="34.75rem"
 					height="25rem"
