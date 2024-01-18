@@ -38,6 +38,8 @@ export interface IOpportunitiesCard {
 	blocked?: boolean;
 	finished?: boolean;
 	sale_end_at: string;
+	compliant_address: string;
+	sale_address: string;
 }
 
 export interface IOpportunitieAddress {

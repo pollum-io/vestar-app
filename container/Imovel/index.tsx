@@ -40,7 +40,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const { account } = useWallet();
-	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getTotalSupply, getIsOpen, getBoughtTokens } = useTransactions();
+	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getIsOpen, getBoughtTokens } = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({

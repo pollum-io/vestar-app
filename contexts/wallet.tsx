@@ -15,7 +15,7 @@ interface IWallet {
 	wallet: WalletClient;
 	account: `0x${string}`;
 	isConnected: any;
-	signer: Account;
+	signer: `0x${string}`;
 }
 
 const ripple = defineChain({
@@ -83,9 +83,9 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 						});
 				} else {
 					const [address] = await wallet.requestAddresses();
-					setAccount(address);
+					setAccount(address as `${string}`);
 					setIsConnected(true);
-					setSigner(address);
+					setSigner(address as `${string}`);
 					PersistentFramework.add("connected", { isConnected: true });
 					PersistentFramework.add("address", address);
 				}
@@ -113,10 +113,11 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 		const value = PersistentFramework.get("connected") as { [k: string]: any };
 
 		if (value?.isConnected) {
-			const address = PersistentFramework.get("address") as `0x${string}`;
+			const address = PersistentFramework.get("address") as `${string}`;
 
 			setIsConnected(true);
 			setAccount(address);
+			setSigner(address);
 		}
 	}, []);
 

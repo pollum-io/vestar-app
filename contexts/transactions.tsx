@@ -4,7 +4,7 @@ import { useWallet } from "../hooks/useWallet";
 import { fetchUserApproveData } from "../services/fetchUserApproveData";
 import { abi as compliantTokenABI} from "../utils/abi/compliantToken.json";
 import { abi as crowdSaleABI} from "../utils/abi/crowdSale.json";
-import { compliantToken } from "../utils/abi/compliantToken.ts"
+import { compliantToken } from "../utils/abi/compliantToken"
 import { crowdSale } from "../utils/abi/crowdSale"
 import { drex } from "../utils/abi/drex"
 import PersistentFramework from "../utils/persistent";
