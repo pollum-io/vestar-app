@@ -303,7 +303,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										lineHeight="1.25rem"
 									>
 										{t("opportunitieDetails.unitPrice")}{" "}
-										{imovelDetails.token_price * 2}
+										{imovelDetails?.token_price * 2}
 									</Text>
 								</Flex>
 							)}
