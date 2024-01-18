@@ -9,10 +9,10 @@ import { useWallet } from "../../hooks/useWallet";
 interface IPriceCard {
 	id: any;
 	compliantToken: string;
-	isWhitelisted: bool;
+	isWhitelisted: boolean;
 	price: number;
 	tokensSold: number;
-	ended: bool;
+	ended: boolean;
 	supply: number;
 	oportunitiesAddress: string;
 	investor_pf?: string;
