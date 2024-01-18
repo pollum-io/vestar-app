@@ -27,7 +27,7 @@
 		"currentPassword": "Current Password"
 	},
 	"register": {
-		"hello": "Hello! We would like to know you better",
+		"hello": "Hello! Before proceeding, we need some information",
 		"personalData": "Personal Data",
 		"companyData": "Company Data",
 		"acceptTerms": "Read and Accept Terms",
@@ -36,7 +36,7 @@
 		"fullName": "Full Name",
 		"birthDate": "Birth Date",
 		"socialNumber": "Social Security Number",
-		"whoInvited": "Who invited you to REP?",
+		"whoInvited": "Who invited you to Vestar?",
 		"legalPerson": "Legal Person",
 		"corporateName": "Corporate Name",
 		"nationalRegister": "National Register of Legal Entity (CNPJ)",
@@ -49,7 +49,7 @@
 		"noAbbreviations": "No Abbreviations"
 	},
 	"opportunities": {
-		"investingIs": "Investing is much easier with REP!",
+		"investingIs": "Investing is much easier with Vestar!",
 		"first": "Click on an opportunity available to you",
 		"second": "Select the amount of tokens you want",
 		"third": "Click on \"I want to invest\" and make the payment",
@@ -141,7 +141,7 @@
 		}
 	},
 	"companieDetails": {
-		"REPProp": "VEstar Properties",
+		"REPProp": "Vestar Properties",
 		"delivered": "Delivered works",
 		"inProgress": "In progress",
 		"vgv": "VGV Total",

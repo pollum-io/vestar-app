@@ -137,7 +137,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 
 	return (
 		<DefaultTemplate>
-			<Flex px="5rem" flexDir={"column"} alignItems="center">
+			<Flex
+				w={"100%"}
+				maxW={"70rem"}
+				margin={"0 auto"}
+				justifyContent={"center"}
+				flexDir={"column"}
+				alignItems="center"
+			>
 				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
@@ -244,7 +251,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										{t("opportunitieDetails.expected")}
 									</Text>
-									<Flex gap="0.25rem" alignItems="center" w="7rem">
+									<Flex gap="0.25rem" alignItems="center" w="100%">
 										<Text color="#000000">
 											{60}%{" "}
 										</Text>
@@ -302,11 +309,11 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						</Flex>
 					</Flex>
 
-					<Flex flexDirection="column" position="relative">
+					<Flex flexDirection="column" position="relative" right={"3rem"}>
 						<Flex h="100%" flexDirection="column" gap="1.5rem">
 							{ended ? (
 								<Flex
-									bgColor="#E2E8F0"
+									bgColor="#29525f"
 									py="0.25rem"
 									px="1rem"
 									borderRadius={"4.875rem"}
@@ -326,13 +333,12 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									padding="1.5rem"
 									gap="0.25rem"
 									w="23.125rem"
-									background="#4BA3B7"
+									background="#29525f"
 									borderRadius="0.75rem"
 									fontFamily="Poppins"
 									color="#FFFFFF"
 									h="max-content"
 								>
-									{/* TODO */}
 									<Countdown
 										date={imovelDetails?.sale_end_at}
 										renderer={renderer}
@@ -344,6 +350,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										id="timer"
 									>
 										{t("opportunitieDetails.closeSales")}
+									</Text>
+									<Text
+										fontWeight="400"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+									>
+										{t("opportunitieDetails.unitPrice")}{" "}
+										{imovelDetails.token_price * 2}
 									</Text>
 								</Flex>
 							)}
@@ -367,39 +381,44 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			<Flex
 				mt="4.375rem"
 				px="5rem"
-				bgColor={"#E4F2F3"}
+				bgColor={"#29525f"}
 				py="2rem"
 				justifyContent="center"
 			>
 				<Flex flexDir={"column"} w="70rem">
-					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#171923"}>
+					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#f1f1f1"}>
 						Em breve você poderá acompanhar:
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Home.png"} />
+							<Img src={"/icons/Home.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
 							{t("opportunitieDetails.floorPlans")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit-Square.png"} />
+							<Img src={"/icons/Edit-Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 							{t("opportunitieDetails.audits")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Document.png"} />
+							<Img src={"/icons/Document.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
 							{t("opportunitieDetails.invoices")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Folder.png"} />
+							<Img src={"/icons/Folder.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="75%">
 							{t("opportunitieDetails.extraDoc")}
 							</Text>
 						</Flex>
+					</Flex>
+					<Flex mt="2rem">
+						<Text color={"#171923"}>
+							Atualmente esta obra está em estágio de
+						</Text>
 					</Flex>
 				</Flex>
 			</Flex>
