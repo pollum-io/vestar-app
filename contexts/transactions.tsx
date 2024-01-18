@@ -14,6 +14,18 @@ declare let window: any;
 interface ITransactions {
 	shares: any;
 	approve: any;
+	getIsWhitelisted: any;
+	callAddToWhitelist: any;
+	getBoughtTokens: any;
+	getDrexAvailableForRefund: any;
+	getAvailableTokensToClaim : any;
+	getAvailableTokens : any;
+	calculateTokenAmount : any;
+	getCloseTime : any;
+	getMaxBuyAllowed : any;
+	getTokenSold : any;
+	getIsOpen : any;
+	callBuyToken: any;
 }
 
 export const ripple = defineChain({
@@ -127,7 +139,6 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 		return boughtTokens;
 	};
-
 	const getDrexAvailableForRefund = async (crowdSaleAddress: string, accountAddress: string) => {
 		const drexAvailable = await publicClient?.readContract({
 			address: crowdSaleAddress,
@@ -137,7 +148,6 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 		return drexAvailable;
 	};
-
 	const getAvailableTokensToClaim = async (crowdSaleAddress: string, accountAddress: string) => {
 		const tokensToClaim = await publicClient?.readContract({
 			address: crowdSaleAddress,
@@ -147,7 +157,6 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 		return tokensToClaim;
 	};
-
 	const getAvailableTokens = async (crowdSaleAddress: string) => {
 		const availableTokens = await publicClient?.readContract({
 			address: crowdSaleAddress,
@@ -168,7 +177,6 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 		return tokenAmount;
 	};
-
 	const getCloseTime = async (crowdSaleAddress: string) => {
 		const closeTime = await publicClient?.readContract({
 			address: crowdSaleAddress,
@@ -198,6 +206,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 		return tokenSold;
 	};
+
 
 	const getIsOpen = async (crowdSaleAddress: string) => {
 		const isOpen = await publicClient?.readContract({
