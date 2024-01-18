@@ -35,10 +35,10 @@ export function setCookie(
 	const stringValue =
 		typeof value === "object" ? `j:${JSON.stringify(value)}` : String(value);
 
-	res.setHeader(
-		"Set-Cookie",
-		serialize(name, String(stringValue), options || cookieOptions)
-	);
+	// res.setHeader(
+	// 	"Set-Cookie",
+	// 	serialize(name, String(stringValue), options || cookieOptions)
+	// );
 }
 
 export function generateToken(user: any) {

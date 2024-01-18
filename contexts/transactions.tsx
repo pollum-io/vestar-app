@@ -12,7 +12,7 @@ import PersistentFramework from "../utils/persistent";
 declare let window: any;
 
 interface ITransactions {
-	shares: any;
+	// shares: any;
 	approve: any;
 	getIsWhitelisted: any;
 	callAddToWhitelist: any;
@@ -21,7 +21,7 @@ interface ITransactions {
 	getAvailableTokensToClaim : any;
 	getAvailableTokens : any;
 	calculateTokenAmount : any;
-	getCloseTime : any;
+	// getCloseTime : any;
 	getMaxBuyAllowed : any;
 	getTokenSold : any;
 	getIsOpen : any;
@@ -264,7 +264,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const providerValue = useMemo(
-		() => ({ getIsWhitelisted,getTokenSold, getAvailableTokens,
+		() => ({ getTokenSold, getAvailableTokens,
 			getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted,
 			calculateTokenAmount, getMaxBuyAllowed, callAddToWhitelist,
 			callBuyToken, approve, getIsOpen, getBoughtTokens

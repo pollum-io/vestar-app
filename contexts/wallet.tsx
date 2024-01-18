@@ -83,9 +83,9 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 						});
 				} else {
 					const [address] = await wallet.requestAddresses();
-					setAccount(address as `${string}`);
+					setAccount(address);
 					setIsConnected(true);
-					setSigner(address as `${string}`);
+					setSigner(address);
 					PersistentFramework.add("connected", { isConnected: true });
 					PersistentFramework.add("address", address);
 				}
@@ -112,13 +112,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		const value = PersistentFramework.get("connected") as { [k: string]: any };
 
-		if (value?.isConnected) {
-			const address = PersistentFramework.get("address") as `${string}`;
+		// if (value?.isConnected) {
+		// 	const address = PersistentFramework.get("address") as `${string}`;
 
-			setIsConnected(true);
-			setAccount(address);
-			setSigner(address);
-		}
+		// 	setIsConnected(true);
+		// 	setAccount(address);
+		// 	setSigner(address);
+		// }
 	}, []);
 
 	const providerValue = useMemo(
