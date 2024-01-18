@@ -16,6 +16,7 @@ import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { FiMapPin } from "react-icons/fi";
+import { compliantToken } from '../../utils/abi/compliantToken';
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -26,20 +27,20 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
 	usersId,
 }) => {
-	const { hasToken } = useOpportunities();
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
-	const [cota, setCota] = useState<number>(0);
 	// const [totalSupply, setTotalSupply] = useState<number>(-1);
-	const [availableTokens, setAvailableTokens] = useState<number>(-1);
-	const [tokenSold, setTokenSold] = useState<number>(-1);
-	const [unitPrice, setUnitPrice] = useState<number>(-1);
-	const [maxBuyAllowed, setMaxBuyAllowed] = useState<number>(-1);
-	const [toClaim, setToClaim] = useState<number>(-1);
-	const [forRefund, setForRefund] = useState<number>(-1);
+	const [availableTokens, setAvailableTokens] = useState<number>(0);
+	const [tokenSold, setTokenSold] = useState<number>(0);
+	const [unitPrice, setUnitPrice] = useState<number>(0);
+	const [maxBuyAllowed, setMaxBuyAllowed] = useState<number>(0);
+	const [toClaim, setToClaim] = useState<number>(0);
+	const [forRefund, setForRefund] = useState<number>(0);
+	const [boughtTokens, setBoughtTokens] = useState<number>(0);
 	const [isWhitelisted, setIsWhitelisted] = useState<bool>(false);
+	const [isOpen, setIsOpen] = useState<bool>(false);
 	const { account } = useWallet();
-	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getTotalSupply } = useTransactions();
+	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getTotalSupply, getIsOpen, getBoughtTokens } = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -88,12 +89,16 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					const unitPrice = await calculateTokenAmount(
 						imovelDetails.sale_address, 1000000
 					);
+					const isOpen = await getIsOpen(
+						imovelDetails.sale_address
+					);
 
 					// setTotalSupply(Number(totalSupply));
 					setAvailableTokens(Number(availableTokens));
 					setTokenSold(Number(tokenSold));
-					setUnitPrice(Number(unitPrice) / Number(1e18));
+					setUnitPrice(Number(1) / (Number(unitPrice) / Number(1e18)));
 					setMaxBuyAllowed(Number(maxBuyAllowed));
+					setIsOpen(isOpen);
 				}
 
 				// Wallet connected needed
@@ -104,17 +109,19 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					const forRefund = await getDrexAvailableForRefund(
 						imovelDetails.sale_address, account
 					);
+					const boughtTokens = await getBoughtTokens(
+						imovelDetails.sale_address, account
+					);
+
 
 					// DREX
-					// const whitelist = await callAddToWhitelist(
-					// 	imovelDetails.drex_address, account
-					// );
 					const isWhitelisted = await getIsWhitelisted(
-						imovelDetails.drex_address, account
+						imovelDetails.compliant_address, account
 					);
 
 					setToClaim(Number(toClaim));
 					setForRefund(Number(forRefund));
+					setBoughtTokens(Number(boughtTokens));
 					setIsWhitelisted(isWhitelisted);
 
 				}
@@ -124,6 +131,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		// eslint-disable-next-line
 		[imovelDetails?.sale_address, account, dateEndend]
 	);
+
+	console.log("0x", imovelDetails?.compliant_address);
+
 
 	return (
 		<DefaultTemplate>
@@ -158,7 +168,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							>
 								{imovelDetails?.enterprise_type}
 							</Text>
-							{cota > 0 && (
+							{boughtTokens > 0 && (
 								<Flex
 									bgColor="#F0E8FF"
 									py="0.25rem"
@@ -167,14 +177,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									fontSize={"sm"}
 									color="#171923"
 									gap="0.25rem"
-									display={!hasToken ? "flex" : "none"}
+									display={boughtTokens > 0 ? "flex" : "none"}
 									w="max"
 								>
 									<Text w="max" fontWeight="400">
 										{t("opportunitieDetails.youHave")}
 									</Text>
 									<Text w="max" fontWeight="600">
-										{cota} {t("opportunitieDetails.yourShares")}
+										{Number(boughtTokens) / 1e18 } {t("opportunitieDetails.yourShares")}
 									</Text>
 								</Flex>
 							)}
@@ -200,7 +210,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										<Text fontSize={"xs"} color="#718096">
 											R$
 										</Text>
-										<Text color="#000000">16.800,00</Text>
+										<Text color="#000000">1.500,00</Text>
 									</Flex>
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
@@ -340,10 +350,11 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							{/* TODO */}
 							<PriceCard
 								id={imovelDetails?._id}
-								address={imovelDetails?.drex_address}
+								compliantToken={imovelDetails?.compliant_address}
 								isWhitelisted={isWhitelisted}
-								minted={tokenSold}
+								tokensSold={tokenSold}
 								price={unitPrice}
+								ended={!isOpen}
 								supply={availableTokens}
 								oportunitiesAddress={imovelDetails?.sale_address}
 								investor_pf={usersId?.investor_pf}

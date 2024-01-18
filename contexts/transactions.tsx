@@ -199,6 +199,18 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return tokenSold;
 	};
 
+	const getIsOpen = async (crowdSaleAddress: string) => {
+		const isOpen = await publicClient?.readContract({
+			address: crowdSaleAddress,
+			abi: crowdSaleABI,
+			functionName: 'isOpen',
+		});
+
+		return isOpen;
+	};
+
+
+
 	// const getTotalSupply = async (crowdSaleAddress: string) => {
 	// 	const totalSupply = await publicClient?.readContract({
 	// 		address: crowdSaleAddress,
@@ -246,7 +258,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		() => ({ getIsWhitelisted,getTokenSold, getAvailableTokens,
 			getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted,
 			calculateTokenAmount, getMaxBuyAllowed, callAddToWhitelist,
-			callBuyToken, approve
+			callBuyToken, approve, getIsOpen, getBoughtTokens
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]

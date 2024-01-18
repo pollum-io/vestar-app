@@ -11,7 +11,8 @@ interface IPriceCard {
 	compliantToken: string;
 	isWhitelisted: bool;
 	price: number;
-	minted: number;
+	tokensSold: number;
+	ended: bool;
 	supply: number;
 	oportunitiesAddress: string;
 	investor_pf?: string;
@@ -24,14 +25,15 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		compliantToken,
 		isWhitelisted,
 		price,
-		minted,
+		tokensSold,
+		ended,
 		supply,
 		oportunitiesAddress,
 		investor_pf,
 		investor_pj,
 	} = props;
 	const [isInvestidor, setIsInvestidor] = useState(investor_pf ? true : false);
-	const { ended, hasToken } = useOpportunities();
+	const { hasToken } = useOpportunities();
 	const { push } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
@@ -39,7 +41,6 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const { callAddToWhitelist, callBuyToken, approve  } = useTransactions();
 	const { connectWallet, isConnected, signer } = useWallet();
 
-	console.log('is? ', isWhitelisted);
 	const handleClick = async (value: string) => {
 		try {
 			await navigator.clipboard.writeText(value);
@@ -49,12 +50,12 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		}
 	};
 	const available = useMemo(() => {
-		if (supply > minted) {
-			return supply - minted;
+		if (supply > tokensSold) {
+			return supply - tokensSold;
 		} else {
-			return minted - supply;
+			return tokensSold - supply;
 		}
-	}, [minted, supply]);
+	}, [tokensSold, supply]);
 
 
 	const formatter = new Intl.NumberFormat("pt-br", {
@@ -187,7 +188,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-									onClick={() => buyTokens(oportunitiesAddress, 1000000000, signer)}
+									onClick={() => buyTokens(oportunitiesAddress, price * cotas, signer)}
 								>
 									{ended
 										? t("opportunitieDetails.endedSales")
@@ -261,7 +262,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.shares")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						{minted}
+						{tokensSold / 1e18}
 					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
@@ -269,7 +270,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.available")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						{supply}
+						{supply / 1e18}
 					</Text>
 				</Flex>
 			</Flex>

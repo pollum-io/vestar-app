@@ -35,7 +35,7 @@ const OpportunitySchema = z.object({
 	neighbor_description: z.optional(z.string()),
 	pictures_neighbor: z.optional(z.array(z.string())),
 	pictures_enterprise: z.optional(z.array(z.string())),
-	drex_address: z.optional(z.string()),
+	compliant_address: z.optional(z.string()),
 	sale_address: z.optional(z.string()),
 	enterprise_type: z.optional(z.string()),
 	description_extra: z.optional(z.string()),
