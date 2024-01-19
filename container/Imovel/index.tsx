@@ -83,33 +83,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				// No wallet connect needed
-				if (imovelDetails.sale_address) {
-					const availableTokens = await getAvailableTokens(
-						imovelDetails.sale_address
-					);
-					const tokenSold = await getTokenSold(imovelDetails.sale_address);
-					const maxBuyAllowed = await getMaxBuyAllowed(
-						imovelDetails.sale_address
-					);
-					const unitPrice = await calculateTokenAmount(
-						imovelDetails.sale_address,
-						1000000
-					);
-					const isOpen = await getIsOpen(imovelDetails.sale_address);
-
-					// setTotalSupply(Number(totalSupply));
-					setAvailableTokens(Number(availableTokens));
-					setTokenSold(Number(tokenSold));
-					setUnitPrice(Number(1) / (Number(unitPrice) / Number(1e18)));
-					setMaxBuyAllowed(Number(maxBuyAllowed));
-					setIsOpen(isOpen);
-				}
-
-				// Wallet connected needed
-				if (imovelDetails.sale_address && account) {
-					const toClaim = await getAvailableTokensToClaim(
-						imovelDetails.sale_address,
+				if (imovelDetails.token_address && account) {
+					const valorDeCotas = await shares(
+						imovelDetails.token_address,
 						account
 					);
 					const forRefund = await getDrexAvailableForRefund(
@@ -143,15 +119,22 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 
 	return (
 		<DefaultTemplate>
-			<Flex px="5rem" flexDir={"column"} alignItems="center">
-				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
+			<Flex
+				w={"100%"}
+				maxW={"70rem"}
+				margin={"0 auto"}
+				justifyContent={"center"}
+				flexDir={"column"}
+				alignItems="center"
+			>
+				<Collections images={imovelDetails?.pictures_enterprise ?? null} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
 						<Flex gap="0.5rem" pb="0.5rem">
 							<Img
 								w="6"
 								h="6"
-								src={`/api/file/${imovelDetails?.enterprise_logo}`}
+								src={`/api/file/${imovelDetails?.enterprise_logo ?? null}`}
 							/>
 							<Text fontWeight={"400"} color="#171923">
 								{imovelDetails?.enterprise_name}
@@ -252,7 +235,10 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										{t("opportunitieDetails.expected")}
 									</Text>
 									<Flex gap="0.25rem" alignItems="center" w="7rem">
-										<Text color="#000000">{60}% </Text>
+										<Text color="#000000">
+											{imovelDetails?.profitability}%{" "}
+											{t("opportunitieDetails.perYear")}
+										</Text>
 										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
 								</Flex>
@@ -279,9 +265,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
-							<Text color={"#171923"}>
-								{t("opportunitieDetails.description")}
-							</Text>
+							<Text color={"#171923"}>{imovelDetails?.description}</Text>
 						</Flex>
 
 						<Flex mt="4rem" flexDir={"column"}>
@@ -309,11 +293,11 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						</Flex>
 					</Flex>
 
-					<Flex flexDirection="column" position="relative">
+					<Flex flexDirection="column" position="relative" right={"3rem"}>
 						<Flex h="100%" flexDirection="column" gap="1.5rem">
 							{ended ? (
 								<Flex
-									bgColor="#E2E8F0"
+									bgColor="#29525f"
 									py="0.25rem"
 									px="1rem"
 									borderRadius={"4.875rem"}
@@ -333,7 +317,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									padding="1.5rem"
 									gap="0.25rem"
 									w="23.125rem"
-									background="#4BA3B7"
+									background="#29525f"
 									borderRadius="0.75rem"
 									fontFamily="Poppins"
 									color="#FFFFFF"
@@ -351,6 +335,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										id="timer"
 									>
 										{t("opportunitieDetails.closeSales")}
+									</Text>
+									<Text
+										fontWeight="400"
+										fontSize="0.875rem"
+										lineHeight="1.25rem"
+									>
+										{t("opportunitieDetails.unitPrice")}{" "}
+										{imovelDetails.token_price * 2}
 									</Text>
 								</Flex>
 							)}
@@ -374,19 +366,19 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			<Flex
 				mt="4.375rem"
 				px="5rem"
-				bgColor={"#E4F2F3"}
+				bgColor={"#29525f"}
 				py="2rem"
 				justifyContent="center"
 			>
 				<Flex flexDir={"column"} w="70rem">
-					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#171923"}>
+					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#f1f1f1"}>
 						Em breve você poderá acompanhar:
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Home.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
-								{t("opportunitieDetails.floorPlans")}
+								Todas as plantas da obra
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
@@ -404,9 +396,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Folder.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="75%">
-								{t("opportunitieDetails.extraDoc")}
+								Documentos Extras
 							</Text>
 						</Flex>
+					</Flex>
+					<Flex mt="2rem">
+						<Text color={"#171923"}>
+							Atualmente esta obra está em estágio de
+						</Text>
 					</Flex>
 				</Flex>
 			</Flex>
