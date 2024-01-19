@@ -9,10 +9,10 @@ import { useWallet } from "../../hooks/useWallet";
 interface IPriceCard {
 	id: any;
 	compliantToken: string;
-	isWhitelisted: bool;
+	isWhitelisted: boolean;
 	price: number;
 	tokensSold: number;
-	ended: bool;
+	ended: boolean;
 	supply: number;
 	oportunitiesAddress: string;
 	investor_pf?: string;
@@ -38,7 +38,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
-	const { callAddToWhitelist, callBuyToken, approve  } = useTransactions();
+	const { callAddToWhitelist, callBuyToken, approve } = useTransactions();
 	const { connectWallet, isConnected, signer } = useWallet();
 
 	const handleClick = async (value: string) => {
@@ -57,7 +57,6 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		}
 	}, [tokensSold, supply]);
 
-
 	const formatter = new Intl.NumberFormat("pt-br", {
 		style: "currency",
 		currency: "BRL",
@@ -67,29 +66,27 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		if (!isConnected || !signer) {
 			return await connectWallet();
 		} else {
-			await await callAddToWhitelist(
-				compliantToken, address
-			);
+			await await callAddToWhitelist(compliantToken, address);
 			return;
 		}
 	};
 
-	const buyTokens = async (saleAddress: string, amount: number, accountAddress: string) => {
+	const buyTokens = async (
+		saleAddress: string,
+		amount: number,
+		accountAddress: string
+	) => {
 		if (!isConnected || !signer) {
 			return await connectWallet();
 		} else {
 			/// APPROVE
-			await approve(
-				saleAddress, amount, accountAddress
-			);
+			await approve(saleAddress, amount, accountAddress);
 
 			/// BUY
-			await callBuyToken(
-				amount, accountAddress
-			);
+			await callBuyToken(amount, accountAddress);
 			return;
 		}
-	}
+	};
 
 	return (
 		<Flex
@@ -138,7 +135,9 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									transition: "all 0.4s",
 								}}
 								src={"/icons/PlusIcon.png"}
-								onClick={() => setCotas(cotas === available ? cotas : cotas + 1)}
+								onClick={() =>
+									setCotas(cotas === available ? cotas : cotas + 1)
+								}
 							/>
 							<Img
 								_hover={{
@@ -188,7 +187,9 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-									onClick={() => buyTokens(oportunitiesAddress, price * cotas, signer)}
+									onClick={() =>
+										buyTokens(oportunitiesAddress, price * cotas, signer)
+									}
 								>
 									{ended
 										? t("opportunitieDetails.endedSales")
@@ -210,7 +211,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-								onClick={() => earnTokens(compliantToken, signer)}
+									onClick={() => earnTokens(compliantToken, signer)}
 								>
 									Earn tokens
 								</Button>

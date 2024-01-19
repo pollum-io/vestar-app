@@ -16,7 +16,7 @@ import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { FiMapPin } from "react-icons/fi";
-import { compliantToken } from '../../utils/abi/compliantToken';
+import { compliantToken } from "../../utils/abi/compliantToken";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -37,10 +37,22 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [toClaim, setToClaim] = useState<number>(0);
 	const [forRefund, setForRefund] = useState<number>(0);
 	const [boughtTokens, setBoughtTokens] = useState<number>(0);
-	const [isWhitelisted, setIsWhitelisted] = useState<bool>(false);
-	const [isOpen, setIsOpen] = useState<bool>(false);
+	const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const { account } = useWallet();
-	const { getAvailableTokens, getTokenSold, callAddToWhitelist, calculateTokenAmount, getMaxBuyAllowed, getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted, getTotalSupply, getIsOpen, getBoughtTokens } = useTransactions();
+	const {
+		getAvailableTokens,
+		getTokenSold,
+		callAddToWhitelist,
+		calculateTokenAmount,
+		getMaxBuyAllowed,
+		getAvailableTokensToClaim,
+		getDrexAvailableForRefund,
+		getIsWhitelisted,
+		getTotalSupply,
+		getIsOpen,
+		getBoughtTokens,
+	} = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -78,20 +90,17 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					// 	imovelDetails.sale_address,
 					// );
 					const availableTokens = await getAvailableTokens(
-						imovelDetails.sale_address,
+						imovelDetails.sale_address
 					);
-					const tokenSold = await getTokenSold(
-						imovelDetails.sale_address,
-					);
+					const tokenSold = await getTokenSold(imovelDetails.sale_address);
 					const maxBuyAllowed = await getMaxBuyAllowed(
 						imovelDetails.sale_address
 					);
 					const unitPrice = await calculateTokenAmount(
-						imovelDetails.sale_address, 1000000
+						imovelDetails.sale_address,
+						1000000
 					);
-					const isOpen = await getIsOpen(
-						imovelDetails.sale_address
-					);
+					const isOpen = await getIsOpen(imovelDetails.sale_address);
 
 					// setTotalSupply(Number(totalSupply));
 					setAvailableTokens(Number(availableTokens));
@@ -104,26 +113,28 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 				// Wallet connected needed
 				if (imovelDetails.sale_address && account) {
 					const toClaim = await getAvailableTokensToClaim(
-						imovelDetails.sale_address, account
+						imovelDetails.sale_address,
+						account
 					);
 					const forRefund = await getDrexAvailableForRefund(
-						imovelDetails.sale_address, account
+						imovelDetails.sale_address,
+						account
 					);
 					const boughtTokens = await getBoughtTokens(
-						imovelDetails.sale_address, account
+						imovelDetails.sale_address,
+						account
 					);
-
 
 					// DREX
 					const isWhitelisted = await getIsWhitelisted(
-						imovelDetails.compliant_address, account
+						imovelDetails.compliant_address,
+						account
 					);
 
 					setToClaim(Number(toClaim));
 					setForRefund(Number(forRefund));
 					setBoughtTokens(Number(boughtTokens));
 					setIsWhitelisted(isWhitelisted);
-
 				}
 			};
 			getCotas();
@@ -133,7 +144,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	);
 
 	console.log("0x", imovelDetails?.compliant_address);
-
 
 	return (
 		<DefaultTemplate>
@@ -184,7 +194,8 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										{t("opportunitieDetails.youHave")}
 									</Text>
 									<Text w="max" fontWeight="600">
-										{Number(boughtTokens) / 1e18 } {t("opportunitieDetails.yourShares")}
+										{Number(boughtTokens) / 1e18}{" "}
+										{t("opportunitieDetails.yourShares")}
 									</Text>
 								</Flex>
 							)}
@@ -245,9 +256,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										{t("opportunitieDetails.expected")}
 									</Text>
 									<Flex gap="0.25rem" alignItems="center" w="7rem">
-										<Text color="#000000">
-											{60}%{" "}
-										</Text>
+										<Text color="#000000">{60}% </Text>
 										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
 								</Flex>
@@ -274,7 +283,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
-							<Text color={"#171923"}>{t("opportunitieDetails.description")}</Text>
+							<Text color={"#171923"}>
+								{t("opportunitieDetails.description")}
+							</Text>
 						</Flex>
 
 						<Flex mt="4rem" flexDir={"column"}>
@@ -379,25 +390,25 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Home.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
-							{t("opportunitieDetails.floorPlans")}
+								{t("opportunitieDetails.floorPlans")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Edit-Square.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
-							{t("opportunitieDetails.audits")}
+								{t("opportunitieDetails.audits")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Document.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="100%">
-							{t("opportunitieDetails.invoices")}
+								{t("opportunitieDetails.invoices")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/images/icons/Folder.png"} />
 							<Text fontWeight={"400"} color={"#171923"} w="75%">
-							{t("opportunitieDetails.extraDoc")}
+								{t("opportunitieDetails.extraDoc")}
 							</Text>
 						</Flex>
 					</Flex>
