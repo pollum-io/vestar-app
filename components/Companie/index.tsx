@@ -18,6 +18,7 @@ export const CompaniePage: FunctionComponent<ICompanie> = ({
 	companieDetail,
 }) => {
 	const { t } = useTranslation();
+
 	return (
 		<Flex flexDirection="column" gap="2rem" mt="6.25rem" mb="4.5rem">
 			<Flex
