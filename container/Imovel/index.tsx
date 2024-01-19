@@ -210,7 +210,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										<Text color="#000000">{`${"1.500,00"}$`}</Text> {/* TODO */}
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="8rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										{t("opportunitieDetails.maxAllowed")}
 									</Text>
@@ -230,7 +230,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										{t("opportunitieDetails.expected")}
 									</Text>
-									<Flex gap="0.25rem" alignItems="center" w="7rem">
+									<Flex gap="0.25rem" alignItems="center" w="max">
 										<Text color="#000000">
 											{imovelDetails?.profitability}%{" "}
 											{t("opportunitieDetails.perYear")}
@@ -238,7 +238,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
 								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
+								<Flex flexDir={"column"} gap="0.25rem" w="max">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										{t("opportunitieDetails.start")}
 									</Text>
