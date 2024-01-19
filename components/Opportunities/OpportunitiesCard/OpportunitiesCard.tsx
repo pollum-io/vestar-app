@@ -7,7 +7,7 @@ import { fetchOpportunity } from "../../../services/fetchOpportunity";
 import { useQuery as query } from "react-query";
 import { formatDate } from "../../../utils/formatDate";
 import { fetchOpportunitiesByCompany } from "../../../services/fetchOpportunitiesByCompany";
-import { Oval } from "react-loader-spinner";
+import { ColorRing } from "react-loader-spinner";
 import Countdown from "react-countdown";
 import { CountdownRenderProps } from "react-countdown/dist/Countdown";
 import { useTranslation } from "react-i18next";
@@ -317,17 +317,14 @@ export const OpportunitiesCard: FunctionComponent<
 					justifyContent={"center"}
 					alignItems="center"
 				>
-					<Oval
-						height={70}
-						width={70}
-						color="#1789A3"
+					<ColorRing
+						height={15}
+						width={15}
+						colors={["#1789A3", "#1789A3", "#1789A3", "#1789A3", "#1789A3"]}
 						wrapperStyle={{}}
 						wrapperClass=""
 						visible={true}
 						ariaLabel="oval-loading"
-						secondaryColor="#bdbdbd"
-						strokeWidth={2}
-						strokeWidthSecondary={2}
 					/>
 				</Flex>
 			)}
