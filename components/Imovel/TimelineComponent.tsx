@@ -12,13 +12,12 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 	titleWidth,
 	data,
 }) => {
-	console.log(data, "data");
 	const getQuarterStyle = (info: quarterStyleInfo[], quarter: string) => {
 		if (info.every((item: quarterStyleInfo) => item.status === "completed")) {
 			return (
 				<Flex
 					borderRadius="full"
-					bgColor={"#007088"}
+					bgColor={"#003243"}
 					w="1.9737rem"
 					h="1.9737rem"
 					p={"0.375rem"}
@@ -62,7 +61,7 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 			return (
 				<Flex
 					borderRadius="full"
-					bgColor={"#007088"}
+					bgColor={"#003243"}
 					w="1.9737rem"
 					p={"0.375rem"}
 					h="1.9737rem"
