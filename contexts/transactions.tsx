@@ -2,49 +2,59 @@ import React, { createContext, useMemo, useState } from "react";
 import { createPublicClient, custom, Account, http, defineChain } from "viem";
 import { useWallet } from "../hooks/useWallet";
 import { fetchUserApproveData } from "../services/fetchUserApproveData";
-import { abi as compliantTokenABI} from "../utils/abi/compliantToken.json";
-import { abi as crowdSaleABI} from "../utils/abi/crowdSale.json";
-import { compliantToken } from "../utils/abi/compliantToken.ts"
-import { crowdSale } from "../utils/abi/crowdSale"
-import { drex } from "../utils/abi/drex"
+import { abi as compliantTokenABI } from "../utils/abi/compliantToken.json";
+import { abi as crowdSaleABI } from "../utils/abi/crowdSale.json";
+import { compliantToken } from "../utils/abi/compliantToken";
+import { crowdSale } from "../utils/abi/crowdSale";
+import { drex } from "../utils/abi/drex";
 import PersistentFramework from "../utils/persistent";
 
 declare let window: any;
 
 interface ITransactions {
-	shares: any;
 	approve: any;
+	getIsWhitelisted: any;
+	callAddToWhitelist: any;
+	getBoughtTokens: any;
+	getDrexAvailableForRefund: any;
+	getAvailableTokensToClaim: any;
+	getAvailableTokens: any;
+	calculateTokenAmount: any;
+	getCloseTime: any;
+	getMaxBuyAllowed: any;
+	getTokenSold: any;
+	getIsOpen: any;
+	callBuyToken: any;
 }
 
 export const ripple = defineChain({
-  id: 1440002,
-  name: 'XRPL EVM Sidechain',
-  network: 'xrpl',
-  nativeCurrency: {
-    decimals: 6,
-    name: 'XRP',
-    symbol: 'XRP',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://rpc-evm-sidechain.xrpl.org'],
-    },
-  },
-  blockExplorers: {
-    default: { name: 'Explorer', url: 'https://evm-sidechain.xrpl.org' },
-  },
-  contracts: {
-    compliantToken: {
-      address: '0x8AA894614874a22c74dCa03c6421655bc590a072',
-      blockCreated: 5443218,
-    },
-    crowdSale: {
-      address: '0x43146a4a32E44Bd1e166b1F8062b99C38aA19072',
-      blockCreated: 5443220,
-    },
-  },
+	id: 1440002,
+	name: "XRPL EVM Sidechain",
+	network: "xrpl",
+	nativeCurrency: {
+		decimals: 6,
+		name: "XRP",
+		symbol: "XRP",
+	},
+	rpcUrls: {
+		default: {
+			http: ["https://rpc-evm-sidechain.xrpl.org"],
+		},
+	},
+	blockExplorers: {
+		default: { name: "Explorer", url: "https://evm-sidechain.xrpl.org" },
+	},
+	contracts: {
+		compliantToken: {
+			address: "0x8AA894614874a22c74dCa03c6421655bc590a072",
+			blockCreated: 5443218,
+		},
+		crowdSale: {
+			address: "0x43146a4a32E44Bd1e166b1F8062b99C38aA19072",
+			blockCreated: 5443220,
+		},
+	},
 });
-
 
 export const TransactionsContext = createContext({} as ITransactions);
 
@@ -89,7 +99,10 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	// Compliant Token
 	//////////////////////////////////
 
-	const getIsWhitelisted = async (compliantTokenAddress: string, accountAddress: string) => {
+	const getIsWhitelisted = async (
+		compliantTokenAddress: string,
+		accountAddress: string
+	) => {
 		const isWhitelisted = await publicClient?.readContract({
 			address: compliantTokenAddress,
 			abi: compliantTokenABI,
@@ -100,25 +113,31 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return isWhitelisted;
 	};
 
-	const callAddToWhitelist = async (compliantTokenAddress: string, account: string) => {
+	const callAddToWhitelist = async (
+		compliantTokenAddress: string,
+		account: string
+	) => {
 		try {
 			const { request } = await publicClient.simulateContract({
 				...compliantToken,
-				functionName: 'addToWhitelist',
+				functionName: "addToWhitelist",
 				account,
 				args: [account],
-			})
-			const txHash = await wallet?.writeContract(request)
+			});
+			const txHash = await wallet?.writeContract(request);
 			await waitForApproval(txHash);
-    } catch (error) {
-      console.log("error", error);
-    }
+		} catch (error) {
+			console.log("error", error);
+		}
 	};
 
 	//////////////////////////////////
 	// Crowd Sale
 	//////////////////////////////////
-	const getBoughtTokens = async (crowdSaleAddress: string, accountAddress: string) => {
+	const getBoughtTokens = async (
+		crowdSaleAddress: string,
+		accountAddress: string
+	) => {
 		const boughtTokens = await publicClient?.readContract({
 			address: crowdSaleAddress,
 			abi: crowdSaleABI,
@@ -128,7 +147,10 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return boughtTokens;
 	};
 
-	const getDrexAvailableForRefund = async (crowdSaleAddress: string, accountAddress: string) => {
+	const getDrexAvailableForRefund = async (
+		crowdSaleAddress: string,
+		accountAddress: string
+	) => {
 		const drexAvailable = await publicClient?.readContract({
 			address: crowdSaleAddress,
 			abi: crowdSaleABI,
@@ -138,7 +160,10 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return drexAvailable;
 	};
 
-	const getAvailableTokensToClaim = async (crowdSaleAddress: string, accountAddress: string) => {
+	const getAvailableTokensToClaim = async (
+		crowdSaleAddress: string,
+		accountAddress: string
+	) => {
 		const tokensToClaim = await publicClient?.readContract({
 			address: crowdSaleAddress,
 			abi: crowdSaleABI,
@@ -158,12 +183,15 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		return availableTokens;
 	};
 
-	const calculateTokenAmount = async (crowdSaleAddress: number, amount: number) => {
+	const calculateTokenAmount = async (
+		crowdSaleAddress: number,
+		amount: number
+	) => {
 		const tokenAmount = await publicClient?.readContract({
 			address: crowdSaleAddress,
 			abi: crowdSaleABI,
 			functionName: "calculateTokenAmount",
-			args:[amount]
+			args: [amount],
 		});
 
 		return tokenAmount;
@@ -203,51 +231,43 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		const isOpen = await publicClient?.readContract({
 			address: crowdSaleAddress,
 			abi: crowdSaleABI,
-			functionName: 'isOpen',
+			functionName: "isOpen",
 		});
 
 		return isOpen;
 	};
 
-
-
-	// const getTotalSupply = async (crowdSaleAddress: string) => {
-	// 	const totalSupply = await publicClient?.readContract({
-	// 		address: crowdSaleAddress,
-	// 		abi: crowdSaleABI,
-	// 		functionName: "totalSupply",
-	// 	});
-
-	// 	return totalSupply;
-	// };
-
-	const callBuyToken = async (amount: number, account: string ) => {
+	const callBuyToken = async (amount: number, account: string) => {
 		try {
 			const { request } = await publicClient.simulateContract({
 				...crowdSale,
-				functionName: 'buyToken',
+				functionName: "buyToken",
 				account,
 				args: [amount],
-			})
-			const txHash = await wallet.writeContract(request)
-      await waitForApproval(txHash);
-			} catch (error) {
-				console.log("error", error);
-			}
+			});
+			const txHash = await wallet.writeContract(request);
+			await waitForApproval(txHash);
+		} catch (error) {
+			console.log("error", error);
+		}
 	};
 
 	//////////////////////////////////
 	// DREX
 	//////////////////////////////////
-	const approve = async (tokenContract: string, amount: number, account: string) => {
+	const approve = async (
+		tokenContract: string,
+		amount: number,
+		account: string
+	) => {
 		try {
 			const { request } = await publicClient?.simulateContract({
 				...drex,
-				functionName: 'approve',
+				functionName: "approve",
 				account,
 				args: [tokenContract, amount],
-			})
-			const txHash = await wallet.writeContract(request)
+			});
+			const txHash = await wallet.writeContract(request);
 			await waitForApproval(txHash);
 		} catch (error) {
 			console.log("error", error);
@@ -255,10 +275,19 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const providerValue = useMemo(
-		() => ({ getIsWhitelisted,getTokenSold, getAvailableTokens,
-			getAvailableTokensToClaim, getDrexAvailableForRefund, getIsWhitelisted,
-			calculateTokenAmount, getMaxBuyAllowed, callAddToWhitelist,
-			callBuyToken, approve, getIsOpen, getBoughtTokens
+		() => ({
+			getTokenSold,
+			getAvailableTokens,
+			getAvailableTokensToClaim,
+			getDrexAvailableForRefund,
+			getIsWhitelisted,
+			calculateTokenAmount,
+			getMaxBuyAllowed,
+			callAddToWhitelist,
+			callBuyToken,
+			approve,
+			getIsOpen,
+			getBoughtTokens,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]
