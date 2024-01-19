@@ -112,7 +112,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
 		const value = PersistentFramework.get("connected") as { [k: string]: any };
 
 		if (value?.isConnected) {
-			const address = PersistentFramework.get("address") as `0x${string}`;
+			const address = PersistentFramework.get("address") as any;
 
 			setIsConnected(true);
 			setAccount(address);
