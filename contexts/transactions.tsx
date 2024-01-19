@@ -288,10 +288,13 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 			approve,
 			getIsOpen,
 			getBoughtTokens,
+			getCloseTime,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]
 	);
+	{
+	}
 
 	return (
 		<TransactionsContext.Provider value={providerValue}>
