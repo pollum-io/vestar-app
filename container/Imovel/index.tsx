@@ -17,6 +17,7 @@ import { useWallet } from "../../hooks/useWallet";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { FiMapPin } from "react-icons/fi";
 import { compliantToken } from "../../utils/abi/compliantToken";
+import { useRouter } from "next/router";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -27,6 +28,8 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
 	usersId,
 }) => {
+	const { push } = useRouter();
+
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
 	// const [totalSupply, setTotalSupply] = useState<number>(-1);
@@ -124,7 +127,19 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 				<Collections images={imovelDetails?.pictures_enterprise ?? null} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
-						<Flex gap="0.5rem" pb="0.5rem">
+						<Flex
+							gap="0.5rem"
+							pb="0.5rem"
+							w="max"
+							transition="0.7s"
+							_hover={{ opacity: 0.6, cursor: "pointer" }}
+							onClick={() =>
+								push({
+									pathname: `/empresa/`,
+									query: { enterprise_id: `${imovelDetails?.enterprise_id}` },
+								})
+							}
+						>
 							<Img
 								w="6"
 								h="6"
