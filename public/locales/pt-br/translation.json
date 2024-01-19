@@ -144,7 +144,8 @@
 		"vgv": "VGV Total",
 		"whoBuilds": "Quem constrói nossa história",
 		"learnAbout": "Saiba mais sobre a empresa",
-		"opportunities": "Oportunidades"
+		"opportunities": "Oportunidades",
+		"yearMarket": "Anos de mercado"
 	},
 	"portfolio": {
 		"hello": "Olá, {{Name}} !",
