@@ -33,7 +33,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		investor_pj,
 	} = props;
 	const [isInvestidor, setIsInvestidor] = useState(investor_pf ? true : false);
-	const { ended, hasToken } = useOpportunities();
+	const { hasToken } = useOpportunities();
 	const { push, prefetch } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);

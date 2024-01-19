@@ -84,10 +84,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		() => {
 			const getCotas = async () => {
 				if (imovelDetails.token_address && account) {
-					const valorDeCotas = await shares(
-						imovelDetails.token_address,
-						account
-					);
 					const forRefund = await getDrexAvailableForRefund(
 						imovelDetails.sale_address,
 						account
