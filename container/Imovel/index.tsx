@@ -16,7 +16,6 @@ import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { FiMapPin } from "react-icons/fi";
-import { useRouter } from "next/router";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -28,14 +27,12 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	usersId,
 }) => {
 	const { hasToken } = useOpportunities();
-	const { account } = useWallet();
-	const { shares } = useTransactions();
-	const { t } = useTranslation();
-	const { push } = useRouter();
-
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
 	const [cota, setCota] = useState<number>(0);
+	const { account } = useWallet();
+	const { shares } = useTransactions();
+	const { t } = useTranslation();
 
 	const renderer = ({
 		days,
@@ -66,9 +63,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				if (imovelDetails.token_address && account) {
+				if (imovelDetails?.token_address && account) {
 					const valorDeCotas = await shares(
-						imovelDetails.token_address,
+						imovelDetails?.token_address,
 						account
 					);
 					setCota(Number(valorDeCotas));
@@ -90,26 +87,14 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 				flexDir={"column"}
 				alignItems="center"
 			>
-				<Collections images={imovelDetails?.pictures_enterprise as any[]} />
+				<Collections images={imovelDetails?.pictures_enterprise ?? null} />
 				<Flex gap="2.75rem" maxWidth="70rem">
 					<Flex flexDir={"column"}>
-						<Flex
-							gap="0.5rem"
-							w={"max"}
-							pb="0.5rem"
-							transition={"0.7s"}
-							_hover={{ opacity: 0.6, cursor: "pointer" }}
-							onClick={() =>
-								push({
-									pathname: `/empresa/`,
-									query: { enterprise_id: `${imovelDetails?.enterprise_id}` },
-								})
-							}
-						>
+						<Flex gap="0.5rem" pb="0.5rem">
 							<Img
 								w="6"
 								h="6"
-								src={`/api/file/${imovelDetails?.enterprise_logo}`}
+								src={`/api/file/${imovelDetails?.enterprise_logo ?? null}`}
 							/>
 							<Text fontWeight={"400"} color="#171923">
 								{imovelDetails?.enterprise_name}

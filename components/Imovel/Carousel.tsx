@@ -1,21 +1,9 @@
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import Slider from "react-slick";
 import { apiInstance } from "../../services/api";
 import { motion } from "framer-motion";
-
-const settings = {
-	dots: true,
-	arrows: false,
-	fade: true,
-	infinite: true,
-	autoplay: false,
-	speed: 500,
-	autoplaySpeed: 0,
-	slidesToShow: 1,
-	slidesToScroll: 1,
-};
 
 interface ICarousel {
 	widthValue: string;
@@ -37,11 +25,27 @@ export const Carousel: React.FC<ICarousel> = props => {
 		setCurrentIndex,
 		isOpen,
 	} = props;
+	const settings = {
+		dots: true,
+		arrows: true,
+		fade: true,
+		infinite: true,
+		autoplay: isOpen ? false : true,
+		speed: 500,
+		autoplaySpeed: 3500,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+	};
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 
-	const top = useBreakpointValue({ base: "90%", md: "50%" });
+	const top = useBreakpointValue(
+		isOpen ? { base: "90%", md: "50%" } : { base: "90%", md: "86%" }
+	);
 	const [imagesCarousel, setImagesCarousel] = useState<string[]>([]);
 	const api = apiInstance();
+	const side = useBreakpointValue(
+		isOpen ? { base: "30%", md: "10px" } : { base: "30%", md: "22%" }
+	);
 
 	useMemo(() => {
 		if (modal_images) {
@@ -71,20 +75,28 @@ export const Carousel: React.FC<ICarousel> = props => {
 				setImagesCarousel(imageUrls);
 			});
 		} else {
-			extra_images?.map((picture: string) => {
-				api.get(`/file/${picture}`).then(response => {
+			const extraImagePromises: Promise<any>[] | undefined = extra_images?.map(
+				(picture: string) =>
+					api
+						.get(`/file/${picture}`)
+						.then(response => response.request?.responseURL)
+			);
+
+			if (extraImagePromises) {
+				Promise.all(extraImagePromises).then(extraImageUrls => {
 					setImagesCarousel(prevState => [
 						...prevState,
-						response.request?.responseURL,
+						...extraImageUrls.filter(url => url !== undefined),
 					]);
 				});
-			});
+			}
 		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedImage]);
+	}, [selectedImage, modal_images]);
 
 	const handleIndex = (index: number) => {
-		setCurrentIndex(index);
+		if (!setCurrentIndex === undefined) setCurrentIndex(index);
 	};
 
 	return (
@@ -93,6 +105,17 @@ export const Carousel: React.FC<ICarousel> = props => {
 				position={"relative"}
 				height={heightValue}
 				width={widthValue}
+				px={
+					isOpen
+						? {
+								base: "24px",
+								md: "25rem",
+								lg: "10rem",
+								xl: "10rem",
+								"2xl": "unset",
+						  }
+						: "unset"
+				}
 				overflow={"hidden"}
 				borderRadius="0.25rem"
 				_active={{ boxShadow: "none" }}
@@ -149,9 +172,9 @@ export const Carousel: React.FC<ICarousel> = props => {
 						aria-label="left-arrow"
 						borderRadius="full"
 						position="absolute"
-						left={"6.5rem"}
+						left={side}
 						top={top}
-						zIndex={0}
+						zIndex={"999"}
 						onClick={() => {
 							slider?.slickPrev();
 						}}
@@ -165,9 +188,9 @@ export const Carousel: React.FC<ICarousel> = props => {
 						aria-label="right-arrow"
 						borderRadius="full"
 						position="absolute"
-						right={"6.5rem"}
+						right={side}
 						top={top}
-						zIndex={2}
+						zIndex={"999"}
 						onClick={() => {
 							slider?.slickNext();
 						}}
