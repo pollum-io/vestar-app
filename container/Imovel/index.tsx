@@ -372,32 +372,32 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Home.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
+							<Img src={"/icons/home.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="8.5rem">
 								Todas as plantas da obra
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Edit-Square.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="100%">
+							<Img src={"/icons/edit-Square.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
 								{t("opportunitieDetails.audits")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Document.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="100%">
+							<Img src={"/icons/document.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
 								{t("opportunitieDetails.invoices")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/images/icons/Folder.png"} />
-							<Text fontWeight={"400"} color={"#171923"} w="75%">
+							<Img src={"/icons/folder.svg"} />
+							<Text fontWeight={"400"} color={"#f1f1f1"} w="75%">
 								Documentos Extras
 							</Text>
 						</Flex>
 					</Flex>
 					<Flex mt="2rem">
-						<Text color={"#171923"}>
+						<Text color={"#f1f1f1"}>
 							Atualmente esta obra está em estágio de
 						</Text>
 					</Flex>
