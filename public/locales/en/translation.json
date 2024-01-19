@@ -52,7 +52,7 @@
 		"investingIs": "Investing is much easier with Vestar!",
 		"first": "Click on an opportunity available to you",
 		"second": "Select the amount of tokens you want",
-		"third": "Click on I want to invest and make the payment",
+		"third": "Click on \"I want to invest\" and make the payment",
 		"fourth": "Well done! Now just follow the yields in the Portfolio tab",
 		"orderBy": "Order by",
 		"type": "Property Type",
@@ -79,9 +79,11 @@
 		}
 	},
 	"opportunitieDetails": {
-		"start": "Start of Work",
+		"start": "Construction kickoff",
 		"initial": "Initial Price m²",
 		"final": "Final price m²",
+		"description": "Experience luxury living like never before at XR-Plaza, an upcoming real estate gem set to grace the most prestigious and sought-after location in Florianópolis. Elevate your lifestyle with unparalleled elegance and modern design. Seize this exclusive investment opportunity and be part of the extraordinary legacy that XR-Plaza is poised to create in the heart of Florianópolis.",
+		"neighbor_description": "Florianópolis' Beira Mar Norte, in Santa Catarina, is a seaside gem that captivates with its breathtaking scenery and vibrant atmosphere. Boasting a picturesque boardwalk along the edge of Baía Norte, it offers an array of dining options, recreational spaces, and a panoramic view of the Hercílio Luz Bridge. This charming area seamlessly blends historical charm with a dynamic modern lifestyle, providing a unique experience that captures the welcoming and sophisticated essence of Florianópolis.",
 		"select": "Select Quantity",
 		"quota": "token",
 		"total": "Total",
@@ -108,11 +110,12 @@
 		"yourShares": "tokens",
 		"expected": "Expected Profitability: ",
 		"closedIn": "Closed in ",
-		"unitPrice": "Unit price in the next batch: $",
+		"unitPrice": "Unit price",
 		"priceCard": {
 			"sharesName": "Token name",
 			"shares": "{{value}} tokens"
-		}
+		},
+		"maxAllowed": "Max. buy allowed"
 	},
 	"wantToInvest": {
 		"summary": "Investment summary",
@@ -134,7 +137,7 @@
 		"card": {
 			"opportunities": "Available Opportunities",
 			"closed": "Closed",
-			"learnMore": "Learn more"
+			"learnMore": "See company profile"
 		}
 	},
 	"companieDetails": {

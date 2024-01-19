@@ -16,6 +16,7 @@ import { useTransactions } from "../../hooks/useTransactions";
 import { useWallet } from "../../hooks/useWallet";
 import { useOpportunities } from "../../hooks/useOpportunities";
 import { FiMapPin } from "react-icons/fi";
+import { compliantToken } from "../../utils/abi/compliantToken";
 
 interface IImovelProps {
 	imovelDetails: IOpportunitiesCard;
@@ -26,12 +27,31 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	imovelDetails,
 	usersId,
 }) => {
-	const { hasToken } = useOpportunities();
 	const [dateEndend, setDateEnded] = useState<any>();
 	const [ended, setEnded] = useState<any>();
-	const [cota, setCota] = useState<number>(0);
+	// const [totalSupply, setTotalSupply] = useState<number>(-1);
+	const [availableTokens, setAvailableTokens] = useState<number>(0);
+	const [tokenSold, setTokenSold] = useState<number>(0);
+	const [unitPrice, setUnitPrice] = useState<number>(0);
+	const [maxBuyAllowed, setMaxBuyAllowed] = useState<number>(0);
+	const [toClaim, setToClaim] = useState<number>(0);
+	const [forRefund, setForRefund] = useState<number>(0);
+	const [boughtTokens, setBoughtTokens] = useState<number>(0);
+	const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const { account } = useWallet();
-	const { shares } = useTransactions();
+	const {
+		getAvailableTokens,
+		getTokenSold,
+		callAddToWhitelist,
+		calculateTokenAmount,
+		getMaxBuyAllowed,
+		getAvailableTokensToClaim,
+		getDrexAvailableForRefund,
+		getIsWhitelisted,
+		getIsOpen,
+		getBoughtTokens,
+	} = useTransactions();
 	const { t } = useTranslation();
 
 	const renderer = ({
@@ -63,19 +83,35 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				if (imovelDetails?.token_address && account) {
-					const valorDeCotas = await shares(
-						imovelDetails?.token_address,
+				if (imovelDetails.token_address && account) {
+					const forRefund = await getDrexAvailableForRefund(
+						imovelDetails.sale_address,
 						account
 					);
-					setCota(Number(valorDeCotas));
+					const boughtTokens = await getBoughtTokens(
+						imovelDetails.sale_address,
+						account
+					);
+
+					// DREX
+					const isWhitelisted = await getIsWhitelisted(
+						imovelDetails.compliant_address,
+						account
+					);
+
+					setToClaim(Number(toClaim));
+					setForRefund(Number(forRefund));
+					setBoughtTokens(Number(boughtTokens));
+					setIsWhitelisted(isWhitelisted);
 				}
 			};
 			getCotas();
 		},
 		// eslint-disable-next-line
-		[imovelDetails?.token_address, account, dateEndend]
+		[imovelDetails?.sale_address, account, dateEndend]
 	);
+
+	console.log("0x", imovelDetails?.compliant_address);
 
 	return (
 		<DefaultTemplate>
@@ -117,7 +153,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							>
 								{imovelDetails?.enterprise_type}
 							</Text>
-							{cota > 0 && (
+							{boughtTokens > 0 && (
 								<Flex
 									bgColor="#F0E8FF"
 									py="0.25rem"
@@ -126,14 +162,15 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									fontSize={"sm"}
 									color="#171923"
 									gap="0.25rem"
-									display={!hasToken ? "flex" : "none"}
+									display={boughtTokens > 0 ? "flex" : "none"}
 									w="max"
 								>
 									<Text w="max" fontWeight="400">
 										{t("opportunitieDetails.youHave")}
 									</Text>
 									<Text w="max" fontWeight="600">
-										{cota} {t("opportunitieDetails.yourShares")}
+										{Number(boughtTokens) / 1e18}{" "}
+										{t("opportunitieDetails.yourShares")}
 									</Text>
 								</Flex>
 							)}
@@ -153,13 +190,52 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
 									<Text fontSize={"sm"} fontWeight="400" color="#718096">
+										{t("opportunitieDetails.unitPrice")}
+									</Text>
+									<Flex gap="0.25rem">
+										<Text fontSize={"xs"} color="#718096">
+											R$
+										</Text>
+										<Text color="#000000">1.500,00</Text>
+									</Flex>
+								</Flex>
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
+									<Text fontSize={"sm"} fontWeight="400" color="#718096">
 										{t("opportunities.card.minInvest")}
 									</Text>
 									<Flex gap="0.25rem">
 										<Text fontSize={"xs"} color="#718096">
 											R$
 										</Text>
-										<Text color="#000000">{`${imovelDetails?.min_investment}$`}</Text>
+										<Text color="#000000">{`${"1.500,00"}$`}</Text> {/* TODO */}
+									</Flex>
+								</Flex>
+								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
+									<Text fontSize={"sm"} fontWeight="400" color="#718096">
+										{t("opportunitieDetails.maxAllowed")}
+									</Text>
+									<Flex gap="0.25rem">
+										<Text fontSize={"xs"} color="#718096">
+											R$
+										</Text>
+										<Text color="#000000">16.800,00</Text>
+									</Flex>
+								</Flex>
+								<Flex
+									flexDir={"column"}
+									gap="0.25rem"
+									w="10.5rem"
+									order={["unset", "unset", "unset", "1", "unset"]}
+								>
+									<Text fontSize={"sm"} fontWeight="400" color="#718096">
+										{t("opportunitieDetails.expected")}
+									</Text>
+									<Flex gap="0.25rem" alignItems="center" w="7rem">
+										<Text color="#000000">
+											{imovelDetails?.profitability}%{" "}
+											{t("opportunitieDetails.perYear")}
+										</Text>
+										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
 									</Flex>
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
@@ -168,7 +244,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									</Text>
 									<Flex gap="0.25rem">
 										<Text color="#000000">
-											{formatDate(imovelDetails?.init_date)}
+											{formatDate(imovelDetails?.init_date)} {/* TODO */}
 										</Text>
 									</Flex>
 								</Flex>
@@ -182,52 +258,10 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										</Text>
 									</Flex>
 								</Flex>
-								<Flex
-									flexDir={"column"}
-									gap="0.25rem"
-									w="10.5rem"
-									order={["unset", "unset", "unset", "1", "unset"]}
-								>
-									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										{t("opportunitieDetails.expected")}
-									</Text>
-									<Flex gap="0.25rem" alignItems="center" w="100%">
-										<Text color="#000000">
-											{imovelDetails?.profitability}%{" "}
-											{t("opportunitieDetails.perYear")}
-										</Text>
-										<Icon as={TbInfoSquare} color={"#A0AEC0"} w={5} h={5} />
-									</Flex>
-								</Flex>
-
-								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
-									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										{t("opportunitieDetails.initial")}
-									</Text>
-									<Flex gap="0.25rem">
-										<Text fontSize={"xs"} color="#718096">
-											R$
-										</Text>
-										<Text color="#000000">12.800,00</Text>
-									</Flex>
-								</Flex>
-								<Flex flexDir={"column"} gap="0.25rem" w="7rem">
-									<Text fontSize={"sm"} fontWeight="400" color="#718096">
-										{t("opportunitieDetails.final")}
-									</Text>
-									<Flex gap="0.25rem">
-										<Text fontSize={"xs"} color="#718096">
-											R$
-										</Text>
-										<Text color="#000000">16.800,00</Text>
-									</Flex>
-								</Flex>
 							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
-							<Text w={"95%"} color={"#171923"}>
-								{imovelDetails?.description}
-							</Text>
+							<Text color={"#171923"}>{imovelDetails?.description}</Text>
 						</Flex>
 
 						<Flex mt="4rem" flexDir={"column"}>
@@ -285,6 +319,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									color="#FFFFFF"
 									h="max-content"
 								>
+									{/* TODO */}
 									<Countdown
 										date={imovelDetails?.sale_end_at}
 										renderer={renderer}
@@ -303,17 +338,20 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										lineHeight="1.25rem"
 									>
 										{t("opportunitieDetails.unitPrice")}{" "}
-										{imovelDetails?.token_price * 2}
+										{imovelDetails.token_price * 2}
 									</Text>
 								</Flex>
 							)}
+							{/* TODO */}
 							<PriceCard
 								id={imovelDetails?._id}
-								address={imovelDetails?.token_address}
-								minted={imovelDetails?.token_minted}
-								price={imovelDetails?.token_price}
-								supply={imovelDetails?.token_supply}
-								oportunitiesAddress={imovelDetails?.token_address}
+								compliantToken={imovelDetails?.compliant_address}
+								isWhitelisted={isWhitelisted}
+								tokensSold={tokenSold}
+								price={unitPrice}
+								ended={!isOpen}
+								supply={availableTokens}
+								oportunitiesAddress={imovelDetails?.sale_address}
 								investor_pf={usersId?.investor_pf}
 								investor_pj={usersId?.investor_pj}
 							/>{" "}
@@ -334,32 +372,32 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/icons/home.svg"} />
-							<Text fontWeight={"400"} color={"#f1f1f1"} w="8.5rem">
+							<Img src={"/images/icons/Home.png"} />
+							<Text fontWeight={"400"} color={"#171923"} w="8.5rem">
 								Todas as plantas da obra
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/icons/edit-square.svg"} />
-							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
-								Auditorias
+							<Img src={"/images/icons/Edit-Square.png"} />
+							<Text fontWeight={"400"} color={"#171923"} w="100%">
+								{t("opportunitieDetails.audits")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/icons/document.svg"} />
-							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
-								Notas Fiscais
+							<Img src={"/images/icons/Document.png"} />
+							<Text fontWeight={"400"} color={"#171923"} w="100%">
+								{t("opportunitieDetails.invoices")}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/icons/folder.svg"} />
-							<Text fontWeight={"400"} color={"#f1f1f1"} w="75%">
+							<Img src={"/images/icons/Folder.png"} />
+							<Text fontWeight={"400"} color={"#171923"} w="75%">
 								Documentos Extras
 							</Text>
 						</Flex>
 					</Flex>
 					<Flex mt="2rem">
-						<Text color={"#f1f1f1"}>
+						<Text color={"#171923"}>
 							Atualmente esta obra está em estágio de
 						</Text>
 					</Flex>
@@ -394,7 +432,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							{imovelDetails?.address?.state}
 						</Text>
 						<Text fontSize={"sm"} color={"#171923"}>
-							{imovelDetails?.neighbor_description}
+							{t("opportunitieDetails.neighbor_description")}
 						</Text>
 					</Flex>
 					<Flex>

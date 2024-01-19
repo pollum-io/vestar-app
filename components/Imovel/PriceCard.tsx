@@ -4,12 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCopy } from "react-icons/fi";
 import { useOpportunities } from "../../hooks/useOpportunities";
+import { useTransactions } from "../../hooks/useTransactions";
+import { useWallet } from "../../hooks/useWallet";
 interface IPriceCard {
 	id: any;
+	compliantToken: string;
+	isWhitelisted: boolean;
 	price: number;
-	minted: number;
+	tokensSold: number;
+	ended: boolean;
 	supply: number;
-	address: string;
 	oportunitiesAddress: string;
 	investor_pf?: string;
 	investor_pj?: string;
@@ -18,20 +22,24 @@ interface IPriceCard {
 export const PriceCard: React.FC<IPriceCard> = props => {
 	const {
 		id,
+		compliantToken,
+		isWhitelisted,
 		price,
-		minted,
+		tokensSold,
+		ended,
 		supply,
-		address,
 		oportunitiesAddress,
 		investor_pf,
 		investor_pj,
 	} = props;
 	const [isInvestidor, setIsInvestidor] = useState(investor_pf ? true : false);
-	const { ended, hasToken } = useOpportunities();
+	const { hasToken } = useOpportunities();
 	const { push, prefetch } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
+	const { callAddToWhitelist, callBuyToken, approve } = useTransactions();
+	const { connectWallet, isConnected, signer } = useWallet();
 
 	const handleClick = async (value: string) => {
 		try {
@@ -41,21 +49,43 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			console.error("Failed to copy text: ", error);
 		}
 	};
-	const avalible = useMemo(() => {
-		if (supply > minted) {
-			return supply - minted;
+	const available = useMemo(() => {
+		if (supply > tokensSold) {
+			return supply - tokensSold;
 		} else {
-			return minted - supply;
+			return tokensSold - supply;
 		}
-	}, [minted, supply]);
+	}, [tokensSold, supply]);
 
 	const formatter = new Intl.NumberFormat("pt-br", {
 		style: "currency",
 		currency: "BRL",
 	});
 
-	const earnTokens = () => {
-		//TODO
+	const earnTokens = async (compliantToken: string, address: string) => {
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			await await callAddToWhitelist(compliantToken, address);
+			return;
+		}
+	};
+
+	const buyTokens = async (
+		saleAddress: string,
+		amount: number,
+		accountAddress: string
+	) => {
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			/// APPROVE
+			await approve(saleAddress, amount, accountAddress);
+
+			/// BUY
+			await callBuyToken(amount, accountAddress);
+			return;
+		}
 	};
 
 	useEffect(() => {
@@ -111,7 +141,9 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									transition: "all 0.4s",
 								}}
 								src={"/icons/PlusIcon.png"}
-								onClick={() => setCotas(cotas === avalible ? cotas : cotas + 1)}
+								onClick={() =>
+									setCotas(cotas === available ? cotas : cotas + 1)
+								}
 							/>
 							<Img
 								_hover={{
@@ -145,7 +177,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						</Flex>
 
 						<Flex alignItems="center" mt="1rem" gap={"1"}>
-							{hasToken ? (
+							{isWhitelisted ? (
 								<Button
 									fontWeight={"500"}
 									fontSize={"md"}
@@ -162,10 +194,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											: { bgColor: "#F7FAFC" }
 									}
 									onClick={() =>
-										push({
-											pathname: "/investir",
-											query: { id, cotas, oportunitiesAddress },
-										})
+										buyTokens(oportunitiesAddress, price * cotas, signer)
 									}
 								>
 									{ended
@@ -188,7 +217,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
-									onClick={earnTokens}
+									onClick={() => earnTokens(compliantToken, signer)}
 								>
 									Earn tokens
 								</Button>
@@ -223,35 +252,24 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 					</Text>
 					<Flex alignItems={"center"} gap="0.5rem">
 						<Text fontSize={"md"} fontWeight="400">
-							{`${address?.slice(0, 5)}...${address?.slice(38)}`}
+							{`${compliantToken?.slice(0, 5)}...${compliantToken?.slice(38)}`}
 						</Text>
 						<Icon
 							color={"#4BA3B7"}
 							w={4}
 							h={4}
 							as={FiCopy}
-							onClick={() => handleClick(address)}
+							onClick={() => handleClick(compliantToken)}
 							_hover={{ cursor: "pointer" }}
 						/>
 					</Flex>
-				</Flex>
-				<Flex
-					justifyContent={"space-between"}
-					display={isInvestidor ? "flex" : "none"}
-				>
-					<Text fontSize={"md"} fontWeight="400">
-						{t("opportunitieDetails.unit")}
-					</Text>
-					<Text fontSize={"md"} fontWeight="400">
-						R${price}
-					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
 					<Text fontSize={"md"} fontWeight="400">
 						{t("opportunitieDetails.shares")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						{minted}
+						{tokensSold / 1e18}
 					</Text>
 				</Flex>
 				<Flex justifyContent={"space-between"}>
@@ -259,7 +277,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						{t("opportunitieDetails.available")}
 					</Text>
 					<Text fontSize={"md"} fontWeight="400">
-						{avalible}
+						{supply / 1e18}
 					</Text>
 				</Flex>
 			</Flex>
