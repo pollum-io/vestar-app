@@ -391,7 +391,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
-							<Img src={"/icons/edit-Square.svg"} />
+							<Img src={"/icons/edit-square.svg"} />
 							<Text fontWeight={"400"} color={"#f1f1f1"} w="100%">
 								{t("opportunitieDetails.audits")}
 							</Text>
