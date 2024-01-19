@@ -49,7 +49,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		getAvailableTokensToClaim,
 		getDrexAvailableForRefund,
 		getIsWhitelisted,
-		getTotalSupply,
 		getIsOpen,
 		getBoughtTokens,
 	} = useTransactions();
@@ -86,9 +85,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			const getCotas = async () => {
 				// No wallet connect needed
 				if (imovelDetails.sale_address) {
-					// const totalSupply = await getTotalSupply(
-					// 	imovelDetails.sale_address,
-					// );
 					const availableTokens = await getAvailableTokens(
 						imovelDetails.sale_address
 					);
