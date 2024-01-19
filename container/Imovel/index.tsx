@@ -111,8 +111,6 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		[imovelDetails?.sale_address, account, dateEndend]
 	);
 
-	console.log("0x", imovelDetails?.compliant_address);
-
 	return (
 		<DefaultTemplate>
 			<Flex
