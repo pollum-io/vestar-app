@@ -36,7 +36,7 @@
 		"fullName": "Nome Completo",
 		"birthDate": "Data de Nascimento",
 		"socialNumber": "CPF",
-		"whoInvited": "Quem convidou você para o REP?",
+		"whoInvited": "Quem convidou você para o Vestar?",
 		"legalPerson": "Sou Pessoa Jurídica",
 		"corporateName": "Razão Social",
 		"nationalRegister": "CNPJ",
@@ -49,7 +49,7 @@
 		"noAbbreviations": "Sem abreviações"
 	},
 	"opportunities": {
-		"investingIs": "Investir é muito mais fácil com o REP",
+		"investingIs": "Investir é muito mais fácil com o Vestar",
 		"first": "Abra uma oportunidade disponível para você",
 		"second": "Selecione a quantidade de tokens que você deseja",
 		"third": "Clique em Quero investir e faça o pagamento",
@@ -129,7 +129,7 @@
 		"termsOf": "Termos de Compra."
 	},
 	"companies": {
-		"partners": "Empresas parceiras REP",
+		"partners": "Empresas parceiras",
 		"companie": "empresa",
 		"previous": "Anterior",
 		"next": "Próxima",
@@ -140,13 +140,14 @@
 		}
 	},
 	"companieDetails": {
-		"REPProp": "Empreendimentos VEstar",
+		"REPProp": "Empreendimentos Vestar",
 		"delivered": "Obras entregues",
 		"inProgress": "Em andamento",
 		"vgv": "VGV Total",
 		"whoBuilds": "Quem constrói nossa história",
 		"learnAbout": "Saiba mais sobre a empresa",
-		"opportunities": "Oportunidades"
+		"opportunities": "Oportunidades",
+		"yearMarket": "Anos de mercado"
 	},
 	"portfolio": {
 		"hello": "Olá, {{Name}} !",
