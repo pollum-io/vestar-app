@@ -276,6 +276,15 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	};
 
+	const getBalanceOf = async (account: string) => {
+		const balanceOf = await publicClient?.readContract({
+			...drex,
+			functionName: "balanceOf",
+			args: [accountAddress],
+		});
+		return balanceOf;
+	};
+
 	//////////////////////////////////
 	// Faucet
 	//////////////////////////////////
@@ -309,6 +318,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 			getBoughtTokens,
 			getCloseTime,
 			claimTokens,
+			getBalanceOf,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]
