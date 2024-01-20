@@ -27,6 +27,7 @@ interface ITransactions {
 	getIsOpen: any;
 	callBuyToken: any;
 	claimTokens: any;
+	getBalanceOf: any;
 }
 
 export const ripple = defineChain({
