@@ -187,14 +187,18 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									px="0.625rem"
 									py="1rem"
 									mb={ended ? "none" : "1rem"}
-									isDisabled={ended && !hasToken}
+									isDisabled={ended || cotas <= 0}
 									_hover={
 										ended && !hasToken
 											? { opacity: "0.3" }
 											: { bgColor: "#F7FAFC" }
 									}
 									onClick={() =>
-										buyTokens(oportunitiesAddress, price * cotas, signer)
+										buyTokens(
+											oportunitiesAddress,
+											Number(price) * Number(1e6) * cotas,
+											signer
+										)
 									}
 								>
 									{ended
