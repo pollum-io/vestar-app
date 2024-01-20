@@ -5,7 +5,8 @@ import { ITimelineSteps } from "../../dtos/ITimelineSteps";
 import { useTranslation } from "react-i18next";
 
 type quarterStyleInfo = {
-	name: string;
+	name_en?: string;
+	name_pt?: string;
 	status: string;
 };
 
@@ -109,8 +110,7 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 						<Flex key={index} flexDirection="row" pb={"1rem"} gap={"0.75rem"}>
 							{quarterStyle}
 							<Flex flexDirection="column" pt="0.1rem" h="100%" gap="0.1913rem">
-								{quarterData?.info?.map(info => {
-									console.log(info);
+								{quarterData?.info?.map((info, index) => {
 									let textColor = "#A0AEC0";
 									let fontWeight = "400";
 									if (info.status === "completed") {
@@ -123,7 +123,7 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 
 									return (
 										<Text
-											key={info.name}
+											key={index}
 											color={textColor}
 											fontFamily="Poppins"
 											fontWeight={fontWeight}
