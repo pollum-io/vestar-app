@@ -42,6 +42,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	const [boughtTokens, setBoughtTokens] = useState<number>(0);
 	const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [closeTime, setCloseTime] = useState<any>();
 	const { account } = useWallet();
 	const {
 		getAvailableTokens,
@@ -54,6 +55,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 		getIsWhitelisted,
 		getIsOpen,
 		getBoughtTokens,
+		getCloseTime,
 	} = useTransactions();
 	const { t } = useTranslation();
 
@@ -100,13 +102,15 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						1000000
 					);
 					const isOpen = await getIsOpen(imovelDetails.sale_address);
+					const closeTime = await getCloseTime(imovelDetails.sale_address);
 
 					// setTotalSupply(Number(totalSupply));
 					setAvailableTokens(Number(availableTokens));
 					setTokenSold(Number(tokenSold));
 					setUnitPrice(Number(1) / (Number(unitPrice) / Number(1e18)));
-					setMaxBuyAllowed(Number(maxBuyAllowed));
 					setIsOpen(isOpen);
+					setMaxBuyAllowed(Number(maxBuyAllowed) / 1e6);
+					setCloseTime(new Date(Number(closeTime) * 1000));
 				}
 
 				if (imovelDetails.sale_address && account) {
@@ -254,7 +258,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										<Text fontSize={"xs"} color="#718096">
 											R$
 										</Text>
-										<Text color="#000000">16.800,00</Text>
+										<Text color="#000000">{maxBuyAllowed}</Text>
 									</Flex>
 								</Flex>
 								<Flex
@@ -358,10 +362,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									h="max-content"
 								>
 									{/* TODO */}
-									<Countdown
-										date={imovelDetails?.sale_end_at}
-										renderer={renderer}
-									/>
+									<Countdown date={closeTime} renderer={renderer} />
 									<Text
 										fontWeight="500"
 										fontSize="1.25rem"
