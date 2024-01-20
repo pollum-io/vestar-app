@@ -281,7 +281,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		const balanceOf = await publicClient?.readContract({
 			...drex,
 			functionName: "balanceOf",
-			args: [accountAddress],
+			args: [account],
 		});
 		return balanceOf;
 	};
