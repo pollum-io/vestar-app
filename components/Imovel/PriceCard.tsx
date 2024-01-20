@@ -63,7 +63,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		currency: "BRL",
 	});
 
-	const earnTokens = async (compliantToken: string, address: string) => {
+	const enterWhitelist = async (compliantToken: string, address: string) => {
 		if (!isConnected || !signer) {
 			return await connectWallet();
 		} else {
@@ -254,7 +254,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								isDisabled={ended && !hasToken}
 								transition={"0.7s"}
 								_hover={{ opacity: "0.7" }}
-								onClick={() => earnTokens(compliantToken, signer)}
+								onClick={() => enterWhitelist(compliantToken, signer)}
 							>
 								Earn tokens
 							</Button>
