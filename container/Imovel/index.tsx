@@ -274,7 +274,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 							</SimpleGrid>
 						</Flex>
 						<Flex flexDir={"column"} gap="5">
-							<Text color={"#171923"}>{imovelDetails?.description}</Text>
+							<Text color={"#171923"}>
+								{t("opportunitieDetails.description")}
+							</Text>
 						</Flex>
 
 						<Flex mt="4rem" flexDir={"column"}>
@@ -349,10 +351,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										fontWeight="400"
 										fontSize="0.875rem"
 										lineHeight="1.25rem"
-									>
-										{t("opportunitieDetails.unitPrice")}{" "}
-										{imovelDetails.token_price * 2}
-									</Text>
+									></Text>
 								</Flex>
 							)}
 							{/* TODO */}
@@ -381,13 +380,13 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			>
 				<Flex flexDir={"column"} w="70rem">
 					<Text mb="2rem" fontWeight={"600"} fontSize="2xl" color={"#f1f1f1"}>
-						Em breve você poderá acompanhar:
+						{t("opportunitieDetails.soon")}{" "}
 					</Text>
 					<Flex gap="2.1875rem">
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/icons/home.svg"} />
 							<Text fontWeight={"400"} color={"#f1f1f1"} w="8.5rem">
-								Todas as plantas da obra
+								{t("opportunitieDetails.floorPlans")}{" "}
 							</Text>
 						</Flex>
 						<Flex alignItems={"center"} gap="0.9rem">
@@ -405,14 +404,9 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						<Flex alignItems={"center"} gap="0.9rem">
 							<Img src={"/icons/folder.svg"} />
 							<Text fontWeight={"400"} color={"#f1f1f1"} w="75%">
-								Documentos Extras
+								{t("opportunitieDetails.extraDoc")}{" "}
 							</Text>
 						</Flex>
-					</Flex>
-					<Flex mt="2rem">
-						<Text color={"#f1f1f1"}>
-							Atualmente esta obra está em estágio de
-						</Text>
 					</Flex>
 				</Flex>
 			</Flex>
@@ -425,7 +419,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			>
 				<Flex mb={"2rem"} w="100%" maxWidth="70rem">
 					<Text fontSize={"1.5rem"} fontWeight={"600"} color={"#171923"}>
-						Localização
+						{t("opportunitieDetails.location")}{" "}
 					</Text>
 				</Flex>
 				<Flex maxWidth="70rem">
