@@ -100,6 +100,7 @@
 		"floorPlans": "All floor plans of the property",
 		"audits": "Audits",
 		"invoices": "Invoices",
+		"location": "Location",
 		"extraDoc": "Extra Documents",
 		"stage": "This work is currently in the {{_____}} stage.",
 		"close": "Close",
@@ -112,7 +113,7 @@
 		"closedIn": "Closed in ",
 		"unitPrice": "Unit price",
 		"priceCard": {
-			"sharesName": "Token name",
+			"sharesName": "XRPZ",
 			"shares": "{{value}} tokens"
 		},
 		"maxAllowed": "Max. buy allowed"
@@ -148,7 +149,8 @@
 		"whoBuilds": "Who builds our history",
 		"learnAbout": "Learn more about the company",
 		"opportunities": "Opportunities",
-		"yearMarket": "Years on Market"
+		"yearMarket": "Years on Market",
+		"description": "\"Platinum Estate\" is a leading construction and real estate development firm in the Brazilian market, renowned for its robust history and exceptional competencies. With a track record of excellence in residential and commercial projects, Platinum Estate has established itself as a symbol of quality, innovation, and commitment, delivering world-class real estate solutions and earning the trust of its clients over the years."
 	},
 	"portfolio": {
 		"hello": "Hello, {{Name}} !",
