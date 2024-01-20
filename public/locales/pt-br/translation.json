@@ -112,7 +112,7 @@
 		"closedIn": "Encerrado em ",
 		"unitPrice": "Preço unitário no próximo lote: R$",
 		"priceCard": {
-			"sharesName": "Nome do Token",
+			"sharesName": "XRPZ",
 			"shares": "{{value}} tokens"
 		}
 	},
@@ -147,7 +147,8 @@
 		"whoBuilds": "Quem constrói nossa história",
 		"learnAbout": "Saiba mais sobre a empresa",
 		"opportunities": "Oportunidades",
-		"yearMarket": "Anos de mercado"
+		"yearMarket": "Anos de mercado",
+		"description": "A \"Platinum Estate\" é uma empreiteira e incorporadora imobiliária líder no mercado brasileiro, destacando-se por sua trajetória sólida e competências excepcionais. Com uma história de excelência em projetos residenciais e comerciais, a Platinum Estate tem se consolidado como sinônimo de qualidade, inovação e compromisso, proporcionando soluções imobiliárias de classe mundial e conquistando a confiança de seus clientes ao longo dos anos."
 	},
 	"portfolio": {
 		"hello": "Olá, {{Name}} !",
