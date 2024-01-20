@@ -110,7 +110,26 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 			<Text fontSize={"xl"} fontWeight="500">
 				{t("opportunitieDetails.priceCard.sharesName")}
 			</Text>
-			{isInvestidor ? (
+			{ended ? (
+				<Flex
+					fontFamily="Poppins"
+					fontStyle="normal"
+					fontWeight="500"
+					fontSize="1rem"
+					lineHeight="1.5rem"
+					alignItems="center"
+					color="#FFFFFF"
+					w="100%"
+					mt="1rem"
+					flexDirection="column"
+				>
+					<Flex justifyContent="space-between" w="100%">
+						<Text>{t("opportunitieDetails.unit")}</Text>
+						<Text>{price}</Text>
+					</Flex>
+					<Flex w="100%" border="1px solid #29525f" my="1rem" />
+				</Flex>
+			) : (
 				<Flex flexDirection="column">
 					<Flex
 						my="1rem"
@@ -176,7 +195,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 							</Text>
 						</Flex>
 
-						<Flex alignItems="center" mt="1rem" gap={"1"}>
+						<Flex flexDir="row" alignItems="center" mt="1rem" gap={"2"}>
 							{isWhitelisted ? (
 								<Button
 									fontWeight={"500"}
@@ -216,37 +235,30 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 									py="1rem"
 									mb={ended ? "none" : "1rem"}
 									isDisabled={ended && !hasToken}
-									_hover={
-										ended && !hasToken
-											? { opacity: "0.3" }
-											: { bgColor: "#F7FAFC" }
-									}
-									onClick={() => earnTokens(compliantToken, signer)}
+									transition={"0.7s"}
+									_hover={{ opacity: "0.7" }}
 								>
-									Earn tokens
+									Earn Drex
 								</Button>
 							)}
+							<Button
+								fontWeight={"500"}
+								fontSize={"md"}
+								bgColor="transparent"
+								border="1px solid #007088"
+								w="100%"
+								px="0.625rem"
+								py="1rem"
+								mb={ended ? "none" : "1rem"}
+								isDisabled={ended && !hasToken}
+								transition={"0.7s"}
+								_hover={{ opacity: "0.7" }}
+								onClick={() => earnTokens(compliantToken, signer)}
+							>
+								Earn tokens
+							</Button>
 						</Flex>
 					</Flex>
-				</Flex>
-			) : (
-				<Flex
-					fontFamily="Poppins"
-					fontStyle="normal"
-					fontWeight="500"
-					fontSize="1rem"
-					lineHeight="1.5rem"
-					alignItems="center"
-					color="#FFFFFF"
-					w="100%"
-					mt="1rem"
-					flexDirection="column"
-				>
-					<Flex justifyContent="space-between" w="100%">
-						<Text>{t("opportunitieDetails.unit")}</Text>
-						<Text>{price}</Text>
-					</Flex>
-					<Flex w="100%" border="1px solid #29525f" my="1rem" />
 				</Flex>
 			)}
 			<Flex flexDir={"column"} gap="0.5rem">
