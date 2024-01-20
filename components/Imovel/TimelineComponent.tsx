@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { BsCheck } from "react-icons/bs";
 import { ITimelineSteps } from "../../dtos/ITimelineSteps";
+import { useTranslation } from "react-i18next";
 
 type quarterStyleInfo = {
 	name: string;
@@ -12,6 +13,8 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 	titleWidth,
 	data,
 }) => {
+	const { i18n } = useTranslation();
+
 	const getQuarterStyle = (info: quarterStyleInfo[], quarter: string) => {
 		if (info.every((item: quarterStyleInfo) => item.status === "completed")) {
 			return (
@@ -82,7 +85,7 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 			);
 		}
 	};
-
+	console.log(i18n.language);
 	return (
 		<Flex
 			gap="0.7762rem"
@@ -107,6 +110,7 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 							{quarterStyle}
 							<Flex flexDirection="column" pt="0.1rem" h="100%" gap="0.1913rem">
 								{quarterData?.info?.map(info => {
+									console.log(info);
 									let textColor = "#A0AEC0";
 									let fontWeight = "400";
 									if (info.status === "completed") {
@@ -127,7 +131,7 @@ export const TimelineComponent: FunctionComponent<ITimelineSteps> = ({
 											lineHeight="1rem"
 											w={titleWidth ? titleWidth : "8rem"}
 										>
-											{info.name}
+											{i18n.language === "br" ? info.name_en : info.name_pt}
 										</Text>
 									);
 								})}
