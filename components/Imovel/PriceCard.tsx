@@ -38,7 +38,8 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
-	const { callAddToWhitelist, callBuyToken, approve } = useTransactions();
+	const { callAddToWhitelist, callBuyToken, approve, claimTokens } =
+		useTransactions();
 	const { connectWallet, isConnected, signer } = useWallet();
 
 	const handleClick = async (value: string) => {
