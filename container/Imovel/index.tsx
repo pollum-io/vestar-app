@@ -86,7 +86,30 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 	useEffect(
 		() => {
 			const getCotas = async () => {
-				if (imovelDetails.token_address && account) {
+				// No wallet connect needed
+				if (imovelDetails.sale_address) {
+					const availableTokens = await getAvailableTokens(
+						imovelDetails.sale_address
+					);
+					const tokenSold = await getTokenSold(imovelDetails.sale_address);
+					const maxBuyAllowed = await getMaxBuyAllowed(
+						imovelDetails.sale_address
+					);
+					const unitPrice = await calculateTokenAmount(
+						imovelDetails.sale_address,
+						1000000
+					);
+					const isOpen = await getIsOpen(imovelDetails.sale_address);
+
+					// setTotalSupply(Number(totalSupply));
+					setAvailableTokens(Number(availableTokens));
+					setTokenSold(Number(tokenSold));
+					setUnitPrice(Number(1) / (Number(unitPrice) / Number(1e18)));
+					setMaxBuyAllowed(Number(maxBuyAllowed));
+					setIsOpen(isOpen);
+				}
+
+				if (imovelDetails.sale_address && account) {
 					const forRefund = await getDrexAvailableForRefund(
 						imovelDetails.sale_address,
 						account
