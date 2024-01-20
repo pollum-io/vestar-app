@@ -7,6 +7,7 @@ import { abi as crowdSaleABI } from "../utils/abi/crowdSale.json";
 import { compliantToken } from "../utils/abi/compliantToken";
 import { crowdSale } from "../utils/abi/crowdSale";
 import { drex } from "../utils/abi/drex";
+import { faucet } from "../utils/abi/faucet";
 import PersistentFramework from "../utils/persistent";
 
 declare let window: any;
@@ -274,6 +275,23 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	};
 
+	//////////////////////////////////
+	// Faucet
+	//////////////////////////////////
+	const claimTokens = async (account: string) => {
+		try {
+			const { request } = await publicClient.simulateContract({
+				...faucet,
+				functionName: "claimTokens",
+				account,
+			});
+			const txHash = await wallet.writeContract(request);
+			await waitForApproval(txHash);
+		} catch (error) {
+			console.log("error", error);
+		}
+	};
+
 	const providerValue = useMemo(
 		() => ({
 			getTokenSold,
@@ -289,6 +307,7 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 			getIsOpen,
 			getBoughtTokens,
 			getCloseTime,
+			claimTokens,
 		}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]
