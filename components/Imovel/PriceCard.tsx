@@ -89,6 +89,15 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		}
 	};
 
+	const claimDREX = async (accountAddress: string) => {
+		if (!isConnected || !signer) {
+			return await connectWallet();
+		} else {
+			await claimTokens(accountAddress);
+			return;
+		}
+	};
+
 	useEffect(() => {
 		prefetch(
 			`/investir?id=${id}&cotas=${cotas}&oportunitiesAddress=${oportunitiesAddress}`
@@ -197,6 +206,22 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 						</Flex>
 
 						<Flex flexDir="row" alignItems="center" mt="1rem" gap={"2"}>
+							<Button
+								fontWeight={"500"}
+								fontSize={"md"}
+								bgColor="#FFFFFF"
+								color="#007088"
+								w="100%"
+								px="0.625rem"
+								py="1rem"
+								mb={ended ? "none" : "1rem"}
+								isDisabled={ended}
+								transition={"0.7s"}
+								_hover={{ opacity: "0.7" }}
+								onClick={() => claimDREX(signer)}
+							>
+								Earn Drex
+							</Button>
 							{isWhitelisted ? (
 								<Button
 									fontWeight={"500"}
@@ -229,35 +254,20 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 								<Button
 									fontWeight={"500"}
 									fontSize={"md"}
-									bgColor="#FFFFFF"
-									color="#007088"
+									bgColor="transparent"
+									border="1px solid #007088"
 									w="100%"
 									px="0.625rem"
 									py="1rem"
 									mb={ended ? "none" : "1rem"}
-									isDisabled={ended && !hasToken}
+									isDisabled={ended}
 									transition={"0.7s"}
 									_hover={{ opacity: "0.7" }}
+									onClick={() => enterWhitelist(compliantToken, signer)}
 								>
-									Earn Drex
+									Enter Whitelist
 								</Button>
 							)}
-							<Button
-								fontWeight={"500"}
-								fontSize={"md"}
-								bgColor="transparent"
-								border="1px solid #007088"
-								w="100%"
-								px="0.625rem"
-								py="1rem"
-								mb={ended ? "none" : "1rem"}
-								isDisabled={ended && !hasToken}
-								transition={"0.7s"}
-								_hover={{ opacity: "0.7" }}
-								onClick={() => enterWhitelist(compliantToken, signer)}
-							>
-								Earn tokens
-							</Button>
 						</Flex>
 					</Flex>
 				</Flex>
