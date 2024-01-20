@@ -65,7 +65,13 @@ export const Login: FunctionComponent<ButtonProps> = () => {
 					bgColor="#ffffff"
 					flexDirection="column"
 					justifyContent="center"
-					w={"24%"}
+					w={{
+						base: "50%",
+						md: "45%",
+						lg: "35%",
+						xl: "35%",
+						"2xl": "24%",
+					}}
 					borderRadius="10px"
 					boxShadow="0rem 1.25rem 1.5625rem rgba(31, 41, 55, 0.1), 0rem 0.625rem 0.625rem rgba(31, 41, 55, 0.04)"
 					p={"3rem"}
