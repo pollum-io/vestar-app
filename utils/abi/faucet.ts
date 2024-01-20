@@ -1,5 +1,5 @@
 export const faucet = {
-	address: "0x735c46e1dcc67271230BD42219f839D9a346f827",
+	address: "0x2a90C43A836F95C2664D5a0B559C945eA74e0Ca1",
 	abi: [
 		{
 			inputs: [],
