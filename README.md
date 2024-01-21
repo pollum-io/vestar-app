@@ -16,7 +16,7 @@ Vestar offers a range of functionalities to its users, including:
 - Ability to invest using stablecoins through a user-friendly interface
 - Real-time tracking of investment status and construction progress
 - Transparent governance and data management throughout the project lifecycle
-- Ability to trade tokens representing equity in real estate projects
+- Ability to buy tokens representing equity in real estate projects
 
 ## Token Issuance
 
