@@ -37,6 +37,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 	const { push, prefetch } = useRouter();
 	const [cotas, setCotas] = useState<number>(0);
 	const [copied, setCopied] = useState(false);
+	const [completedRegister, setCompletedRegister] = useState(false);
 	const { t } = useTranslation();
 	const { callAddToWhitelist, callBuyToken, approve, claimTokens } =
 		useTransactions();
@@ -67,7 +68,8 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 		if (!isConnected || !signer) {
 			return await connectWallet();
 		} else {
-			await await callAddToWhitelist(compliantToken, address);
+			const success = await callAddToWhitelist(compliantToken, address);
+			if (success) setCompletedRegister(true);
 			return;
 		}
 	};
@@ -222,7 +224,7 @@ export const PriceCard: React.FC<IPriceCard> = props => {
 							>
 								Earn Drex
 							</Button>
-							{isWhitelisted ? (
+							{isWhitelisted || completedRegister ? (
 								<Button
 									fontWeight={"500"}
 									fontSize={"md"}
