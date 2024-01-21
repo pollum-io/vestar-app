@@ -33,8 +33,8 @@ To get started with the Vestar platform, follow these steps:
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/pollum-io/lyra-app
-cd lyra-app
+git clone https://github.com/pollum-io/vestar-app
+cd vestar-app
 ```
 
 2. Install dependencies:
