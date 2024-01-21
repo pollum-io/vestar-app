@@ -128,7 +128,8 @@ export const TransactionsProvider: React.FC<{ children: React.ReactNode }> = ({
 				args: [account],
 			});
 			const txHash = await wallet?.writeContract(request);
-			await waitForApproval(txHash);
+			const approval = await waitForApproval(txHash);
+			return approval.status === "success" ? true : false;
 		} catch (error) {
 			console.log("error", error);
 		}
