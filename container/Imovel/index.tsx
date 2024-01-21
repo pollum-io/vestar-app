@@ -102,7 +102,8 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 						1000000
 					);
 					const isOpen = await getIsOpen(imovelDetails.sale_address);
-					const closeTime = await getCloseTime(imovelDetails.sale_address);
+					let closeTime = await getCloseTime(imovelDetails.sale_address);
+					closeTime = new Date(Number(closeTime) * 1000).toISOString();
 
 					// setTotalSupply(Number(totalSupply));
 					setAvailableTokens(Number(availableTokens));
@@ -110,7 +111,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 					setUnitPrice(Number(1) / (Number(unitPrice) / Number(1e18)));
 					setIsOpen(isOpen);
 					setMaxBuyAllowed(Number(maxBuyAllowed) / 1e6);
-					setCloseTime(new Date(Number(closeTime) * 1000));
+					setCloseTime(closeTime);
 				}
 
 				if (imovelDetails.sale_address && account) {
@@ -138,7 +139,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 			getCotas();
 		},
 		// eslint-disable-next-line
-		[imovelDetails?.sale_address, account, dateEndend]
+		[imovelDetails?.sale_address, account, dateEndend, closeTime]
 	);
 
 	return (
@@ -247,7 +248,7 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 										<Text fontSize={"xs"} color="#718096">
 											R$
 										</Text>
-										<Text color="#000000">{`${"1.500,00"}$`}</Text> {/* TODO */}
+										<Text color="#000000">{`${"1.500,00"}`}</Text> {/* TODO */}
 									</Flex>
 								</Flex>
 								<Flex flexDir={"column"} gap="0.25rem" w="8rem">
@@ -362,7 +363,10 @@ export const ImovelContainer: FunctionComponent<IImovelProps> = ({
 									h="max-content"
 								>
 									{/* TODO */}
-									<Countdown date={closeTime} renderer={renderer} />
+									<Countdown
+										date={closeTime ?? imovelDetails?.sale_end_at}
+										renderer={renderer}
+									/>
 									<Text
 										fontWeight="500"
 										fontSize="1.25rem"
